@@ -74,8 +74,11 @@ namespace WPF_LoginForm.ViewModels
         //-->Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowCursosViewCommand { get; }
+        public ICommand ShowInstructoresViewCommand { get; }
+        public ICommand ShowReportesViewCommand { get; }
 
-        
+
 
         public MainViewModel()
         {
@@ -85,11 +88,35 @@ namespace WPF_LoginForm.ViewModels
             //Initialize commands
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
+            ShowCursosViewCommand = new ViewModelCommand(ExecuteShowCursosViewCommand);
+            ShowInstructoresViewCommand = new ViewModelCommand(ExecuteShowInstructoresViewCommand);
+            ShowReportesViewCommand = new ViewModelCommand(ExecuteShowReportesViewCommand);
 
             //Default view
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
+        }
+
+        private void ExecuteShowReportesViewCommand(object obj)
+        {
+            CurrentChildView = new ReportesViewModel();
+            Caption = "Reportes";
+            Icon = IconChar.UserGroup;
+        }
+
+        private void ExecuteShowInstructoresViewCommand(object obj)
+        {
+            CurrentChildView = new InstructoresViewModel();
+            Caption = "Instructores";
+            Icon = IconChar.UserGroup;
+        }
+
+        private void ExecuteShowCursosViewCommand(object obj)
+        {
+            CurrentChildView = new CursosViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.UserGroup;
         }
 
         private void ExecuteShowCustomerViewCommand(object obj)
