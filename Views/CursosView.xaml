@@ -63,10 +63,9 @@
                         <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding num}"/>
                         <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
                         <DataGridTextColumn Header="Área temática" IsReadOnly="True" Width="*" Binding="{Binding area}"/>
-                        <DataGridTextColumn Header="Tipo" IsReadOnly="True" Width="*" Binding="{Binding tipo}"/>
                         <DataGridTextColumn Header="Instructor" IsReadOnly="True" Width="*" Binding="{Binding instructor}"/>
 
-                        <DataGridTemplateColumn Header="Ver Info" Width="*"> 
+                        <DataGridTemplateColumn Header="Ver/Editar Info" Width="*"> 
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource searchButton}"
