@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
+using WPF_LoginForm.Views;
 
 namespace WPF_LoginForm.ViewModels
 {
@@ -78,6 +79,7 @@ namespace WPF_LoginForm.ViewModels
         public ICommand ShowInstructoresViewCommand { get; }
         public ICommand ShowReportesViewCommand { get; }
 
+        public ICommand ShowNuevoCursoViewCommand { get; }
 
 
         public MainViewModel()
@@ -92,10 +94,19 @@ namespace WPF_LoginForm.ViewModels
             ShowInstructoresViewCommand = new ViewModelCommand(ExecuteShowInstructoresViewCommand);
             ShowReportesViewCommand = new ViewModelCommand(ExecuteShowReportesViewCommand);
 
+            ShowNuevoCursoViewCommand = new ViewModelCommand(ExecuteNuevoCursoViewCommand);
+
             //Default view
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
+        }
+
+        private void ExecuteNuevoCursoViewCommand(object obj)
+        {
+            CurrentChildView = new CursoNuevoViewModel();
+            Caption = "Nuevo Curso";
+            Icon = IconChar.UserGroup;
         }
 
         private void ExecuteShowReportesViewCommand(object obj)

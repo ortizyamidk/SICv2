@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Runtime;
+using MaterialDesignThemes.Wpf;
+using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views
 {
@@ -24,8 +26,10 @@ namespace WPF_LoginForm.Views
     {
         public MainView()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
+
+
 
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);

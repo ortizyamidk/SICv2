@@ -16,6 +16,7 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+    
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
@@ -25,15 +26,17 @@
             <local:CustomerView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursosViewModel}">
-            <local:CursosView/>
+            <local:CursosTrabajadorInfoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:InstructoresViewModel}">
-            <local:InstructoresView/>
+            <local:InstructorNuevoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ReportesViewModel}">
             <local:ReportesView/>
         </DataTemplate>
     </Window.Resources>
+    
+    
 
     <Border CornerRadius="10"                    
             BorderThickness="1">
@@ -66,10 +69,9 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        
                     </Grid.RowDefinitions>
 
-                    <StackPanel>
+                    <StackPanel x:Name="Menu">
                         <!--Logo-->
                         <StackPanel Orientation="Horizontal"
                                 Height="70"
@@ -132,6 +134,7 @@
                         </RadioButton>
 
 
+
                         <!--CERRAR SESION-->
                         <Button Style="{StaticResource logoutButton}"
                                      Tag="{StaticResource color5}"
@@ -141,10 +144,8 @@
                                 <TextBlock Text="Cerrar Sesión" Style="{StaticResource menuButtonText}" Foreground="White"/>
                             </StackPanel>
                         </Button>
-                        
+
                     </StackPanel>
-                    
- 
                 </Grid>
             </Border>
 
