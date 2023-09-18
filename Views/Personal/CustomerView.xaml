@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="WPF_LoginForm.Views.CustomerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_LoginForm.Views"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Border Background="Transparent"
+        CornerRadius="10"
+        BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Text="Search..."
+                         Grid.Column="0"
+                         FontSize="13"
+                         Height="24"
+                         Width="auto"
+                         Background="Transparent"
+                         FontWeight="Medium"
+                         FontFamily="Montserrat"                            
+                         Foreground="Black"
+                         CaretBrush="DarkGray"
+                         BorderBrush="{StaticResource search}"
+                         BorderThickness="0,0,0,1"                             
+                         VerticalContentAlignment="Center"
+                         Margin="5,5,0,0">
+                </TextBox>
+
+                <Button x:Name="btnSearch"
+                    Style="{StaticResource searchButton}"
+                    Tag="{StaticResource color10}"
+                    Grid.Column="1"
+                    Cursor="Hand"
+                    HorizontalAlignment="Left">
+                    <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
+                </Button>
+
+                <Button Style="{StaticResource addButton}" Width="180" Grid.Column="2">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
+                        <TextBlock Text="Agregar trabajador nuevo"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+
+            <Border Grid.Row="1" CornerRadius="7" Grid.RowSpan="2" Margin="0 30 0 0">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" x:Name="personalDataGrid" Width="Auto" Height="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Núm. Ficha" CanUserResize="False" IsReadOnly="True" Width="*" Binding="{Binding numficha}"/>
+                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
+                        <DataGridTextColumn Header="Área" IsReadOnly="True" Width="*" Binding="{Binding area}"/>
+                        <DataGridTextColumn Header="Puesto" IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
+
+                        <DataGridTemplateColumn Header="Ver/Editar Info" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource searchButton}"
+                                        Cursor="Hand">
+                                        <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+
+        </Grid>
+    </Border>
+
+</UserControl>

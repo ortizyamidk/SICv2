@@ -1,0 +1,285 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_LoginForm.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="WPF_LoginForm.Views.ReportesView"
+            xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    
+    <Grid Background="Aqua">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Personal Calificado" 
+                   Foreground="Black" 
+                   FontSize="23" FontFamily="Montserrat" 
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"/>
+
+        <Border  Width="190" Height="120" Background="White" CornerRadius="18" Grid.Column="0" Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="130" Height="24" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="General" FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar reporte de la Lista general del Personal Calificado de la Empresa"
+                           Margin="5"
+                               Width="auto" 
+                               Height="auto"
+                               TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border  Width="190" Height="120" Background="White" CornerRadius="18" Grid.Column="1" Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="130" Height="24" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Por Área" FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar reporte de la lista del Personal Calificado por un Área de Departamento específica"
+                   Margin="5"
+                       Width="auto" 
+                       Height="auto"
+                       TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+
+        <TextBlock Text="Historial de Cursos" 
+                   Foreground="Black" 
+                   FontSize="23" FontFamily="Montserrat" 
+                   Grid.Column="2" Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"/>
+
+        <Border  Width="300" Height="120" Background="White" CornerRadius="18" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="240" Height="24" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Cursos por Trabajador" FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar reporte del Inventario de Cursos Tomados que posee cada Trabajador de la Empresa"
+                           Margin="5"
+                           Width="auto" 
+                           Height="auto"
+                           TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <TextBlock Text="Evaluación de Habilidades y Competencias" 
+           Foreground="Black" 
+           FontSize="23" FontFamily="Montserrat" 
+           Grid.Row="2" Grid.ColumnSpan="4"
+           HorizontalAlignment="Center"/>
+
+        <Border  Width="190" Height="130" Background="White" CornerRadius="18" Grid.Column="0" Grid.Row="3">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="135" Height="42" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Trabajadores Sindicalizados" TextWrapping="Wrap" 
+                                   FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar Evaluación de Habilidades y Competencias (ILU) para los Trabajadores Sindicalizados de la Empresa"
+                   Margin="5"
+                       Width="auto" 
+                       Height="auto"
+                       TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border  Width="190" Height="130" Background="White" CornerRadius="18" Grid.Column="1" Grid.Row="3">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="135" Height="42" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Empleados" TextWrapping="Wrap" 
+                           FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar Evaluación de Habilidades y Competencias (ILU) para el Personal de la Empresa"
+           Margin="5"
+               Width="auto" 
+               Height="auto"
+               TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border  Width="190" Height="130" Background="White" CornerRadius="18" Grid.Column="2" Grid.Row="3">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="135" Height="42" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Auditores ISO 14001" TextWrapping="Wrap" 
+                           FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar Evaluación de Habilidades y Competencias (ILU) para los Trabajadores que fungen como Auditores ISO 14001"
+           Margin="5"
+               Width="auto" 
+               Height="auto"
+               TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border  Width="190" Height="130" Background="White" CornerRadius="18" Grid.Column="3" Grid.Row="3">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="135" Height="42" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Auditores ISO/TS 16949" TextWrapping="Wrap" 
+                           FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar Evaluación de Habilidades y Competencias (ILU) para los Trabajadores que fungen como Auditores ISO/TS "
+           Margin="5"
+               Width="auto" 
+               Height="auto"
+               TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <TextBlock Text="Constancia de Habilidades Laborales" 
+                   Foreground="Black" 
+                   FontSize="23" FontFamily="Montserrat" 
+                   Grid.Row="4" Grid.ColumnSpan="4"
+                   HorizontalAlignment="Center"/>
+
+        <Border  Width="300" Height="130" Background="White" CornerRadius="18" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="240" Height="25" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Formato DC-3" TextWrapping="Wrap" 
+                                    FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar la Lista de Constancias de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador"
+                           Margin="5"
+                           Width="auto" 
+                           Height="auto"
+                           TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border  Width="300" Height="130" Background="White" CornerRadius="18" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
+                        <Ellipse Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/curso.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <Border CornerRadius="15" Width="240" Height="25" BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="Formato DC-4" TextWrapping="Wrap" 
+                                    FontSize="15" HorizontalAlignment="Center"/>
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Text="Generar la Lista de Constancias de Habilidades Laborales de los Trabajadores de la Empresa"
+   Margin="5"
+       Width="auto" 
+       Height="auto"
+       TextWrapping="Wrap"/>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>
