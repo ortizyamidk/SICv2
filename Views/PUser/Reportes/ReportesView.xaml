@@ -1,0 +1,170 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF_LoginForm.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="WPF_LoginForm.Views.ReportesView"
+            xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="620" d:DesignWidth="900">
+
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Personal Calificado" 
+                   Foreground="White" FontWeight="DemiBold"
+                   FontSize="29" FontFamily="Montserrat" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Grid.Row="0"/>
+
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--General-->
+            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1">
+                <Border.Background>
+                    <ImageBrush x:Name="tarjeta1" ImageSource="/Images/reportegral.jpg" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            <Border VerticalAlignment="Center" Width="200" Height="220" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#000000" Offset="0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="20" Width="130" Height="40" BorderBrush="Transparent" BorderThickness="1" Grid.Row="1" Background="#8B052B">
+                <TextBlock Text="General" Foreground="White" FontSize="20" FontWeight="Bold"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+
+            <!--Por área-->
+            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
+                <Border.Background>
+                    <ImageBrush x:Name="tarjeta2" ImageSource="/Images/reportearea.jpg" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            <Border VerticalAlignment="Center" Width="200" Height="220" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1" Grid.Column="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#000000" Offset="0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="20" Width="130" Height="40" BorderBrush="Transparent" BorderThickness="1" Grid.Row="1" Grid.Column="1" Background="#8B052B">
+                <TextBlock Text="Por Área" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            </Border>
+
+        </Grid>
+
+        <TextBlock Text="Historial Cursos" FontWeight="DemiBold"
+           Foreground="White" 
+           FontSize="29" FontFamily="Montserrat" 
+           HorizontalAlignment="Center" VerticalAlignment="Center"
+           Grid.Row="0" Grid.Column="1"/>
+
+        <!--Historial Cursos-->
+        <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush x:Name="tarjeta3" ImageSource="/Images/reportecursos.jpg" Stretch="UniformToFill"/>
+            </Border.Background>
+        </Border>
+        <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1" Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#000000" Offset="0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border CornerRadius="23" Width="130" Height="55" BorderBrush="Transparent" BorderThickness="1" Grid.Row="1" Grid.Column="1" Background="#8B052B">
+            <TextBlock Text="Por Trabajador" Foreground="White" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" TextWrapping="Wrap"/>
+        </Border>
+
+        <Separator Grid.Row="2" Grid.ColumnSpan="2" Height="0.7" VerticalAlignment="Bottom" Background="Transparent" Margin="0 8"/>
+
+        <TextBlock Text="Constancia Habilidades Laborales" FontWeight="DemiBold"
+                   Foreground="White" 
+                   FontSize="29" FontFamily="Montserrat" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Grid.Row="3"/>
+
+        <Grid Grid.Row="4" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Formato DC3-->
+            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="0">
+                <Border.Background>
+                    <ImageBrush x:Name="tarjeta4" ImageSource="/Images/formatodc3.jpg" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#000000" Offset="0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="22" Width="130" Height="55" BorderBrush="Transparent" BorderThickness="1" Grid.Row="3" Grid.Column="0" Background="#8B052B">
+                <TextBlock Text="Formato DC-3" Foreground="White" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            </Border>
+
+            <!--Formato DC4-->
+            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="1">
+                <Border.Background>
+                    <ImageBrush x:Name="tarjeta5" ImageSource="/Images/formatodc4.jpg" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="1">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#000000" Offset="0"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+            <Border CornerRadius="22" Width="130" Height="55" BorderBrush="Transparent" BorderThickness="1" Grid.Row="3" Grid.Column="1" Background="#8B052B">
+                <TextBlock Text="Formato DC-4" Foreground="White" TextWrapping="Wrap" TextAlignment="Center" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+            </Border>
+        </Grid>
+
+        <TextBlock Text="Lista de Asistencia" FontWeight="DemiBold"
+           Foreground="White" 
+           FontSize="29" FontFamily="Montserrat" 
+           HorizontalAlignment="Center" VerticalAlignment="Center"
+           Grid.Row="3" Grid.Column="1"/>
+
+        <!--Historial Cursos-->
+        <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="4" Grid.Column="1">
+            <Border.Background>
+                <ImageBrush x:Name="tarjeta6" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
+            </Border.Background>
+        </Border>
+        <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="4" Grid.Column="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#000000" Offset="0"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+        <Border CornerRadius="22" Width="130" Height="55" BorderBrush="Transparent" BorderThickness="1" Grid.Row="4" Grid.Column="1" Background="#8B052B">
+            <TextBlock Text="Por Cursos" Foreground="White" FontSize="20" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" TextWrapping="Wrap"/>
+        </Border>
+
+    </Grid>
+</UserControl>

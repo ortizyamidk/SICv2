@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using WPF_LoginForm.Views;
+using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm
 {

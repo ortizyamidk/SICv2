@@ -4,7 +4,7 @@
     <!--Background Colors-->
     <Color x:Key="primaryBackColor1">#000000</Color>
     <Color x:Key="primaryBackColor2">#EC7063</Color>
-    <Color x:Key="secondaryBackColor1">#A50533</Color>
+    <Color x:Key="secondaryBackColor1">#A50533</Color> <!--Fondo de seccion menu lateral-->
     <Color x:Key="secondaryBackColor2">#bd0003</Color>
 
     <!--Window Border Colors-->
@@ -13,38 +13,28 @@
     <Color x:Key="winBorderColor3">#D92938</Color>
 
     <!--Color Palette-->
-    <SolidColorBrush x:Key="color1" Color="#ffffff"/>
-    <SolidColorBrush x:Key="color2" Color="#ffffff"/>
-    <SolidColorBrush x:Key="color3" Color="#ffffff"/>
-    <SolidColorBrush x:Key="color4" Color="#ffffff"/>
-    <SolidColorBrush x:Key="color5" Color="#ffffff"/>
-    <SolidColorBrush x:Key="color6" Color="#FFC047"/>
-    <SolidColorBrush x:Key="color7" Color="#EF6C96"/>
+    <SolidColorBrush x:Key="color1" Color="#ffffff"/> <!--Color fuente de divisiones en menu lateral-->
     <SolidColorBrush x:Key="color8" Color="#78A3FC"/>
     <SolidColorBrush x:Key="menuLateralColor" Color="#bd0003"/>
-    <SolidColorBrush x:Key="color10" Color="#000000"/>
+    <SolidColorBrush x:Key="color10" Color="#000000"/> <!--Icono usuario loggeado-->
 
     <!--Font Colors-->
     <SolidColorBrush x:Key="titleColor1" Color="#E0E1F1"/>
     <SolidColorBrush x:Key="titleColor2" Color="#D5CFF5"/>
-    <SolidColorBrush x:Key="titleColor3" Color="#ffffff"/>
+    <SolidColorBrush x:Key="titleColor3" Color="#ffffff"/> <!--Letra e icono de Seccion seleccionada para Main Section-->
     <SolidColorBrush x:Key="plainTextColor1" Color="#9497CD"/>
     <SolidColorBrush x:Key="plainTextColor2" Color="#7C80C2"/>
-    <SolidColorBrush x:Key="plainTextColor3" Color="#F3C4C4"/>
+    <SolidColorBrush x:Key="plainTextColor3" Color="#F3C4C4"/> <!--Letra e icono de Seccion cuando no esta seleccionada-->
 
     <!--Panel Colors-->
-    <SolidColorBrush x:Key="panelColor" Color="#200F53"/>
     <SolidColorBrush x:Key="panelOverColor" Color="#8B052B"/>
     <SolidColorBrush x:Key="panelActiveColor" Color="#54051B"/>
 
-    <!--Button Colors-->
-    <!--TextBox Colors-->
-    <!--Etc-->
-    
-    
+       
     <!--CURSOS VIEW-->
-    <SolidColorBrush x:Key="search" Color="#650B01"/>
+    <SolidColorBrush x:Key="search" Color="#ffffff"/>
     <SolidColorBrush x:Key="tabla" Color="LightGray"/>
     <SolidColorBrush x:Key="agregar" Color="#AC1605"/>
+    <SolidColorBrush x:Key="ojo" Color="#650B01"/>
 
 </ResourceDictionary>

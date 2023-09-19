@@ -80,9 +80,11 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="ViewModels\CursoGViewModel.cs" />
     <Compile Include="ViewModels\CursoNuevoViewModel.cs" />
     <Compile Include="ViewModels\CursosViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\HomeGViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\InstructoresViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -90,46 +92,55 @@
     <Compile Include="ViewModels\ReportesViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelCommand.cs" />
-    <Compile Include="Views\Cursos\CursoInfoView.xaml.cs">
+    <Compile Include="Views\GUser\CursoGView.xaml.cs">
+      <DependentUpon>CursoGView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GUser\HomeGView.xaml.cs">
+      <DependentUpon>HomeGView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GUser\MainViewG.xaml.cs">
+      <DependentUpon>MainViewG.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PUser\Cursos\CursoInfoView.xaml.cs">
       <DependentUpon>CursoInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Cursos\CursoNuevoView.xaml.cs">
+    <Compile Include="Views\PUser\Cursos\CursoNuevoView.xaml.cs">
       <DependentUpon>CursoNuevoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Cursos\CursosTrabajadorInfoView.xaml.cs">
+    <Compile Include="Views\PUser\Cursos\CursosTrabajadorInfoView.xaml.cs">
       <DependentUpon>CursosTrabajadorInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Cursos\CursosView.xaml.cs">
+    <Compile Include="Views\PUser\Cursos\CursosView.xaml.cs">
       <DependentUpon>CursosView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Personal\CustomerView.xaml.cs">
+    <Compile Include="Views\PUser\Personal\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomeView.xaml.cs">
+    <Compile Include="Views\PUser\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Instructores\InstructoresView.xaml.cs">
+    <Compile Include="Views\PUser\Instructores\InstructoresView.xaml.cs">
       <DependentUpon>InstructoresView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Instructores\InstructorInfoView.xaml.cs">
+    <Compile Include="Views\PUser\Instructores\InstructorInfoView.xaml.cs">
       <DependentUpon>InstructorInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Instructores\InstructorNuevoView.xaml.cs">
+    <Compile Include="Views\PUser\Instructores\InstructorNuevoView.xaml.cs">
       <DependentUpon>InstructorNuevoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainView.xaml.cs">
+    <Compile Include="Views\PUser\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Personal\PersonalInfoView.xaml.cs">
+    <Compile Include="Views\PUser\Personal\PersonalInfoView.xaml.cs">
       <DependentUpon>PersonalInfoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Personal\PersonalNuevoView.xaml.cs">
+    <Compile Include="Views\PUser\Personal\PersonalNuevoView.xaml.cs">
       <DependentUpon>PersonalNuevoView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Reportes\ReportesView.xaml.cs">
+    <Compile Include="Views\PUser\Reportes\ReportesView.xaml.cs">
       <DependentUpon>ReportesView.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomControls\BindablePasswordBox.xaml">
@@ -156,39 +167,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Cursos\CursoInfoView.xaml">
+    <Page Include="Views\GUser\CursoGView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Cursos\CursoNuevoView.xaml">
+    <Page Include="Views\GUser\HomeGView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Cursos\CursosTrabajadorInfoView.xaml">
+    <Page Include="Views\GUser\MainViewG.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Cursos\CursosView.xaml">
+    <Page Include="Views\PUser\Cursos\CursoInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Personal\CustomerView.xaml">
+    <Page Include="Views\PUser\Cursos\CursoNuevoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomeView.xaml">
+    <Page Include="Views\PUser\Cursos\CursosTrabajadorInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Instructores\InstructoresView.xaml">
+    <Page Include="Views\PUser\Cursos\CursosView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Instructores\InstructorInfoView.xaml">
+    <Page Include="Views\PUser\Personal\CustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Instructores\InstructorNuevoView.xaml">
+    <Page Include="Views\PUser\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PUser\Instructores\InstructoresView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PUser\Instructores\InstructorInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PUser\Instructores\InstructorNuevoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -196,19 +219,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainView.xaml">
+    <Page Include="Views\PUser\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Personal\PersonalInfoView.xaml">
+    <Page Include="Views\PUser\Personal\PersonalInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Personal\PersonalNuevoView.xaml">
+    <Page Include="Views\PUser\Personal\PersonalNuevoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Reportes\ReportesView.xaml">
+    <Page Include="Views\PUser\Reportes\ReportesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -256,10 +279,6 @@
     <Resource Include="Images\hendrickson.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\pass.png" />
-    <Resource Include="Images\usuario.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\h.png" />
   </ItemGroup>
   <ItemGroup>
@@ -278,10 +297,27 @@
     <Resource Include="Images\user2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\curso.png" />
+    <Resource Include="Images\instructor.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\instructor.png" />
+    <Resource Include="Images\perfil.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\fondomain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\asistencia.jpg" />
+    <Resource Include="Images\formatodc3.jpg" />
+    <Resource Include="Images\formatodc4.jpg" />
+    <Resource Include="Images\reportearea.jpg" />
+    <Resource Include="Images\reportecursos.jpg" />
+    <Resource Include="Images\reportegral.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\fondoform.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\curso.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

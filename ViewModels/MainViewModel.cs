@@ -73,6 +73,7 @@ namespace WPF_LoginForm.ViewModels
         }
 
         //-->Commands
+        //COMANDOS USER PRINCIPAL
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowCustomerViewCommand { get; }
         public ICommand ShowCursosViewCommand { get; }
@@ -81,6 +82,10 @@ namespace WPF_LoginForm.ViewModels
 
         public ICommand ShowNuevoCursoViewCommand { get; }
 
+        //COMANDOS USER GENERAL
+        public ICommand ShowHomeGViewCommand { get; }
+        public ICommand ShowCursoGViewCommand { get; }
+
 
         public MainViewModel()
         {
@@ -88,6 +93,7 @@ namespace WPF_LoginForm.ViewModels
             CurrentUserAccount = new UserAccountModel();
 
             //Initialize commands
+            //USER PRINCIPAL
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
             ShowCursosViewCommand = new ViewModelCommand(ExecuteShowCursosViewCommand);
@@ -96,12 +102,31 @@ namespace WPF_LoginForm.ViewModels
 
             ShowNuevoCursoViewCommand = new ViewModelCommand(ExecuteNuevoCursoViewCommand);
 
+            //USER GENERAL
+            ShowCursoGViewCommand = new ViewModelCommand(ExecuteShowCursoGViewCommand);
+            ShowHomeGViewCommand = new ViewModelCommand(ExecuteShowHomeGViewCommand);
+
             //Default view
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
         }
 
+        private void ExecuteShowHomeGViewCommand(object obj)
+        {
+            CurrentChildView = new HomeGViewModel();
+            Caption = "Inicio";
+            Icon = IconChar.UserGroup;
+        }
+
+        private void ExecuteShowCursoGViewCommand(object obj)
+        {
+            CurrentChildView = new CursoGViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.UserGroup;
+        }
+
+        //USER PRINCIPAL
         private void ExecuteNuevoCursoViewCommand(object obj)
         {
             CurrentChildView = new CursoNuevoViewModel();
