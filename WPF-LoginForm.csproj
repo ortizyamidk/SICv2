@@ -317,14 +317,6 @@
     <Resource Include="Images\fondomain.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\asistencia.jpg" />
-    <Resource Include="Images\formatodc3.jpg" />
-    <Resource Include="Images\formatodc4.jpg" />
-    <Resource Include="Images\reportearea.jpg" />
-    <Resource Include="Images\reportecursos.jpg" />
-    <Resource Include="Images\reportegral.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\fondoform.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +324,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\instructor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\asistencia.jpg" />
+    <Resource Include="Images\formatodc3.jpg" />
+    <Resource Include="Images\formatodc4.jpg" />
+    <Resource Include="Images\reportearea.jpg" />
+    <Resource Include="Images\reportecursos.jpg" />
+    <Resource Include="Images\reportegral.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

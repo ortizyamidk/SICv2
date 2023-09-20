@@ -23,7 +23,7 @@
             <local:CursoNuevoGView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursoGViewModel}">
-            <local:CursoGView/>
+            <local:CursoInfoGView/>
         </DataTemplate>
     </Window.Resources>
 

@@ -104,8 +104,8 @@ namespace WPF_LoginForm.ViewModels
             ShowHomeGViewCommand = new ViewModelCommand(ExecuteShowHomeGViewCommand);
 
             //Default view (HACER CONDICIONAL CONFORME A ROLES)
-            //ExecuteShowHomeViewCommand(null); //User principal
-            ExecuteShowHomeGViewCommand(null); //User general
+            ExecuteShowHomeViewCommand(null); //User principal
+            //ExecuteShowHomeGViewCommand(null); //User general
 
             LoadCurrentUserData();
         }

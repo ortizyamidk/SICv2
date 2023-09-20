@@ -40,7 +40,7 @@
                 <StackPanel Orientation="Vertical" Grid.Column="1"  HorizontalAlignment="Center">
                     <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                     <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                        <ComboBox Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno"/>
+                        <ComboBox Height="42" Width="440" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno"/>
                     </Border>
                 </StackPanel>
 
@@ -102,35 +102,51 @@
             
             <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="300"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="140"/>
+                </Grid.ColumnDefinitions>
                     
-                    <TextBlock Text="Participantes:" Foreground="White" Margin="10 0 0 0" Grid.Column="0" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                    <TextBlock Text="Participantes:" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
                 
-                    <StackPanel Orientation="Horizontal" Grid.Column="2">
-                        <TextBox Text="Search..." FontSize="13" Height="24" Width="320" Background="Transparent"
-                             FontWeight="Medium" FontFamily="Montserrat" Foreground="Black" CaretBrush="Black" BorderBrush="Black"
-                             BorderThickness="0,0,0,1">
+                    <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Right">
+                        <TextBox Text="Buscar No. ficha" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
+                                 Height="24" Width="112" Background="Transparent"
+                                 FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
+                                 BorderThickness="0,0,0,1">
                         </TextBox>
-                        <Button x:Name="btnSearch" Background="Transparent" Foreground="Black" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left">
-                            <fa:IconImage Icon="Search" Width="20" Height="20" Foreground="White" Style="{StaticResource controlButtonIcon}"/>
+                        <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left">
+                            <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="20" Height="20" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                         </Button>
                     </StackPanel>
                     
                 </Grid>
                 
             <!--PARTICIPANTES-->
-            <Border Grid.Row="5" CornerRadius="10" Grid.ColumnSpan="3" Margin="20 0 20 0">
-                <DataGrid x:Name="participantesDataGrid" Width="Auto" Height="auto">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="No. ficha" CanUserResize="False" IsReadOnly="True" Width="100" Binding="{Binding num}"/>
-                        <DataGridTextColumn Header="Nombre" Foreground="Black" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                        <DataGridTextColumn Header="Puesto" Foreground="Black" IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Border>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                
+                <Border Grid.Row="5" Grid.Column="1" CornerRadius="10" Margin="20 0 20 0" Width="auto">
+                    <DataGrid Style="{DynamicResource DataGridStyle2}" 
+                              CellStyle="{DynamicResource DataGridCellStyle2}" 
+                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                              RowStyle="{DynamicResource DataGridRowStyle2}" 
+                          
+                              x:Name="participantesDataGrid" Width="Auto" Height="auto" HorizontalContentAlignment="Center">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
+                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="300" Binding="{Binding nombre}"/>
+                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="300" Binding="{Binding puesto}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
+            
 
             <!--GUARDAR-->
              <Button Grid.Row="6" HorizontalAlignment="Center" Margin="0 0 15 0" Content="Guardar lista" FontWeight="DemiBold" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>

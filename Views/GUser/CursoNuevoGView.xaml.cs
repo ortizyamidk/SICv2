@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static WPF_LoginForm.Views.CursosView;
 using static WPF_LoginForm.Views.GUser.CursoGView;
 
 namespace WPF_LoginForm.Views.GUser
@@ -25,14 +26,8 @@ namespace WPF_LoginForm.Views.GUser
         public CursoNuevoGView()
         {
             InitializeComponent();
-            Loaded += CursoNuevoGView_Loaded;
 
             var converter = new BrushConverter();
-
-        }
-
-        private void CursoNuevoGView_Loaded(object sender, RoutedEventArgs e)
-        {
             ObservableCollection<Participante> participantes = new ObservableCollection<Participante>();
 
             participantes.Add(new Participante { num = "1", nombre = "Trabajador 1", puesto = "Puesto 1" });
@@ -47,7 +42,10 @@ namespace WPF_LoginForm.Views.GUser
             participantes.Add(new Participante { num = "10", nombre = "Trabajador 10", puesto = "Puesto 10" });
 
             participantesDataGrid.ItemsSource = participantes;
+
         }
+
+      
 
         public class Participante
         {

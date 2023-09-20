@@ -95,27 +95,43 @@
 
             <Separator Grid.Row="3" Height="0.8" VerticalAlignment="Center" Background="DarkGray" Width="1030"/>
 
+
+
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="300"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="140"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Participantes:" Foreground="White" Margin="10 0 0 0" Grid.Column="0" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                <TextBlock Text="Participantes:" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
 
             </Grid>
 
             <!--PARTICIPANTES-->
-            <Border Grid.Row="5" CornerRadius="10" Grid.ColumnSpan="3" Margin="20 0 20 10">
-                <DataGrid  x:Name="participantesDataGrid" Width="Auto" Height="auto">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="No. ficha" CanUserResize="False" IsReadOnly="True" Width="100" Binding="{Binding num}"/>
-                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                        <DataGridTextColumn Header="Puesto" IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Border>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Row="5" Grid.Column="1" CornerRadius="10" Margin="20 0 20 0" Width="auto">
+                    <DataGrid Style="{DynamicResource DataGridStyle2}" 
+                  CellStyle="{DynamicResource DataGridCellStyle2}" 
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                  RowStyle="{DynamicResource DataGridRowStyle2}" 
+              
+                  x:Name="listaDataGrid" Width="Auto" Height="auto" HorizontalContentAlignment="Center">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
+                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="300" Binding="{Binding nombre}"/>
+                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="300" Binding="{Binding puesto}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
 
         </Grid>
     </Border>
