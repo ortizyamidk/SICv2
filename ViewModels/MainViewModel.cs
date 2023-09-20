@@ -80,8 +80,6 @@ namespace WPF_LoginForm.ViewModels
         public ICommand ShowInstructoresViewCommand { get; }
         public ICommand ShowReportesViewCommand { get; }
 
-        public ICommand ShowNuevoCursoViewCommand { get; }
-
         //COMANDOS USER GENERAL
         public ICommand ShowHomeGViewCommand { get; }
         public ICommand ShowCursoGViewCommand { get; }
@@ -100,40 +98,34 @@ namespace WPF_LoginForm.ViewModels
             ShowInstructoresViewCommand = new ViewModelCommand(ExecuteShowInstructoresViewCommand);
             ShowReportesViewCommand = new ViewModelCommand(ExecuteShowReportesViewCommand);
 
-            ShowNuevoCursoViewCommand = new ViewModelCommand(ExecuteNuevoCursoViewCommand);
 
             //USER GENERAL
             ShowCursoGViewCommand = new ViewModelCommand(ExecuteShowCursoGViewCommand);
             ShowHomeGViewCommand = new ViewModelCommand(ExecuteShowHomeGViewCommand);
 
-            //Default view
-            ExecuteShowHomeViewCommand(null);
+            //Default view (HACER CONDICIONAL CONFORME A ROLES)
+            //ExecuteShowHomeViewCommand(null); //User principal
+            ExecuteShowHomeGViewCommand(null); //User general
 
             LoadCurrentUserData();
         }
 
+        //USER GENERAL
         private void ExecuteShowHomeGViewCommand(object obj)
         {
             CurrentChildView = new HomeGViewModel();
             Caption = "Inicio";
-            Icon = IconChar.UserGroup;
+            Icon = IconChar.Home;
         }
 
         private void ExecuteShowCursoGViewCommand(object obj)
         {
             CurrentChildView = new CursoGViewModel();
             Caption = "Cursos";
-            Icon = IconChar.UserGroup;
+            Icon = IconChar.ChalkboardUser;
         }
 
         //USER PRINCIPAL
-        private void ExecuteNuevoCursoViewCommand(object obj)
-        {
-            CurrentChildView = new CursoNuevoViewModel();
-            Caption = "Nuevo Curso";
-            Icon = IconChar.UserGroup;
-        }
-
         private void ExecuteShowReportesViewCommand(object obj)
         {
             CurrentChildView = new ReportesViewModel();

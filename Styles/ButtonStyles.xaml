@@ -359,6 +359,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="DarkCyan"/>
+                <Setter Property="BorderThickness" Value="0.7"/>
             </Trigger>
         </Style.Triggers>
     </Style>

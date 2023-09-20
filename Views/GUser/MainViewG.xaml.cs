@@ -13,6 +13,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace WPF_LoginForm.Views.GUser
 {
@@ -21,10 +22,30 @@ namespace WPF_LoginForm.Views.GUser
     /// </summary>
     public partial class MainViewG : Window
     {
+        private DispatcherTimer timer;
+
         public MainViewG()
         {
             InitializeComponent();
+
+            // Configura el temporizador para actualizar la fecha cada segundo
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+
+            // Inicia el temporizador
+            timer.Start();
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Obtiene la fecha y hora actual en la zona horaria local
+            DateTimeOffset now = DateTimeOffset.Now;
+
+            // Actualiza el contenido del Label con la fecha y hora actual
+            fechaActualG.Content = now.ToString("yyyy-MM-dd HH:mm:ss zzz");
+        }
+
 
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);

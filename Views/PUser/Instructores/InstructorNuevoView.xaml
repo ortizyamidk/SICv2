@@ -6,71 +6,88 @@
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
             mc:Ignorable="d" 
-            d:DesignHeight="450" d:DesignWidth="800">
+            d:DesignHeight="500" d:DesignWidth="1060">
 
-    <Border CornerRadius="25" Background="#ffffff">
-        <Grid>
-            <Border CornerRadius="27" Background="White" BorderThickness="1">
-                <Grid Width="auto" Height="auto" Background="Transparent">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+    <Border CornerRadius="27" BorderThickness="1">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+        </Border.Background>
+        
+        <Grid Width="auto" Height="auto" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="110"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-                    <!--Form Title-->
-                    <StackPanel Orientation="Horizontal" Margin="20 10">
-                        <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent">
-                            <Ellipse Width="50" Height="50">
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Images/instructor.png"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                        </Border>
-
-                        <TextBlock Text="Captura Nuevo Instructor" Foreground="#374655" FontSize="18" Margin="15 0 0 0" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <Separator Grid.Row="0" Grid.ColumnSpan="2" Height="0.7" VerticalAlignment="Bottom" Background="#E1E6EB" Margin="0 8"/>
-
-                    <!--Inputs-->
-                    <StackPanel Orientation="Vertical" Grid.Row="1">
-                        <Label Content="Nombre Completo:" FontSize="15" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
-                        <Label Content="RFC:" FontSize="15" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="2">
-                        <Label Content="Tipo Instructor:" FontSize="15" Margin="5 3 0 7"/>
-                        <ComboBox Height="42" Width="375"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="2" Grid.Column="1">
-                        <Label Content="Compañía:" FontSize="15" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" />
-                    </StackPanel>
-
-
-
-                    <!--Main Button-->
-                    <Button Grid.Column="1" Grid.Row="6" Content="Guardar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
-
-                    <!--Secondary Button-->
-                    <Button Grid.Row="6" Content="Limpiar Campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-
-
-                </Grid>
+            <!--Form Title-->
+            <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
+                <Ellipse Width="80" Height="80">
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="/Images/instructor.png"/>
+                    </Ellipse.Fill>
+                </Ellipse>
             </Border>
+
+            <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="3" Text="Captura Nuevo Instructor" FontWeight="Bold" 
+                        Foreground="Black" FontSize="35" VerticalAlignment="Center"/>
+
+            <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
+
+            <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
+
+            <!--Inputs-->
+            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                <TextBox x:Name="txtNombreI" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+            </StackPanel>
+
+            <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
+                    <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+                </StackPanel>
+                
+                <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
+                    <Label Content="Tipo Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                        <ComboBox Height="42" Width="290" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                <Label Content="Compañía:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                <TextBox x:Name="txtCompania" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+            </StackPanel>
+
+            <Grid Grid.Row="4" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="1" Content="Limpiar Campos" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                <Button Grid.Column="2" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+
+                
+            </Grid>
+
         </Grid>
     </Border>
 </UserControl>

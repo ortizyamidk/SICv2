@@ -12,9 +12,9 @@
 
  
             <Border CornerRadius="27" BorderThickness="1">
-        <Border.Background>
-            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
-        </Border.Background>
+                <Border.Background>
+                    <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+                </Border.Background>
                 
                 <Grid Width="auto" Height="auto" Background="Transparent">
                     <Grid.RowDefinitions>
@@ -40,12 +40,12 @@
                             </Ellipse>
                     </Border>
                         
-                    <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="3" Text="Captura Nuevo Curso" FontWeight="Bold" Foreground="Black" FontSize="35" VerticalAlignment="Center"/>
+                    <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="3" Text="Captura Nuevo Curso" FontWeight="Bold" 
+                               Foreground="Black" FontSize="35" VerticalAlignment="Center"/>
 
-                        
+            <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
 
-
-                    <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
+            <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
 
                     <!--Inputs-->
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
@@ -58,24 +58,15 @@
                         <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <Grid Grid.Row="3" Grid.ColumnSpan="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                        <Label Content="Mes para Registro de Listas:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                            <ComboBox Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno"/>
+                        </Border>
+                    </StackPanel>
 
-                        <StackPanel Grid.Column="0" HorizontalAlignment="Right">
-                            <Label Content="Fecha de Inicio:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                            <DatePicker Width="220" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                        </StackPanel>
 
-                        <StackPanel Grid.Column="1" HorizontalAlignment="Left">
-                            <Label Content="Fecha de Terminación:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                            <DatePicker Width="220" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="4" Grid.ColumnSpan="3">
+            <Grid Grid.Row="4" Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>

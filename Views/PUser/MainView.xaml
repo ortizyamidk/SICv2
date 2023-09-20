@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_LoginForm.Views"
         xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
-        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
         mc:Ignorable="d"
         Title="MainWindowView" Height="700" Width="1300"
         WindowStartupLocation="CenterScreen"
@@ -23,7 +23,7 @@
             <local:HomeView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
-            <local:CustomerView/>
+            <local:PersonalNuevoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursosViewModel}">
             <local:CursoNuevoView/>
