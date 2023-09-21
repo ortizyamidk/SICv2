@@ -26,9 +26,14 @@ namespace WPF_LoginForm.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnGeneral_Click(object sender, RoutedEventArgs e)
         {
-            
+            txtDescripcion.Text = "Generar reporte de la Lista General del Personal Calificado de la Empresa";
+        }
+
+        private void btnDC4_Click(object sender, RoutedEventArgs e)
+        {
+            txtDescripcion.Text = "Generar reporte de la Lista de Constancias de Habilidades Laborales de los Trabajadores de la Empresa";
         }
     }
 }

@@ -17,9 +17,7 @@
                 <!-- Contenido del diálogo aquí -->
                 <StackPanel Orientation="Horizontal" Margin="15">
                     <fa:IconImage Icon="file" VerticalAlignment="Top" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50"/>
-                    <TextBlock Foreground="Gray" Width="200" Margin="15 5" TextWrapping="Wrap">
-                        Generar Reporte de la Lista General del Personal Calificado de la Empresa
-                    </TextBlock>
+                    <TextBlock x:Name="txtDescripcion" Foreground="Gray" Width="200" Margin="15 5" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
                     <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center">
@@ -73,7 +71,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
-                <Button Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="General" Width="130" FontWeight="Bold" FontSize="20" Click="Button_Click"/>
+                <Button x:Name="btnGeneral" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="General" Width="130" FontWeight="Bold" FontSize="20" Click="btnGeneral_Click"/>
 
             <!--Por área-->
             <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
@@ -154,7 +152,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
-            <Button Style="{StaticResource mainButton}" Grid.Column="1" Height="55" Content="Formato DC-4" Width="140" FontWeight="Bold" FontSize="20"/>
+                <Button x:Name="btnDC4" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource mainButton}" Grid.Column="1" Height="55" Content="Formato DC-4" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC4_Click"/>
         </Grid>
 
         <TextBlock Text="Lista de Asistencia" FontWeight="DemiBold"
