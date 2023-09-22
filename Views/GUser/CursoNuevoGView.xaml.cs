@@ -30,7 +30,7 @@ namespace WPF_LoginForm.Views.GUser
             var converter = new BrushConverter();
             ObservableCollection<Participante> participantes = new ObservableCollection<Participante>();
 
-            participantes.Add(new Participante { num = "1", nombre = "Trabajador 1", puesto = "Puesto 1" });
+            participantes.Add(new Participante { num = "1", nombre = "Marcella Yamilet Ortiz Guillén", puesto = "Analista de Laboratorio Insp. Recibo de Comp" });
             participantes.Add(new Participante { num = "2", nombre = "Trabajador 2", puesto = "Puesto 2" });
             participantes.Add(new Participante { num = "3", nombre = "Trabajador 3", puesto = "Puesto 3" });
             participantes.Add(new Participante { num = "4", nombre = "Trabajador 4", puesto = "Puesto 4" });

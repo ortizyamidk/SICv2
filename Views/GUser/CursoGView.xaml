@@ -25,19 +25,19 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Text="Search..."
-                     Grid.Column="0"
-                     FontSize="13"
-                     Height="24"
-                     Width="auto"
-                     Background="Transparent"
-                     FontWeight="Medium"
-                     FontFamily="Montserrat"                            
-                     Foreground="Black"
-                     CaretBrush="DarkGray"
-                     BorderBrush="{StaticResource search}"
-                     BorderThickness="0,0,0,1"                             
-                     VerticalContentAlignment="Center"
-                     Margin="5,5,0,0">
+                 Grid.Column="0"
+                 FontSize="13"
+                 Height="24"
+                 Width="auto"
+                 Background="Transparent"
+                 FontWeight="Medium"
+                 FontFamily="Montserrat"                            
+                 Foreground="White"
+                 CaretBrush="DarkGray"
+                 BorderBrush="{StaticResource search}"
+                 BorderThickness="0,0,0,1"                             
+                 VerticalContentAlignment="Center"
+                 Margin="5,5,0,0">
             </TextBox>
 
             <Button x:Name="btnSearch"
