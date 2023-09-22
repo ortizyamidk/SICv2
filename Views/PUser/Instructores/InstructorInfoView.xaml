@@ -99,8 +99,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name="btnEdit" Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                <Button x:Name="btnSave" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                <Button x:Name="btnEdit" Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
+                <Button x:Name="btnSave" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnSave_Click"/>
 
 
             </Grid>

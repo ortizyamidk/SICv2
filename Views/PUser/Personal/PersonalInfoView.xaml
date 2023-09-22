@@ -173,8 +173,8 @@
                 </Grid>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btnEdit" Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                    <Button x:Name="btnSave" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
+                    <Button x:Name="btnEdit" Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
+                    <Button x:Name="btnSave" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnSave_Click"/>
                 </StackPanel>
             </Grid>
 

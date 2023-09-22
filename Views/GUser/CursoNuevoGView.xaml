@@ -23,7 +23,7 @@
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                 <Label Content="Folio lista:" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                <TextBox x:Name="txtFolio" Style="{StaticResource myTextBox}" FontSize="15" Width="100" BorderBrush="Black"/>
+                <TextBox IsEnabled="False" x:Name="txtFolio" Style="{StaticResource myTextBox}" FontSize="15" Width="100" BorderBrush="Black"/>
             </StackPanel>
 
             <Grid Grid.Column="1">
@@ -52,7 +52,7 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="400">
                         <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtArea" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" x:Name="txtArea" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 

@@ -23,6 +23,37 @@ namespace WPF_LoginForm.Views
         public CursoInfoView()
         {
             InitializeComponent();
+
+            deshabilitar();
+        }
+
+        public void habilitar()
+        {
+            txtNombreC.IsEnabled = true;
+            cbAreaT.IsEnabled = true;
+            cbMes.IsEnabled = true;
+            btnEdit.IsEnabled = false;
+            btnSave.IsEnabled = true;
+        }
+
+        public void deshabilitar()
+        {
+            txtNoCurso.IsEnabled = false;
+            txtNombreC.IsEnabled = false;
+            cbAreaT.IsEnabled = false;
+            cbMes.IsEnabled = false;
+            btnEdit.IsEnabled = true;
+            btnSave.IsEnabled = false;
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            habilitar();
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            deshabilitar();
         }
     }
 }

@@ -23,6 +23,50 @@ namespace WPF_LoginForm.Views
         public PersonalInfoView()
         {
             InitializeComponent();
+
+            Deshabilitar();
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            Habilitar();   
+        }
+
+        public void Habilitar()
+        {
+            cbCateg.IsEnabled = true;
+            cbNivel.IsEnabled = true;
+            txtNombre.IsEnabled = true;
+            cbPuesto.IsEnabled = true;
+            cbArea.IsEnabled = true;
+            cbDpto.IsEnabled = true;
+            txtJefe.IsEnabled = true;
+            chkAuditor.IsEnabled = true;
+            chkCalif.IsEnabled = true;
+            txtAntecedentes.IsEnabled = true;
+            btnSave.IsEnabled = true;
+            btnEdit.IsEnabled = false;
+        }
+
+        public void Deshabilitar()
+        {
+            cbCateg.IsEnabled = false;
+            cbNivel.IsEnabled = false;
+            txtNombre.IsEnabled = false;
+            cbPuesto.IsEnabled = false;
+            cbArea.IsEnabled = false;
+            cbDpto.IsEnabled = false;
+            txtJefe.IsEnabled = false;
+            chkAuditor.IsEnabled = false;
+            chkCalif.IsEnabled = false;
+            txtAntecedentes.IsEnabled = false;
+            btnSave.IsEnabled = false;
+            btnEdit.IsEnabled = true;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Deshabilitar();
         }
     }
 }
