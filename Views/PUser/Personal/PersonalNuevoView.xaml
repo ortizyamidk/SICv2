@@ -7,107 +7,206 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
             xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
             mc:Ignorable="d" 
-            d:DesignHeight="570" d:DesignWidth="800">
+            d:DesignHeight="570" d:DesignWidth="1060">
 
-    <Border CornerRadius="25" Background="#ffffff">
+    <Border CornerRadius="27" BorderThickness="1">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+        </Border.Background>
+
         <Grid Width="auto" Height="auto" Background="Transparent">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="90"/>
-                <RowDefinition Height="90"/>
-                <RowDefinition Height="90"/>
-                <RowDefinition Height="110"/>
-                <RowDefinition Height="120"/>
-                <RowDefinition Height="70"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="0" Grid.RowSpan="4" Margin="15" Width="auto">
-                <StackPanel Orientation="Vertical" Width="150" VerticalAlignment="Center">
-                    <Label Content="No. Ficha:" FontSize="15" Margin="5 3 0 7"/>
-                    <TextBox Style="{StaticResource myTextBox}" />
-                </StackPanel>
+            <Border CornerRadius="15" Margin="10">
+                <Border.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                </Border.Background>
 
-                <Image Source="/Images/perfil.jpg" Width="160" Height="210" Margin="0 10"/>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <Button Style="{StaticResource mainButton}" Content="Examinar..." Width="100" Height="30" Margin="0 7"/>
-            </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="170">
+                        <Label Content="No ficha:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Vertical" Width="150" Grid.Column="1" Margin="0 8">
-                <Label Content="Fecha Ingreso:" FontSize="15" Margin="5 3 0 7"/>
-                <DatePicker Width="auto" Margin="10"/>
-            </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
+                        <Image Source="/Images/perfil.jpg" Width="120" Height="180"/>
+                        <Button Margin="0 10 0 0" FontWeight="DemiBold" Content="Examinar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                    </StackPanel>
+                   
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Width="200">
+                        <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
+                        <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
+                            <ComboBox Foreground="Black" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Empleado" />
+                                    <ComboBoxItem Content="Sindicalizado" />
+                                    <ComboBoxItem Content="Supervisor" />
+                                </ComboBox.Items>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-                <Label Content="Nombre:" FontSize="15" Margin="5 3 0 7"/>
-                <TextBox Style="{StaticResource myTextBox}" />
-            </StackPanel>
+                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
 
-            <Grid Grid.Row="2" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Width="200">
+                        <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Nivel Estudios:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
+                        <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
+                            <ComboBox Foreground="Black" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Primaria" />
+                                    <ComboBoxItem Content="Secundaria" />
+                                    <ComboBoxItem Content="Comercial" />
+                                    <ComboBoxItem Content="Técnica" />
+                                    <ComboBoxItem Content="Preparatoria" />
+                                    <ComboBoxItem Content="Profesional" />
+                                    <ComboBoxItem Content="Licenciatura" />
+                                    <ComboBoxItem Content="Otro" />
+                                </ComboBox.Items>
 
-                <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Center" Width="auto">
-                    <Label Content="Puesto:" FontSize="15" Margin="5 3 0 7"/>
-                    <ComboBox Height="42" Width="140"/>
-                </StackPanel>
+                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                            </ComboBox>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90" />
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="210"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="auto">
-                    <Label Content="Área:" FontSize="15" Margin="5 3 0 7"/>
-                    <ComboBox Height="42" Width="140"/>
-                </StackPanel>
+                <TextBlock HorizontalAlignment="Left" Grid.ColumnSpan="3" Text="Captura Nuevo Trabajador" FontWeight="Bold" 
+                            Foreground="Black" FontSize="35" VerticalAlignment="Center" Margin="10 0 0 0"/>
 
-                <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" Width="auto">
-                    <Label Content="Departamento:" FontSize="15" Margin="5 3 0 7"/>
-                    <ComboBox Height="42" Width="140"/>
+                <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0"/>
+
+                <Separator Grid.Row="0" Height="0.7" Width="650" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 70 0 0" Background="#374655"/>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="0 5 0 0">
+                        <Label Content="Fecha Ingreso:" FontWeight="Bold" FontSize="18" Margin="5 0 0 0"/>
+                        <DatePicker Width="180" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Width="auto">
+                        <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <TextBox Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
+                        <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                            <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
+                        <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
+                            <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
+                        <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
+                            <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            </Border>
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Row="1" Orientation="Vertical" Width="230">
+                            <Label Content="Otras funciones:" FontWeight="Bold" FontSize="18" Margin="5 4 0 5"/>
+                            <CheckBox Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Auditor Interno" BorderBrush="White" Background="#FFA01C37"/>
+                            <CheckBox Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
+                        </StackPanel>
+
+                        
+
+
+
+                    </Grid>
+
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <TextBox Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="160"/>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Margin="0 0 170 0" FontWeight="DemiBold" Content="Limpiar campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                    <Button Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
 
-            <Grid Grid.Row="3" Margin="0 10" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center">
-                    <Label Content="Categoría:" FontSize="15" Margin="5 3 0 4"/>
-                    <ComboBox Height="42" Width="230"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center">
-                    <Label Content="Nivel estudios:" FontSize="15" Margin="5 3 0 4"/>
-                    <ComboBox Height="42" Width="230"/>
-                </StackPanel>
-            </Grid>
-
-            <Grid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="600"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Orientation="Vertical" Grid.Column="1">
-                    <Label Content="Antecedentes:" FontSize="15" Margin="5 3 0 7"/>
-                    <TextBox Style="{StaticResource myTextBox}" Height="80"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="Otras funciones:" FontSize="15" Margin="5 3 0 4"/>
-                    <CheckBox Height="30" Width="auto" Content="Auditor Interno"/>
-                    <CheckBox Height="30" Width="auto" Content="Personal Calificado"/>
-                </StackPanel>
-
-            </Grid>
 
 
-            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Margin="0 0 170 0" Content="Limpiar Campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                <Button Content="Guardar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
-            </StackPanel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

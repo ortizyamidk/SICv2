@@ -28,12 +28,50 @@ namespace WPF_LoginForm.Views
 
         private void btnGeneral_Click(object sender, RoutedEventArgs e)
         {
+            icono.Icon=FontAwesome.Sharp.IconChar.File;
             txtDescripcion.Text = "Generar reporte de la Lista General del Personal Calificado de la Empresa";
+            btnC.Content = "Cancelar";
+            btnA.Content = "Aceptar";
         }
 
         private void btnDC4_Click(object sender, RoutedEventArgs e)
         {
+            icono.Icon = FontAwesome.Sharp.IconChar.File;
             txtDescripcion.Text = "Generar reporte de la Lista de Constancias de Habilidades Laborales de los Trabajadores de la Empresa";
+            btnC.Content = "Cancelar";
+            btnA.Content = "Aceptar";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.Search;
+            txtDescripcion.Text = "Generar reporte de la Lista de Personal Calificado seleccionando un Área de Departamento específica";
+            btnC.Content = "Cancelar";
+            btnA.Content = "Buscar área";
+        }
+
+        private void btnHistorial_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.Search;
+            txtDescripcion.Text = "Generar reporte de los Cursos Tomados que posee cada Trabajador de la Empresa";
+            btnC.Content = "Cancelar";
+            btnA.Content = "Buscar trabajador";
+        }
+
+        private void btnDC3_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.Search;
+            txtDescripcion.Text = "Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador";
+            btnC.Content = "Cancelar";
+            btnA.Content = "Buscar trabajador";
+        }
+
+        private void btnAsistencia_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.Search;
+            txtDescripcion.Text = "Generar reporte de la Lista de Asistencia de cada Curso";
+            btnC.Content = "Cancelar";
+            btnA.Content = "Buscar curso";
         }
     }
 }

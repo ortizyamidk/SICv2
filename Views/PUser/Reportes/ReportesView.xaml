@@ -9,173 +9,170 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="620" d:DesignWidth="900">
+    <Grid>
+        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <!--POP UP MESSAGE-->
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="300" Height="150" HorizontalAlignment="Center">
+                    <!-- Contenido del diálogo aquí -->
+                    <StackPanel Orientation="Horizontal" Margin="15">
+                        <fa:IconImage x:Name="icono" VerticalAlignment="Top" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50"/>
+                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Width="200" Margin="15 5" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
+                        <Button x:Name="btnC" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
 
-    <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
-        <!--POP UP MESSAGE-->
-        <materialDesign:DialogHost.DialogContent>
-            <Grid Width="300" Height="150" HorizontalAlignment="Center">
-                <!-- Contenido del diálogo aquí -->
-                <StackPanel Orientation="Horizontal" Margin="15">
-                    <fa:IconImage Icon="file" VerticalAlignment="Top" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50"/>
-                    <TextBlock x:Name="txtDescripcion" Foreground="Gray" Width="200" Margin="15 5" TextWrapping="Wrap"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
-                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center">
-                        Cancelar
-                    </Button>
-                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center">
-                        Aceptar
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </materialDesign:DialogHost.DialogContent>
-        
-        
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
 
-        <!--INTERFAZ-->
-        <Grid Background="Transparent">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="500"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+            <!--INTERFAZ-->
+            <Grid Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="500"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <TextBlock Text="Personal Calificado" 
+                <TextBlock Text="Personal Calificado" 
                    Foreground="White" FontWeight="DemiBold"
                    FontSize="29" FontFamily="Montserrat" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Grid.Row="0"/>
 
-        <Grid Grid.Row="1" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                <Grid Grid.Row="1" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <!--General-->
-            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1">
-                <Border.Background>
-                    <ImageBrush x:Name="tarjeta1" ImageSource="/Images/reportegral.jpg" Stretch="UniformToFill"/>
-                </Border.Background>
-            </Border>
-            <Border VerticalAlignment="Center" Width="200" Height="220" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#000000" Offset="0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-                <Button x:Name="btnGeneral" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="General" Width="130" FontWeight="Bold" FontSize="20" Click="btnGeneral_Click"/>
+                    <!--General-->
+                    <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1">
+                        <Border.Background>
+                            <ImageBrush x:Name="tarjeta1" ImageSource="/Images/reportegral.jpg" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <Border VerticalAlignment="Center" Width="200" Height="220" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#000000" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Button x:Name="btnGeneral" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="General" Width="130" FontWeight="Bold" FontSize="20" Click="btnGeneral_Click"/>
 
-            <!--Por área-->
-            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
-                <Border.Background>
-                    <ImageBrush x:Name="tarjeta2" ImageSource="/Images/reportearea.jpg" Stretch="UniformToFill"/>
-                </Border.Background>
-            </Border>
-            <Border VerticalAlignment="Center" Width="200" Height="220" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1" Grid.Column="1">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#000000" Offset="0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-            <Button Style="{StaticResource mainButton}" Grid.Column="1" Content="Por Área" Width="130" FontWeight="Bold" FontSize="20"/>
-        </Grid>
+                    <!--Por área-->
+                    <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
+                        <Border.Background>
+                            <ImageBrush x:Name="tarjeta2" ImageSource="/Images/reportearea.jpg" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <Border VerticalAlignment="Center" Width="200" Height="220" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1" Grid.Column="1">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#000000" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Button x:Name="btnArea" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Grid.Column="1" Content="Por Área" Width="130" FontWeight="Bold" FontSize="20" Click="Button_Click"/>
+                </Grid>
 
-        <TextBlock Text="Historial Cursos" FontWeight="DemiBold"
+                <TextBlock Text="Historial Cursos" FontWeight="DemiBold"
            Foreground="White" 
            FontSize="29" FontFamily="Montserrat" 
            HorizontalAlignment="Center" VerticalAlignment="Center"
            Grid.Row="0" Grid.Column="1"/>
 
-        <!--Historial Cursos-->
-        <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush x:Name="tarjeta3" ImageSource="/Images/reportecursos.jpg" Stretch="UniformToFill"/>
-            </Border.Background>
-        </Border>
-        <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1" Grid.Column="1">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#000000" Offset="0"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
-        <Button Style="{StaticResource mainButton}" Height="55" Grid.Column="1" Grid.Row="1" Content="Por trabajador" Width="140" FontWeight="Bold" FontSize="20"/>
+                <!--Historial Cursos-->
+                <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="1" Grid.Column="1">
+                    <Border.Background>
+                        <ImageBrush x:Name="tarjeta3" ImageSource="/Images/reportecursos.jpg" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+                <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="1" Grid.Column="1">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Button x:Name="btnHistorial" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Height="55" Grid.Column="1" Grid.Row="1" Content="Por trabajador" Width="140" FontWeight="Bold" FontSize="20" Click="btnHistorial_Click"/>
 
-        <Separator Grid.Row="2" Grid.ColumnSpan="2" Height="0.7" VerticalAlignment="Bottom" Background="Transparent" Margin="0 8"/>
+                <Separator Grid.Row="2" Grid.ColumnSpan="2" Height="0.7" VerticalAlignment="Bottom" Background="Transparent" Margin="0 8"/>
 
-        <TextBlock Text="Constancia Habilidades Laborales" FontWeight="DemiBold"
+                <TextBlock Text="Constancia Habilidades Laborales" FontWeight="DemiBold"
                    Foreground="White" 
                    FontSize="29" FontFamily="Montserrat" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"
                    Grid.Row="3"/>
 
-        <Grid Grid.Row="4" HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                <Grid Grid.Row="4" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-            <!--Formato DC3-->
-            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="0">
-                <Border.Background>
-                    <ImageBrush x:Name="tarjeta4" ImageSource="/Images/formatodc3.jpg" Stretch="UniformToFill"/>
-                </Border.Background>
-            </Border>
-            <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="0">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#000000" Offset="0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-            <Button Style="{StaticResource mainButton}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20"/>
+                    <!--Formato DC3-->
+                    <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="0">
+                        <Border.Background>
+                            <ImageBrush x:Name="tarjeta4" ImageSource="/Images/formatodc3.jpg" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="0">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#000000" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Button x:Name="btnDC3" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
 
-            <!--Formato DC4-->
-            <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="1">
-                <Border.Background>
-                    <ImageBrush x:Name="tarjeta5" ImageSource="/Images/formatodc4.jpg" Stretch="UniformToFill"/>
-                </Border.Background>
-            </Border>
-            <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="1">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#000000" Offset="0"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-                <Button x:Name="btnDC4" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource mainButton}" Grid.Column="1" Height="55" Content="Formato DC-4" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC4_Click"/>
-        </Grid>
+                    <!--Formato DC4-->
+                    <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="1">
+                        <Border.Background>
+                            <ImageBrush x:Name="tarjeta5" ImageSource="/Images/formatodc4.jpg" Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                    <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="1">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#000000" Offset="0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+                    <Button x:Name="btnDC4" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Style="{StaticResource mainButton}" Grid.Column="1" Height="55" Content="Formato DC-4" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC4_Click"/>
+                </Grid>
 
-        <TextBlock Text="Lista de Asistencia" FontWeight="DemiBold"
+                <TextBlock Text="Lista de Asistencia" FontWeight="DemiBold"
            Foreground="White" 
            FontSize="29" FontFamily="Montserrat" 
            HorizontalAlignment="Center" VerticalAlignment="Center"
            Grid.Row="3" Grid.Column="1"/>
 
-        <!--Historial Cursos-->
-        <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="4" Grid.Column="1">
-            <Border.Background>
-                <ImageBrush x:Name="tarjeta6" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
-            </Border.Background>
-        </Border>
-        <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="4" Grid.Column="1">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#000000" Offset="0"/>
-                </LinearGradientBrush>
-            </Border.Background>
-        </Border>
-        <Button Style="{StaticResource mainButton}" Grid.Column="1" Grid.Row="4" Height="55" Content="Por Cursos" Width="140" FontWeight="Bold" FontSize="20"/>
+                <!--Historial Cursos-->
+                <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="4" Grid.Column="1">
+                    <Border.Background>
+                        <ImageBrush x:Name="tarjeta6" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+                <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="4" Grid.Column="1">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Button x:Name="btnAsistencia" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Grid.Column="1" Grid.Row="4" Height="55" Content="Por Cursos" Width="140" FontWeight="Bold" FontSize="20" Click="btnAsistencia_Click"/>
+            </Grid>
+        </materialDesign:DialogHost>
     </Grid>
-    </materialDesign:DialogHost>
-    
+
+
 </UserControl>
