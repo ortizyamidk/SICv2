@@ -11,7 +11,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -23,13 +24,13 @@
             <local:HomeView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
-            <local:PersonalInfoView/>
+            <local:InstructoresView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursosViewModel}">
-            <local:CursoInfoView/>
+            <local:InstructorInfoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:InstructoresViewModel}">
-            <local:InstructorInfoView/>
+            <local:InstructorNuevoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ReportesViewModel}">
             <local:ReportesView/>

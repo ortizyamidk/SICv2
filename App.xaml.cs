@@ -23,7 +23,7 @@ namespace WPF_LoginForm
             {
                 if (loginView.IsVisible == false && loginView.IsLoaded)
                 {*/
-                    var mainView = new MainViewG();
+                    var mainView = new MainView();
                     mainView.Show();
                     //loginView.Close();
                 //}

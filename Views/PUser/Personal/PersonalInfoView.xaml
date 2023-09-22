@@ -117,7 +117,7 @@
                         <TextBox Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="230">
+                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="210">
                         <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
                             <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
