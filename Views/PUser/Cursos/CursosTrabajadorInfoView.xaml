@@ -39,23 +39,23 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center">
                     <Label Content="No. curso:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button Background="Transparent" Cursor="Hand" BorderThickness="0">
+                        <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
                             <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
                         </Button>
-                        <TextBox Style="{StaticResource myTextBox}" Width="130" />
-                        <Button Background="Transparent" Cursor="Hand" BorderThickness="0">
+                        <TextBox x:Name="txtNoCurso" Style="{StaticResource myTextBox}" Width="130" />
+                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
                             <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
                         </Button>
                     </StackPanel>
                 </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Height="60" VerticalAlignment="Center">
-                        <TextBox Text="Buscar Curso" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
+                        <TextBox x:Name="txtSearch" Text="Buscar Curso" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
                                  Height="auto" Width="300" Background="Transparent"
                                  FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                                  BorderThickness="0,0,0,1" VerticalAlignment="Bottom">
                         </TextBox>
-                        <Button Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                             <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                         </Button>
                     </StackPanel>
@@ -71,12 +71,12 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="0" Width="370">
                         <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtCurso" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="370">
                         <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtArea" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 
@@ -90,22 +90,22 @@
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="0">
                         <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox x:Name="txtInicia" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="1">
                         <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox x:Name="txtTerm" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="2">
                         <Label Content="Horario:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox x:Name="txtHor" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
                         <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox x:Name="txtDur" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 
@@ -117,12 +117,12 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="0" Width="370">
                         <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" Width="370">
                         <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtInst" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 

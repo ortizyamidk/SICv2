@@ -33,23 +33,23 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 102223" HorizontalAlignment="Center" Margin="0 10 0 10" FontSize="25"/>
+                    <TextBlock x:Name="lblNoFicha" Grid.Row="0" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 102223" HorizontalAlignment="Center" Margin="0 10 0 10" FontSize="25"/>
 
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
-                        <Button Background="Transparent" Cursor="Hand" BorderThickness="0">
+                        <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
                             <fa:IconImage Icon="ChevronLeft" Foreground="White" Width="20" Height="30" />
                         </Button>
 
-                        <Image Source="/Images/perfil.jpg" Width="120" Height="180"/>
+                        <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
 
-                        <Button Background="Transparent" Cursor="Hand" BorderThickness="0">
+                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
                             <fa:IconImage Icon="ChevronRight" Foreground="White" Width="20" Height="30" />
                         </Button>
                     </StackPanel>
 
-                    <TextBlock Grid.Row="2" FontWeight="DemiBold" Foreground="White" FontSize="22" Text="Ingreso: 11/01/2020" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                    <TextBlock x:Name="lblIngreso" Grid.Row="2" FontWeight="DemiBold" Foreground="White" FontSize="22" Text="Ingreso: 11/01/2020" HorizontalAlignment="Center" Margin="0 0 0 10"/>
 
-                    <TextBlock Grid.Row="3" Text="Antigüedad: 3 año(s)" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19"/>
+                    <TextBlock x:Name="lblAntig" Grid.Row="3" Text="Antigüedad: 3 año(s)" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19"/>
 
                     <Grid Grid.Column="0" Grid.Row="5" Margin="0 10 0 0">
                         <Grid.RowDefinitions>
@@ -60,7 +60,7 @@
                         <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"  Width="200">
                             <Label Foreground="White" Content="Nivel de Estudios:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                             <Border CornerRadius="9" BorderBrush="White" BorderThickness="0.5" Background="White">
-                                <ComboBox Foreground="black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
+                                <ComboBox x:Name="cbNivel" Foreground="black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Primaria" />
                                         <ComboBoxItem Content="Secundaria" />
@@ -80,7 +80,7 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0" Width="200">
                             <Label Foreground="White" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 0 0 4"/>
                             <Border CornerRadius="9" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                <ComboBox Foreground="Black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
+                                <ComboBox x:Name="cbCateg" Foreground="Black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Empleado" />
                                         <ComboBoxItem Content="Sindicalizado" />
@@ -114,13 +114,13 @@
 
                     <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
                         <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
+                        <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="210">
                         <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbPuesto" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
                         </Border>
                     </StackPanel>
                 </Grid>
@@ -135,20 +135,20 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" Width="225">
                         <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbArea" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno"/>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
                         <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
-                            <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbDpto" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
                         <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 
@@ -160,21 +160,21 @@
 
                     <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
                         <Label Content="Otras funciones:" FontWeight="DemiBold" FontSize="22" Margin="5 15 0 18"/>
-                        <CheckBox Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Auditor Interno" Margin="0 0 0 10" BorderBrush="White" Background="#FFA01C37"/>
-                        <CheckBox Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
+                        <CheckBox x:Name="chkAuditor" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Auditor Interno" Margin="0 0 0 10" BorderBrush="White" Background="#FFA01C37"/>
+                        <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
                     </StackPanel>
 
                     
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
                         <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="170"/>
+                        <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="170"/>
                     </StackPanel>
                 </Grid>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                    <Button Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
+                    <Button x:Name="btnEdit" Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                    <Button x:Name="btnSave" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
 

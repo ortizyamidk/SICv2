@@ -35,18 +35,18 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="2" Width="130">
                         <Label Content="No ficha:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtNoFicha" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
-                        <Image Source="/Images/perfil.jpg" Width="120" Height="180"/>
-                        <Button Margin="0 10 0 0" FontWeight="DemiBold" Content="Examinar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="100" Height="30" Cursor="Hand"/>
+                        <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
+                        <Button x:Name="btnExam" Margin="0 10 0 0" FontWeight="DemiBold" Content="Examinar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="100" Height="30" Cursor="Hand"/>
                     </StackPanel>
                    
                     <StackPanel Orientation="Vertical" Grid.Row="2" Width="200">
                         <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
                         <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
-                            <ComboBox Foreground="Black" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                            <ComboBox x:Name="cbCat" Foreground="Black" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
                                 <ComboBox.Items>
                                     <ComboBoxItem Content="Empleado" />
                                     <ComboBoxItem Content="Sindicalizado" />
@@ -61,7 +61,7 @@
                     <StackPanel Orientation="Vertical" Grid.Row="3" Width="200">
                         <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Nivel Estudios:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
                         <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
-                            <ComboBox Foreground="Black" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
+                            <ComboBox x:Name="cbNivel" Foreground="Black" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
                                 <ComboBox.Items>
                                     <ComboBoxItem Content="Primaria" />
                                     <ComboBoxItem Content="Secundaria" />
@@ -104,12 +104,12 @@
 
                     <StackPanel Grid.Row="0" Margin="0 5 0 0">
                         <Label Content="Fecha Ingreso:" FontWeight="Bold" FontSize="18" Margin="5 0 0 0"/>
-                        <DatePicker Width="180" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                        <DatePicker x:Name="dtIngreso" Width="180" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" Width="auto">
                         <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
+                        <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 
@@ -123,20 +123,20 @@
                     <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
                         <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbDpto" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
                         <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
-                            <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbArea" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
                         <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 
@@ -155,15 +155,15 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
                             <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                             <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                <ComboBox Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                                <ComboBox x:Name="cbPuesto" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
                             </Border>
                         </StackPanel>
 
 
                         <StackPanel Grid.Row="1" Orientation="Vertical" Width="230">
                             <Label Content="Otras funciones:" FontWeight="Bold" FontSize="18" Margin="5 4 0 5"/>
-                            <CheckBox Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Auditor Interno" BorderBrush="White" Background="#FFA01C37"/>
-                            <CheckBox Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
+                            <CheckBox x:Name="chkAudit" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Auditor Interno" BorderBrush="White" Background="#FFA01C37"/>
+                            <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
                         </StackPanel>
 
                         
@@ -175,13 +175,13 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="1">
                         <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="160"/>
+                        <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="160"/>
                     </StackPanel>
                 </Grid>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button Margin="0 0 170 0" FontWeight="DemiBold" Content="Limpiar campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                    <Button Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
+                    <Button x:Name="btnLimp" Margin="0 0 170 0" FontWeight="DemiBold" Content="Limpiar campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                    <Button x:Name="btnGuardar" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
 

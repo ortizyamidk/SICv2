@@ -26,7 +26,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="Search..."
+                <TextBox x:Name="txtSearch" Text="Search..."
                      Grid.Column="0"
                      FontSize="13"
                      Height="24"
@@ -43,15 +43,15 @@
                 </TextBox>
 
                 <Button x:Name="btnSearch"
-                Style="{StaticResource searchButton}"
-                Tag="{StaticResource color10}"
-                Grid.Column="1"
-                Cursor="Hand"
-                HorizontalAlignment="Left">
+                        Style="{StaticResource searchButton}"
+                        Tag="{StaticResource color10}"
+                        Grid.Column="1"
+                        Cursor="Hand"
+                        HorizontalAlignment="Left">
                     <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
                 </Button>
 
-                <Button Style="{StaticResource addButton}" Grid.Column="2" Width="180">
+                <Button x:Name="btnNuevo" Style="{StaticResource addButton}" Grid.Column="2" Width="180">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
                         <TextBlock Text="Agregar instructor nuevo"/>

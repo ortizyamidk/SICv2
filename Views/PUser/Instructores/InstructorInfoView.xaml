@@ -40,11 +40,11 @@
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
                 <Label Content="No. Instructor:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Background="Transparent" Cursor="Hand" BorderThickness="0">
+                    <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
                         <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
                     </Button>
-                    <TextBox Style="{StaticResource myTextBox}" Width="200" />
-                    <Button Background="Transparent" Cursor="Hand" BorderThickness="0">
+                    <TextBox x:Name="txtNoInst" Style="{StaticResource myTextBox}" Width="200" />
+                    <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
                         <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
                     </Button>
                 </StackPanel>
@@ -68,13 +68,13 @@
 
                 <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
                     <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                    <TextBox Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+                    <TextBox x:Name="txtRFC" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Tipo Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                     <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                        <ComboBox Height="42" FontSize="15" Width="290" BorderThickness="0" Cursor="Hand">
+                        <ComboBox x:Name="cbTipo" Height="42" FontSize="15" Width="290" BorderThickness="0" Cursor="Hand">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="Interno" />
                                 <ComboBoxItem Content="Externo"/>
@@ -99,8 +99,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                <Button Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                <Button x:Name="btnEdit" Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                <Button x:Name="btnSave" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
 
 
             </Grid>

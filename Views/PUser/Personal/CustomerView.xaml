@@ -25,7 +25,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="Search..."
+                <TextBox x:Name="txtSearch" Text="Search..."
                  Grid.Column="0"
                  FontSize="13"
                  Height="24"
@@ -51,7 +51,7 @@
                     <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
                 </Button>
 
-                <Button Style="{StaticResource addButton}" Width="180" Grid.Column="2">
+                <Button x:Name="btnNuevo" Style="{StaticResource addButton}" Width="180" Grid.Column="2">
                     <StackPanel Orientation="Horizontal">
                         <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
                         <TextBlock Text="Agregar trabajador nuevo"/>
