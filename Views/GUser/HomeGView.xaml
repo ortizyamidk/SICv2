@@ -4,9 +4,101 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views.GUser"
+             xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
+            xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+            xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Image Source="/Images/dash.png"/>
-    </Grid>
+             d:DesignHeight="570" d:DesignWidth="1060">
+
+    <Border CornerRadius="27" BorderThickness="1">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+        </Border.Background>
+        <Grid Width="auto" Height="auto" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="10" Margin="10" Grid.ColumnSpan="2" Background="#EAEAEA">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Foreground="#353B3B" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
+            Monitoree el registro de las Listas de Asistencia
+                    </TextBlock>
+
+                    <Image Source="/Images/h.png" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+                </Grid>
+            </Border>
+            <Border CornerRadius="10" Grid.Row="1" Margin="10" BorderBrush="#E41E1E" BorderThickness="1" Opacity="0.985">
+                <Border.Background>
+                    <SolidColorBrush Color="#FFF89A8F" Opacity="0.8"/>
+                </Border.Background>
+                <Grid Grid.Row="0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <fa:IconImage Icon="CircleInfo" Foreground="#E41E1E" Margin="6 0 6 0" Width="20" Height="20"/>
+                        <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="#1F2A21" Text="Debe capturar los cursos en ESTE MES solamente" FontSize="17"/>
+                    </StackPanel>
+
+                </Grid>
+            </Border>
+
+            <Border CornerRadius="10" Margin="10" Grid.Row="2" Background="#EAEAEA">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="640"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+
+                        <lvc:PieChart Grid.Row="0" LegendLocation="None" InnerRadius="150" Hoverable="False" Height="350" DataTooltip="{x:Null}">
+                            <lvc:PieChart.Series>
+                                <lvc:PieSeries Values="2" StrokeThickness="0" Fill="{StaticResource panelActiveColor}" />
+                                <lvc:PieSeries Values="8" StrokeThickness="0" Fill="DarkGray" />
+                            </lvc:PieChart.Series>
+                        </lvc:PieChart>
+
+                        <TextBlock Grid.Row="0" Text="20%" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
+
+                        <TextBlock Grid.Row="1" Text="Ha registrado 1/5 Cursos" FontSize="25" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                    </Grid>
+
+                   
+
+                    <Border CornerRadius="10" Margin="10" Grid.Column="1" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Cursos a Registrar" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
+
+                            <uc:cardVencidos Grid.Row="1" Title="Seguridad y Ecología" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
+                            <uc:cardVencidos Grid.Row="2" Title="Medio Ambiente" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
+                            <uc:cardVencidos Grid.Row="3" Title="Higiene Personal" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
+                        </Grid>
+                    </Border>
+
+
+
+
+
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
 </UserControl>

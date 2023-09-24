@@ -25,9 +25,9 @@ namespace WPF_LoginForm
                 {*/
                     var mainView = new MainViewG();
                     mainView.Show();
-                    //loginView.Close();
-                //}
-            //};
+                    /*loginView.Close();
+                }
+            };*/
         }
     }
 }

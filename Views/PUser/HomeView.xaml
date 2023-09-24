@@ -4,9 +4,91 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
+             xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Image Source="/Images/dash.png"/>
-    </Grid>
+             d:DesignHeight="570" d:DesignWidth="1060">
+
+    <Border CornerRadius="27" BorderThickness="1">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+        </Border.Background>
+        <Grid Width="auto" Height="auto" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="170"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="10" Margin="10" Grid.ColumnSpan="2" Background="#EAEAEA">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Foreground="#353B3B" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
+                        Monitoree el registro de las Listas de Asistencia
+                    </TextBlock>
+
+                    <Image Source="/Images/h.png" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
+                </Grid>
+            </Border>
+
+            <Border CornerRadius="10" Margin="10" Grid.Row="1" Background="#EAEAEA">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <uc:InfoCard Grid.Column="0" Title="Calidad" Desc="Capturó 3/5 cursos" Percentage="60%" Icon="Charity" Value="6"/>
+                    <uc:InfoCard Grid.Column="1" Title="Compras" Desc="Capturó 1/4 cursos" Percentage="25%" Icon="Sale" Value="2"/>
+                    <uc:InfoCard Grid.Column="2" Title="Mantenimiento" Desc="Capturó 0/2 cursos" Percentage="0%" Icon="Tools" Value="0"/>
+                    <uc:InfoCard Grid.Column="3" Title="Producción" Desc="Capturó 2/6 cursos" Percentage="33%" Icon="Battery" Value="3"/>
+
+                </Grid>
+            </Border>
+
+            <Border CornerRadius="10" Margin="10" Grid.Row="2" Background="#EAEAEA">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                        <lvc:PieChart Grid.Column="0" LegendLocation="None" InnerRadius="120" Hoverable="False" Height="280" DataTooltip="{x:Null}">
+                            <lvc:PieChart.Series>
+                                <lvc:PieSeries Values="5" StrokeThickness="0" Fill="{StaticResource panelOverColor}" />
+                                <lvc:PieSeries Values="5" StrokeThickness="0" Fill="DarkGray" />
+                            </lvc:PieChart.Series>
+                        </lvc:PieChart>
+
+                    <TextBlock Text="50%" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
+                      
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="Total Departamentos que terminaron su registro" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="1" Text="3" Foreground="{StaticResource panelActiveColor}" FontSize="100" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    </Grid>
+
+                    
+                </Grid>
+
+    
+     
+                
+            </Border>
+
+        </Grid>
+    </Border>
+
 </UserControl>

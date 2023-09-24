@@ -24,16 +24,16 @@
             <local:HomeView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
-            <local:PersonalInfoView/>
+            <local:PersonalNuevoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursosViewModel}">
-            <local:CursoInfoView/>
+            <local:CursoNuevoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:InstructoresViewModel}">
-            <local:InstructorInfoView/>
+            <local:InstructorNuevoView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:ReportesViewModel}">
-            <local:ReportesView/>
+            <local:CursosTrabajadorInfoView/>
         </DataTemplate>
 
     </Window.Resources>

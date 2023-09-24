@@ -21,7 +21,7 @@
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:HomeGViewModel}">
-            <local:CursoInfoGView/>
+            <local:HomeGView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursoGViewModel}">
             <local:CursoNuevoGView/>
