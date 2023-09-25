@@ -452,8 +452,31 @@
         </Style.Triggers>
     </Style>
     
-   
+    
+    <!--SLIDER-->
+    <!--SLIDER-->
+    <Style x:Key="sliderstyle" TargetType="Slider">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid>
+                        <Rectangle x:Name="PART_SelectionRange" Fill="{TemplateBinding Foreground}" />
+                        <!-- Comentario la parte del Thumb para ocultar la manija -->
+                        <!--<Thumb x:Name="Thumb" ... />
+                    -->
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-  
+
+
+
+
+
+
+
+
 
 </ResourceDictionary>

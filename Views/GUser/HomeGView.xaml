@@ -21,19 +21,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border CornerRadius="10" Margin="10" Grid.ColumnSpan="2" Background="#EAEAEA">
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
+            <Border CornerRadius="10" Margin="10" Grid.Row="0">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF4D0000" Opacity="0.9"/>
+                </Border.Background>
 
-                    <TextBlock Foreground="#353B3B" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
+
+                <TextBlock Foreground="White" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
             Monitoreo del registro de las Listas de Asistencia
-                    </TextBlock>
+                </TextBlock>
 
-                    <Image Source="/Images/h.png" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
-                </Grid>
             </Border>
             <Border CornerRadius="10" Grid.Row="1" Margin="10" BorderBrush="#E41E1E" BorderThickness="1" Opacity="0.985">
                 <Border.Background>
@@ -48,7 +45,10 @@
                 </Grid>
             </Border>
 
-            <Border CornerRadius="10" Margin="10" Grid.Row="2" Background="#EAEAEA">
+            <Border CornerRadius="10" Margin="10" Grid.Row="2">
+                <Border.Background>
+                    <SolidColorBrush Color="#FFF1EAEA" Opacity="1"/>
+                </Border.Background>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="640"/>
@@ -73,7 +73,7 @@
                         <TextBlock Grid.Row="1" Text="Ha registrado 1/5 Cursos" FontSize="25" HorizontalAlignment="Center" FontWeight="DemiBold"/>
                     </Grid>
 
-                   
+
 
                     <Border CornerRadius="10" Margin="10" Grid.Column="1" Background="White">
                         <Grid>

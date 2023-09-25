@@ -7,17 +7,17 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              Name="infoCard">
-    
+
     <Grid x:Name="grid" Margin="8 0">
-            <!--Header section-->
-        <Border CornerRadius="20" Background="{StaticResource panelOverColor}" Width="60" Height="60" VerticalAlignment="Top" Margin="0 -30 0 0" Panel.ZIndex="1">
+        <!--Header section-->
+        <Border CornerRadius="20" Background="{StaticResource panelOverColor}" Width="60" Height="60" VerticalAlignment="Top" Margin="0 -18 0 0" Panel.ZIndex="1">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" ShadowDepth="3" Opacity="0.3" Direction="270" Color="#8B052B"/>
             </Border.Effect>
 
             <Icon:PackIconMaterial Kind="{Binding ElementName=infoCard, Path=Icon}" Width="30" Height="30" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Border>
-        
+
         <!--red border-->
         <Border x:Name="border" BorderThickness="1" BorderBrush="#8B052B" CornerRadius="20" Margin="-5">
             <Border.Style>
@@ -36,19 +36,17 @@
                 </Style>
             </Border.Style>
         </Border>
-            
-            <!--Main Section-->
+
+        <!--Main Section-->
         <Border Background="White" CornerRadius="20" Padding="10">
             <StackPanel>
-                <!--Dots Button-->
-                <Button Style="{StaticResource dotsButton}">
-                    <fa:IconImage Icon="EllipsisVertical"/>
-                </Button>
+
+                <Separator Background="Transparent" Height="10"/>
 
                 <!--Titles-->
-                <TextBlock Text="{Binding ElementName=infoCard, Path=Title}" Foreground="#5d5382" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+                <TextBlock Text="{Binding ElementName=infoCard, Path=Title}" Foreground="#5d5382" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 20 0 0"/>
                 <TextBlock Text="{Binding ElementName=infoCard, Path=Desc}" Foreground="#958ead" HorizontalAlignment="Center" Margin="0 5 0 10"/>
-                
+
                 <!--Top Slider Texts-->
                 <Grid Margin="7 0">
                     <Grid.ColumnDefinitions>
@@ -58,20 +56,13 @@
 
                     <TextBlock Text="{Binding ElementName=infoCard, Path=Percentage}" Foreground="#625986" Grid.Column="1" TextAlignment="Right"/>
                 </Grid>
-                
+
                 <!--Slider-->
-                <Slider IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=infoCard, Path=Value}"/>
-                
-                <!--Subslider section-->
-                <Grid Margin="6 3 6 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
+                <Slider IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=infoCard, Path=Value}" IsEnabled="False" Foreground="#FF450A0A"/>
+
             </StackPanel>
-            
-            
+
+
         </Border>
     </Grid>
 </UserControl>

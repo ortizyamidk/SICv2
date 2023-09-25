@@ -21,19 +21,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border CornerRadius="10" Margin="10" Grid.ColumnSpan="2" Background="#EAEAEA">
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="100"/>
-                    </Grid.ColumnDefinitions>
+            <Border CornerRadius="10" Margin="10">
+                <Border.Background>
+                    <SolidColorBrush Color="#FF4D0000" Opacity="0.9"/>
+                </Border.Background>
+  
 
-                    <TextBlock Foreground="#353B3B" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
+                    <TextBlock Grid.Row="0" Foreground="White" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
                         Monitoreo del registro de las Listas de Asistencia
                     </TextBlock>
 
-                    <Image Source="/Images/h.png" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
-                </Grid>
             </Border>
 
             <Border CornerRadius="10" Margin="10" Grid.Row="1" Background="Transparent">
@@ -53,22 +50,22 @@
                 </Grid>
             </Border>
 
-            <Border CornerRadius="10" Margin="10" Grid.Row="2" Background="#EAEAEA">
+            <Border CornerRadius="10" Margin="10" Grid.Row="2" Background="#FFF1EAEA">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
-                        <lvc:PieChart Grid.Column="0" LegendLocation="None" InnerRadius="120" Hoverable="False" Height="280" DataTooltip="{x:Null}">
-                            <lvc:PieChart.Series>
-                                <lvc:PieSeries Values="5" StrokeThickness="0" Fill="{StaticResource panelOverColor}" />
-                                <lvc:PieSeries Values="5" StrokeThickness="0" Fill="DarkGray" />
-                            </lvc:PieChart.Series>
-                        </lvc:PieChart>
+
+                    <lvc:PieChart Grid.Column="0" LegendLocation="None" InnerRadius="120" Hoverable="False" Height="280" DataTooltip="{x:Null}">
+                        <lvc:PieChart.Series>
+                            <lvc:PieSeries Values="5" StrokeThickness="0" Fill="{StaticResource panelOverColor}" />
+                            <lvc:PieSeries Values="5" StrokeThickness="0" Fill="DarkGray" />
+                        </lvc:PieChart.Series>
+                    </lvc:PieChart>
 
                     <TextBlock Text="50%" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
-                      
+
 
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -76,16 +73,16 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Text="Total Departamentos que terminaron su registro" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Grid.Row="0" Margin="7" Text="Total Departamentos que terminaron su registro" FontSize="28" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBlock Grid.Row="1" Text="3" Foreground="{StaticResource panelActiveColor}" FontSize="100" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                     </Grid>
 
-                    
+
                 </Grid>
 
-    
-     
-                
+
+
+
             </Border>
 
         </Grid>
