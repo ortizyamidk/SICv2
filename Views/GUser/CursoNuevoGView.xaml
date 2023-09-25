@@ -48,6 +48,7 @@
                         <Border CornerRadius="9" BorderBrush="Black" Width="auto" BorderThickness="0.3">
                             <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
                                 <ComboBox.Items>
+                                    <ComboBoxItem Content="Seguridad y Ecología" />
                                     <ComboBoxItem Content="Solución de problemas" />
                                     <ComboBoxItem Content="Auditores Internos" />
                                     <ComboBoxItem Content="Básicos del Supervisor" />
@@ -90,7 +91,23 @@
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
                         <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtDuracion" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+
+                        <Grid>
+                           <TextBox x:Name="txtDuracion" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                            <TextBlock Text="En minutos" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtDuracion}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        
                     </StackPanel>
                 </Grid>
 
@@ -102,13 +119,38 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Width="390">
                         <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+
+                        <Grid>
+                          <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                            <TextBlock Text="Lugar donde se impartirá" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtLugar}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1"  HorizontalAlignment="Left" Width="350">
                         <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox Name="cbInstructor" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno"/>
+                            <ComboBox Name="cbInstructor" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="" />
+                                    <ComboBoxItem Content="Jose Dominguez" />
+                                        <ComboBoxItem Content="Juan Luis Aviles" />
+                                        <ComboBoxItem Content="Jorge Ortiz" />
+                                    </ComboBox.Items>
+
+                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                            </ComboBox>
                         </Border>
                     </StackPanel>
                 </Grid>
@@ -116,11 +158,29 @@
                 <TextBlock Text="Participantes:" Grid.Row="4" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right">
-                    <TextBox x:Name="txtBuscar" Text="Buscar No. ficha" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
+                    <Grid>
+                        <TextBox x:Name="txtBuscar" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
                          Height="24" Width="112" Background="Transparent"
                          FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                          BorderThickness="0,0,0,1">
-                    </TextBox>
+                        </TextBox>
+
+                        <TextBlock Text="Buscar No. ficha" Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtBuscar}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    
+                    
+                    
                     <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left">
                         <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="20" Height="20" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                     </Button>

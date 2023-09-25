@@ -24,5 +24,7 @@ namespace WPF_LoginForm.Views.GUser
         {
             InitializeComponent();
         }
+
+       
     }
 }

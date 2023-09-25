@@ -26,7 +26,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="txtSearch" Text="Search..."
+                <Grid>
+                    <TextBox x:Name="txtSearch"
                      Grid.Column="0"
                      FontSize="13"
                      Height="24"
@@ -40,7 +41,21 @@
                      BorderThickness="0,0,0,1"                             
                      VerticalContentAlignment="Center"
                      Margin="5,5,0,0">
-                </TextBox>
+                    </TextBox>
+
+                    <TextBlock Text="Buscar Instructor..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
 
                 <Button x:Name="btnSearch"
                         Style="{StaticResource searchButton}"

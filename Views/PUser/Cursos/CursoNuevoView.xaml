@@ -50,10 +50,24 @@
                     <!--Inputs-->
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                         <Label Content="Nombre del Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtNombreC" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
+                        <Grid>
+                            <TextBox x:Name="txtNombreC" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
+                            <TextBlock Text="Escriba el nombre del curso" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombreC}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                         <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
                             <ComboBox x:Name="cbArea" Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">

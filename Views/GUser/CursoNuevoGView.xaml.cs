@@ -26,6 +26,7 @@ namespace WPF_LoginForm.Views.GUser
         public CursoNuevoGView()
         {
             InitializeComponent();
+            dtInicia.Focus();
 
             var converter = new BrushConverter();
             ObservableCollection<Participante> participantes = new ObservableCollection<Participante>();

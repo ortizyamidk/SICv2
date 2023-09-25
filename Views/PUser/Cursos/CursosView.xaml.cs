@@ -24,6 +24,7 @@ namespace WPF_LoginForm.Views
         public CursosView()
         {
             InitializeComponent();
+            txtSearch.Focus();
 
             var converter = new BrushConverter();
             ObservableCollection<Curso> cursos = new ObservableCollection<Curso>();

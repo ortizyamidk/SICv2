@@ -29,7 +29,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Foreground="#353B3B" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
-            Monitoree el registro de las Listas de Asistencia
+            Monitoreo del registro de las Listas de Asistencia
                     </TextBlock>
 
                     <Image Source="/Images/h.png" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>
@@ -86,7 +86,7 @@
 
                             <TextBlock Text="Cursos a Registrar" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
 
-                            <uc:cardVencidos Grid.Row="1" Title="Seguridad y Ecología" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
+                            <uc:cardVencidos Grid.Row="1" Title="Seguridad y Ecología" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand" />
                             <uc:cardVencidos Grid.Row="2" Title="Medio Ambiente" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
                             <uc:cardVencidos Grid.Row="3" Title="Higiene Personal" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
                         </Grid>

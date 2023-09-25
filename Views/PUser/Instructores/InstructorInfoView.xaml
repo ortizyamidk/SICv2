@@ -57,7 +57,23 @@
             <!--Inputs-->
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                 <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                <TextBox x:Name="txtNombreI" Text="Jose Dominguez" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+
+                <Grid>
+                    <TextBox x:Name="txtNombreI" Text="Jose Dominguez" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+                    <TextBlock Text="Escriba el nombre del Instructor" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtNombreI}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+                
             </StackPanel>
 
             <Grid Grid.Row="2" Grid.ColumnSpan="3">
@@ -68,7 +84,23 @@
 
                 <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
                     <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                    <TextBox x:Name="txtRFC" Text="OIGM000923GUA" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+
+                    <Grid>
+                       <TextBox x:Name="txtRFC" Text="OIGM000923GUA" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+                        <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtRFC}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    
                 </StackPanel>
 
                 <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
@@ -88,7 +120,23 @@
 
             <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                 <Label Content="Compañía:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                <TextBox x:Name="txtCompania" Text="Plexus International" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+
+                <Grid>
+                   <TextBox x:Name="txtCompania" Text="Plexus International" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+                    <TextBlock Text="Compañía a la que pertenece" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtCompania}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+                
             </StackPanel>
 
             <Grid Grid.Row="4" Grid.ColumnSpan="3">

@@ -50,11 +50,28 @@
                 </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Height="60" VerticalAlignment="Center">
-                        <TextBox x:Name="txtSearch" Text="Buscar Curso" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
+                        <Grid>
+                            <TextBox x:Name="txtSearch" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
                                  Height="auto" Width="300" Background="Transparent"
                                  FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                                  BorderThickness="0,0,0,1" VerticalAlignment="Bottom">
-                        </TextBox>
+                            </TextBox>
+                            <TextBlock Text="Buscar Curso..." Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,5" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                        </Grid>
+                        
+                        
                         <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                             <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                         </Button>

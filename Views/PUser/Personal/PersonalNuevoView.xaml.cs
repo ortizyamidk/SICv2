@@ -23,6 +23,8 @@ namespace WPF_LoginForm.Views
         public PersonalNuevoView()
         {
             InitializeComponent();
+            txtNoFicha.Focus();
+            txtJefe.IsEnabled = false;
         }
     }
 }

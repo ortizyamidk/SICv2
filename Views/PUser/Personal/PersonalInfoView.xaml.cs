@@ -44,6 +44,8 @@ namespace WPF_LoginForm.Views
             txtAntecedentes.IsEnabled = true;
             btnSave.IsEnabled = true;
             btnEdit.IsEnabled = false;
+
+            txtNombre.Focus();
         }
 
         public void Deshabilitar()
@@ -65,6 +67,11 @@ namespace WPF_LoginForm.Views
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             Deshabilitar();
+        }
+
+        private void btnSig_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

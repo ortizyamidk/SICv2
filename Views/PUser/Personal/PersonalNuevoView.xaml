@@ -109,7 +109,23 @@
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" Width="auto">
                         <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
+
+                        <Grid>
+                           <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
+                            <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombre}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        
                     </StackPanel>
                 </Grid>
 
@@ -123,20 +139,36 @@
                     <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
                         <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox x:Name="cbDpto" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Calidad" />
+                                    <ComboBoxItem Content="Producción" />
+                                    <ComboBoxItem Content="Mantenimiento" />
+                                </ComboBox.Items>
+
+                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                            </ComboBox>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
                         <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
-                            <ComboBox x:Name="cbArea" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                            <ComboBox x:Name="cbArea" Height="42" BorderThickness="0" Cursor="Hand" FontSize="15">
+                                <ComboBox.Items>
+                                    <ComboBoxItem Content="Almacén de componentes" />
+                                    <ComboBoxItem Content="Calidad" />
+                                    <ComboBoxItem Content="Capacitación" />
+                                </ComboBox.Items>
+
+                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                            </ComboBox>
                         </Border>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
                         <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        <TextBox x:Name="txtJefe" Text="Lic. Eduardo Valdes Ceballos" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 
@@ -155,7 +187,15 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
                             <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                             <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                <ComboBox x:Name="cbPuesto" Height="42" BorderThickness="0" Cursor="Hand" Text="Interno"/>
+                                <ComboBox x:Name="cbPuesto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Acomodo de material" />
+                                        <ComboBoxItem Content="Almacenista" />
+                                        <ComboBoxItem Content="Capturista" />
+                                    </ComboBox.Items>
+
+                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                </ComboBox>
                             </Border>
                         </StackPanel>
 

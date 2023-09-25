@@ -35,6 +35,8 @@ namespace WPF_LoginForm.Views
             txtCompania.IsEnabled = true;
             btnEdit.IsEnabled = false;
             btnSave.IsEnabled = true;
+
+            txtNombreI.Focus();
         }
 
         public void deshabilitar()

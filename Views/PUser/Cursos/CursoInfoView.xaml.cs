@@ -34,6 +34,8 @@ namespace WPF_LoginForm.Views
             cbMes.IsEnabled = true;
             btnEdit.IsEnabled = false;
             btnSave.IsEnabled = true;
+
+            txtNombreC.Focus();
         }
 
         public void deshabilitar()

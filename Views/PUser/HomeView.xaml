@@ -29,7 +29,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Foreground="#353B3B" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
-                        Monitoree el registro de las Listas de Asistencia
+                        Monitoreo del registro de las Listas de Asistencia
                     </TextBlock>
 
                     <Image Source="/Images/h.png" Width="50" Height="50" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1"/>

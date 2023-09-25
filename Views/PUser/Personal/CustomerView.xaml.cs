@@ -25,6 +25,7 @@ namespace WPF_LoginForm.Views
         public CustomerView()
         {
             InitializeComponent();
+            txtSearch.Focus();
 
             var converter = new BrushConverter();
             ObservableCollection<Personal> trabajadores = new ObservableCollection<Personal>();

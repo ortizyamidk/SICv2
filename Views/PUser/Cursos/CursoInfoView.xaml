@@ -57,7 +57,23 @@
             <!--Inputs-->
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                 <Label Content="Nombre del Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                <TextBox x:Name="txtNombreC" Text="Bloqueo y Etiquetado" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
+                <Grid>
+                   <TextBox x:Name="txtNombreC" Text="Bloqueo y Etiquetado" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
+                    <TextBlock Text="Escriba el nombre del curso" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=txtNombreC}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                </Grid>
+                
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center">

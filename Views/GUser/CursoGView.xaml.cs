@@ -24,6 +24,7 @@ namespace WPF_LoginForm.Views.GUser
         public CursoGView()
         {
             InitializeComponent();
+            txtSearch.Focus();
 
             var converter = new BrushConverter();
             ObservableCollection<ListaAsistencia> lista = new ObservableCollection<ListaAsistencia>();

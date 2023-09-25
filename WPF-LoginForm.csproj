@@ -203,10 +203,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\SliderStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\UIColors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

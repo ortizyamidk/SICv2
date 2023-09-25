@@ -42,7 +42,7 @@
 
                         <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
 
-                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
+                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnSig_Click">
                             <fa:IconImage Icon="ChevronRight" Foreground="White" Width="20" Height="30" />
                         </Button>
                     </StackPanel>
@@ -114,7 +114,23 @@
 
                     <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
                         <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" Text="Perez Arredondo Manuel Eduardo" FontSize="16" BorderBrush="Black"/>
+
+                        <Grid>
+                            <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" Text="Perez Arredondo Manuel Eduardo" FontSize="16" BorderBrush="Black"/>
+                            <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombre}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="210">
@@ -143,7 +159,7 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" Width="225">
                         <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox x:Name="cbArea" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
+                            <ComboBox x:Name="cbArea" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
                                 <ComboBox.Items>
                                     <ComboBoxItem Content="Almacén de componentes" />
                                     <ComboBoxItem Content="Calidad" />

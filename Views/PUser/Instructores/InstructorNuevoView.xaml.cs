@@ -25,7 +25,7 @@ namespace WPF_LoginForm.Views
         public InstructorNuevoView()
         {
             InitializeComponent();
-
+            txtNombreI.Focus();
             
         }
 

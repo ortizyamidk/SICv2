@@ -24,7 +24,10 @@ namespace WPF_LoginForm.Views
         public CursoNuevoView()
         {
             InitializeComponent();
+
+            txtNombreC.Focus();
         }
-        
+
+       
     }
 }
