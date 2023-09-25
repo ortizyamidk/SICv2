@@ -23,6 +23,8 @@ namespace WPF_LoginForm.Views
         {
             InitializeComponent();
             txtUser.Focus();
+
+            
         }
         private void Window_MouseDown(object sender, MouseEventArgs e)
         {

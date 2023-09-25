@@ -23,17 +23,50 @@
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
+        
+        
+        <!--PERSONAL-->
         <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
+            <local:CustomerView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:PersonalNuevoViewModel}">
             <local:PersonalNuevoView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:PersonalInfoViewModel}">
+            <local:PersonalInfoView/>
+        </DataTemplate>
+
+        <!--CURSOS-->
         <DataTemplate DataType="{x:Type viewModel:CursosViewModel}">
+            <local:CursosView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CursoInfoViewModel}">
+            <local:CursoInfoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CursosTrabajadorViewModel}">
+            <local:CursosTrabajadorInfoView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:CursoNuevoViewModel}">
             <local:CursoNuevoView/>
         </DataTemplate>
+        
+ 
+
+        <!--INSTRUCTORES-->
         <DataTemplate DataType="{x:Type viewModel:InstructoresViewModel}">
+            <local:InstructoresView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:InstructorInfoViewModel}">
+            <local:InstructorInfoView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:InstructorNuevoViewModel}">
             <local:InstructorNuevoView/>
         </DataTemplate>
+
+        <!--REPORTES-->
         <DataTemplate DataType="{x:Type viewModel:ReportesViewModel}">
-            <local:CursosTrabajadorInfoView/>
+            <local:ReportesView/>
         </DataTemplate>
 
     </Window.Resources>
@@ -141,7 +174,7 @@
                         <!--CERRAR SESION-->
                         <Button Style="{StaticResource logoutButton}"
                                      Tag="{StaticResource color1}"
-                                     Command="{Binding ShowReportesViewCommand}" Margin="0 240 0 0" Cursor="Hand">
+                                     Command="{Binding ShowReportesViewCommand}" Margin="0 240 0 0" Cursor="Hand" Click="Button_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="RightFromBracket" Style="{StaticResource menuButtonIcon}" Foreground="white"/>
                                 <TextBlock Text="Cerrar Sesión" Style="{StaticResource menuButtonText}" Foreground="White"/>

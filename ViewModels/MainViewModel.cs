@@ -5,10 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
 using WPF_LoginForm.Views;
+using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm.ViewModels
 {
@@ -36,6 +39,7 @@ namespace WPF_LoginForm.ViewModels
         }
 
         //Properties
+        //actualiza contenido de MainView con las vistas
         public ViewModelBase CurrentChildView {
             get
             {
@@ -73,16 +77,39 @@ namespace WPF_LoginForm.ViewModels
         }
 
         //-->Commands
-        //COMANDOS USER PRINCIPAL
+        //-----------COMANDOS USER PRINCIPAL---------------
         public ICommand ShowHomeViewCommand { get; }
+
+        //Personal
         public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowPersonalNuevoViewCommand { get; }
+        public ICommand ShowPersonalInfoViewCommand { get; }
+
+        //Cursos
         public ICommand ShowCursosViewCommand { get; }
+        public ICommand ShowCursoInfoViewCommand { get; }
+        public ICommand ShowCursoNuevoViewCommand { get; }
+        public ICommand ShowCursosTrabajadorViewCommand { get; }
+
+        //Instructores
         public ICommand ShowInstructoresViewCommand { get; }
+        public ICommand ShowInstructorInfoViewCommand { get; }
+        public ICommand ShowInstructorNuevoViewCommand { get; }
+
+        //Reportes
         public ICommand ShowReportesViewCommand { get; }
 
-        //COMANDOS USER GENERAL
+
+
+        //-----------COMANDOS USER GENERAL--------
         public ICommand ShowHomeGViewCommand { get; }
+
         public ICommand ShowCursoGViewCommand { get; }
+        public ICommand ShowCursoInfoGViewCommand { get; }
+        public ICommand ShowCursoNuevoGViewCommand { get; }
+
+        //CERRAR SESION
+        public ICommand LogoutCommand { get; }
 
 
         public MainViewModel()
@@ -91,26 +118,46 @@ namespace WPF_LoginForm.ViewModels
             CurrentUserAccount = new UserAccountModel();
 
             //Initialize commands
-            //USER PRINCIPAL
+            //--------------USER PRINCIPAL------------
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
+
+            //Personal
             ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
+            ShowPersonalNuevoViewCommand = new ViewModelCommand(ExecuteShowPersonalNuevoViewCommand);
+            ShowPersonalInfoViewCommand = new ViewModelCommand(ExecuteShowPersonalInfoViewCommand);
+
+            //Cursos
             ShowCursosViewCommand = new ViewModelCommand(ExecuteShowCursosViewCommand);
+            ShowCursoInfoViewCommand = new ViewModelCommand(ExecuteShowCursoInfoViewCommand);
+            ShowCursoNuevoViewCommand = new ViewModelCommand(ExecuteShowCursoNuevoViewCommand);
+            ShowCursosTrabajadorViewCommand = new ViewModelCommand(ExecuteShowCursosTrabajadorViewCommand);
+
+            //Instructores
             ShowInstructoresViewCommand = new ViewModelCommand(ExecuteShowInstructoresViewCommand);
+            ShowInstructorInfoViewCommand = new ViewModelCommand(ExecuteShowInstructorInfoViewCommand);
+            ShowInstructorNuevoViewCommand = new ViewModelCommand(ExecuteShowInstructorNuevoViewCommand);
+
+            //Reportes
             ShowReportesViewCommand = new ViewModelCommand(ExecuteShowReportesViewCommand);
 
 
-            //USER GENERAL
+
+
+            //----------USER GENERAL-------------
             ShowCursoGViewCommand = new ViewModelCommand(ExecuteShowCursoGViewCommand);
+            ShowCursoInfoGViewCommand = new ViewModelCommand(ExecuteShowCursoInfoGViewCommand);
+            ShowCursoNuevoGViewCommand = new ViewModelCommand(ExecuteShowCursoNuevoGViewCommand);
+
             ShowHomeGViewCommand = new ViewModelCommand(ExecuteShowHomeGViewCommand);
 
-            //Default view (HACER CONDICIONAL CONFORME A ROLES)
-            //ExecuteShowHomeViewCommand(null); //User principal
-            ExecuteShowHomeGViewCommand(null); //User general
+
+            //CERRAR SESION
+            LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
 
             LoadCurrentUserData();
         }
 
-        //USER GENERAL
+        //----------USER GENERAL----------
         private void ExecuteShowHomeGViewCommand(object obj)
         {
             CurrentChildView = new HomeGViewModel();
@@ -124,42 +171,116 @@ namespace WPF_LoginForm.ViewModels
             Caption = "Cursos";
             Icon = IconChar.ChalkboardUser;
         }
+        private void ExecuteShowCursoInfoGViewCommand(object obj)
+        {
+            CurrentChildView = new CursoInfoGViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.ChalkboardUser;
+        }
+        private void ExecuteShowCursoNuevoGViewCommand(object obj)
+        {
+            CurrentChildView = new CursoNuevoGViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.ChalkboardUser;
+        }
 
-        //USER PRINCIPAL
+        //----------USER PRINCIPAL----------
+        //Reportes
         private void ExecuteShowReportesViewCommand(object obj)
         {
             CurrentChildView = new ReportesViewModel();
             Caption = "Reportes";
             Icon = IconChar.UserGroup;
         }
-
+        
+        //Instructores
         private void ExecuteShowInstructoresViewCommand(object obj)
         {
             CurrentChildView = new InstructoresViewModel();
             Caption = "Instructores";
             Icon = IconChar.UserGroup;
         }
+        private void ExecuteShowInstructorInfoViewCommand(object obj)
+        {
+            CurrentChildView = new InstructorInfoViewModel();
+            Caption = "Instructores";
+            Icon = IconChar.UserGroup;
+        }
+        private void ExecuteShowInstructorNuevoViewCommand(object obj)
+        {
+            CurrentChildView = new InstructorNuevoViewModel();
+            Caption = "Instructores";
+            Icon = IconChar.UserGroup;
+        }
 
+        //Cursos
         private void ExecuteShowCursosViewCommand(object obj)
         {
             CurrentChildView = new CursosViewModel();
             Caption = "Cursos";
             Icon = IconChar.UserGroup;
         }
+        private void ExecuteShowCursoInfoViewCommand(object obj)
+        {
+            CurrentChildView = new CursoInfoViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.UserGroup;
+        }
+        private void ExecuteShowCursoNuevoViewCommand(object obj)
+        {
+            CurrentChildView = new CursoNuevoViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.UserGroup;
+        }
+        private void ExecuteShowCursosTrabajadorViewCommand(object obj)
+        {
+            CurrentChildView = new CursosTrabajadorViewModel();
+            Caption = "Cursos";
+            Icon = IconChar.UserGroup;
+        }
 
+        //Personal
         private void ExecuteShowCustomerViewCommand(object obj)
         {
             CurrentChildView = new CustomerViewModel();
             Caption = "Personal";
             Icon = IconChar.UserGroup;
         }
+        private void ExecuteShowPersonalNuevoViewCommand(object obj)
+        {
+            CurrentChildView = new PersonalNuevoViewModel();
+            Caption = "Personal";
+            Icon = IconChar.UserGroup;
+        }
+        private void ExecuteShowPersonalInfoViewCommand(object obj)
+        {
+            CurrentChildView = new PersonalInfoViewModel();
+            Caption = "Personal";
+            Icon = IconChar.UserGroup;
+        }
 
+        //Home
         private void ExecuteShowHomeViewCommand(object obj)
         {
             CurrentChildView = new HomeViewModel();
             Caption = "Inicio";
             Icon = IconChar.Home;
         }
+
+
+        //CERRAR SESION
+        private void ExecuteLogoutCommand(object obj)
+        {
+            // Llamar al método que cierra la sesión del usuario actual
+            // Por ejemplo, si tienes un método llamado Logout en tu LoginViewModel:
+            //loginViewModel.Logout();
+
+            // Después de cerrar la sesión, puedes navegar de regreso a la pantalla de inicio o al formulario de inicio de sesión.
+            // Puedes usar comandos de navegación para hacerlo.
+            // Por ejemplo, si usas un comando para mostrar la vista de inicio en tu MainViewModel:
+            // ShowHomeViewCommand.Execute(null);
+        }
+
 
         private void LoadCurrentUserData()
         {
@@ -169,6 +290,20 @@ namespace WPF_LoginForm.ViewModels
                 CurrentUserAccount.Username = user.Username;
                 CurrentUserAccount.DisplayName = $"{user.Name} {user.LastName}";
                 CurrentUserAccount.ProfilePicture = null;
+
+                // Verificar el tipo de usuario y ejecutar el comando correspondiente
+                if (user.Username=="admin")
+                {
+                    // Usuario administrador
+                    //ShowHomeViewCommand.Execute(null); // Ejecuta el comando para el administrador
+                    ExecuteShowHomeViewCommand(null);
+                }
+                else
+                {
+                    // Usuario general
+                    //ShowHomeGViewCommand.Execute(null); // Ejecuta el comando para el usuario general
+                    ExecuteShowHomeGViewCommand(null);
+                }
             }
             else
             {

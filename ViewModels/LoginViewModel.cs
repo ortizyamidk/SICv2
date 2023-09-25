@@ -21,7 +21,9 @@ namespace WPF_LoginForm.ViewModels
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-    private IUserRepository userRepository;
+        private bool _isLoggedIn = false;
+
+        private IUserRepository userRepository;
 
     //Properties
     public string Username
@@ -80,19 +82,37 @@ namespace WPF_LoginForm.ViewModels
         }
     }
 
-    //-> Commands
-    public ICommand LoginCommand { get; }
-    public ICommand RecoverPasswordCommand { get; }
-    public ICommand ShowPasswordCommand { get; }
-    public ICommand RememberPasswordCommand { get; }
+        public bool IsLoggedIn
+        {
+            get
+            {
+                return _isLoggedIn;
+            }
 
-    //Constructor
-    public LoginViewModel()
+            set
+            {
+                _isLoggedIn = value;
+                OnPropertyChanged(nameof(IsLoggedIn));
+            }
+        }
+
+        //-> Commands
+        public ICommand LoginCommand { get; }
+        public ICommand RecoverPasswordCommand { get; }
+        public ICommand ShowPasswordCommand { get; }
+        public ICommand RememberPasswordCommand { get; }
+
+        public ICommand LogoutCommand { get; }
+
+        //Constructor
+        public LoginViewModel()
     {
         userRepository = new UserRepository();
         LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
         RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
-    }
+
+        LogoutCommand = new ViewModelCommand(p => Logout());
+        }
 
     private bool CanExecuteLoginCommand(object obj)
     {
@@ -113,7 +133,8 @@ namespace WPF_LoginForm.ViewModels
             Thread.CurrentPrincipal = new GenericPrincipal(
                 new GenericIdentity(Username), null);
             IsViewVisible = false;
-        }
+                IsLoggedIn = true;
+            }
         else
         {
             ErrorMessage = "* Usuario o Contraseña inválido";
@@ -124,5 +145,15 @@ namespace WPF_LoginForm.ViewModels
     {
         throw new NotImplementedException();
     }
-}
+
+        public void Logout()
+        {
+            // Realiza la limpieza necesaria (puede incluir la eliminación de datos de la sesión)
+            // ...
+
+            IsLoggedIn = false; // Cierra la sesión del usuario
+            Username = string.Empty; // Restablece el nombre de usuario
+            Password = new SecureString(); // Restablece la contraseña
+        }
+    }
 }

@@ -36,7 +36,7 @@
                 </Grid>
             </Border>
 
-            <Border CornerRadius="10" Margin="10" Grid.Row="1" Background="#EAEAEA">
+            <Border CornerRadius="10" Margin="10" Grid.Row="1" Background="Transparent">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

@@ -79,7 +79,7 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            
+
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90" />
@@ -165,11 +165,6 @@
                             <CheckBox x:Name="chkAudit" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Auditor Interno" BorderBrush="White" Background="#FFA01C37"/>
                             <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
                         </StackPanel>
-
-                        
-
-
-
                     </Grid>
 
 
@@ -184,32 +179,6 @@
                     <Button x:Name="btnGuardar" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand"/>
                 </StackPanel>
             </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </Grid>
     </Border>
 

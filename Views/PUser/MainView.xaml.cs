@@ -84,5 +84,10 @@ namespace WPF_LoginForm.Views
             else this.WindowState = WindowState.Normal;
             
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

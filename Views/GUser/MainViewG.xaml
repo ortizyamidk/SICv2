@@ -24,6 +24,12 @@
             <local:HomeGView/>
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:CursoGViewModel}">
+            <local:CursoGView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CursoInfoGViewModel}">
+            <local:CursoInfoGView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:CursoNuevoGViewModel}">
             <local:CursoNuevoGView/>
         </DataTemplate>
     </Window.Resources>
@@ -95,9 +101,9 @@
                         </RadioButton>
 
                         <!--CERRAR SESION-->
-                        <Button Style="{StaticResource logoutButton}"
+                        <Button x:Name="btnCerrarSesion" Style="{StaticResource logoutButton}"
                                  Tag="{StaticResource color1}"
-                                 Command="" Margin="0 400 0 0" Cursor="Hand">
+                                  Margin="0 400 0 0" Cursor="Hand" Click="btnCerrarSesion_Click">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="RightFromBracket" Style="{StaticResource menuButtonIcon}" Foreground="white"/>
                                 <TextBlock Text="Cerrar Sesión" Style="{StaticResource menuButtonText}" Foreground="White"/>

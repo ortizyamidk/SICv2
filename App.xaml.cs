@@ -17,17 +17,31 @@ namespace WPF_LoginForm
     {
         protected void ApplicationStart(object sender, EventArgs e)
         {
-            /*var loginView = new LoginView();
+
+            var loginView = new LoginView();
             loginView.Show();
             loginView.IsVisibleChanged += (s, ev) =>
             {
                 if (loginView.IsVisible == false && loginView.IsLoaded)
-                {*/
-                    var mainView = new MainViewG();
-                    mainView.Show();
-                    /*loginView.Close();
+                {
+                    string username = loginView.txtUser.Text; // Obtén el valor de txtUser desde la vista de inicio de sesión
+
+                    // Verifica el valor de username y abre la ventana correspondiente
+                    if (username == "admin")
+                    {
+                        var adminView = new MainView();
+                        adminView.Show();
+                    }
+                    else if (username == "gral")
+                    {
+                        var userView = new MainViewG();
+                        userView.Show();
+                    }
+
+                    loginView.Close();
+
                 }
-            };*/
+            };
         }
     }
 }

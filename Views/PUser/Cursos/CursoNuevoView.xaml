@@ -97,16 +97,8 @@
                         </Border>
                     </StackPanel>
 
-                    <Button x:Name="btnGuardar" Grid.Column="1" Grid.Row="4" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-         
-
-
-
-
-                    
-     
-
-                </Grid>
+            <Button x:Name="btnGuardar" Grid.Column="1" Grid.Row="4" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+        </Grid>
             </Border>
 
 </UserControl>
