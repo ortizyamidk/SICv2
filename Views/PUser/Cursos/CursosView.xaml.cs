@@ -29,38 +29,30 @@ namespace WPF_LoginForm.Views
             ObservableCollection<Curso> cursos = new ObservableCollection<Curso>();
 
             //create datagrid items info
-            cursos.Add(new Curso { num = "1", nombre = "Curso 1", area = "Area 1", instructor = "No definido" });
-            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2", instructor = "No definido" });
-            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3", instructor = "No definido" });
-            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4", instructor = "No definido" });
-            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5", instructor = "No definido" });
-            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6", instructor = "No definido" });
-            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7", instructor = "No definido" });
-            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8", instructor = "No definido" });
-            cursos.Add(new Curso { num = "9", nombre = "Curso 9", area = "Area 9", instructor = "No definido" });
-            cursos.Add(new Curso { num = "10", nombre = "Curso 10", area = "Area 10", instructor = "No definido" });
+            cursos.Add(new Curso { num = "128", nombre = "Bloqueo y Etiquetado", area = "Area 1" });
+            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2" });
+            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3" });
+            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4" });
+            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5" });
+            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6" });
+            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
+            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
 
-            cursos.Add(new Curso { num = "1", nombre = "Curso 1", area = "Area 1", instructor = "No definido" });
-            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2", instructor = "No definido" });
-            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3", instructor = "No definido" });
-            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4", instructor = "No definido" });
-            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5", instructor = "No definido" });
-            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6", instructor = "No definido" });
-            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7", instructor = "No definido" });
-            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8", instructor = "No definido" });
-            cursos.Add(new Curso { num = "9", nombre = "Curso 9", area = "Area 9", instructor = "No definido" });
-            cursos.Add(new Curso { num = "10", nombre = "Curso 10", area = "Area 10", instructor = "No definido" });
+            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2" });
+            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3" });
+            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4" });
+            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5" });
+            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6" });
+            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
+            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
 
-            cursos.Add(new Curso { num = "1", nombre = "Curso 1", area = "Area 1", instructor = "No definido" });
-            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2", instructor = "No definido" });
-            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3", instructor = "No definido" });
-            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4", instructor = "No definido" });
-            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5", instructor = "No definido" });
-            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6", instructor = "No definido" });
-            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7", instructor = "No definido" });
-            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8", instructor = "No definido" });
-            cursos.Add(new Curso { num = "9", nombre = "Curso 9", area = "Area 9", instructor = "No definido" });
-            cursos.Add(new Curso { num = "10", nombre = "Curso 10", area = "Area 10", instructor = "No definido" });
+            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2" });
+            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3" });
+            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4" });
+            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5" });
+            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6" });
+            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
+            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
 
 
 
@@ -74,7 +66,6 @@ namespace WPF_LoginForm.Views
             public string num { get; set; }
             public string nombre { get; set; }
             public string area { get; set; }
-            public string instructor { get; set; }
         }
 
        

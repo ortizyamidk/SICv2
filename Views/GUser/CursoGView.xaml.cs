@@ -28,7 +28,7 @@ namespace WPF_LoginForm.Views.GUser
             var converter = new BrushConverter();
             ObservableCollection<ListaAsistencia> lista = new ObservableCollection<ListaAsistencia>();
 
-            lista.Add(new ListaAsistencia { num = "1", nombre = "Curso 1", area = "Area 1", instructor = "Instructor 1", inicia = "20/09/2023", termina = "21/09/23" });
+            lista.Add(new ListaAsistencia { num = "128", nombre = "Bloqueo y Etiquetado", area = "Calidad", instructor = "Javier Aviles Ortiz", inicia = "12/10/2023", termina = "12/10/23" });
             lista.Add(new ListaAsistencia { num = "2", nombre = "Curso 2", area = "Area 2", instructor = "Instructor 2", inicia = "20/09/2023", termina = "21/09/23" });
             lista.Add(new ListaAsistencia { num = "3", nombre = "Curso 3", area = "Area 3", instructor = "Instructor 3", inicia = "20/09/2023", termina = "21/09/23" });
             lista.Add(new ListaAsistencia { num = "4", nombre = "Curso 4", area = "Area 4", instructor = "Instructor 4", inicia = "20/09/2023", termina = "21/09/23" });

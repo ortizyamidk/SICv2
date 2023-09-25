@@ -39,8 +39,6 @@ namespace WPF_LoginForm.Views
             txtNombre.IsEnabled = true;
             cbPuesto.IsEnabled = true;
             cbArea.IsEnabled = true;
-            cbDpto.IsEnabled = true;
-            txtJefe.IsEnabled = true;
             chkAuditor.IsEnabled = true;
             chkCalif.IsEnabled = true;
             txtAntecedentes.IsEnabled = true;
@@ -55,7 +53,7 @@ namespace WPF_LoginForm.Views
             txtNombre.IsEnabled = false;
             cbPuesto.IsEnabled = false;
             cbArea.IsEnabled = false;
-            cbDpto.IsEnabled = false;
+            txtDpto.IsEnabled = false;
             txtJefe.IsEnabled = false;
             chkAuditor.IsEnabled = false;
             chkCalif.IsEnabled = false;

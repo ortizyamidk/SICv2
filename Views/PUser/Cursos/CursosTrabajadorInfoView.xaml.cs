@@ -29,7 +29,7 @@ namespace WPF_LoginForm.Views
             var converter = new BrushConverter();
             ObservableCollection<CursoTrabajador> listaAsistencia = new ObservableCollection<CursoTrabajador>();
 
-            listaAsistencia.Add(new CursoTrabajador { num = "1", nombre = "Trabajador 1", puesto = "Puesto 1" });
+            listaAsistencia.Add(new CursoTrabajador { num = "57019", nombre = "Perez Arrendo Manuel Eduardo", puesto = "Acomodo de material" });
             listaAsistencia.Add(new CursoTrabajador { num = "2", nombre = "Trabajador 2", puesto = "Puesto 2" });
             listaAsistencia.Add(new CursoTrabajador { num = "3", nombre = "Trabajador 3", puesto = "Puesto 3" });
             listaAsistencia.Add(new CursoTrabajador { num = "4", nombre = "Trabajador 4", puesto = "Puesto 4" });

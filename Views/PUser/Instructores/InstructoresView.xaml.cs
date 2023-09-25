@@ -28,7 +28,7 @@ namespace WPF_LoginForm.Views
             var converter = new BrushConverter();
             ObservableCollection<Instructor> instructores = new ObservableCollection<Instructor>();
 
-            instructores.Add(new Instructor { num = "1", nombre = "Instructor 1", tipo = "Interno" });
+            instructores.Add(new Instructor { num = "50156", nombre = "Jose Dominguez", tipo = "Interno" });
             instructores.Add(new Instructor { num = "2", nombre = "Instructor 2", tipo = "Externo" });
             instructores.Add(new Instructor { num = "3", nombre = "Instructor 3", tipo = "Externo" });
             instructores.Add(new Instructor { num = "4", nombre = "Instructor 4", tipo = "Interno" });

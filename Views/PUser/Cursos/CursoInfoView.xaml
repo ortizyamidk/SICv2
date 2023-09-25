@@ -43,7 +43,7 @@
                     <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
                         <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
                     </Button>
-                    <TextBox x:Name="txtNoCurso" Style="{StaticResource myTextBox}" Width="200" />
+                    <TextBox x:Name="txtNoCurso" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="200" />
                     <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
                         <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
                     </Button>
@@ -57,7 +57,7 @@
             <!--Inputs-->
             <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
                 <Label Content="Nombre del Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                <TextBox x:Name="txtNombreC" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
+                <TextBox x:Name="txtNombreC" Text="Bloqueo y Etiquetado" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center">
