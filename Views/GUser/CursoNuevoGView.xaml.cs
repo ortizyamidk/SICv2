@@ -26,7 +26,8 @@ namespace WPF_LoginForm.Views.GUser
         public CursoNuevoGView()
         {
             InitializeComponent();
-            dtInicia.Focus();
+            Loaded += MainWindow_Loaded;
+
 
             var converter = new BrushConverter();
             ObservableCollection<Participante> participantes = new ObservableCollection<Participante>();
@@ -59,6 +60,46 @@ namespace WPF_LoginForm.Views.GUser
         {
             icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
             txtDescripcion.Text = "¡Registro guardado correctamente!";
+            btnA.Content = "Aceptar";
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            dtInicia.Focus();
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado es numérico
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        // Método para verificar si una cadena es numérica
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _); // Intenta convertir el texto a un entero
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true; 
+            }
+        }
+
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.Xmark;
+            txtDescripcion.Text = "No se ha encontrado el registro";
             btnA.Content = "Aceptar";
         }
     }

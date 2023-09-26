@@ -25,10 +25,34 @@ namespace WPF_LoginForm.Views
         public InstructorNuevoView()
         {
             InitializeComponent();
-            txtNombreI.Focus();
+            Loaded += MainWindow_Loaded;
+
             
         }
 
-        
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtNombreI.Focus();
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
+        }
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
+            txtDescripcion.Text = "¡Registro guardado correctamente!";
+            btnA.Content = "Aceptar";
+        }
     }
 }

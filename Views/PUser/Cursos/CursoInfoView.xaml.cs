@@ -55,6 +55,10 @@ namespace WPF_LoginForm.Views
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
+            txtDescripcion.Text = "¡Registro editado correctamente!";
+            btnA.Content = "Aceptar";
+
             deshabilitar();
         }
     }

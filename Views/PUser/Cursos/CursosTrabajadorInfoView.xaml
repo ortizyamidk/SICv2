@@ -51,7 +51,7 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Height="60" VerticalAlignment="Center">
                         <Grid>
-                            <TextBox x:Name="txtSearch" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
+                            <TextBox x:Name="txtSearch" PreviewTextInput="TextBox_PreviewTextInput" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
                                  Height="auto" Width="300" Background="Transparent"
                                  FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                                  BorderThickness="0,0,0,1" VerticalAlignment="Bottom">

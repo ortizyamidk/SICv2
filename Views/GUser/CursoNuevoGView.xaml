@@ -110,7 +110,7 @@
                                 <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
                                 <Grid>
-                                    <TextBox x:Name="txtDuracion" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                                    <TextBox x:Name="txtDuracion" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                                     <TextBlock Text="En minutos" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
@@ -176,10 +176,10 @@
 
                         <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right">
                             <Grid>
-                                <TextBox x:Name="txtBuscar" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
-                         Height="24" Width="112" Background="Transparent"
-                         FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
-                         BorderThickness="0,0,0,1">
+                                <TextBox x:Name="txtBuscar" PreviewTextInput="TextBox_PreviewTextInput" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
+                                     Height="24" Width="112" Background="Transparent"
+                                     FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
+                                     BorderThickness="0,0,0,1">
                                 </TextBox>
 
                                 <TextBlock Text="Buscar No. ficha" Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -198,7 +198,7 @@
 
 
 
-                            <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left">
+                            <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" Click="btnSearch_Click">
                                 <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="20" Height="20" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                             </Button>
                         </StackPanel>

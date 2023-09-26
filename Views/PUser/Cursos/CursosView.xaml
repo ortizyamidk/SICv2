@@ -50,7 +50,8 @@
                              BorderBrush="{StaticResource search}"
                              BorderThickness="0,0,0,1"                             
                              VerticalContentAlignment="Center"
-                             Margin="5,5,0,0">
+                             Margin="5,5,0,0"
+                             PreviewTextInput="TextBox_PreviewTextInput2">
                 </TextBox>
 
                 <TextBlock Text="Buscar Curso..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -72,7 +73,7 @@
                         Tag="{StaticResource color10}"
                         Grid.Column="1"
                         Cursor="Hand"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Click="btnSearch_Click">
                 <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
             </Button>
 

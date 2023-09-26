@@ -23,8 +23,67 @@ namespace WPF_LoginForm.Views
         public PersonalNuevoView()
         {
             InitializeComponent();
-            txtNoFicha.Focus();
+            Loaded += MainWindow_Loaded;
+
             txtJefe.IsEnabled = false;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtNoFicha.Focus();
+        }
+
+        
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+
+                string texto = txtNoFicha.Text.Trim();
+
+                if (string.IsNullOrEmpty(texto))
+                {
+                    MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
+                else
+                {
+                    icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
+                    txtDescripcion.Text = "¡Registro guardado correctamente!";
+                    btnA.Content = "Aceptar";
+                }
+
+
+
+
+            
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado es numérico
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        // Método para verificar si una cadena es numérica
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _); // Intenta convertir el texto a un entero
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
         }
     }
 }

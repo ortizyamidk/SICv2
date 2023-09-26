@@ -24,7 +24,9 @@ namespace WPF_LoginForm.Views
         public InstructoresView()
         {
             InitializeComponent();
-            txtSearch.Focus();
+            Loaded += MainWindow_Loaded;
+
+            
 
             var converter = new BrushConverter();
             ObservableCollection<Instructor> instructores = new ObservableCollection<Instructor>();
@@ -71,6 +73,35 @@ namespace WPF_LoginForm.Views
             public string nombre { get; set; }
             public string tipo { get; set; }
 
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Focus(); // Establece el enfoque en el TextBox
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string texto = txtSearch.Text.Trim();
+
+            if (string.IsNullOrEmpty(texto))
+            {
+                MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
     }
 }

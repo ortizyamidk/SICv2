@@ -28,6 +28,7 @@
 
                 <Grid>
                     <TextBox x:Name="txtSearch"
+                             PreviewTextInput="TextBox_PreviewTextInput2"
                      Grid.Column="0"
                      FontSize="13"
                      Height="24"
@@ -62,7 +63,7 @@
                         Tag="{StaticResource color10}"
                         Grid.Column="1"
                         Cursor="Hand"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Click="btnSearch_Click">
                     <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
                 </Button>
 

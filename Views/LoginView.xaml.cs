@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views
 {
@@ -24,7 +25,6 @@ namespace WPF_LoginForm.Views
             InitializeComponent();
             txtUser.Focus();
 
-            
         }
         private void Window_MouseDown(object sender, MouseEventArgs e)
         {
@@ -44,9 +44,7 @@ namespace WPF_LoginForm.Views
             Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
+
     }
 }

@@ -38,7 +38,7 @@
             Opacity="0.95">
             
 
-            <Grid>
+            <Grid x:Name="gridPrincipal">
                 <!-- Contenedor -->
                 <Grid.RowDefinitions>
                     <!--Dividir en 2 filas-->

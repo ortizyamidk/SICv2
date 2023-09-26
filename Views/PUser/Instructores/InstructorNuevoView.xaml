@@ -5,145 +5,164 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             mc:Ignorable="d" 
             d:DesignHeight="500" d:DesignWidth="1060">
 
-    <Border CornerRadius="27" BorderThickness="1">
-        <Border.Background>
-            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
-        </Border.Background>
-        
-        <Grid Width="auto" Height="auto" Background="Transparent">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="110"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <Grid>
+        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <!--POP UP MESSAGE-->
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="290" Height="130" HorizontalAlignment="Center">
+                    <!-- Contenido del diálogo aquí -->
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <fa:IconImage x:Name="icono" Margin="5 10 0 0" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Margin="10 10 0 0" HorizontalAlignment="Center" FontSize="18" FontFamily="Calibri" FontWeight="SemiBold" Width="200" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
+                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Border CornerRadius="27" BorderThickness="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+                </Border.Background>
 
-            <!--Form Title-->
-            <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
-                <Ellipse Width="80" Height="80">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="/Images/instructor.png"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-            </Border>
+                <Grid Width="auto" Height="auto" Background="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="3" Text="Captura Nuevo Instructor" FontWeight="Bold" 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Form Title-->
+                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
+                        <Ellipse Width="80" Height="80">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Images/instructor.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+
+                    <TextBlock HorizontalAlignment="Center" Grid.ColumnSpan="3" Text="Captura Nuevo Instructor" FontWeight="Bold" 
                         Foreground="Black" FontSize="35" VerticalAlignment="Center"/>
 
-            <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
+                    <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
 
-            <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
+                    <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
 
-            <!--Inputs-->
-            <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <!--Inputs-->
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                        <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
-                <Grid>
-                    <TextBox x:Name="txtNombreI" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
-                    <TextBlock Text="Escriba el nombre del Instructor" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=txtNombreI}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </Grid>
-                
-            </StackPanel>
+                        <Grid>
+                            <TextBox x:Name="txtNombreI" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+                            <TextBlock Text="Escriba el nombre del Instructor" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombreI}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
 
-            <Grid Grid.Row="2" Grid.ColumnSpan="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                
-                <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
-                    <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    </StackPanel>
 
-                    <Grid>
-                       <TextBox x:Name="txtRFC" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
-                        <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=txtRFC}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
+                            <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+
+                            <Grid>
+                                <TextBox x:Name="txtRFC" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+                                <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtRFC}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
+                            <Label Content="Tipo Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                <ComboBox x:Name="cbTipo" Height="42" Width="290" FontSize="15" BorderThickness="0" Cursor="Hand" Text="Interno">
+
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Interno" />
+                                        <ComboBoxItem Content="Externo"/>
+                                    </ComboBox.Items>
+
+                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
                     </Grid>
-                    
-                </StackPanel>
-                
-                <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
-                    <Label Content="Tipo Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                        <ComboBox x:Name="cbTipo" Height="42" Width="290" FontSize="15" BorderThickness="0" Cursor="Hand" Text="Interno">
 
-                            <ComboBox.Items>
-                                <ComboBoxItem Content="Interno" />
-                                <ComboBoxItem Content="Externo"/>
-                            </ComboBox.Items>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                        <Label Content="Compañía:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
-                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                        </ComboBox>
-                    </Border>
-                </StackPanel>
-            </Grid>
+                        <Grid>
+                            <TextBox x:Name="txtCompania" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+                            <TextBlock Text="Compañía a la que pertenece" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtCompania}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
 
-            <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                <Label Content="Compañía:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    </StackPanel>
 
-                <Grid>
-                    <TextBox x:Name="txtCompania" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
-                    <TextBlock Text="Compañía a la que pertenece" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=txtCompania}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+                    <Grid Grid.Row="4" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="btnLimpiar" Grid.Column="1" Content="Limpiar Campos" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
+                        <Button x:Name="btnGuardar" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Grid.Column="2" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnGuardar_Click"/>
+
+
+                    </Grid>
+
                 </Grid>
-                
-            </StackPanel>
-
-            <Grid Grid.Row="4" Grid.ColumnSpan="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Button x:Name="btnLimpiar" Grid.Column="1" Content="Limpiar Campos" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                <Button x:Name="btnGuardar" Grid.Column="2" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-
-                
-            </Grid>
-
-        </Grid>
-    </Border>
+            </Border>
+        </materialDesign:DialogHost>
+    </Grid>
 </UserControl>

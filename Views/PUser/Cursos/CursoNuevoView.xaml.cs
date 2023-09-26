@@ -24,10 +24,20 @@ namespace WPF_LoginForm.Views
         public CursoNuevoView()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
 
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
             txtNombreC.Focus();
         }
 
-       
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
+            txtDescripcion.Text = "¡Registro guardado correctamente!";
+            btnA.Content = "Aceptar";
+        }
     }
 }

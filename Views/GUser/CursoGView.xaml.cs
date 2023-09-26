@@ -16,15 +16,15 @@ using System.Windows.Shapes;
 
 namespace WPF_LoginForm.Views.GUser
 {
-    /// <summary>
-    /// Lógica de interacción para CursoGView.xaml
-    /// </summary>
+
     public partial class CursoGView : UserControl
     {
+        
         public CursoGView()
         {
             InitializeComponent();
-            txtSearch.Focus();
+            Loaded += MainWindow_Loaded;
+
 
             var converter = new BrushConverter();
             ObservableCollection<ListaAsistencia> lista = new ObservableCollection<ListaAsistencia>();
@@ -74,6 +74,41 @@ namespace WPF_LoginForm.Views.GUser
             public string inicia { get; set; }
             public string termina { get; set; }
 
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Focus();
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado contiene solo letras
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no alfabético
+            }
+        }
+
+        // Método para verificar si una cadena contiene solo letras
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string search = txtSearch.Text.Trim();
+
+            if (string.IsNullOrEmpty(search))
+            {
+                MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            else
+            {
+
+            }
         }
     }
 }

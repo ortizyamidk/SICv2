@@ -5,234 +5,289 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="570" d:DesignWidth="1060">
 
-    <Border CornerRadius="27" BorderThickness="1">
-        <Border.Background>
-            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
-        </Border.Background>
+    <Grid>
+        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <!--POP UP MESSAGE-->
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="290" Height="130" HorizontalAlignment="Center">
+                    <!-- Contenido del diálogo aquí -->
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <fa:IconImage x:Name="icono" Margin="5 10 0 0" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Margin="10 10 0 0" HorizontalAlignment="Center" FontSize="18" FontFamily="Calibri" FontWeight="SemiBold" Width="200" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
+                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
 
-        <Grid Width="auto" Height="auto" Background="Transparent">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Border CornerRadius="15" Margin="10">
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Border CornerRadius="27" BorderThickness="1">
                 <Border.Background>
-                    <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    <ImageBrush ImageSource="/Images/fondoform.jpg"/>
                 </Border.Background>
 
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                        <RowDefinition Height="200"/>
-                        <RowDefinition Height="40"/>
-                        <RowDefinition Height="45"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <Grid Width="auto" Height="auto" Background="Transparent">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                    <TextBlock x:Name="lblNoFicha" Grid.Row="0" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 57019" HorizontalAlignment="Center" Margin="0 10 0 10" FontSize="25"/>
+                    <Border CornerRadius="15" Margin="10">
+                        <Border.Background>
+                            <SolidColorBrush Color="Black" Opacity="0.5"/>
+                        </Border.Background>
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
-                        <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
-                            <fa:IconImage Icon="ChevronLeft" Foreground="White" Width="20" Height="30" />
-                        </Button>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="45"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
+                            <TextBlock x:Name="lblNoFicha" Grid.Row="0" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 57019" HorizontalAlignment="Center" Margin="0 10 0 10" FontSize="25"/>
 
-                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnSig_Click">
-                            <fa:IconImage Icon="ChevronRight" Foreground="White" Width="20" Height="30" />
-                        </Button>
-                    </StackPanel>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
+                                <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
+                                    <fa:IconImage Icon="ChevronLeft" Foreground="White" Width="20" Height="30" />
+                                </Button>
 
-                    <TextBlock x:Name="lblIngreso" Grid.Row="2" FontWeight="DemiBold" Foreground="White" FontSize="22" Text="Ingreso: 09/09/2015" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                                <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
 
-                    <TextBlock x:Name="lblAntig" Grid.Row="3" Text="Antigüedad: 8 año(s)" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19"/>
+                                <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnSig_Click">
+                                    <fa:IconImage Icon="ChevronRight" Foreground="White" Width="20" Height="30" />
+                                </Button>
+                            </StackPanel>
 
-                    <Grid Grid.Column="0" Grid.Row="5" Margin="0 10 0 0">
+                            <TextBlock x:Name="lblIngreso" Grid.Row="2" FontWeight="DemiBold" Foreground="White" FontSize="22" Text="Ingreso: 09/09/2015" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+
+                            <TextBlock x:Name="lblAntig" Grid.Row="3" Text="Antigüedad: 8 año(s)" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="19"/>
+
+                            <Grid Grid.Column="0" Grid.Row="5" Margin="0 10 0 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"  Width="200">
+                                    <Label Foreground="White" Content="Nivel de Estudios:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                    <Border CornerRadius="9" BorderBrush="White" BorderThickness="0.5" Background="White">
+                                        <ComboBox x:Name="cbNivel" Foreground="black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
+                                            <ComboBox.Items>
+                                                <ComboBoxItem Content="Primaria" />
+                                                <ComboBoxItem Content="Secundaria" />
+                                                <ComboBoxItem Content="Comercial" />
+                                                <ComboBoxItem Content="Técnica" />
+                                                <ComboBoxItem Content="Preparatoria" />
+                                                <ComboBoxItem Content="Profesional" />
+                                                <ComboBoxItem Content="Licenciatura" />
+                                                <ComboBoxItem Content="Otro" />
+                                            </ComboBox.Items>
+
+                                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                        </ComboBox>
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical" Grid.Row="0" Width="200">
+                                    <Label Foreground="White" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 0 0 4"/>
+                                    <Border CornerRadius="9" Background="White" BorderBrush="White" BorderThickness="0.5">
+                                        <ComboBox x:Name="cbCateg" Foreground="Black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
+                                            <ComboBox.Items>
+                                                <ComboBoxItem Content="Empleado" />
+                                                <ComboBoxItem Content="Sindicalizado" />
+                                                <ComboBoxItem Content="Supervisor" />
+                                            </ComboBox.Items>
+
+                                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                        </ComboBox>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition />
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="110"/>
+                            <RowDefinition Height="220"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"  Width="200">
-                            <Label Foreground="White" Content="Nivel de Estudios:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                            <Border CornerRadius="9" BorderBrush="White" BorderThickness="0.5" Background="White">
-                                <ComboBox x:Name="cbNivel" Foreground="black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Primaria" />
-                                        <ComboBoxItem Content="Secundaria" />
-                                        <ComboBoxItem Content="Comercial" />
-                                        <ComboBoxItem Content="Técnica" />
-                                        <ComboBoxItem Content="Preparatoria" />
-                                        <ComboBoxItem Content="Profesional" />
-                                        <ComboBoxItem Content="Licenciatura" />
-                                        <ComboBoxItem Content="Otro" />
-                                    </ComboBox.Items>
+                        <Image Source="/Images/h.png" HorizontalAlignment="Right" Margin="0 5 10 0"/>
 
-                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                </ComboBox>
-                            </Border>
-                        </StackPanel>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="340"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <StackPanel Orientation="Vertical" Grid.Row="0" Width="200">
-                            <Label Foreground="White" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 0 0 4"/>
-                            <Border CornerRadius="9" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                <ComboBox x:Name="cbCateg" Foreground="Black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
-                                    <ComboBox.Items>
-                                        <ComboBoxItem Content="Empleado" />
-                                        <ComboBoxItem Content="Sindicalizado" />
-                                        <ComboBoxItem Content="Supervisor" />
-                                    </ComboBox.Items>
+                            <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
+                                <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
-                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                </ComboBox>
-                            </Border>
+                                <Grid>
+                                    <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" Text="Perez Arredondo Manuel Eduardo" FontSize="16" BorderBrush="Black"/>
+                                    <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=txtNombre}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+
+                            </StackPanel>
+
+
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center"  Width="200">
+                                <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+
+                                <Grid>
+                                    <TextBox x:Name="txtRFC" Text="OIGM000923GUA" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                                    <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=txtRFC}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Width="200">
+                                <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                    <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Calidad" />
+                                            <ComboBoxItem Content="Producción" />
+                                            <ComboBoxItem Content="Mantenimiento" />
+                                        </ComboBox.Items>
+
+                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240"/>
+                                <ColumnDefinition Width="260"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" Width="225">
+                                <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                    <ComboBox x:Name="cbArea" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Almacén de componentes" />
+                                            <ComboBoxItem Content="Calidad" />
+                                            <ComboBoxItem Content="Capacitación" />
+                                        </ComboBox.Items>
+
+                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+
+
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="210">
+                                <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                    <ComboBox x:Name="cbPuesto" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Acomodo de material" />
+                                            <ComboBoxItem Content="Almacenista" />
+                                            <ComboBoxItem Content="Capturista" />
+                                        </ComboBox.Items>
+
+                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
+                                <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" Text="Lic. Eduardo Valdes Ceballos" FontSize="15" BorderBrush="Black"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="240"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
+                                <Label Content="Otras funciones:" FontWeight="DemiBold" FontSize="22" Margin="5 15 0 18"/>
+                                <CheckBox x:Name="chkAuditor" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Auditor Interno" Margin="0 0 0 10" BorderBrush="White" Background="#FFA01C37"/>
+                                <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="True"/>
+                            </StackPanel>
+
+
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="170"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button x:Name="btnEdit" Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
+                            <Button x:Name="btnSave" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnSave_Click"/>
                         </StackPanel>
                     </Grid>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </Grid>
             </Border>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="110"/>
-                    <RowDefinition Height="220"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Image Source="/Images/h.png" HorizontalAlignment="Right" Margin="0 5 10 0"/>
-
-                <Grid Grid.Row="1" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="520"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
-                        <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-
-                        <Grid>
-                            <TextBox x:Name="txtNombre" Style="{StaticResource myTextBox}" Text="Perez Arredondo Manuel Eduardo" FontSize="16" BorderBrush="Black"/>
-                            <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombre}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </Grid>
-                        
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="210">
-                        <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox x:Name="cbPuesto" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
-                                <ComboBox.Items>
-                                    <ComboBoxItem Content="Acomodo de material" />
-                                    <ComboBoxItem Content="Almacenista" />
-                                    <ComboBoxItem Content="Capturista" />
-                                </ComboBox.Items>
-
-                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                            </ComboBox>
-                        </Border>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="2" Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240"/>
-                        <ColumnDefinition Width="260"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center" Width="225">
-                        <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox x:Name="cbArea" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
-                                <ComboBox.Items>
-                                    <ComboBoxItem Content="Almacén de componentes" />
-                                    <ComboBoxItem Content="Calidad" />
-                                    <ComboBoxItem Content="Capacitación" />
-                                </ComboBox.Items>
-
-                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                            </ComboBox>
-                        </Border>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
-                        <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtDpto" Text="Compras" Style="{StaticResource myTextBox}" FontSize="15" Height="42" BorderBrush="Black"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
-                        <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" Text="Lic. Eduardo Valdes Ceballos" FontSize="15" BorderBrush="Black"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Column="1" Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
-                        <Label Content="Otras funciones:" FontWeight="DemiBold" FontSize="22" Margin="5 15 0 18"/>
-                        <CheckBox x:Name="chkAuditor" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Auditor Interno" Margin="0 0 0 10" BorderBrush="White" Background="#FFA01C37"/>
-                        <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="True"/>
-                    </StackPanel>
-
-                    
-
-                    <StackPanel Orientation="Vertical" Grid.Column="1">
-                        <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="170"/>
-                    </StackPanel>
-                </Grid>
-
-                <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Button x:Name="btnEdit" Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
-                    <Button x:Name="btnSave" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnSave_Click"/>
-                </StackPanel>
-            </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        </Grid>
-    </Border>
+        </materialDesign:DialogHost>
+    </Grid>
 </UserControl>

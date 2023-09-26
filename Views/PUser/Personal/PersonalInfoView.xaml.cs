@@ -44,6 +44,9 @@ namespace WPF_LoginForm.Views
             txtAntecedentes.IsEnabled = true;
             btnSave.IsEnabled = true;
             btnEdit.IsEnabled = false;
+            cbDpto.IsEnabled = true;
+            txtRFC.IsEnabled = true;
+
 
             txtNombre.Focus();
         }
@@ -55,23 +58,40 @@ namespace WPF_LoginForm.Views
             txtNombre.IsEnabled = false;
             cbPuesto.IsEnabled = false;
             cbArea.IsEnabled = false;
-            txtDpto.IsEnabled = false;
+            cbDpto.IsEnabled = false;
             txtJefe.IsEnabled = false;
             chkAuditor.IsEnabled = false;
             chkCalif.IsEnabled = false;
             txtAntecedentes.IsEnabled = false;
             btnSave.IsEnabled = false;
             btnEdit.IsEnabled = true;
+            txtRFC.IsEnabled= false;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
+            txtDescripcion.Text = "¡Registro editado correctamente!";
+            btnA.Content = "Aceptar";
             Deshabilitar();
         }
 
         private void btnSig_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
         }
     }
 }
