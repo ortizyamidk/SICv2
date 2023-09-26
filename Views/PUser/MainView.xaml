@@ -51,8 +51,6 @@
             <local:CursoNuevoView/>
         </DataTemplate>
         
- 
-
         <!--INSTRUCTORES-->
         <DataTemplate DataType="{x:Type viewModel:InstructoresViewModel}">
             <local:InstructoresView/>
@@ -121,7 +119,7 @@
                         <RadioButton Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color1}"
                                      Command="{Binding ShowHomeViewCommand}"
-                                     IsChecked="True">
+                                     IsChecked="True" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Inicio" Style="{StaticResource menuButtonText}"/>
@@ -131,7 +129,7 @@
                         <!--PERSONAL-->
                         <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
-                                 Command="{Binding ShowCustomerViewCommand}">
+                                 Command="{Binding ShowCustomerViewCommand}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="IdCardClip" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Personal" Style="{StaticResource menuButtonText}"/>
@@ -141,7 +139,7 @@
                         <!--CURSOS-->
                         <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
-                                 Command="{Binding ShowCursosViewCommand}">
+                                 Command="{Binding ShowCursosViewCommand}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="ChalkboardUser" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Cursos" Style="{StaticResource menuButtonText}"/>
@@ -151,7 +149,7 @@
                         <!--INSTRUCTORES-->
                         <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
-                                 Command="{Binding ShowInstructoresViewCommand}">
+                                 Command="{Binding ShowInstructoresViewCommand}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="PersonChalkboard" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Instructores" Style="{StaticResource menuButtonText}"/>
@@ -161,7 +159,7 @@
                         <!--REPORTES-->
                         <RadioButton Style="{StaticResource menuButton}"
                                      Tag="{StaticResource color1}"
-                                     Command="{Binding ShowReportesViewCommand}">
+                                     Command="{Binding ShowReportesViewCommand}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="File" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Reportes" Style="{StaticResource menuButtonText}"/>

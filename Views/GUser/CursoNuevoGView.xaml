@@ -9,212 +9,231 @@
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="1060">
 
-    <Border CornerRadius="25" BorderThickness="1">
-        <Border.Background>
-            <ImageBrush ImageSource="/Images/fondoform.jpg"/>
-        </Border.Background>
-
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="140"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="90"/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                <Label Content="Folio lista:" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                <TextBox IsEnabled="False" Text="329" HorizontalContentAlignment="Center" x:Name="txtFolio" Style="{StaticResource myTextBox}" FontSize="20" Width="100" BorderBrush="Black"/>
-            </StackPanel>
-
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="95"/>
-                    <RowDefinition Height="95"/>
-                    <RowDefinition Height="95"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <StackPanel Orientation="Vertical" Grid.Column="0" Width="360"  HorizontalAlignment="Center">
-                        <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Border CornerRadius="9" BorderBrush="Black" Width="auto" BorderThickness="0.3">
-                            <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
-                                <ComboBox.Items>
-                                    <ComboBoxItem Content="Seguridad y Ecología" />
-                                    <ComboBoxItem Content="Solución de problemas" />
-                                    <ComboBoxItem Content="Auditores Internos" />
-                                    <ComboBoxItem Content="Básicos del Supervisor" />
-                                    <ComboBoxItem Content="Calibración de Instrumentos" />
-                                </ComboBox.Items>
-
-                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                            </ComboBox>
-                        </Border>
+    <Grid>
+        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <!--POP UP MESSAGE-->
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Width="290" Height="130" HorizontalAlignment="Center">
+                    <!-- Contenido del diálogo aquí -->
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <fa:IconImage x:Name="icono" Margin="5 10 0 0" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Margin="10 10 0 0" HorizontalAlignment="Center" FontSize="18" FontFamily="Calibri" FontWeight="SemiBold" Width="200" TextWrapping="Wrap"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
+                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="400">
-                        <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" x:Name="txtArea" Text="Calidad" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
+            </materialDesign:DialogHost.DialogContent>
 
-                <Grid Grid.Row="2">
+            <Border CornerRadius="25" BorderThickness="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+                </Border.Background>
+
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="90"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel HorizontalAlignment="Center" Grid.Column="0">
-                        <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <DatePicker Name="dtInicia" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <Label Content="Folio lista:" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <TextBox IsEnabled="False" Text="329" HorizontalContentAlignment="Center" x:Name="txtFolio" Style="{StaticResource myTextBox}" FontSize="20" Width="100" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Center" Grid.Column="1">
-                        <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <DatePicker Name="dtTermina" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                    </StackPanel>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="95"/>
+                            <RowDefinition Height="95"/>
+                            <RowDefinition Height="95"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
 
-                    <StackPanel HorizontalAlignment="Center" Grid.Column="2">
-                        <Label Content="Horario Inicio:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <materialDesign:TimePicker Name="tiHorario" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                    </StackPanel>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
-                        <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Width="360"  HorizontalAlignment="Center">
+                                <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="Black" Width="auto" BorderThickness="0.3">
+                                    <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Seguridad y Ecología" />
+                                            <ComboBoxItem Content="Solución de problemas" />
+                                            <ComboBoxItem Content="Auditores Internos" />
+                                            <ComboBoxItem Content="Básicos del Supervisor" />
+                                            <ComboBoxItem Content="Calibración de Instrumentos" />
+                                        </ComboBox.Items>
 
-                        <Grid>
-                           <TextBox x:Name="txtDuracion" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
-                            <TextBlock Text="En minutos" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=txtDuracion}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="400">
+                                <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <TextBox IsEnabled="False" x:Name="txtArea" Text="Calidad" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                            </StackPanel>
                         </Grid>
-                        
-                    </StackPanel>
-                </Grid>
 
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Width="390">
-                        <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <StackPanel HorizontalAlignment="Center" Grid.Column="0">
+                                <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <DatePicker Name="dtInicia" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                            </StackPanel>
 
-                        <Grid>
-                          <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
-                            <TextBlock Text="Lugar donde se impartirá" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=txtLugar}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                            <StackPanel HorizontalAlignment="Center" Grid.Column="1">
+                                <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <DatePicker Name="dtTermina" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Center" Grid.Column="2">
+                                <Label Content="Horario Inicio:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <materialDesign:TimePicker Name="tiHorario" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
+                                <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+
+                                <Grid>
+                                    <TextBox x:Name="txtDuracion" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                                    <TextBlock Text="En minutos" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=txtDuracion}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
+
+                            </StackPanel>
                         </Grid>
-                        
-                    </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="1"  HorizontalAlignment="Left" Width="350">
-                        <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox Name="cbInstructor" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
-                                <ComboBox.Items>
-                                    <ComboBoxItem Content="" />
-                                    <ComboBoxItem Content="Jose Dominguez" />
-                                        <ComboBoxItem Content="Juan Luis Aviles" />
-                                        <ComboBoxItem Content="Jorge Ortiz" />
-                                    </ComboBox.Items>
+                        <Grid Grid.Row="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                            </ComboBox>
-                        </Border>
-                    </StackPanel>
-                </Grid>
+                            <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Width="390">
+                                <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
-                <TextBlock Text="Participantes:" Grid.Row="4" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                                <Grid>
+                                    <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                                    <TextBlock Text="Lugar donde se impartirá" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=txtLugar}" Value="">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Grid>
 
-                <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right">
-                    <Grid>
-                        <TextBox x:Name="txtBuscar" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1"  HorizontalAlignment="Left" Width="350">
+                                <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                    <ComboBox Name="cbInstructor" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="" />
+                                            <ComboBoxItem Content="Jose Dominguez" />
+                                            <ComboBoxItem Content="Juan Luis Aviles" />
+                                            <ComboBoxItem Content="Jorge Ortiz" />
+                                        </ComboBox.Items>
+
+                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="Participantes:" Grid.Row="4" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right">
+                            <Grid>
+                                <TextBox x:Name="txtBuscar" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
                          Height="24" Width="112" Background="Transparent"
                          FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                          BorderThickness="0,0,0,1">
-                        </TextBox>
+                                </TextBox>
 
-                        <TextBlock Text="Buscar No. ficha" Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=txtBuscar}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </Grid>
-                    
-                    
-                    
-                    <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left">
-                        <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="20" Height="20" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
-                    </Button>
-                </StackPanel>
+                                <TextBlock Text="Buscar No. ficha" Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtBuscar}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
 
-                <Border Grid.Row="5" CornerRadius="10" Margin="20 0 20 0" Width="auto">
-                    <DataGrid Style="{DynamicResource DataGridStyle2}" 
+
+
+                            <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0"  Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left">
+                                <fa:IconImage HorizontalAlignment="Left" Icon="Search" Width="20" Height="20" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
+                        </StackPanel>
+
+                        <Border Grid.Row="5" CornerRadius="10" Margin="20 0 20 0" Width="auto">
+                            <DataGrid Style="{DynamicResource DataGridStyle2}" 
                       CellStyle="{DynamicResource DataGridCellStyle2}" 
                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
                       RowStyle="{DynamicResource DataGridRowStyle2}" 
                   
                       x:Name="participantesDataGrid" Width="Auto" Height="auto" HorizontalContentAlignment="Center">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
-                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
-                            <DataGridTemplateColumn Header="Borrar" Width="90">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Style="{StaticResource eyeButton}" Cursor="Hand">
-                                            <fa:IconImage Icon="Trash" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
-                                        </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Border>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
+                                    <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
+                                    <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
+                                    <DataGridTemplateColumn Header="Borrar" Width="90">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Style="{StaticResource eyeButton}" Cursor="Hand">
+                                                    <fa:IconImage Icon="Trash" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
 
-                <Button x:Name="btnGuardar" Grid.Row="6" HorizontalAlignment="Center" Margin="0 0 15 0" Content="Guardar lista" FontWeight="DemiBold" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-            </Grid>
+                        <Button x:Name="btnGuardar" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Grid.Row="6" HorizontalAlignment="Center" Margin="0 0 15 0" Content="Guardar lista" FontWeight="DemiBold" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnGuardar_Click"/>
+                    </Grid>
 
-            <Image Source="/Images/h.png" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" Width="70"/>
+                    <Image Source="/Images/h.png" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" Width="70"/>
 
-        </Grid>
-    </Border>
+                </Grid>
+            </Border>
+        </materialDesign:DialogHost>
+    </Grid>
 </UserControl>

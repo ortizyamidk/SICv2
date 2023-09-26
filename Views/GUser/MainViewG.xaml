@@ -83,7 +83,7 @@
                         <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
                                  Command="{Binding ShowHomeGViewCommand}"
-                                 IsChecked="True">
+                                 IsChecked="True" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Inicio" Style="{StaticResource menuButtonText}"/>
@@ -93,7 +93,7 @@
                         <!--CURSOS-->
                         <RadioButton Style="{StaticResource menuButton}"
                              Tag="{StaticResource color1}"
-                             Command="{Binding ShowCursoGViewCommand}">
+                             Command="{Binding ShowCursoGViewCommand}" Cursor="Hand">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="ChalkboardUser" Style="{StaticResource menuButtonIcon}"/>
                                 <TextBlock Text="Cursos" Style="{StaticResource menuButtonText}"/>

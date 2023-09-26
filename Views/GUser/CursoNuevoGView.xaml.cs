@@ -54,5 +54,12 @@ namespace WPF_LoginForm.Views.GUser
             public string nombre { get; set; }
             public string puesto { get; set; }
         }
+
+        private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
+            txtDescripcion.Text = "¡Registro guardado correctamente!";
+            btnA.Content = "Aceptar";
+        }
     }
 }
