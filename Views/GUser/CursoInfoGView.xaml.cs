@@ -13,8 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static WPF_LoginForm.Views.GUser.CursoNuevoGView;
-using static WPF_LoginForm.Views.InstructoresView;
+using WPF_LoginForm.ViewModels;
+
 
 namespace WPF_LoginForm.Views.GUser
 {
@@ -23,6 +23,7 @@ namespace WPF_LoginForm.Views.GUser
     /// </summary>
     public partial class CursoInfoGView : UserControl
     {
+
         public CursoInfoGView()
         {
             InitializeComponent();
@@ -52,6 +53,7 @@ namespace WPF_LoginForm.Views.GUser
             public string puesto { get; set; }
         }
 
+ 
 
     }
 }

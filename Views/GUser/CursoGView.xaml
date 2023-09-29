@@ -8,15 +8,13 @@
             mc:Ignorable="d" 
             d:DesignHeight="600" d:DesignWidth="800">
 
-    <Border Background="Transparent"
-    CornerRadius="10"
-    BorderThickness="1">
+
+    <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -25,22 +23,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <TextBox x:Name="txtSearch"
-                 PreviewTextInput="TextBox_PreviewTextInput2"
-                 Grid.Column="0"
-                 FontSize="13"
-                 Height="24"
-                 Width="auto"
-                 Background="Transparent"
-                 FontWeight="Medium"
-                 FontFamily="Montserrat"                            
-                 Foreground="White"
-                 CaretBrush="DarkGray"
-                 BorderBrush="{StaticResource search}"
-                 BorderThickness="0,0,0,1"                             
-                 VerticalContentAlignment="Center"
-                 Margin="5,5,0,0">
-            </TextBox>
+                <TextBox x:Name="txtSearch" Style="{StaticResource textboxSearch}" Grid.Column="0"/>
                 <TextBlock Text="Buscar Curso..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -53,32 +36,26 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
-
             </Grid>
 
-            
-
-            <Button x:Name="btnSearch"
-                Style="{StaticResource searchButton}"
-                Tag="{StaticResource color10}"
-                Grid.Column="1"
-                Cursor="Hand"
-                HorizontalAlignment="Left" Height="55" VerticalAlignment="Bottom" Click="btnSearch_Click">
-                <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
-            </Button>
-
+            <fa:IconImage Icon="Search" Grid.Column="1" HorizontalAlignment="Left" Foreground="White" Width="20" Height="20"/>
+                   
             <Button x:Name="btnNueva" Style="{StaticResource addButton}" Width="180" Grid.Column="2" Margin="0 0 5 0"
-                    Command="{Binding DataContext.ShowCursoNuevoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                <StackPanel Orientation="Horizontal">
-                    <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
-                    <TextBlock Text="Nueva Lista de Asistencia"/>
-                </StackPanel>
-            </Button>
-
+                        Command="{Binding DataContext.ShowCursoNuevoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
+                        <TextBlock Text="Nueva Lista de Asistencia"/>
+                    </StackPanel>
+                </Button>
 
 
             <Border Grid.Row="1" CornerRadius="7" Grid.ColumnSpan="3">
-                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" x:Name="listaDataGrid" Width="Auto" Height="480">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}" 
+                          x:Name="listaDataGrid" Width="Auto" Height="480" SelectionChanged="listaDataGrid_SelectionChanged">
+
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="40" Binding="{Binding num}"/>
                         <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
@@ -87,12 +64,13 @@
                         <DataGridTextColumn Header="Inicia" IsReadOnly="True" Width="*" Binding="{Binding inicia}"/>
                         <DataGridTextColumn Header="Termina" IsReadOnly="True" Width="*" Binding="{Binding termina}"/>
 
-                        <DataGridTemplateColumn Header="Ver Info" Width="*">
+                        <DataGridTemplateColumn Header="Ver Info." Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource eyeButton}"
-                                    Cursor="Hand"
-                                    Command="{Binding DataContext.ShowCursoInfoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                            Cursor="Hand"
+                                            Click="Button_Click"
+                                            Command="{Binding DataContext.ShowCursoInfoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                         <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
                                     </Button>
                                 </DataTemplate>
@@ -101,9 +79,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
-
-
-
         </Grid>
     </Border>
 </UserControl>

@@ -9,26 +9,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
 
-    <UserControl.DataContext>
-        <viewModel:CursosViewModel/>
-    </UserControl.DataContext>
-
-    <UserControl.Resources>
-        <DataTemplate DataType="{x:Type viewModel:CursoNuevoViewModel}">
-            <local:CursoNuevoView/>
-        </DataTemplate>
-    </UserControl.Resources>
-
-    <Border Background="Transparent"
-            CornerRadius="10"
-            BorderThickness="1">
+    <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -37,23 +24,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <TextBox x:Name="txtSearch"
-                             Grid.Column="0"
-                             FontSize="13"
-                             Height="24"
-                             Width="auto"
-                             Background="Transparent"
-                             FontWeight="Medium"
-                             FontFamily="Montserrat"                            
-                             Foreground="White"
-                             CaretBrush="DarkGray"
-                             BorderBrush="{StaticResource search}"
-                             BorderThickness="0,0,0,1"                             
-                             VerticalContentAlignment="Center"
-                             Margin="5,5,0,0"
-                             PreviewTextInput="TextBox_PreviewTextInput2">
-                </TextBox>
-
+                <TextBox x:Name="txtSearch" Grid.Column="0" Style="{StaticResource textboxSearch}"/>
                 <TextBlock Text="Buscar Curso..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
@@ -68,14 +39,8 @@
                 </TextBlock>
             </Grid>
 
-            <Button x:Name="btnSearch"
-                        Style="{StaticResource searchButton}"
-                        Tag="{StaticResource color10}"
-                        Grid.Column="1"
-                        Cursor="Hand"
-                        HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Click="btnSearch_Click">
-                <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
-            </Button>
+            <fa:IconImage Icon="Search" Width="20" Height="20" Foreground="White" Grid.Column="1" HorizontalAlignment="Left"/>
+
 
             <Button x:Name="btnNuevo" Style="{StaticResource addButton}" Grid.Column="2" Margin="0 0 5 0"
                     Command="{Binding DataContext.ShowCursoNuevoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
@@ -86,9 +51,12 @@
             </Button>
 
 
-
             <Border Grid.Row="1" CornerRadius="7" Grid.ColumnSpan="3">
-                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" x:Name="cursosDataGrid" Width="Auto" Height="480">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}" 
+                          x:Name="cursosDataGrid" Width="Auto" Height="480" SelectionChanged="cursosDataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding num}"/>
                         <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
@@ -113,10 +81,6 @@
                     Command="{Binding DataContext.ShowCursosTrabajadorViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                 <TextBlock Text="Ver Listas de Asistencia"/>
             </Button>
-
-
         </Grid>
     </Border>
-    
-    
 </UserControl>

@@ -9,9 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Border Background="Transparent"
-        CornerRadius="10"
-        BorderThickness="1">
+    <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
@@ -26,23 +24,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid>
-                    <TextBox x:Name="txtSearch"
-                    PreviewTextInput="TextBox_PreviewTextInput2"
-                     Grid.Column="0"
-                     FontSize="13"
-                     Height="24"
-                     Width="auto"
-                     Background="Transparent"
-                     FontWeight="Medium"
-                     FontFamily="Montserrat"                            
-                     Foreground="White"
-                     CaretBrush="DarkGray"
-                     BorderBrush="{StaticResource search}"
-                     BorderThickness="0,0,0,1"                             
-                     VerticalContentAlignment="Center"
-                     Margin="5,5,0,0">
-                    </TextBox>
-
+                    <TextBox x:Name="txtSearch" Grid.Column="0" Style="{StaticResource textboxSearch}" PreviewTextInput="TextBox_PreviewTextInput2"/>
                     <TextBlock Text="Buscar Trabajador..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -56,17 +38,8 @@
                         </TextBlock.Style>
                     </TextBlock>
                 </Grid>
-                
 
-
-                <Button x:Name="btnSearch"
-                    Style="{StaticResource searchButton}"
-                    Tag="{StaticResource color10}"
-                    Grid.Column="1"
-                    Cursor="Hand"
-                    HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Click="btnSearch_Click">
-                    <fa:IconImage Icon="Search" Width="20" Height="20" Style="{StaticResource controlButtonIcon}"/>
-                </Button>
+                <fa:IconImage Icon="Search" Width="20" Height="20" Foreground="White" Grid.Column="1" HorizontalAlignment="Left"/>
 
                 <Button x:Name="btnNuevo" Style="{StaticResource addButton}" Width="180" Grid.Column="2"
                         Command="{Binding DataContext.ShowPersonalNuevoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
@@ -77,16 +50,20 @@
                 </Button>
             </Grid>
 
-
             <Border Grid.Row="1" CornerRadius="7" Grid.RowSpan="2" Margin="0 30 0 0">
-                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" x:Name="personalDataGrid" Width="Auto" Height="Auto">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          RowStyle="{DynamicResource DataGridRowStyle1}" 
+                          x:Name="personalDataGrid" Width="Auto" Height="Auto" SelectionChanged="personalDataGrid_SelectionChanged">
+
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Núm. Ficha" CanUserResize="False" IsReadOnly="True" Width="*" Binding="{Binding numficha}"/>
-                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
+                        <DataGridTextColumn Header="Núm. Ficha" CanUserResize="False" IsReadOnly="True" Width="105" Binding="{Binding numficha}"/>
+                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="270" Binding="{Binding nombre}"/>
                         <DataGridTextColumn Header="Área" IsReadOnly="True" Width="*" Binding="{Binding area}"/>
                         <DataGridTextColumn Header="Puesto" IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
 
-                        <DataGridTemplateColumn Header="Ver/Editar Info" Width="*">
+                        <DataGridTemplateColumn Header="Ver/Editar Info" Width="100">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource eyeButton}"
@@ -100,9 +77,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
-
-
         </Grid>
     </Border>
-
 </UserControl>

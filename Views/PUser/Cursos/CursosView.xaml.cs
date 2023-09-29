@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,13 +22,16 @@ namespace WPF_LoginForm.Views
     /// </summary>
     public partial class CursosView : UserControl
     {
+
+        //filtrar
+        private ObservableCollection<Curso> cursoOriginal;
+        private ICollectionView cursoFiltrado;
+
         public CursosView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-
-            
-
+           
             var converter = new BrushConverter();
             ObservableCollection<Curso> cursos = new ObservableCollection<Curso>();
 
@@ -41,25 +45,13 @@ namespace WPF_LoginForm.Views
             cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
             cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
 
-            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2" });
-            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3" });
-            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4" });
-            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5" });
-            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6" });
-            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
-            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
-
-            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2" });
-            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3" });
-            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4" });
-            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5" });
-            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6" });
-            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
-            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
-
-
-
             cursosDataGrid.ItemsSource = cursos;
+
+            //filtrar
+            cursoOriginal = cursos;
+            cursoFiltrado = CollectionViewSource.GetDefaultView(cursoOriginal);
+            cursosDataGrid.ItemsSource = cursoFiltrado;
+            txtSearch.TextChanged += TxtSearch_TextChanged;
 
 
         }
@@ -89,14 +81,34 @@ namespace WPF_LoginForm.Views
             return text.All(char.IsLetter);
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        //filtrar
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string texto = txtSearch.Text.Trim();
+            string search = txtSearch.Text.Trim().ToLower(); // Convierte el texto a minúsculas
 
-            if (string.IsNullOrEmpty(texto))
+            if (string.IsNullOrEmpty(search))
             {
-                MessageBox.Show("El campo no puede estar vacío.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return; 
+                cursoFiltrado.Filter = null; // Si el texto está vacío, muestra todos los elementos
+            }
+            else
+            {
+                cursoFiltrado.Filter = item =>
+                {
+                    var curso = item as Curso;
+                    return curso.nombre.ToLower().Contains(search);
+                };
+            }
+        }
+
+        private void cursosDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cursosDataGrid.SelectedItem != null)
+            {
+                // Obtén el valor de la columna "#" (num)
+                string numValue = (cursosDataGrid.SelectedItem as Curso)?.num;
+
+                // Ahora, puedes usar la variable 'numValue' para hacer lo que necesites con ese valor.
+                //txtSearch.Text = numValue.ToString();
             }
         }
     }

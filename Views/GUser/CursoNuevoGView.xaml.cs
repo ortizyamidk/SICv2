@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.CustomControls;
 using static WPF_LoginForm.Views.CursosView;
 using static WPF_LoginForm.Views.GUser.CursoGView;
 
@@ -23,10 +26,34 @@ namespace WPF_LoginForm.Views.GUser
     /// </summary>
     public partial class CursoNuevoGView : UserControl
     {
+        SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
+        SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
+        string req = "*Campo requerido";
+
         public CursoNuevoGView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
+            // Suscribir al evento SelectionChanged del ComboBox
+            cbInstructor.SelectionChanged += ComboBox_SelectionChanged;
+            // Suscribir al evento LostFocus del TextBox
+            txtcbInstructor.LostFocus += TextBox_LostFocus;
+
+            // Suscribir al evento SelectionChanged del TimePicker
+            tiHorario.SelectedTimeChanged += TiHorario_SelectedTimeChanged;
+            txtDuracion_TextChanged(txtDuracion, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None));
+            txtLugar_TextChanged(txtLugar, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None));
+
+            if (string.IsNullOrEmpty(dtInicia.ToString()))
+            {
+                errIn.Content = req;
+                errIn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                errIn.Visibility = Visibility.Collapsed;
+            }
 
 
             var converter = new BrushConverter();
@@ -48,7 +75,6 @@ namespace WPF_LoginForm.Views.GUser
         }
 
       
-
         public class Participante
         {
             public string num { get; set; }
@@ -57,10 +83,14 @@ namespace WPF_LoginForm.Views.GUser
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {         
+           MostrarCustomMessageBox();  
+        }
+
+        private void MostrarCustomMessageBox()
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
-            txtDescripcion.Text = "¡Registro guardado correctamente!";
-            btnA.Content = "Aceptar";
+            MessageBoxCustom customMessageBox = new MessageBoxCustom(); // Establece la ventana principal como propietaria para mantener el enfoque.
+            customMessageBox.ShowDialog(); // Muestra el MessageBox personalizado como un cuadro de diálogo modal.
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -77,7 +107,6 @@ namespace WPF_LoginForm.Views.GUser
             }
         }
 
-        // Método para verificar si una cadena es numérica
         private bool IsNumeric(string text)
         {
             return int.TryParse(text, out _); // Intenta convertir el texto a un entero
@@ -98,9 +127,135 @@ namespace WPF_LoginForm.Views.GUser
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.Xmark;
-            txtDescripcion.Text = "No se ha encontrado el registro";
-            btnA.Content = "Aceptar";
+            if (string.IsNullOrEmpty(txtBuscar.Text))
+            {
+                MessageBox.Show("Ingrese valor válido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+            
+            }
+
+            
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Verificar si el primer elemento está seleccionado (índice 0)
+            if (cbInstructor.SelectedIndex == 0)
+            {
+                // Mostrar el TextBox y ocultar el ComboBox
+                txtcbInstructor.Visibility = Visibility.Visible;
+                cbInstructor.Visibility = Visibility.Collapsed;
+                txtcbInstructor.Focus();
+            }
+            else
+            {
+                // Ocultar el TextBox y mostrar el ComboBox
+                txtcbInstructor.Visibility = Visibility.Hidden;
+                cbInstructor.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Verificar si el TextBox está vacío al perder el enfoque
+            if (string.IsNullOrWhiteSpace(txtcbInstructor.Text))
+            {
+                // Mostrar el ComboBox y ocultar el TextBox
+                txtcbInstructor.Visibility = Visibility.Hidden;
+                cbInstructor.Visibility = Visibility.Visible;
+                cbInstructor.SelectedIndex = 1;
+            }
+        }
+     
+        private void dtTermina_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime? selectedDate = dtInicia.SelectedDate;
+            DateTime? selectedDateT = dtTermina.SelectedDate;
+
+
+            if (selectedDateT<selectedDate) 
+            {
+                errTer.Content = "No puede ser menor a la inicial";
+                errTer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                errTer.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void txtDuracion_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtDuracion.Text))
+            {
+                txtDuracion.BorderBrush = bordeError;
+                errDur.Content = req; 
+                errDur.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                errDur.Visibility = Visibility.Collapsed;
+                txtDuracion.BorderBrush = bordeNormal;
+            }
+        }
+
+        private void txtLugar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtLugar.Text))
+            {
+                txtLugar.BorderBrush = bordeError;
+                errLug.Content = req;
+                errLug.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                errLug.Visibility = Visibility.Collapsed;
+                txtLugar.BorderBrush = bordeNormal;
+            }
+        }
+
+        private void dtInicia_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime? selectedDate = dtInicia.SelectedDate;
+            DateTime fechaActual = DateTime.Now;
+            DateTime fechaAnterior = fechaActual.AddDays(-1);
+
+            if (selectedDate < fechaAnterior)
+            {
+                // La fecha seleccionada es anterior a la fecha actual
+                errIn.Content = "No puede ser anterior a la actual";
+                errIn.Visibility = Visibility.Visible;
+
+            }
+            else
+            {
+                errIn.Visibility = Visibility.Collapsed;
+            }
+           
+        }
+
+        private void TiHorario_SelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
+        {
+            DateTime? horaSeleccionada = tiHorario.SelectedTime;
+
+            if (horaSeleccionada.HasValue)
+            {
+                DateTime horaActual = DateTime.Now;
+
+                // Comparar la hora seleccionada con la hora actual
+                if (horaSeleccionada.Value < horaActual)
+                {
+                    // La hora seleccionada es anterior a la hora actual, mostrar el mensaje de error
+                    errHor.Content = "No puede ser anterior a la hora actual.";
+                    errHor.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    errHor.Visibility = Visibility.Collapsed;
+                }
+            }            
         }
     }
 }

@@ -471,8 +471,21 @@
     </Style>
 
 
-
-
+<!--TEXTBOX SEARCH-->
+    <Style x:Key="textboxSearch" TargetType="TextBox">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="auto"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="CaretBrush" Value="DarkGray"/>
+        <Setter Property="BorderBrush" Value="{StaticResource search}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5,5,0,0"/>
+    </Style>
 
 
 

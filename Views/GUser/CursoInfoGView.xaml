@@ -37,7 +37,7 @@
                         <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
                             <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
                         </Button>
-                        <TextBox IsEnabled="False" Text="121" FontSize="20" HorizontalContentAlignment="Center" x:Name="txtNoLista" Style="{StaticResource myTextBox}" Width="130" />
+                        <TextBox IsEnabled="False" Text="" FontSize="20" HorizontalContentAlignment="Center" x:Name="txtNoLista" Style="{StaticResource myTextBox}" Width="130" />
                         <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
                             <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
                         </Button>
