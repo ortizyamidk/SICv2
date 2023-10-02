@@ -11,257 +11,236 @@
             d:DesignHeight="570" d:DesignWidth="1060">
 
     <Grid>
-        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
-            <!--POP UP MESSAGE-->
-            <materialDesign:DialogHost.DialogContent>
-                <Grid Width="290" Height="130" HorizontalAlignment="Center">
-                    <!-- Contenido del diálogo aquí -->
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <fa:IconImage x:Name="icono" Margin="5 10 0 0" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50" VerticalAlignment="Top"/>
-                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Margin="10 10 0 0" HorizontalAlignment="Center" FontSize="18" FontFamily="Calibri" FontWeight="SemiBold" Width="200" TextWrapping="Wrap"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
-                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+        <Border CornerRadius="27" BorderThickness="1">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+            </Border.Background>
 
-                    </StackPanel>
-                </Grid>
-            </materialDesign:DialogHost.DialogContent>
-            <Border CornerRadius="27" BorderThickness="1">
-                <Border.Background>
-                    <ImageBrush ImageSource="/Images/fondoform.jpg"/>
-                </Border.Background>
+            <Grid x:Name="gridPrincipal" Width="auto" Height="auto" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
 
-                <Grid x:Name="gridPrincipal" Width="auto" Height="auto" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="240"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                <Border CornerRadius="15" Margin="10">
+                    <Border.Background>
+                        <SolidColorBrush Color="Black" Opacity="0.5"/>
+                    </Border.Background>
 
-                    <Border CornerRadius="15" Margin="10">
-                        <Border.Background>
-                            <SolidColorBrush Color="Black" Opacity="0.5"/>
-                        </Border.Background>
-
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="90"/>
-                                <RowDefinition Height="250"/>
-                                <RowDefinition Height="90"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <StackPanel Orientation="Vertical" Grid.Column="2" Width="130">
-                                <Label Content="No ficha:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox x:Name="txtNoFicha" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
-                            </StackPanel>
-
-                            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
-                                <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
-                                <Button x:Name="btnExam" Margin="0 10 0 0" FontWeight="DemiBold" Content="Examinar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="100" Height="30" Cursor="Hand"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" Grid.Row="2" Width="200">
-                                <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
-                                <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                    <ComboBox x:Name="cbCat" Foreground="Black" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
-                                        <ComboBox.Items>
-                                            <ComboBoxItem Content="Empleado" />
-                                            <ComboBoxItem Content="Sindicalizado" />
-                                            <ComboBoxItem Content="Supervisor" />
-                                        </ComboBox.Items>
-
-                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                    </ComboBox>
-                                </Border>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" Grid.Row="3" Width="200">
-                                <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Nivel Estudios:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
-                                <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                    <ComboBox x:Name="cbNivel" Foreground="Black" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
-                                        <ComboBox.Items>
-                                            <ComboBoxItem Content="Primaria" />
-                                            <ComboBoxItem Content="Secundaria" />
-                                            <ComboBoxItem Content="Comercial" />
-                                            <ComboBoxItem Content="Técnica" />
-                                            <ComboBoxItem Content="Preparatoria" />
-                                            <ComboBoxItem Content="Profesional" />
-                                            <ComboBoxItem Content="Licenciatura" />
-                                            <ComboBoxItem Content="Otro" />
-                                        </ComboBox.Items>
-
-                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                    </ComboBox>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <Grid Grid.Column="1">
+                    <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="90" />
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="210"/>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="250"/>
+                            <RowDefinition Height="90"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock HorizontalAlignment="Left" Grid.ColumnSpan="3" Text="Captura Nuevo Trabajador" FontWeight="Bold" 
-                            Foreground="Black" FontSize="35" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Width="130">
+                            <Label Content="No ficha:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox x:Name="txtNoFicha" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
 
-                        <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0"/>
+                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
+                            <Image x:Name="img" Source="/Images/perfil.jpg" Width="120" Height="180"/>
+                            <Button x:Name="btnExam" Margin="0 10 0 0" FontWeight="DemiBold" Content="Examinar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="100" Height="30" Cursor="Hand"/>
+                        </StackPanel>
 
-                        <Separator Grid.Row="0" Height="0.7" Width="650" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 70 0 0" Background="#374655"/>
+                        <StackPanel Orientation="Vertical" Grid.Row="2" Width="200">
+                            <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
+                            <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
+                                <ComboBox x:Name="cbCat" Foreground="Black" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Empleado" />
+                                        <ComboBoxItem Content="Sindicalizado" />
+                                        <ComboBoxItem Content="Supervisor" />
+                                    </ComboBox.Items>
 
-                        <Grid Grid.Row="1" Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="170"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="230"/>
-                            </Grid.ColumnDefinitions>
+                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
 
-                            <StackPanel Grid.Row="0" Margin="0 5 0 0">
-                                <Label Content="Fecha Ingreso:" FontWeight="Bold" FontSize="18" Margin="5 0 0 0"/>
-                                <DatePicker x:Name="dtIngreso" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                            </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Row="3" Width="200">
+                            <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Nivel Estudios:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
+                            <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
+                                <ComboBox x:Name="cbNivel" Foreground="Black" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Primaria" />
+                                        <ComboBoxItem Content="Secundaria" />
+                                        <ComboBoxItem Content="Comercial" />
+                                        <ComboBoxItem Content="Técnica" />
+                                        <ComboBoxItem Content="Preparatoria" />
+                                        <ComboBoxItem Content="Profesional" />
+                                        <ComboBoxItem Content="Licenciatura" />
+                                        <ComboBoxItem Content="Otro" />
+                                    </ComboBox.Items>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="1" Width="auto">
-                                <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-
-                                <Grid>
-                                    <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
-                                    <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Text, ElementName=txtNombre}" Value="">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Grid>
-
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Right">
-                                <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-
-                                <Grid>
-                                    <TextBox x:Name="txtRFC" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="200" BorderBrush="Black"/>
-                                    <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Text, ElementName=txtRFC}" Value="">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Grid>
-
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Grid.Row="2" Grid.Column="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="240"/>
-                                <ColumnDefinition Width="260"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
-                                <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                    <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
-                                        <ComboBox.Items>
-                                            <ComboBoxItem Content="Calidad" />
-                                            <ComboBoxItem Content="Producción" />
-                                            <ComboBoxItem Content="Mantenimiento" />
-                                        </ComboBox.Items>
-
-                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                    </ComboBox>
-                                </Border>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
-                                <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
-                                    <ComboBox x:Name="cbArea" Height="42" BorderThickness="0" Cursor="Hand" FontSize="15">
-                                        <ComboBox.Items>
-                                            <ComboBoxItem Content="Almacén de componentes" />
-                                            <ComboBoxItem Content="Calidad" />
-                                            <ComboBoxItem Content="Capacitación" />
-                                        </ComboBox.Items>
-
-                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                    </ComboBox>
-                                </Border>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
-                                <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox x:Name="txtJefe" Text="Lic. Eduardo Valdes Ceballos" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Grid.Column="1" Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="260"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Grid Grid.Column="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="100"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-
-                                <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
-                                    <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                        <ComboBox x:Name="cbPuesto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
-                                            <ComboBox.Items>
-                                                <ComboBoxItem Content="Acomodo de material" />
-                                                <ComboBoxItem Content="Almacenista" />
-                                                <ComboBoxItem Content="Capturista" />
-                                            </ComboBox.Items>
-
-                                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                        </ComboBox>
-                                    </Border>
-                                </StackPanel>
-
-
-                                <StackPanel Grid.Row="1" Orientation="Vertical" Width="230">
-                                    <Label Content="Otras funciones:" FontWeight="Bold" FontSize="18" Margin="5 4 0 5"/>
-                                    <CheckBox x:Name="chkAudit" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Auditor Interno" BorderBrush="White" Background="#FFA01C37"/>
-                                    <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
-                                </StackPanel>
-                            </Grid>
-
-
-                            <StackPanel Orientation="Vertical" Grid.Column="1">
-                                <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="160"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button x:Name="btnLimp" Margin="0 0 170 0" FontWeight="DemiBold" Content="Limpiar campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand"/>
-                            <Button x:Name="btnGuardar" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnGuardar_Click"/>
+                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                </ComboBox>
+                            </Border>
                         </StackPanel>
                     </Grid>
+                </Border>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90" />
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="210"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock HorizontalAlignment="Left" Grid.ColumnSpan="3" Text="Captura Nuevo Trabajador" FontWeight="Bold" 
+                            Foreground="Black" FontSize="35" VerticalAlignment="Center" Margin="10 0 0 0"/>
+
+                    <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0"/>
+
+                    <Separator Grid.Row="0" Height="0.7" Width="650" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 70 0 0" Background="#374655"/>
+
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="230"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Margin="0 5 0 0">
+                            <Label Content="Fecha Ingreso:" FontWeight="Bold" FontSize="18" Margin="5 0 0 0"/>
+                            <DatePicker x:Name="dtIngreso" SelectedDateChanged="dtIngreso_SelectedDateChanged" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
+                            <Label x:Name="errFecha" FontSize="10" Foreground="Red" Margin="10 -13 0 0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Width="auto">
+                            <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Grid>
+                                <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" FontSize="16" BorderBrush="Black"/>
+                                <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtNombre}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                            <Label x:Name="errNombre" Foreground="Red" Margin="30 -3 0 0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Right">
+                            <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Grid>
+                                <TextBox x:Name="txtRFC" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="200" BorderBrush="Black"/>
+                                <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtRFC}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                            <Label x:Name="errRfc" Foreground="Red" Margin="30 -3 0 0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="260"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
+                            <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Calidad" />
+                                        <ComboBoxItem Content="Producción" />
+                                        <ComboBoxItem Content="Mantenimiento" />
+                                    </ComboBox.Items>
+
+                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Width="240">
+                            <Label Content="Área:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
+                                <ComboBox x:Name="cbArea" Height="42" BorderThickness="0" Cursor="Hand" FontSize="15">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Almacén de componentes" />
+                                        <ComboBoxItem Content="Calidad" />
+                                        <ComboBoxItem Content="Capacitación" />
+                                    </ComboBox.Items>
+
+                                    <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                </ComboBox>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
+                            <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox x:Name="txtJefe" Text="Lic. Eduardo Valdes Ceballos" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Column="1" Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="260"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
+                                <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                    <ComboBox x:Name="cbPuesto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Acomodo de material" />
+                                            <ComboBoxItem Content="Almacenista" />
+                                            <ComboBoxItem Content="Capturista" />
+                                        </ComboBox.Items>
+
+                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Orientation="Vertical" Width="230">
+                                <Label Content="Otras funciones:" FontWeight="Bold" FontSize="18" Margin="5 4 0 5"/>
+                                <CheckBox x:Name="chkAudit" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Auditor Interno" BorderBrush="White" Background="#FFA01C37"/>
+                                <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="16" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="False"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                            <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="160"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button x:Name="btnLimp" Margin="0 0 170 0" FontWeight="DemiBold" Content="Limpiar campos" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnLimp_Click"/>
+                        <Button x:Name="btnGuardar" Content="Guardar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnGuardar_Click"/>
+                    </StackPanel>
                 </Grid>
-            </Border>
-        </materialDesign:DialogHost>
+            </Grid>
+        </Border>
     </Grid>
-
-
 </UserControl>

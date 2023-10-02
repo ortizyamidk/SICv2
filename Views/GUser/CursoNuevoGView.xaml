@@ -97,8 +97,8 @@
                                 <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
                                 <Grid>
-                                    <TextBox x:Name="txtDuracion" PreviewTextInput="TextBox_PreviewTextInput" TextChanged="txtDuracion_TextChanged" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
-                                    <TextBlock x:Name="tbDuracion" Text="En minutos" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBox x:Name="txtDuracion" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                                    <TextBlock x:Name="tbDuracion" Text="En minutos" FontSize="14" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -127,8 +127,8 @@
                                 <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
 
                                 <Grid>
-                                    <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" TextChanged="txtLugar_TextChanged" FontSize="15" BorderBrush="Black"/>
-                                    <TextBlock Text="Lugar donde se impartirá" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                                    <TextBlock Text="Lugar donde se impartirá" Foreground="Gray" FontSize="14" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Visibility" Value="Collapsed"/>
@@ -210,7 +210,7 @@
                                     <DataGridTemplateColumn Header="Borrar" Width="90">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Style="{StaticResource eyeButton}" Cursor="Hand">
+                                                <Button x:Name="btnBorrar" Style="{StaticResource eyeButton}" Cursor="Hand" Click="btnBorrar_Click">
                                                     <fa:IconImage Icon="Trash" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
                                                 </Button>
                                             </DataTemplate>

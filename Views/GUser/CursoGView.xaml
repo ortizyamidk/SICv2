@@ -68,8 +68,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource eyeButton}"
-                                            Cursor="Hand"
-                                            Click="Button_Click"
+                                            Cursor="Hand"                                         
                                             Command="{Binding DataContext.ShowCursoInfoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                         <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
                                     </Button>

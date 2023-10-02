@@ -93,10 +93,6 @@ namespace WPF_LoginForm.Views.GUser
 
   
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
         private void listaDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listaDataGrid.SelectedItem != null)
@@ -105,7 +101,7 @@ namespace WPF_LoginForm.Views.GUser
                 string numValue = (listaDataGrid.SelectedItem as ListaAsistencia)?.num;
 
                 // Ahora, puedes usar la variable 'numValue' para hacer lo que necesites con ese valor.
-                txtSearch.Text = numValue.ToString();
+                //txtSearch.Text = numValue.ToString();
             }
         }
 

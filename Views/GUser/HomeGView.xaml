@@ -6,9 +6,14 @@
              xmlns:local="clr-namespace:WPF_LoginForm.Views.GUser"
              xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-            xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+            xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" xmlns:local1="clr-namespace:WPF_LoginForm.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="570" d:DesignWidth="1060">
+
+    <UserControl.DataContext>
+        <local1:HomeGViewModel/>
+    </UserControl.DataContext>
+
 
     <Border CornerRadius="27" BorderThickness="1">
         <Border.Background>
@@ -61,10 +66,10 @@
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
 
-                        <lvc:PieChart Grid.Row="0" LegendLocation="None" InnerRadius="150" Hoverable="False" Height="350" DataTooltip="{x:Null}">
+                        <lvc:PieChart x:Name="miPieChart" Grid.Row="0" LegendLocation="None" InnerRadius="150" Hoverable="False" Height="350" DataTooltip="{x:Null}">
                             <lvc:PieChart.Series>
-                                <lvc:PieSeries Values="2" StrokeThickness="0" Fill="{StaticResource panelActiveColor}" />
-                                <lvc:PieSeries Values="8" StrokeThickness="0" Fill="DarkGray" />
+                                <lvc:PieSeries x:Name="valor1" Values="2" StrokeThickness="0" Fill="{StaticResource panelActiveColor}" />
+                                <lvc:PieSeries x:Name="valor2" Values="8" StrokeThickness="0" Fill="DarkGray" />
                             </lvc:PieChart.Series>
                         </lvc:PieChart>
 

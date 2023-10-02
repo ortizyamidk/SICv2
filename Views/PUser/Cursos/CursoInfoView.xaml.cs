@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.CustomControls;
 
 namespace WPF_LoginForm.Views
 {
@@ -20,6 +21,11 @@ namespace WPF_LoginForm.Views
     /// </summary>
     public partial class CursoInfoView : UserControl
     {
+
+        SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
+        SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
+        string req = "*Campo requerido";
+
         public CursoInfoView()
         {
             InitializeComponent();
@@ -32,6 +38,7 @@ namespace WPF_LoginForm.Views
             txtNombreC.IsEnabled = true;
             cbAreaT.IsEnabled = true;
             cbMes.IsEnabled = true;
+
             btnEdit.IsEnabled = false;
             btnSave.IsEnabled = true;
 
@@ -44,6 +51,7 @@ namespace WPF_LoginForm.Views
             txtNombreC.IsEnabled = false;
             cbAreaT.IsEnabled = false;
             cbMes.IsEnabled = false;
+
             btnEdit.IsEnabled = true;
             btnSave.IsEnabled = false;
         }
@@ -55,11 +63,24 @@ namespace WPF_LoginForm.Views
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
-            txtDescripcion.Text = "¡Registro editado correctamente!";
-            btnA.Content = "Aceptar";
-
-            deshabilitar();
+            if (string.IsNullOrEmpty(txtNombreC.Text))
+            {
+                errCurso.Content = req;
+                txtNombreC.BorderBrush = bordeError;
+            }
+            else
+            {
+                MostrarCustomMessageBox();
+                errCurso.Content = string.Empty;
+                txtNombreC.BorderBrush = bordeNormal;
+                deshabilitar();
+            }           
         }
+
+        private void MostrarCustomMessageBox()
+        {
+            MessageBoxCustom customMessageBox = new MessageBoxCustom();
+            customMessageBox.ShowDialog();
+        }       
     }
 }

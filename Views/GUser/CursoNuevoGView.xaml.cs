@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
 using static WPF_LoginForm.Views.CursosView;
 using static WPF_LoginForm.Views.GUser.CursoGView;
+using static WPF_LoginForm.Views.GUser.CursoNuevoGView;
 
 namespace WPF_LoginForm.Views.GUser
 {
@@ -30,6 +31,9 @@ namespace WPF_LoginForm.Views.GUser
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
         string req = "*Campo requerido";
 
+        private ObservableCollection<Participante> participantes;
+
+        
         public CursoNuevoGView()
         {
             InitializeComponent();
@@ -40,41 +44,17 @@ namespace WPF_LoginForm.Views.GUser
             // Suscribir al evento LostFocus del TextBox
             txtcbInstructor.LostFocus += TextBox_LostFocus;
 
+            //insertar fechas actuales
+            dtInicia.SelectedDate = DateTime.Now;
+            dtTermina.SelectedDate = DateTime.Now;
+
+            tiHorario.SelectedTime = DateTime.Now;
+
             // Suscribir al evento SelectionChanged del TimePicker
             tiHorario.SelectedTimeChanged += TiHorario_SelectedTimeChanged;
-            txtDuracion_TextChanged(txtDuracion, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None));
-            txtLugar_TextChanged(txtLugar, new TextChangedEventArgs(TextBox.TextChangedEvent, UndoAction.None));
-
-            if (string.IsNullOrEmpty(dtInicia.ToString()))
-            {
-                errIn.Content = req;
-                errIn.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                errIn.Visibility = Visibility.Collapsed;
-            }
-
-
-            var converter = new BrushConverter();
-            ObservableCollection<Participante> participantes = new ObservableCollection<Participante>();
-
-            participantes.Add(new Participante { num = "1", nombre = "Marcella Yamilet Ortiz Guillén", puesto = "Analista de Laboratorio Insp. Recibo de Comp" });
-            participantes.Add(new Participante { num = "2", nombre = "Trabajador 2", puesto = "Puesto 2" });
-            participantes.Add(new Participante { num = "3", nombre = "Trabajador 3", puesto = "Puesto 3" });
-            participantes.Add(new Participante { num = "4", nombre = "Trabajador 4", puesto = "Puesto 4" });
-            participantes.Add(new Participante { num = "5", nombre = "Trabajador 5", puesto = "Puesto 5" });
-            participantes.Add(new Participante { num = "6", nombre = "Trabajador 6", puesto = "Puesto 6" });
-            participantes.Add(new Participante { num = "7", nombre = "Trabajador 7", puesto = "Puesto 7" });
-            participantes.Add(new Participante { num = "8", nombre = "Trabajador 8", puesto = "Puesto 8" });
-            participantes.Add(new Participante { num = "9", nombre = "Trabajador 9", puesto = "Puesto 9" });
-            participantes.Add(new Participante { num = "10", nombre = "Trabajador 10", puesto = "Puesto 10" });
-
-            participantesDataGrid.ItemsSource = participantes;
 
         }
-
-      
+ 
         public class Participante
         {
             public string num { get; set; }
@@ -83,14 +63,49 @@ namespace WPF_LoginForm.Views.GUser
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
-        {         
-           MostrarCustomMessageBox();  
+        {
+            bool errores = false;
+
+            // Restablecer los mensajes de error y los bordes al estado inicial
+            errLug.Content = string.Empty;
+            errDur.Content = string.Empty;
+
+            txtDuracion.BorderBrush = bordeNormal;
+            txtLugar.BorderBrush = bordeNormal;
+
+
+            if (string.IsNullOrEmpty(txtDuracion.Text))
+            {
+                errDur.Content = req;
+                txtDuracion.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (string.IsNullOrEmpty(txtLugar.Text))
+            {
+                errLug.Content = req;
+                txtLugar.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (participantesDataGrid.Items.Count == 0)
+            {
+                MessageBox.Show("La lista no contiene registros. Agregue al menos un participante.", "No hay registros", MessageBoxButton.OK, MessageBoxImage.Error);
+                errores = true;
+            }
+
+            if (!errores)
+            {                
+                MostrarCustomMessageBox();
+                limpiar();
+            }
+
         }
 
         private void MostrarCustomMessageBox()
         {
-            MessageBoxCustom customMessageBox = new MessageBoxCustom(); // Establece la ventana principal como propietaria para mantener el enfoque.
-            customMessageBox.ShowDialog(); // Muestra el MessageBox personalizado como un cuadro de diálogo modal.
+            MessageBoxCustom customMessageBox = new MessageBoxCustom(); 
+            customMessageBox.ShowDialog(); 
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -129,11 +144,28 @@ namespace WPF_LoginForm.Views.GUser
         {
             if (string.IsNullOrEmpty(txtBuscar.Text))
             {
-                MessageBox.Show("Ingrese valor válido", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ingrese un No. de ficha", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
             {
-            
+                var converter = new BrushConverter();
+                // Inicializa la colección de participantes
+                participantes = new ObservableCollection<Participante>();
+
+                participantes.Add(new Participante { num = "1", nombre = "Marcella Yamilet Ortiz Guillén", puesto = "Analista de Laboratorio Insp. Recibo de Comp" });
+                /*participantes.Add(new Participante { num = "2", nombre = "Trabajador 2", puesto = "Puesto 2" });
+                participantes.Add(new Participante { num = "3", nombre = "Trabajador 3", puesto = "Puesto 3" });
+                participantes.Add(new Participante { num = "4", nombre = "Trabajador 4", puesto = "Puesto 4" });
+                participantes.Add(new Participante { num = "5", nombre = "Trabajador 5", puesto = "Puesto 5" });
+                participantes.Add(new Participante { num = "6", nombre = "Trabajador 6", puesto = "Puesto 6" });
+                participantes.Add(new Participante { num = "7", nombre = "Trabajador 7", puesto = "Puesto 7" });
+                participantes.Add(new Participante { num = "8", nombre = "Trabajador 8", puesto = "Puesto 8" });
+                participantes.Add(new Participante { num = "9", nombre = "Trabajador 9", puesto = "Puesto 9" });
+                participantes.Add(new Participante { num = "10", nombre = "Trabajador 10", puesto = "Puesto 10" });*/
+
+                participantesDataGrid.ItemsSource = participantes;
+
+                txtBuscar.Text = string.Empty;
             }
 
             
@@ -174,47 +206,30 @@ namespace WPF_LoginForm.Views.GUser
             DateTime? selectedDate = dtInicia.SelectedDate;
             DateTime? selectedDateT = dtTermina.SelectedDate;
 
-
-            if (selectedDateT<selectedDate) 
+            if (selectedDate.HasValue)
             {
-                errTer.Content = "No puede ser menor a la inicial";
+                if (selectedDateT<selectedDate) 
+                {
+                    errTer.Content = "Debe ser menor a la inicial";
+                    errTer.Visibility = Visibility.Visible;
+                    btnGuardar.IsEnabled= false;
+                }
+                else
+                {
+                    errTer.Visibility = Visibility.Collapsed;
+                    btnGuardar.IsEnabled = true;
+                }
+
+                dtTermina.BorderBrush = bordeNormal;
+            }
+            else
+            {
+                btnGuardar.IsEnabled = false;
+                errTer.Content = req;
                 errTer.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                errTer.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void txtDuracion_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtDuracion.Text))
-            {
-                txtDuracion.BorderBrush = bordeError;
-                errDur.Content = req; 
-                errDur.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                errDur.Visibility = Visibility.Collapsed;
-                txtDuracion.BorderBrush = bordeNormal;
-            }
-        }
-
-        private void txtLugar_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtLugar.Text))
-            {
-                txtLugar.BorderBrush = bordeError;
-                errLug.Content = req;
-                errLug.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                errLug.Visibility = Visibility.Collapsed;
-                txtLugar.BorderBrush = bordeNormal;
-            }
-        }
+                dtTermina.BorderBrush = bordeError;
+            }                                                          
+        }       
 
         private void dtInicia_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -222,17 +237,32 @@ namespace WPF_LoginForm.Views.GUser
             DateTime fechaActual = DateTime.Now;
             DateTime fechaAnterior = fechaActual.AddDays(-1);
 
-            if (selectedDate < fechaAnterior)
+            if (selectedDate.HasValue)
             {
-                // La fecha seleccionada es anterior a la fecha actual
-                errIn.Content = "No puede ser anterior a la actual";
-                errIn.Visibility = Visibility.Visible;
+                if (selectedDate < fechaAnterior)
+                {
+                    // La fecha seleccionada es anterior a la fecha actual
+                    errIn.Content = "Debe ser posterior a la actual";
+                    errIn.Visibility = Visibility.Visible;
+                    btnGuardar.IsEnabled = false;
 
+                }
+                else
+                {
+                    errIn.Visibility = Visibility.Collapsed;
+                    btnGuardar.IsEnabled = true;
+                }
+
+                dtInicia.BorderBrush = bordeNormal;
             }
             else
             {
-                errIn.Visibility = Visibility.Collapsed;
+                btnGuardar.IsEnabled = false;
+                errIn.Content = req;
+                errIn.Visibility = Visibility.Visible;
+                dtInicia.BorderBrush = bordeError;
             }
+            
            
         }
 
@@ -241,21 +271,61 @@ namespace WPF_LoginForm.Views.GUser
             DateTime? horaSeleccionada = tiHorario.SelectedTime;
 
             if (horaSeleccionada.HasValue)
-            {
-                DateTime horaActual = DateTime.Now;
+            {                
+              btnGuardar.IsEnabled = true;
+              errHor.Visibility = Visibility.Collapsed;
+              tiHorario.BorderBrush = bordeNormal;
+            }
+            else
+            {                
+                btnGuardar.IsEnabled= false;
+                errHor.Content = req;
+                errHor.Visibility= Visibility.Visible;
+                tiHorario.BorderBrush= bordeError;                
+            }
+        }
 
-                // Comparar la hora seleccionada con la hora actual
-                if (horaSeleccionada.Value < horaActual)
+        public void limpiar()
+        {
+            // Restablecer los valores de los controles a sus valores iniciales
+            txtDuracion.Text = string.Empty;
+            txtLugar.Text = string.Empty;
+            dtInicia.SelectedDate = DateTime.Now;
+            dtTermina.SelectedDate = DateTime.Now;
+            tiHorario.SelectedTime = DateTime.Now;
+            cbInstructor.SelectedIndex = 0;
+            txtcbInstructor.Text = string.Empty;
+
+            // Restablecer los bordes y etiquetas de error
+            txtDuracion.BorderBrush = bordeNormal;
+            txtLugar.BorderBrush = bordeNormal;
+            errDur.Content = string.Empty;
+            errLug.Content = string.Empty;
+            errIn.Content = string.Empty;
+            errTer.Content = string.Empty;
+            errHor.Content = string.Empty;
+
+            dtInicia.Focus();
+
+            participantes.Clear();            
+        }
+
+        private void btnBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            // Obtener el botón que se hizo clic
+            Button button = sender as Button;
+
+            if (button != null)
+            {
+                // Obtener el elemento de la fila seleccionada
+                var participante = button.DataContext as Participante;
+
+                if (participante != null)
                 {
-                    // La hora seleccionada es anterior a la hora actual, mostrar el mensaje de error
-                    errHor.Content = "No puede ser anterior a la hora actual.";
-                    errHor.Visibility = Visibility.Visible;
+                    // Eliminar el elemento de la colección de datos
+                    participantes.Remove(participante);
                 }
-                else
-                {
-                    errHor.Visibility = Visibility.Collapsed;
-                }
-            }            
+            }
         }
     }
 }

@@ -17,9 +17,7 @@ using System.Windows.Shapes;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para CursosView.xaml
-    /// </summary>
+
     public partial class CursosView : UserControl
     {
 

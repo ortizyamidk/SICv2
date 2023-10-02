@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.CustomControls;
 using static WPF_LoginForm.Views.CustomerView;
 
 namespace WPF_LoginForm.Views
@@ -22,12 +23,14 @@ namespace WPF_LoginForm.Views
     /// </summary>
     public partial class InstructorNuevoView : UserControl
     {
+        SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
+        SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
+        string req = "*Campo requerido";
+
         public InstructorNuevoView()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-
-            
+            Loaded += MainWindow_Loaded;          
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -50,9 +53,69 @@ namespace WPF_LoginForm.Views
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
-            txtDescripcion.Text = "¡Registro guardado correctamente!";
-            btnA.Content = "Aceptar";
+            bool errores = false;
+
+            // Restablecer los mensajes de error y los bordes al estado inicial
+            errNombre.Content = string.Empty;
+            errRfc.Content = string.Empty;
+            errComp.Content = string.Empty;
+
+            txtNombreI.BorderBrush = bordeNormal;
+            txtRFC.BorderBrush = bordeNormal;
+            txtCompania.BorderBrush = bordeNormal;
+
+            if (string.IsNullOrEmpty(txtNombreI.Text))
+            {
+                errNombre.Content = req;
+                txtNombreI.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (string.IsNullOrEmpty(txtRFC.Text))
+            {
+                errRfc.Content = req;
+                txtRFC.BorderBrush = bordeError;
+                errores = true;
+            }
+            else if (txtRFC.Text.Length < 13)
+            {
+                errRfc.Content = "El RFC debe tener al menos 13 caracteres";
+                txtRFC.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (string.IsNullOrEmpty(txtCompania.Text))
+            {
+                errComp.Content = req;
+                txtCompania.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (!errores)
+            {
+                MostrarCustomMessageBox();
+                limpiar();             
+            }
+        }
+
+        private void MostrarCustomMessageBox()
+        {
+            MessageBoxCustom customMessageBox = new MessageBoxCustom();
+            customMessageBox.ShowDialog();
+        }
+
+        private void btnLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            limpiar();
+        }
+
+        public void limpiar()
+        {
+            txtNombreI.Text = string.Empty;
+            txtCompania.Text = string.Empty;
+            txtRFC.Text = string.Empty;
+
+            txtNombreI.Focus();
         }
     }
 }

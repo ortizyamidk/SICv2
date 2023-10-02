@@ -93,5 +93,32 @@ namespace WPF_LoginForm.Views
         {
             return int.TryParse(text, out _); // Intenta convertir el texto a un entero
         }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSearch.Text))
+            {
+                MessageBox.Show("Ingrese un No. de curso", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                txtSearch.Focus();
+            }
+            else
+            {
+                //hacer consulta. Hacer otro if por si no existe el curso
+            }            
+        }
+
+        private void btnSig_Click(object sender, RoutedEventArgs e)
+        {
+            txtNoCurso.Text = "129";
+            txtCurso.Text = "Medio Ambiente y Seguridad";
+            txtArea.Text = "Ambiental";
+        }
+
+        private void btnAnt_Click(object sender, RoutedEventArgs e)
+        {
+            txtNoCurso.Text = "127";
+            txtCurso.Text = "Seguridad y Mantenimiento";
+            txtArea.Text = "Mantenimiento";
+        }
     }
 }

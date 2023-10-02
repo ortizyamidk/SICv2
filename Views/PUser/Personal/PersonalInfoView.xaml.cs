@@ -12,14 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.CustomControls;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para PersonalInfoView.xaml
-    /// </summary>
+    
     public partial class PersonalInfoView : UserControl
     {
+        SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
+        SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
+        string req = "*Campo requerido";
+
         public PersonalInfoView()
         {
             InitializeComponent();
@@ -66,14 +69,51 @@ namespace WPF_LoginForm.Views
             btnSave.IsEnabled = false;
             btnEdit.IsEnabled = true;
             txtRFC.IsEnabled= false;
+            txtNoTarj.IsEnabled = false;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
-            txtDescripcion.Text = "¡Registro editado correctamente!";
-            btnA.Content = "Aceptar";
-            Deshabilitar();
+            bool errores = false;
+
+            // Restablecer los mensajes de error y los bordes al estado inicial
+            errNombre.Content = string.Empty;
+            errRfc.Content = string.Empty;
+
+            txtNombre.BorderBrush = bordeNormal;
+            txtRFC.BorderBrush = bordeNormal;
+
+            if (string.IsNullOrEmpty(txtNombre.Text))
+            {
+                errNombre.Content = req;
+                txtNombre.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (string.IsNullOrEmpty(txtRFC.Text))
+            {
+                errRfc.Content = req;
+                txtRFC.BorderBrush = bordeError;
+                errores = true;
+            }
+            else if (txtRFC.Text.Length < 13)
+            {
+                errRfc.Content = "Al menos 13 caracteres";
+                txtRFC.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            if (!errores)
+            {
+                MostrarCustomMessageBox();
+                Deshabilitar();               
+            }
+        }
+
+        private void MostrarCustomMessageBox()
+        {
+            MessageBoxCustom customMessageBox = new MessageBoxCustom();
+            customMessageBox.ShowDialog();
         }
 
         private void btnSig_Click(object sender, RoutedEventArgs e)

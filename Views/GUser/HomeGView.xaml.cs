@@ -23,6 +23,7 @@ namespace WPF_LoginForm.Views.GUser
         public HomeGView()
         {
             InitializeComponent();
+
         }
 
        

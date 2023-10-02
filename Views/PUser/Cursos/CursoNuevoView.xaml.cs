@@ -13,20 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para CursoNuevoView.xaml
-    /// </summary>
+
     public partial class CursoNuevoView : UserControl
     {
+        SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
+        SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
+        string req = "*Campo requerido";
+
         public CursoNuevoView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
         }
+
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -35,9 +39,24 @@ namespace WPF_LoginForm.Views
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.ThumbsUp;
-            txtDescripcion.Text = "¡Registro guardado correctamente!";
-            btnA.Content = "Aceptar";
+            if (string.IsNullOrEmpty(txtNombreC.Text))
+            {
+                errCurso.Content = req;
+                txtNombreC.BorderBrush = bordeError;
+            }
+            else
+            {               
+                MostrarCustomMessageBox();
+                errCurso.Content = string.Empty;
+                txtNombreC.BorderBrush = bordeNormal;
+                txtNombreC.Text = string.Empty;
+            }
+        }
+
+        private void MostrarCustomMessageBox()
+        {
+            MessageBoxCustom customMessageBox = new MessageBoxCustom();
+            customMessageBox.ShowDialog();
         }
     }
 }

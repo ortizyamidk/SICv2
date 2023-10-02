@@ -10,22 +10,7 @@
              d:DesignHeight="570" d:DesignWidth="1060">
 
     <Grid>
-        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
-            <!--POP UP MESSAGE-->
-            <materialDesign:DialogHost.DialogContent>
-                <Grid Width="290" Height="130" HorizontalAlignment="Center">
-                    <!-- Contenido del diálogo aquí -->
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <fa:IconImage x:Name="icono" Margin="5 10 0 0" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50" VerticalAlignment="Top"/>
-                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Margin="10 10 0 0" HorizontalAlignment="Center" FontSize="18" FontFamily="Calibri" FontWeight="SemiBold" Width="200" TextWrapping="Wrap"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
-                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
-
-                    </StackPanel>
-                </Grid>
-            </materialDesign:DialogHost.DialogContent>
-            <Border CornerRadius="27" BorderThickness="1">
+        <Border CornerRadius="27" BorderThickness="1">
                 <Border.Background>
                     <ImageBrush ImageSource="/Images/fondoform.jpg"/>
                 </Border.Background>
@@ -43,14 +28,14 @@
 
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="60"/>
                                 <RowDefinition Height="200"/>
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="45"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock x:Name="lblNoFicha" Grid.Row="0" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 57019" HorizontalAlignment="Center" Margin="0 10 0 10" FontSize="25"/>
+                            <TextBlock x:Name="lblNoFicha" Grid.Column="0" TextWrapping="Wrap" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 57019" HorizontalAlignment="Center" Margin="5 10 0 10" FontSize="23"/>
 
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
                                 <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
@@ -109,17 +94,22 @@
                                     </Border>
                                 </StackPanel>
                             </Grid>
-
                         </Grid>
                     </Border>
+
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="109"/>
                             <RowDefinition Height="110"/>
                             <RowDefinition Height="220"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto" HorizontalAlignment="Center">
+                            <Label Content="No. de Tarjeta:" FontWeight="Bold" FontSize="16" Margin="2" HorizontalAlignment="Center"/>
+                            <TextBox x:Name="txtNoTarj" Style="{StaticResource myTextBox}" Width="130" Height="10" HorizontalContentAlignment="Center" Text="424248961313" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
 
                         <Image Source="/Images/h.png" HorizontalAlignment="Right" Margin="0 5 10 0"/>
 
@@ -132,7 +122,6 @@
 
                             <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
                                 <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-
                                 <Grid>
                                     <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" Text="Perez Arredondo Manuel Eduardo" FontSize="16" BorderBrush="Black"/>
                                     <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -148,14 +137,11 @@
                                         </TextBlock.Style>
                                     </TextBlock>
                                 </Grid>
-
+                                <Label x:Name="errNombre" Foreground="Red" Margin="30 -3 0 0"/>
                             </StackPanel>
-
-
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center"  Width="200">
                                 <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-
                                 <Grid>
                                     <TextBox x:Name="txtRFC" Text="OIGM000923GUA" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                                     <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
@@ -171,7 +157,7 @@
                                         </TextBlock.Style>
                                     </TextBlock>
                                 </Grid>
-
+                                <Label x:Name="errRfc" Foreground="Red" Margin="30 -3 0 0"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Width="200">
@@ -257,37 +243,10 @@
 
                         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Button x:Name="btnEdit" Margin="0 0 170 0" FontWeight="DemiBold" Content="Editar" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
-                            <Button x:Name="btnSave" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnSave_Click"/>
+                            <Button x:Name="btnSave" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Cursor="Hand" Click="btnSave_Click"/>
                         </StackPanel>
                     </Grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </Grid>
             </Border>
-        </materialDesign:DialogHost>
     </Grid>
 </UserControl>

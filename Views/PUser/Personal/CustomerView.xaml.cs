@@ -53,16 +53,6 @@ namespace WPF_LoginForm.Views
 
         }
 
-        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
         public class Personal
         {
             public string numficha { get; set; }

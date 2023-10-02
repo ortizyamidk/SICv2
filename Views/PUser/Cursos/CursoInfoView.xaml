@@ -10,156 +10,131 @@
              d:DesignHeight="500" d:DesignWidth="1060">
 
     <Grid>
-        <materialDesign:DialogHost BorderBrush="{DynamicResource MaterialDesignDivider}">
-            <!--POP UP MESSAGE-->
-            <materialDesign:DialogHost.DialogContent>
-                <Grid Width="290" Height="130" HorizontalAlignment="Center">
-                    <!-- Contenido del diálogo aquí -->
-                    <StackPanel Orientation="Horizontal" Margin="10">
-                        <fa:IconImage x:Name="icono" Margin="5 10 0 0" Foreground="{StaticResource panelActiveColor}" Width="50" Height="50" VerticalAlignment="Top"/>
-                        <TextBlock x:Name="txtDescripcion" Foreground="Gray" Margin="10 10 0 0" HorizontalAlignment="Center" FontSize="18" FontFamily="Calibri" FontWeight="SemiBold" Width="200" TextWrapping="Wrap"/>
+        <Border CornerRadius="27" BorderThickness="1">
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/fondoform.jpg"/>
+            </Border.Background>
+
+            <Grid Width="auto" Height="auto" Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--Form Title-->
+                <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
+                    <Ellipse Width="80" Height="80">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/Images/curso.png"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Border>
+
+                <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+                    <Label Content="No. Curso:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
+                            <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
+                        </Button>
+                        <TextBox x:Name="txtNoCurso" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="200" />
+                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
+                            <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
+                        </Button>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15">
-                        <Button x:Name="btnA" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Foreground="{StaticResource panelOverColor}" Style="{DynamicResource MaterialDesignFlatButton}" Margin="4" VerticalAlignment="Center"/>
+                </StackPanel>
 
-                    </StackPanel>
-                </Grid>
-            </materialDesign:DialogHost.DialogContent>
-            
-            <Border CornerRadius="27" BorderThickness="1">
-                <Border.Background>
-                    <ImageBrush ImageSource="/Images/fondoform.jpg"/>
-                </Border.Background>
+                <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
 
-                <Grid Width="auto" Height="auto" Background="Transparent">
+                <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="110"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <!--Inputs-->
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                    <Label Content="Nombre del Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <Grid>
+                        <TextBox x:Name="txtNombreC" Text="Bloqueo y Etiquetado" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
+                        <TextBlock Text="Escriba el nombre del curso" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtNombreC}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
 
+                    </Grid>
+                    <Label x:Name="errCurso" Foreground="Red" Margin="30 -3 0 0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                    <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                        <ComboBox x:Name="cbAreaT" Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Calidad" />
+                                <ComboBoxItem Content="Desarrollo Humano0" />
+                                <ComboBoxItem Content="Ing Industrial" />
+                                <ComboBoxItem Content="Institucionales/SIOS" />
+                                <ComboBoxItem Content="Productividad" />
+                                <ComboBoxItem Content="Métodos de Operación" />
+                                <ComboBoxItem Content="Metrología" />
+                                <ComboBoxItem Content="Seguridad y Ecología" />
+                            </ComboBox.Items>
+
+                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+                    <Label Content="Mes para Registro de Listas:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                        <ComboBox x:Name="cbMes" Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">
+                            <ComboBox.Items>
+                                <ComboBoxItem Content="Enero" />
+                                <ComboBoxItem Content="Febrero" />
+                                <ComboBoxItem Content="Marzo" />
+                                <ComboBoxItem Content="Abril" />
+                                <ComboBoxItem Content="Mayo" />
+                                <ComboBoxItem Content="Junio" />
+                                <ComboBoxItem Content="Julio" />
+                                <ComboBoxItem Content="Agosto" />
+                                <ComboBoxItem Content="Septiembre" />
+                                <ComboBoxItem Content="Octubre" />
+                                <ComboBoxItem Content="Noviembre" />
+                                <ComboBoxItem Content="Diciembre" />
+                            </ComboBox.Items>
+
+                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                        </ComboBox>
+                    </Border>
+                </StackPanel>
+
+
+                <Grid Grid.Row="4" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <!--Form Title-->
-                    <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
-                        <Ellipse Width="80" Height="80">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="/Images/curso.png"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                    </Border>
-
-                    <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
-                        <Label Content="No. Curso:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
-                                <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
-                            </Button>
-                            <TextBox x:Name="txtNoCurso" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="200" />
-                            <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
-                                <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
-                            </Button>
-                        </StackPanel>
-                    </StackPanel>
-
-                    <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
-
-                    <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
-
-                    <!--Inputs-->
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                        <Label Content="Nombre del Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Grid>
-                            <TextBox x:Name="txtNombreC" Text="Bloqueo y Etiquetado" Style="{StaticResource myTextBox}" FontSize="15" Width="455" BorderBrush="Black"/>
-                            <TextBlock Text="Escriba el nombre del curso" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombreC}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-
-                        </Grid>
-
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                        <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox x:Name="cbAreaT" Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">
-                                <ComboBox.Items>
-                                    <ComboBoxItem Content="Calidad" />
-                                    <ComboBoxItem Content="Desarrollo Humano0" />
-                                    <ComboBoxItem Content="Ing Industrial" />
-                                    <ComboBoxItem Content="Institucionales/SIOS" />
-                                    <ComboBoxItem Content="Productividad" />
-                                    <ComboBoxItem Content="Métodos de Operación" />
-                                    <ComboBoxItem Content="Metrología" />
-                                    <ComboBoxItem Content="Seguridad y Ecología" />
-                                </ComboBox.Items>
-
-                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                            </ComboBox>
-                        </Border>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                        <Label Content="Mes para Registro de Listas:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                            <ComboBox x:Name="cbMes" Height="42" Width="455" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">
-                                <ComboBox.Items>
-                                    <ComboBoxItem Content="Enero" />
-                                    <ComboBoxItem Content="Febrero" />
-                                    <ComboBoxItem Content="Marzo" />
-                                    <ComboBoxItem Content="Abril" />
-                                    <ComboBoxItem Content="Mayo" />
-                                    <ComboBoxItem Content="Junio" />
-                                    <ComboBoxItem Content="Julio" />
-                                    <ComboBoxItem Content="Agosto" />
-                                    <ComboBoxItem Content="Septiembre" />
-                                    <ComboBoxItem Content="Octubre" />
-                                    <ComboBoxItem Content="Noviembre" />
-                                    <ComboBoxItem Content="Diciembre" />
-                                </ComboBox.Items>
-
-                                <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                            </ComboBox>
-                        </Border>
-                    </StackPanel>
-
-
-                    <Grid Grid.Row="4" Grid.ColumnSpan="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button x:Name="btnEdit" Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
-                        <Button x:Name="btnSave" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnSave_Click"/>
-                    </Grid>
-
-
-
-
-
-
-
+                    <Button x:Name="btnEdit" Height="40" FontSize="16" Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
+                    <Button x:Name="btnSave" Height="40" FontSize="15" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnSave_Click"/>
                 </Grid>
-            </Border>
-        </materialDesign:DialogHost>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>
