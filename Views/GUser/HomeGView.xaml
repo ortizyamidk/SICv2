@@ -91,9 +91,9 @@
 
                             <TextBlock Text="Cursos a Registrar" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
 
-                            <uc:cardVencidos Grid.Row="1" Title="Seguridad y Ecología" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand" />
-                            <uc:cardVencidos Grid.Row="2" Title="Medio Ambiente" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
-                            <uc:cardVencidos Grid.Row="3" Title="Higiene Personal" Desc="Registrar lista" Icon="Information" Margin="7" Cursor="Hand"/>
+                            <uc:cardVencidos Grid.Row="1" Title="Seguridad y Ecología" Desc="Registrar lista" Icon="Information" Margin="7" />
+                            <uc:cardVencidos Grid.Row="2" Title="Medio Ambiente" Desc="Registrar lista" Icon="Information" Margin="7"/>
+                            <uc:cardVencidos Grid.Row="3" Title="Higiene Personal" Desc="Registrar lista" Icon="Information" Margin="7"/>
                         </Grid>
                     </Border>
 

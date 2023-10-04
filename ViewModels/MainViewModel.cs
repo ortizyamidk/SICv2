@@ -37,6 +37,18 @@ namespace WPF_LoginForm.ViewModels
                 OnPropertyChanged(nameof(CurrentUserAccount));
             }
         }
+        private string _userRole;
+
+        public string UserRole
+        {
+            get { return _userRole; }
+            set
+            {
+                _userRole = value;
+                OnPropertyChanged(nameof(UserRole));
+            }
+        }
+
 
         //Properties
         //actualiza contenido de MainView con las vistas
@@ -139,8 +151,6 @@ namespace WPF_LoginForm.ViewModels
 
             //Reportes
             ShowReportesViewCommand = new ViewModelCommand(ExecuteShowReportesViewCommand);
-
-
 
 
             //----------USER GENERAL-------------
@@ -288,11 +298,12 @@ namespace WPF_LoginForm.ViewModels
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $"{user.Name} {user.LastName}";
-                CurrentUserAccount.ProfilePicture = null;
+                CurrentUserAccount.DisplayName = $"{user.Username}";
+
+                UserRole = user.Rol; // Almacena el rol del usuario autenticado
 
                 // Verificar el tipo de usuario y ejecutar el comando correspondiente
-                if (user.Username=="admin")
+                if (UserRole == "admin")
                 {
                     // Usuario administrador
                     //ShowHomeViewCommand.Execute(null); // Ejecuta el comando para el administrador

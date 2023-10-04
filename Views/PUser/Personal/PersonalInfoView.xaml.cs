@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +52,8 @@ namespace WPF_LoginForm.Views
             cbDpto.IsEnabled = true;
             txtRFC.IsEnabled = true;
 
+            btnExam.IsEnabled = true;
+
 
             txtNombre.Focus();
         }
@@ -70,6 +74,8 @@ namespace WPF_LoginForm.Views
             btnEdit.IsEnabled = true;
             txtRFC.IsEnabled= false;
             txtNoTarj.IsEnabled = false;
+
+            btnExam.IsEnabled= false;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -132,6 +138,57 @@ namespace WPF_LoginForm.Views
         private bool IsLetter(string text)
         {
             return text.All(char.IsLetter);
+        }
+
+        private void txtRFC_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Validar que el carácter ingresado sea válido (letra o número).
+            if (!char.IsLetterOrDigit(e.Text, 0))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Obtener el texto actual del TextBox.
+            string currentText = txtRFC.Text;
+
+            // Aplicar máscara de entrada.
+            if (currentText.Length < 4)
+            {
+                // Permitir letras (primeras 4 letras).
+                e.Handled = !char.IsLetter(e.Text, 0);
+            }
+            else if (currentText.Length < 10)
+            {
+                // Permitir números (6 números).
+                e.Handled = !char.IsDigit(e.Text, 0);
+            }
+        }
+
+        private void btnExam_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog selectorImagen = new OpenFileDialog();
+            selectorImagen.Title = "Seleccionar Imagen";
+
+            if (selectorImagen.ShowDialog() == true)
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = selectorImagen.OpenFile();
+                bitmapImage.EndInit();
+
+                imgTrabajador.Source = bitmapImage;
+
+                // Convierte la imagen a bytes (en este caso, a un arreglo de bytes en formato PNG)
+                byte[] imagenByte = null;
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                using (MemoryStream memoria = new MemoryStream())
+                {
+                    encoder.Save(memoria);
+                    imagenByte = memoria.ToArray();
+                }
+            }
         }
     }
 }

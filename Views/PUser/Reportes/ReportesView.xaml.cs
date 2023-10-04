@@ -28,50 +28,60 @@ namespace WPF_LoginForm.Views
 
         private void btnGeneral_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon=FontAwesome.Sharp.IconChar.File;
-            txtDescripcion.Text = "Generar reporte de la Lista General del Personal Calificado de la Empresa";
-            btnC.Content = "Cancelar";
-            btnA.Content = "Aceptar";
+            
         }
 
         private void btnDC4_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.File;
-            txtDescripcion.Text = "Generar reporte de la Lista de Constancias de Habilidades Laborales de los Trabajadores de la Empresa";
-            btnC.Content = "Cancelar";
-            btnA.Content = "Aceptar";
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.Search;
-            txtDescripcion.Text = "Generar reporte de la Lista de Personal Calificado seleccionando un Área de Departamento específica";
-            btnC.Content = "Cancelar";
-            btnA.Content = "Buscar área";
+            
         }
 
         private void btnHistorial_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.Search;
-            txtDescripcion.Text = "Generar reporte de los Cursos Tomados que posee cada Trabajador de la Empresa";
-            btnC.Content = "Cancelar";
-            btnA.Content = "Buscar trabajador";
+            
         }
 
         private void btnDC3_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.Search;
-            txtDescripcion.Text = "Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador";
-            btnC.Content = "Cancelar";
-            btnA.Content = "Buscar trabajador";
+            
         }
 
         private void btnAsistencia_Click(object sender, RoutedEventArgs e)
         {
-            icono.Icon = FontAwesome.Sharp.IconChar.Search;
-            txtDescripcion.Text = "Generar reporte de la Lista de Asistencia de cada Curso";
-            btnC.Content = "Cancelar";
-            btnA.Content = "Buscar curso";
+            txtDescripcion.Text = "Se generará reporte en formato de Excel";
+        }
+
+        private void buscarTrab_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado es numérico
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        // Método para verificar si una cadena es numérica
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _); // Intenta convertir el texto a un entero
+        }
+
+        private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsLetter(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private bool IsLetter(string text)
+        {
+            return text.All(char.IsLetter);
         }
     }
 }

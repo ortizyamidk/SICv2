@@ -12,7 +12,7 @@ namespace WPF_LoginForm.Repositories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=ORTIZYAMIIDK\\SQLEXPRESS; Database=wpfejemplo; Integrated Security=true";
+            _connectionString = "Server=ORTIZYAMIIDK\\SQLEXPRESS; Database=sicdb; Integrated Security=true";
         }
         protected SqlConnection GetConnection()
         {

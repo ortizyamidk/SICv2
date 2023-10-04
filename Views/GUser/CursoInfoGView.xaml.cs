@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.CustomControls;
 using WPF_LoginForm.ViewModels;
 
 
@@ -53,7 +54,15 @@ namespace WPF_LoginForm.Views.GUser
             public string puesto { get; set; }
         }
 
- 
+        private void btnPaseLista_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarCustomMessageBox();
+        }
 
+        private void MostrarCustomMessageBox()
+        {
+            MessageBoxPaseLista customMessageBox = new MessageBoxPaseLista();
+            customMessageBox.ShowDialog();
+        }
     }
 }

@@ -123,5 +123,30 @@ namespace WPF_LoginForm.Views
         {
             return text.All(char.IsLetter);
         }
+
+        private void txtRFC_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Validar que el carácter ingresado sea válido (letra o número).
+            if (!char.IsLetterOrDigit(e.Text, 0))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // Obtener el texto actual del TextBox.
+            string currentText = txtRFC.Text;
+
+            // Aplicar máscara de entrada.
+            if (currentText.Length < 4)
+            {
+                // Permitir letras (primeras 4 letras).
+                e.Handled = !char.IsLetter(e.Text, 0);
+            }
+            else if (currentText.Length < 10)
+            {
+                // Permitir números (6 números).
+                e.Handled = !char.IsDigit(e.Text, 0);
+            }
+        }
     }
 }

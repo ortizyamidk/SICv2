@@ -44,6 +44,8 @@
                     </StackPanel>
                 </StackPanel>
 
+                <Button x:Name="btnPaseLista" Content="Pase de Lista" FontSize="18" FontWeight="Bold" Height="35" Width="140" Margin="550 20 0 0" Style="{StaticResource mainButton}" Click="btnPaseLista_Click"/>
+
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

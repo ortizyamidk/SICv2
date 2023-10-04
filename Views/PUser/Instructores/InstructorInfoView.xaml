@@ -84,7 +84,7 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
                         <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Grid>
-                            <TextBox x:Name="txtRFC" Text="OIGM000923GUA" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+                            <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="OIGM000923GUA" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
                             <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">

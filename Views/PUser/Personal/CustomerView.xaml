@@ -25,7 +25,7 @@
 
                 <Grid>
                     <TextBox x:Name="txtSearch" Grid.Column="0" Style="{StaticResource textboxSearch}" PreviewTextInput="TextBox_PreviewTextInput2"/>
-                    <TextBlock Text="Buscar Trabajador..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    <TextBlock Text="Buscar Trabajador por Nombre..." Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Visibility" Value="Collapsed"/>
