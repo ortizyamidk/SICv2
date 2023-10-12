@@ -15,15 +15,17 @@ using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para LoginView.xaml
-    /// </summary>
     public partial class LoginView : Window
     {
+        LoginViewModel viewModel;
         public LoginView()
         {
             InitializeComponent();
             txtUser.Focus();
+
+            viewModel = new LoginViewModel();
+            // Establecer el DataContext en la instancia de LoginViewModel
+            this.DataContext = viewModel;
 
         }
         private void Window_MouseDown(object sender, MouseEventArgs e)
@@ -43,8 +45,5 @@ namespace WPF_LoginForm.Views
         {
             Application.Current.Shutdown();
         }
-
-
-
     }
 }

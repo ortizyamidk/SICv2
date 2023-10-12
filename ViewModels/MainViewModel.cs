@@ -23,7 +23,12 @@ namespace WPF_LoginForm.ViewModels
         private string _caption;
         private IconChar _icon;
         private IUserRepository userRepository;
+        private bool _isMainVisible = true;
+        private string _userRole;
+        private LoginViewModel _loginViewModel;
 
+
+        //Properties
         public UserAccountModel CurrentUserAccount
         {
             get
@@ -37,7 +42,6 @@ namespace WPF_LoginForm.ViewModels
                 OnPropertyChanged(nameof(CurrentUserAccount));
             }
         }
-        private string _userRole;
 
         public string UserRole
         {
@@ -49,9 +53,20 @@ namespace WPF_LoginForm.ViewModels
             }
         }
 
+        public bool IsMainVisible
+        {
+            get
+            {
+                return _isMainVisible;
+            }
 
-        //Properties
-        //actualiza contenido de MainView con las vistas
+            set
+            {
+                _isMainVisible = value;
+                OnPropertyChanged(nameof(IsMainVisible));
+            }
+        }
+
         public ViewModelBase CurrentChildView {
             get
             {
@@ -88,6 +103,17 @@ namespace WPF_LoginForm.ViewModels
             }
         }
 
+        public LoginViewModel LoginViewModel
+        {
+            get { return _loginViewModel; }
+            set
+            {
+                _loginViewModel = value;
+                OnPropertyChanged(nameof(LoginViewModel));
+            }
+        }
+
+
         //-->Commands
         //-----------COMANDOS USER PRINCIPAL---------------
         public ICommand ShowHomeViewCommand { get; }
@@ -121,13 +147,17 @@ namespace WPF_LoginForm.ViewModels
         public ICommand ShowCursoNuevoGViewCommand { get; }
 
         //CERRAR SESION
-        public ICommand LogoutCommand { get; }
+        public ICommand CerrarSesionCommand { get; }
 
-
+        //CONSTRUCTOR
         public MainViewModel()
         {
+
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
+
+            LoginViewModel = new LoginViewModel();
+
 
             //Initialize commands
             //--------------USER PRINCIPAL------------
@@ -162,9 +192,15 @@ namespace WPF_LoginForm.ViewModels
 
 
             //CERRAR SESION
-            LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
+            CerrarSesionCommand = new ViewModelCommand(ExecuteCerrarSesionCommand);
+            
 
             LoadCurrentUserData();
+        }
+
+        public MainViewModel(LoginViewModel loginViewModel)
+        {
+            LoginViewModel = loginViewModel;
         }
 
         //----------USER GENERAL----------
@@ -173,6 +209,12 @@ namespace WPF_LoginForm.ViewModels
             CurrentChildView = new HomeGViewModel();
             Caption = "Inicio";
             Icon = IconChar.Home;
+
+            LoginViewModel.IsViewVisible = false;
+            LoginViewModel.IsLoggedIn = true;
+
+            //MessageBox.Show("EXECUTE HOME Login visible: "+LoginViewModel.IsViewVisible.ToString());
+            //MessageBox.Show("EXECUTE HOME Usuario loggeado: " + LoginViewModel.IsLoggedIn.ToString());
         }
 
         private void ExecuteShowCursoGViewCommand(object obj)
@@ -279,16 +321,46 @@ namespace WPF_LoginForm.ViewModels
 
 
         //CERRAR SESION
-        private void ExecuteLogoutCommand(object obj)
+        private void ExecuteCerrarSesionCommand(object obj)
         {
-            // Llamar al método que cierra la sesión del usuario actual
-            // Por ejemplo, si tienes un método llamado Logout en tu LoginViewModel:
-            //loginViewModel.Logout();
 
-            // Después de cerrar la sesión, puedes navegar de regreso a la pantalla de inicio o al formulario de inicio de sesión.
-            // Puedes usar comandos de navegación para hacerlo.
-            // Por ejemplo, si usas un comando para mostrar la vista de inicio en tu MainViewModel:
-            // ShowHomeViewCommand.Execute(null);
+            // Llamar al comando de LogoutCommand en el LoginViewModel
+            LoginViewModel.LogoutCommand.Execute(null);
+
+            MessageBox.Show("COMANDO SECUNDARIO Login Visible: "+LoginViewModel.IsViewVisible.ToString());
+            MessageBox.Show("COMANDO SECUNDARIO Usuario loggeado: " + LoginViewModel.IsLoggedIn.ToString());
+
+            CurrentChildView = null;
+            MessageBox.Show("COMANDO SECUNDARIO CurrentChildView: " + CurrentChildView);
+
+            Caption = null;
+            MessageBox.Show("COMANDO SECUNDARIO Caption: " + Caption);
+
+            Icon = 0;
+            MessageBox.Show("COMANDO SECUNDARIO Icon: " + Icon);
+
+            UserRole = null;
+            MessageBox.Show("COMANDO SECUNDARIO UserRole: " + UserRole);
+
+            IsMainVisible = false;
+            MessageBox.Show("COMANDO SECUNDARIO IsMainVisible: " + IsMainVisible);
+
+            CurrentUserAccount.DisplayName = null;
+            MessageBox.Show("COMANDO SECUNDARIO DisplayName: " + CurrentUserAccount.DisplayName);            
+
+            var loginView = new LoginView();
+            loginView.Show();
+
+            //MessageBox.Show("COMANDO SECUNDARIO CurrentInstance: " + MainViewG.CurrentInstance);
+            MainViewG.CurrentInstance.Close();
+
+            
+
+            /*var mainViewG = new MainViewG();
+            mainViewG.UserLoggeado.Text=string.Empty;
+            MessageBox.Show("COMANDO SECUNDARIO mainViewG: " + mainViewG.UserLoggeado.Text);*/
+
+            
         }
 
 
@@ -298,21 +370,18 @@ namespace WPF_LoginForm.ViewModels
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $"{user.Username}";
+                CurrentUserAccount.DisplayName = $"{user.TrabajadorNombre}";
 
-                UserRole = user.Rol; // Almacena el rol del usuario autenticado
+                UserRole = user.Rol;
 
-                // Verificar el tipo de usuario y ejecutar el comando correspondiente
                 if (UserRole == "admin")
                 {
                     // Usuario administrador
-                    //ShowHomeViewCommand.Execute(null); // Ejecuta el comando para el administrador
                     ExecuteShowHomeViewCommand(null);
                 }
                 else
                 {
                     // Usuario general
-                    //ShowHomeGViewCommand.Execute(null); // Ejecuta el comando para el usuario general
                     ExecuteShowHomeGViewCommand(null);
                 }
             }
@@ -322,5 +391,6 @@ namespace WPF_LoginForm.ViewModels
                 //Hide child views.
             }
         }
+       
     }
 }

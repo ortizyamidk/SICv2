@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
+using WPF_LoginForm.Views;
+using System.Windows;
+using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm.ViewModels
 {
@@ -21,12 +24,14 @@ namespace WPF_LoginForm.ViewModels
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private bool _isLoggedIn = false;
+        private bool _isLoggedIn=false;
 
         private IUserRepository userRepository;
 
-    //Properties
-    public string Username
+
+
+        //Properties
+        public string Username
     {
         get
         {
@@ -40,47 +45,47 @@ namespace WPF_LoginForm.ViewModels
         }
     }
 
-    public SecureString Password
-    {
-        get
+        public SecureString Password
         {
-            return _password;
+            get
+            {
+                return _password;
+            }
+
+            set
+            {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+            }
         }
 
-        set
+        public string ErrorMessage
         {
-            _password = value;
-            OnPropertyChanged(nameof(Password));
-        }
-    }
+            get
+            {
+                return _errorMessage;
+            }
 
-    public string ErrorMessage
-    {
-        get
-        {
-            return _errorMessage;
-        }
-
-        set
-        {
-            _errorMessage = value;
-            OnPropertyChanged(nameof(ErrorMessage));
-        }
-    }
-
-    public bool IsViewVisible
-    {
-        get
-        {
-            return _isViewVisible;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
         }
 
-        set
+        public bool IsViewVisible
         {
-            _isViewVisible = value;
-            OnPropertyChanged(nameof(IsViewVisible));
+            get
+            {
+                return _isViewVisible;
+            }
+
+            set
+            {
+                _isViewVisible = value;
+                OnPropertyChanged(nameof(IsViewVisible));
+            }
         }
-    }
 
         public bool IsLoggedIn
         {
@@ -100,60 +105,76 @@ namespace WPF_LoginForm.ViewModels
         public ICommand LoginCommand { get; }
         public ICommand RecoverPasswordCommand { get; }
         public ICommand ShowPasswordCommand { get; }
-        public ICommand RememberPasswordCommand { get; }
-
         public ICommand LogoutCommand { get; }
+
+        //public ICommand RememberPasswordCommand { get; }
 
         //Constructor
         public LoginViewModel()
-    {
-        userRepository = new UserRepository();
-        LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-        RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
+        {
+            userRepository = new UserRepository(); //trae la conexion a bd
+            LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
+            LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
 
-        LogoutCommand = new ViewModelCommand(p => Logout());
+            //RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
         }
 
-    private bool CanExecuteLoginCommand(object obj)
-    {
-        bool validData;
-        if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3 ||
-            Password == null || Password.Length < 3)
-            validData = false;
-        else
-            validData = true;
-        return validData;
-    }
-
-    private void ExecuteLoginCommand(object obj)
-    {
-        var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
-        if (isValidUser)
+        private bool CanExecuteLoginCommand(object obj)
         {
-            Thread.CurrentPrincipal = new GenericPrincipal(
-                new GenericIdentity(Username), null);
-            IsViewVisible = false;
-                IsLoggedIn = true;
+            //solo valida los campos llenados
+            bool validData;
+
+            if (string.IsNullOrWhiteSpace(Username) || Username.Length < 3 ||
+                Password == null || Password.Length < 3)
+                validData = false;
+            else
+                validData = true;
+
+            return validData;
+        }
+
+        private void ExecuteLoginCommand(object obj)
+        {
+            var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password)); //metodo de autenticacion
+
+            if (isValidUser)
+            {
+                Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(Username), null); //esto indica el usuario actual autenticado
+                IsViewVisible = false; //esconder vista login
+                IsLoggedIn = true; //loggeado
             }
-        else
+            else
+            {
+                ErrorMessage = "* Usuario o Contraseña inválido";           
+            }
+
+            //MessageBox.Show("COMMAND LOGGEADO IsViewVisible: " + IsViewVisible.ToString());
+            //MessageBox.Show("COMMAND LOGGEADO IsLogIn: " + IsLoggedIn.ToString());
+
+
+        }       
+
+        private void ExecuteLogoutCommand(object obj)
         {
-            ErrorMessage = "* Usuario o Contraseña inválido";
+           
+            IsViewVisible = true;
+            IsLoggedIn = false;
+            Username = null;
+            Password = null;
+            ErrorMessage = null;
+
+            //MessageBox.Show("EXECUTE LOGOUT Login visible: " + IsViewVisible.ToString());
+            //MessageBox.Show("EXECUTE LOGOUT Usuario loggeado: " + IsLoggedIn.ToString());
+
+            Thread.CurrentPrincipal=null;
+            //MessageBox.Show("user loggeado: " + Thread.CurrentPrincipal.Identity.Name);
+
+            
         }
-    }
 
-    private void ExecuteRecoverPassCommand(string username, string email)
-    {
-        throw new NotImplementedException();
-    }
-
-        public void Logout()
+        /*private void ExecuteRecoverPassCommand(string username, string email)
         {
-            // Realiza la limpieza necesaria (puede incluir la eliminación de datos de la sesión)
-            // ...
-
-            IsLoggedIn = false; // Cierra la sesión del usuario
-            Username = string.Empty; // Restablece el nombre de usuario
-            Password = new SecureString(); // Restablece la contraseña
-        }
+            throw new NotImplementedException();
+        }*/
     }
 }

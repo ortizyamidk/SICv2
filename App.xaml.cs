@@ -3,45 +3,52 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
+using WPF_LoginForm.ViewModels;
 using WPF_LoginForm.Views;
 using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm
 {
-    /// <summary>
-    /// Lógica de interacción para App.xaml
-    /// </summary>
     public partial class App : Application
     {
+
         protected void ApplicationStart(object sender, EventArgs e)
         {
-
-            var loginView = new LoginView();
+            var loginViewModel = new LoginViewModel();
+            var loginView = new LoginView(); //instanciar vista Login
+            loginView.DataContext = loginViewModel;
             loginView.Show();
+
             loginView.IsVisibleChanged += (s, ev) =>
             {
                 if (loginView.IsVisible == false && loginView.IsLoaded)
                 {
-                    string username = loginView.txtUser.Text; // Obtén el valor de txtUser desde la vista de inicio de sesión
+                    string username = loginView.txtUser.Text;
 
-                    // Verifica el valor de username y abre la ventana correspondiente
-                    if (username == "admin")
+                    var userRepository = new UserRepository();
+                    var roles = userRepository.GetUserRoles(username);
+
+                    if (roles.Contains("admin"))
                     {
                         var adminView = new MainView();
-                        adminView.Show();
+                        adminView.Show();                     
                     }
-                    else if (username == "gral")
+                    else if (roles.Contains("gral"))
                     {
                         var userView = new MainViewG();
                         userView.Show();
                     }
 
-                    loginView.Close();
-
+                    // Retrasa el cierre de la ventana del Login
+                  loginView.Dispatcher.BeginInvoke(new Action(() =>{ loginView.Close(); }));
                 }
             };
+
         }
     }
 }

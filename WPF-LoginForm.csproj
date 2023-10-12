@@ -101,6 +101,7 @@
     <Compile Include="Models\CursoGModel.cs" />
     <Compile Include="Models\CursoModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\TrabajadorModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />

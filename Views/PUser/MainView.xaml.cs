@@ -28,10 +28,12 @@ namespace WPF_LoginForm.Views
     {
 
         private DispatcherTimer timer;
+        public static MainView CurrentInstance { get; private set; }
 
         public MainView()
         {
             InitializeComponent();
+            CurrentInstance = this;
 
             // Configura el temporizador para actualizar la fecha cada segundo
             timer = new DispatcherTimer();

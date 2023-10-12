@@ -14,19 +14,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views.GUser
 {
-    /// <summary>
-    /// Lógica de interacción para MainViewG.xaml
-    /// </summary>
     public partial class MainViewG : Window
     {
         private DispatcherTimer timer;
+        public static MainViewG CurrentInstance { get; private set; }
+
 
         public MainViewG()
         {
             InitializeComponent();
+            CurrentInstance = this;
+            // Crear una instancia de MainViewModel
+            MainViewModel mainViewModel = new MainViewModel();
+
+            // Establecer el DataContext en la instancia de MainViewModel
+            this.DataContext = mainViewModel;
+
 
             // Configura el temporizador para actualizar la fecha cada segundo
             timer = new DispatcherTimer();

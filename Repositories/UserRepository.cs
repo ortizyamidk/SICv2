@@ -20,6 +20,7 @@ namespace WPF_LoginForm.Repositories
         public bool AuthenticateUser(NetworkCredential credential)
         {
             bool validUser;
+
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
@@ -31,6 +32,7 @@ namespace WPF_LoginForm.Repositories
 
                 validUser = command.ExecuteScalar() == null ? false : true;
             }
+
             return validUser;
         }
 
@@ -57,7 +59,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT Username, Rol FROM [user] WHERE Username=@username";
+                command.CommandText = "SELECT trabajador.nombre, [user].Username, [user].rol FROM trabajador INNER JOIN [user] ON trabajador.id = [user].idtrabajador WHERE [user].Username=@username";
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
                 using (var reader = command.ExecuteReader())
                 {
@@ -65,13 +67,38 @@ namespace WPF_LoginForm.Repositories
                     {
                         user = new UserModel()
                         {
-                            Username = reader[0].ToString(),
-                            Rol = reader[1].ToString(),
+                            TrabajadorNombre = reader[0].ToString(),
+                            Username = reader[1].ToString(),
+                            Rol = reader[2].ToString(),
                         };
                     }
                 }
             }
             return user;
+        }
+
+        public IList<string> GetUserRoles(string username)
+        {
+            IList<string> roles = new List<string>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT rol FROM [user] WHERE Username = @user";
+                command.Parameters.Add("@user", SqlDbType.NVarChar).Value = username;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        roles.Add(reader["rol"].ToString());
+                    }
+                }
+            }
+
+            return roles;
         }
 
         public void Remove(int id)

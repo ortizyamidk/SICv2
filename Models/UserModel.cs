@@ -12,5 +12,6 @@ namespace WPF_LoginForm.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
+        public string TrabajadorNombre { get; set; }
     }
 }

@@ -18,7 +18,7 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-
+    
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewModel:HomeGViewModel}">
             <local:HomeGView/>
@@ -89,7 +89,7 @@
                                 <TextBlock Text="Inicio" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
-                      
+
                         <!--CURSOS-->
                         <RadioButton Style="{StaticResource menuButton}"
                              Tag="{StaticResource color1}"
@@ -103,13 +103,12 @@
                         <!--CERRAR SESION-->
                         <Button x:Name="btnCerrarSesion" Style="{StaticResource logoutButton}"
                                  Tag="{StaticResource color1}"
-                                  Margin="0 400 0 0" Cursor="Hand" Click="btnCerrarSesion_Click">
+                                  Margin="0 400 0 0" Cursor="Hand" Command="{Binding CerrarSesionCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <fa:IconImage Icon="RightFromBracket" Style="{StaticResource menuButtonIcon}" Foreground="white"/>
                                 <TextBlock Text="Cerrar Sesión" Style="{StaticResource menuButtonText}" Foreground="White"/>
                             </StackPanel>
                         </Button>
-
                     </StackPanel>
                 </Grid>
             </Border>
@@ -189,12 +188,12 @@
                             VerticalAlignment="Center"
                             Margin="0,0,10,0">
 
-                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+                            <TextBlock x:Name="UserLoggeado" Text="{Binding CurrentUserAccount.DisplayName}"
                                Foreground="{StaticResource titleColor3}"
                                FontFamily="Montserrat"
                                FontSize="20"
                                VerticalAlignment="Center"
-                                Margin="30,0,10,0"/>
+                               Margin="30,0,10,0"/>
 
 
                         </StackPanel>
@@ -215,12 +214,8 @@
                            VerticalAlignment="Bottom"
                            HorizontalAlignment="Right"
                            Margin="30,0,10,0"/>
-
                 </Grid>
             </Border>
         </Grid>
     </Border>
-
-
-
 </Window>
