@@ -255,8 +255,6 @@ namespace WPF_LoginForm.ViewModels
         private void ExecuteShowInstructorInfoViewCommand(object obj)
         {
             CurrentChildView = new InstructorInfoViewModel();
-            Caption = "Instructores";
-            Icon = IconChar.UserGroup;
         }
         private void ExecuteShowInstructorNuevoViewCommand(object obj)
         {

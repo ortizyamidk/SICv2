@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
              xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
             mc:Ignorable="d" 
             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <viewModel:InstructoresViewModel/>
+    </UserControl.DataContext>
     
     <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>
@@ -55,18 +60,17 @@
                           CellStyle="{DynamicResource DataGridCellStyle1}" 
                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                           RowStyle="{DynamicResource DataGridRowStyle1}" 
-                          x:Name="instructoresDataGrid" Width="Auto" Height="Auto" SelectionChanged="instructoresDataGrid_SelectionChanged">
+                          x:Name="instructoresDataGrid" Width="Auto" Height="Auto">
                     
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding num}"/>
-                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                        <DataGridTextColumn Header="Tipo" IsReadOnly="True" Width="*" Binding="{Binding tipo}"/>
+                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding NomInstr}"/>
+                        <DataGridTextColumn Header="Tipo" IsReadOnly="True" Width="*" Binding="{Binding TipoInstr}"/>
 
                         <DataGridTemplateColumn Header="Ver/Editar Info" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Style="{StaticResource eyeButton}"
-                                    Cursor="Hand"
+                                    <Button Style="{StaticResource eyeButton}" Cursor="Hand" Click="Button_Click"
                                             Command="{Binding DataContext.ShowInstructorInfoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                                         <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
                                     </Button>

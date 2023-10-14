@@ -100,10 +100,19 @@
     </Compile>
     <Compile Include="Models\CursoGModel.cs" />
     <Compile Include="Models\CursoModel.cs" />
+    <Compile Include="Models\DepartamentoModel.cs" />
+    <Compile Include="Models\ICursoRepository.cs" />
+    <Compile Include="Models\IDepartamentoRepository.cs" />
+    <Compile Include="Models\IInstructorRepository.cs" />
+    <Compile Include="Models\InstructorModel.cs" />
+    <Compile Include="Models\InstructorSeleccionadoModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\TrabajadorModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Repositories\CursoRepository.cs" />
+    <Compile Include="Repositories\DepartamentoRepository.cs" />
+    <Compile Include="Repositories\InstructorRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="ViewModels\CursoGViewModel.cs" />

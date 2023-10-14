@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
+using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views
 {
@@ -25,9 +28,35 @@ namespace WPF_LoginForm.Views
         public InstructorInfoView()
         {
             InitializeComponent();
-
             deshabilitar();
+            
+
+            var repository = new InstructorRepository();
+            InstructorModel instructor = (repository as IInstructorRepository).GetById(1);
+
+            if(instructor != null)
+            {
+                txtNoInst.Text = instructor.Id.ToString();
+                txtNombreI.Text = instructor.NomInstr.ToString();
+                txtRFC.Text = instructor.RFC.ToString();
+                txtCompania.Text=instructor.NomCia.ToString();
+
+                if (instructor.TipoInstr.Equals("Interno"))
+                {
+                    cbTipo.SelectedIndex = 0;
+                }
+                if (instructor.TipoInstr.Equals("Externo"))
+                {
+                    cbTipo.SelectedIndex = 1;
+                }
+            }
+            else
+            {
+                // Maneja el caso en el que el instructor es null
+                MessageBox.Show("Instructor no encontrado", "Error");
+            }
         }
+
 
         public void habilitar()
         {
@@ -147,6 +176,6 @@ namespace WPF_LoginForm.Views
                 // Permitir números (6 números).
                 e.Handled = !char.IsDigit(e.Text, 0);
             }
-        }
+        }      
     }
 }

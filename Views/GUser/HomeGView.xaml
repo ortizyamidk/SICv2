@@ -14,7 +14,6 @@
         <local1:HomeGViewModel/>
     </UserControl.DataContext>
 
-
     <Border CornerRadius="27" BorderThickness="1">
         <Border.Background>
             <ImageBrush ImageSource="/Images/fondoform.jpg"/>
@@ -30,7 +29,6 @@
                 <Border.Background>
                     <SolidColorBrush Color="#FF4D0000" Opacity="0.9"/>
                 </Border.Background>
-
 
                 <TextBlock Foreground="White" FontSize="33" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0">
             Monitoreo del registro de las Listas de Asistencia
@@ -56,7 +54,7 @@
                 </Border.Background>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="640"/>
+                        <ColumnDefinition Width="600"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
@@ -68,42 +66,43 @@
 
                         <lvc:PieChart x:Name="miPieChart" Grid.Row="0" LegendLocation="None" InnerRadius="150" Hoverable="False" Height="350" DataTooltip="{x:Null}">
                             <lvc:PieChart.Series>
-                                <lvc:PieSeries x:Name="valor1" Values="2" StrokeThickness="0" Fill="{StaticResource panelActiveColor}" />
-                                <lvc:PieSeries x:Name="valor2" Values="8" StrokeThickness="0" Fill="DarkGray" />
+                                <lvc:PieSeries x:Name="valor1" StrokeThickness="0" Fill="{StaticResource panelActiveColor}" />
+                                <lvc:PieSeries x:Name="valor2" StrokeThickness="0" Fill="DarkGray" />
                             </lvc:PieChart.Series>
                         </lvc:PieChart>
 
-                        <TextBlock Grid.Row="0" Text="20%" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
+                        <TextBlock x:Name="txtporcentaje" Grid.Row="0" Text="" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
 
-                        <TextBlock Grid.Row="1" Text="Ha registrado 1/5 Cursos" FontSize="25" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding CountCursosRegistered, StringFormat='Ha registrado {0}'}" FontSize="25" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                            <TextBlock Text="{Binding CountCursos, StringFormat='/{0} cursos'}" FontSize="25" HorizontalAlignment="Center" FontWeight="DemiBold"/>
+                        </StackPanel>
                     </Grid>
-
-
 
                     <Border CornerRadius="10" Margin="10" Grid.Column="1" Background="White">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="70"/>
-                                <RowDefinition Height="100"/>
-                                <RowDefinition Height="100"/>
-                                <RowDefinition Height="100"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock Text="Cursos a Registrar" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
 
-                            <uc:cardVencidos Grid.Row="1" Title="Seguridad y Ecología" Desc="Registrar lista" Icon="Information" Margin="7" />
-                            <uc:cardVencidos Grid.Row="2" Title="Medio Ambiente" Desc="Registrar lista" Icon="Information" Margin="7"/>
-                            <uc:cardVencidos Grid.Row="3" Title="Higiene Personal" Desc="Registrar lista" Icon="Information" Margin="7"/>
+                            <Grid Grid.Row="1">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding CursosNoRegistrados}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <uc:cardVencidos Title="{Binding NomCurso}" Desc="Registrar lista" Icon="Information" Margin="7"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
                         </Grid>
                     </Border>
-
-
-
-
-
                 </Grid>
             </Border>
-
         </Grid>
     </Border>
 </UserControl>

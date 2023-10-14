@@ -10,7 +10,7 @@
 
     <Grid x:Name="grid" Margin="8 0">
         <!--Header section-->
-        <Border CornerRadius="20" Background="{StaticResource panelOverColor}" Width="60" Height="60" VerticalAlignment="Top" Margin="0 -18 0 0" Panel.ZIndex="1">
+        <Border CornerRadius="20" Background="{StaticResource panelOverColor}" Width="60" Height="50" VerticalAlignment="Top" Margin="0 -10 0 0" Panel.ZIndex="1">
             <Border.Effect>
                 <DropShadowEffect BlurRadius="10" ShadowDepth="3" Opacity="0.3" Direction="270" Color="#8B052B"/>
             </Border.Effect>
@@ -19,7 +19,7 @@
         </Border>
 
         <!--red border-->
-        <Border x:Name="border" BorderThickness="1" BorderBrush="#8B052B" CornerRadius="20" Margin="-5">
+        <Border x:Name="border" BorderThickness="1" BorderBrush="#8B052B" CornerRadius="20" Margin="-2">
             <Border.Style>
                 <Style TargetType="Border">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -29,40 +29,34 @@
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
 
-                        <DataTrigger Binding="{Binding ElementName=infoCard, Path=IsActive}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
+                        
                     </Style.Triggers>
                 </Style>
             </Border.Style>
         </Border>
 
         <!--Main Section-->
-        <Border Background="White" CornerRadius="20" Padding="10">
+        <Border Background="White" CornerRadius="20" Padding="10" BorderBrush="LightGray" BorderThickness="1">
             <StackPanel>
-
-                <Separator Background="Transparent" Height="10"/>
+                <Separator Background="Transparent"/>
 
                 <!--Titles-->
-                <TextBlock Text="{Binding ElementName=infoCard, Path=Title}" Foreground="#5d5382" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 20 0 0"/>
-                <TextBlock Text="{Binding ElementName=infoCard, Path=Desc}" Foreground="#958ead" HorizontalAlignment="Center" Margin="0 5 0 10"/>
+                <TextBlock Text="{Binding ElementName=infoCard, Path=Title}" Foreground="#5d5382" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 25 0 0"/>
+                <TextBlock Text="{Binding ElementName=infoCard, Path=Desc}" Foreground="#958ead" FontSize="10" HorizontalAlignment="Center" Margin="0 5 0 10"/>
 
                 <!--Top Slider Texts-->
-                <Grid Margin="7 0">
+                <Grid Margin="0 -5 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="{Binding ElementName=infoCard, Path=Percentage}" Foreground="#625986" Grid.Column="1" TextAlignment="Right"/>
+                    <TextBlock Text="{Binding ElementName=infoCard, Path=Percentage}" FontSize="10" Foreground="#625986" Grid.Column="1" TextAlignment="Right"/>
                 </Grid>
 
                 <!--Slider-->
-                <Slider IsSelectionRangeEnabled="True" SelectionEnd="{Binding ElementName=infoCard, Path=Value}" IsEnabled="False" Foreground="#FF450A0A"/>
-
+                <Slider IsSelectionRangeEnabled="True" Height="20" SelectionEnd="{Binding ElementName=infoCard, Path=Value}" IsEnabled="False" Foreground="#FF450A0A"/>
             </StackPanel>
-
-
         </Border>
     </Grid>
 </UserControl>

@@ -14,14 +14,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
+using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views
 {
     public partial class InstructoresView : UserControl
     {
-
         //filtrar
-        private ObservableCollection<Instructor> original;
+        private ObservableCollection<InstructorModel> original;
         private ICollectionView filtrado;
 
         public InstructoresView()
@@ -29,20 +31,13 @@ namespace WPF_LoginForm.Views
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
-            var converter = new BrushConverter();
-            ObservableCollection<Instructor> instructores = new ObservableCollection<Instructor>();
+            // Crear una instancia de IntructorRepository
+            InstructorRepository repository = new InstructorRepository();
 
-            instructores.Add(new Instructor { num = "50156", nombre = "Jose Dominguez", tipo = "Interno" });
-            instructores.Add(new Instructor { num = "2", nombre = "Instructor 2", tipo = "Externo" });
-            instructores.Add(new Instructor { num = "3", nombre = "Instructor 3", tipo = "Externo" });
-            instructores.Add(new Instructor { num = "4", nombre = "Instructor 4", tipo = "Interno" });
-            instructores.Add(new Instructor { num = "5", nombre = "Instructor 5", tipo = "Externo" });
-            instructores.Add(new Instructor { num = "6", nombre = "Instructor 6", tipo = "Interno" });
-            instructores.Add(new Instructor { num = "7", nombre = "Instructor 7", tipo = "Interno" });
-            instructores.Add(new Instructor { num = "8", nombre = "Instructor 8", tipo = "Interno" });
-            instructores.Add(new Instructor { num = "9", nombre = "Instructor 9", tipo = "Interno" });
-            instructores.Add(new Instructor { num = "10", nombre = "Instructor 10", tipo = "Externo" });
+            IEnumerable<InstructorModel> instructoresList = repository.GetByAll();
+            ObservableCollection<InstructorModel> instructores = new ObservableCollection<InstructorModel>(instructoresList);
 
+            // Asignar la lista de instructores al DataGrid
             instructoresDataGrid.ItemsSource = instructores;
 
             //filtrar
@@ -50,14 +45,6 @@ namespace WPF_LoginForm.Views
             filtrado = CollectionViewSource.GetDefaultView(original);
             instructoresDataGrid.ItemsSource = filtrado;
             txtSearch.TextChanged += TxtSearch_TextChanged;
-        }
-
-        public class Instructor
-        {
-            public string num { get; set; }
-            public string nombre { get; set; }
-            public string tipo { get; set; }
-
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -91,21 +78,33 @@ namespace WPF_LoginForm.Views
             {
                 filtrado.Filter = item =>
                 {
-                    var curso = item as Instructor;
-                    return curso.nombre.ToLower().Contains(search);
+                    var instructor = item as InstructorModel;
+                    return instructor.NomInstr.ToLower().Contains(search);
                 };
             }
         }
 
-        private void instructoresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (instructoresDataGrid.SelectedItem != null)
             {
-                // Obtén el valor de la columna "#" (num)
-                string numValue = (instructoresDataGrid.SelectedItem as Instructor)?.num;
+                int numValue = (int)((instructoresDataGrid.SelectedItem as InstructorModel)?.Id);             
+                txtSearch.Text = numValue.ToString();
 
-                // Ahora, puedes usar la variable 'numValue' para hacer lo que necesites con ese valor.
-                //txtSearch.Text = numValue.ToString();
+                // Llama al método GetById en el repositorio
+                InstructorRepository repository = new InstructorRepository();
+                InstructorModel instructor = (repository as IInstructorRepository).GetById(numValue);
+
+                if (instructor != null)
+                {
+                    // Maneja el resultado, por ejemplo, muestra los datos en un MessageBox
+                    string message = $"ID: {instructor.Id}\nNombre: {instructor.NomInstr}\nRFC: {instructor.RFC}\nTipo: {instructor.TipoInstr}\nNombre de la Compañía: {instructor.NomCia}";
+                    MessageBox.Show(message, "Detalles del Instructor");
+                }
+                else
+                {
+                    MessageBox.Show("Instructor no encontrado", "Error");
+                }
             }
         }
     }

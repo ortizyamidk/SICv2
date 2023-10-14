@@ -147,11 +147,6 @@ namespace WPF_LoginForm.ViewModels
             {
                 ErrorMessage = "* Usuario o Contraseña inválido";           
             }
-
-            //MessageBox.Show("COMMAND LOGGEADO IsViewVisible: " + IsViewVisible.ToString());
-            //MessageBox.Show("COMMAND LOGGEADO IsLogIn: " + IsLoggedIn.ToString());
-
-
         }       
 
         private void ExecuteLogoutCommand(object obj)
@@ -167,9 +162,7 @@ namespace WPF_LoginForm.ViewModels
             //MessageBox.Show("EXECUTE LOGOUT Usuario loggeado: " + IsLoggedIn.ToString());
 
             Thread.CurrentPrincipal=null;
-            //MessageBox.Show("user loggeado: " + Thread.CurrentPrincipal.Identity.Name);
-
-            
+            //MessageBox.Show("user loggeado: " + Thread.CurrentPrincipal.Identity.Name);           
         }
 
         /*private void ExecuteRecoverPassCommand(string username, string email)
