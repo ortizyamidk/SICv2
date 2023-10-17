@@ -47,9 +47,9 @@ namespace WPF_LoginForm.ViewModels
 
             // Crear una instancia de CursoRepository y llamar a GetCountCursosRegistered
             ICursoRepository cursoRepository = new CursoRepository();
-            CountCursosRegistered = cursoRepository.GetCountCursosRegistered("Ambiental");
+            CountCursosRegistered = cursoRepository.GetCountCursosRegistered("Calidad");
 
-            CountCursos = cursoRepository.GetCountTotalCursos("Ambiental");
+            CountCursos = cursoRepository.GetCountTotalCursos("Calidad");
 
         }
 
@@ -58,7 +58,7 @@ namespace WPF_LoginForm.ViewModels
             // Aquí puedes llamar al método del repositorio para obtener los resultados
             // Asumiendo que tienes una instancia del repositorio llamada "cursoRepository"
             CursoRepository cursoRepository = new CursoRepository();
-            var resultados = cursoRepository.GetCursosNotRegistered("Ambiental");
+            var resultados = cursoRepository.GetCursosNotRegistered("Calidad");
 
             // Agrega los resultados a la colección
             foreach (var resultado in resultados)

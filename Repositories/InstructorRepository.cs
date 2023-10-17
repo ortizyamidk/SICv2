@@ -40,6 +40,30 @@ namespace WPF_LoginForm.Repositories
             return instructores;
         }
 
+        public InstructorModel GetIdByNombre(string nombreinstr)
+        {
+            InstructorModel instrid = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT id FROM instructor WHERE nominstr = @nombreinstr";
+                command.Parameters.Add("@nombreinstr", SqlDbType.VarChar).Value = nombreinstr;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        instrid = new InstructorModel()
+                        {
+                            Id = (int)reader[0]
+                        };
+                    }
+                }
+            }
+            return instrid;
+        }
+
         InstructorModel IInstructorRepository.GetById(int id)
         {
             InstructorModel instructor = null;

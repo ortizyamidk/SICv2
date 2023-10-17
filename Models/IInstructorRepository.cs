@@ -10,5 +10,6 @@ namespace WPF_LoginForm.Models
     {
         IEnumerable<InstructorModel> GetByAll();
         InstructorModel GetById(int id);
+        InstructorModel GetIdByNombre(string nombreinstr);
     }
 }

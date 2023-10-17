@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
 using WPF_LoginForm.ViewModels;
 
 
@@ -29,30 +31,28 @@ namespace WPF_LoginForm.Views.GUser
         {
             InitializeComponent();
 
-            var converter = new BrushConverter();
-            ObservableCollection<Lista> lista = new ObservableCollection<Lista>();
+            var repository = new CursoGRepository();
+            CursoGModel asistencia = repository.GetById(16); //traer idlistaasistencia
 
-            lista.Add(new Lista { num = "57019", nombre = "Perez Arredondo Manuel Eduardo", puesto = "Acomodo de material" });
-            lista.Add(new Lista { num = "2", nombre = "Trabajador 2", puesto = "Puesto 2" });
-            lista.Add(new Lista { num = "3", nombre = "Trabajador 3", puesto = "Puesto 3" });
-            lista.Add(new Lista { num = "4", nombre = "Trabajador 4", puesto = "Puesto 4" });
-            lista.Add(new Lista { num = "5", nombre = "Trabajador 5", puesto = "Puesto 5" });
-            lista.Add(new Lista { num = "6", nombre = "Trabajador 6", puesto = "Puesto 6" });
-            lista.Add(new Lista { num = "7", nombre = "Trabajador 7", puesto = "Puesto 7" });
-            lista.Add(new Lista { num = "8", nombre = "Trabajador 8", puesto = "Puesto 8" });
-            lista.Add(new Lista { num = "9", nombre = "Trabajador 9", puesto = "Puesto 9" });
-            lista.Add(new Lista { num = "10", nombre = "Trabajador 10", puesto = "Puesto 10" });
+            txtNoLista.Text = asistencia.Id.ToString();
+            txtCurso.Text=asistencia.NomCurso.ToString();
+            txtAreaT.Text=asistencia.AreaTematica.ToString();
+            txtInicia.Text=asistencia.Inicia.ToString();
+            txtTermina.Text=asistencia.Termina.ToString();
+            txtHorario.Text=asistencia.Horario.ToString();
+            txtDura.Text=asistencia.Duracion.ToString() + " min";
+            txtLugar.Text=asistencia.Lugar.ToString();
+            txtInst.Text=asistencia.Instructor.ToString();
 
-            listaDataGrid.ItemsSource = lista;
+            int idlistacurso = int.Parse(txtNoLista.Text);
+
+            TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
+            IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlistacurso);
+            ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+            listaDataGrid.ItemsSource = participantes;
 
         }
 
-        public class Lista
-        {
-            public string num { get; set; }
-            public string nombre { get; set; }
-            public string puesto { get; set; }
-        }
 
         private void btnPaseLista_Click(object sender, RoutedEventArgs e)
         {

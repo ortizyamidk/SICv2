@@ -13,6 +13,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WPF_LoginForm.Repositories;
+using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm.CustomControls
 {
@@ -28,8 +30,9 @@ namespace WPF_LoginForm.CustomControls
             Loaded += MainWindow_Loaded;
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2); // Configura el intervalo de 2 segundos
+            timer.Interval = TimeSpan.FromSeconds(1); // Configura el intervalo de 2 segundos
             timer.Tick += Timer_Tick;
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -75,17 +78,23 @@ namespace WPF_LoginForm.CustomControls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Este código se ejecutará después de 2 segundos de inactividad en txtBuscar
-            // Realiza aquí las acciones que deseas realizar después del retraso.
 
-            // Detén el temporizador
-            timer.Stop();
+            // Verifica si el texto en txtBuscar no está vacío
+            if (!string.IsNullOrEmpty(txtBuscar.Text))
+            {
+                //PASE DE LISTA
+                int numficha = int.Parse(txtBuscar.Text);
 
-            // Ejecuta tu evento o código aquí
-            // Por ejemplo, puedes lanzar un MessageBox como ejemplo:
-            MessageBox.Show("Han pasado 2 segundos desde la última edición en txtBuscar");
-            txtBuscar.Text = string.Empty;
-            txtBuscar.Focus();
+                CursoGRepository repository = new CursoGRepository();
+
+                repository.Edit(16, numficha); //traerme idlistaasistencia
+
+                // Detén el temporizador
+                timer.Stop();
+
+                txtBuscar.Text = string.Empty;
+                txtBuscar.Focus();
+            }
         }
 
     }

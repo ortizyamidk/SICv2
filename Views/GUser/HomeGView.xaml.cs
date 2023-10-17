@@ -26,7 +26,6 @@ namespace WPF_LoginForm.Views.GUser
         {
             InitializeComponent();
 
-            // Suscribirte al evento Loaded de la vista
             Loaded += HomeGView_Loaded;
         }
 

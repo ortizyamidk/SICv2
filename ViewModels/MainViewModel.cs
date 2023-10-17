@@ -323,7 +323,7 @@ namespace WPF_LoginForm.ViewModels
         {
 
             // Llamar al comando de LogoutCommand en el LoginViewModel
-            LoginViewModel.LogoutCommand.Execute(null);
+            /*LoginViewModel.LogoutCommand.Execute(null);
 
             MessageBox.Show("COMANDO SECUNDARIO Login Visible: "+LoginViewModel.IsViewVisible.ToString());
             MessageBox.Show("COMANDO SECUNDARIO Usuario loggeado: " + LoginViewModel.IsLoggedIn.ToString());
@@ -350,7 +350,7 @@ namespace WPF_LoginForm.ViewModels
             loginView.Show();
 
             //MessageBox.Show("COMANDO SECUNDARIO CurrentInstance: " + MainViewG.CurrentInstance);
-            MainViewG.CurrentInstance.Close();
+            MainViewG.CurrentInstance.Close();*/
 
             
 
@@ -369,6 +369,7 @@ namespace WPF_LoginForm.ViewModels
             {
                 CurrentUserAccount.Username = user.Username;
                 CurrentUserAccount.DisplayName = $"{user.TrabajadorNombre}";
+                CurrentUserAccount.DisplayDpto = $"{user.Departamento}";
 
                 UserRole = user.Rol;
 
@@ -386,6 +387,7 @@ namespace WPF_LoginForm.ViewModels
             else
             {
                 CurrentUserAccount.DisplayName = "User not logged in";
+                CurrentUserAccount.DisplayDpto = "User not logged in";
                 //Hide child views.
             }
         }

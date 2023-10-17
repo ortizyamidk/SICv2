@@ -126,7 +126,7 @@
                         <!--Control bar-->
                         <RowDefinition Height="25"/>
                         <!--Header / Caption-->
-                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="40"/>
                         <!--Content section / Child views-->
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="22"/>
@@ -188,13 +188,23 @@
                             VerticalAlignment="Center"
                             Margin="0,0,10,0">
 
-                            <TextBlock x:Name="UserLoggeado" Text="{Binding CurrentUserAccount.DisplayName}"
-                               Foreground="{StaticResource titleColor3}"
-                               FontFamily="Montserrat"
-                               FontSize="20"
-                               VerticalAlignment="Center"
-                               Margin="30,0,10,0"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="UserDpto" Text="{Binding CurrentUserAccount.DisplayDpto}"
+                                           Foreground="{StaticResource titleColor3}"
+                                           FontFamily="Montserrat"
+                                           FontWeight="SemiBold"
+                                           FontSize="20"
+                                           VerticalAlignment="Center"
+                                           Margin="20,0,10,0"/>
 
+                                <TextBlock x:Name="UserLoggeado" Text="{Binding CurrentUserAccount.DisplayName}"
+                                           Foreground="{StaticResource titleColor3}"
+                                           FontFamily="Montserrat"
+                                           FontSize="14"
+                                           VerticalAlignment="Center"
+                                           Margin="20,0,10,0"/>
+
+                            </StackPanel>
 
                         </StackPanel>
                     </Grid>

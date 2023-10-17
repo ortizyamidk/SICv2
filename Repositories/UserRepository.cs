@@ -59,7 +59,13 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT trabajador.nombre, [user].Username, [user].rol FROM trabajador INNER JOIN [user] ON trabajador.id = [user].idtrabajador WHERE [user].Username=@username";
+                command.CommandText = "SELECT U.Username, U.rol, T.nombre, D.nomdepto " +
+                        "FROM [user] AS U " +
+                        "INNER JOIN trabajador AS T ON U.idtrabajador = T.id " +
+                        "INNER JOIN area AS A ON T.idarea = A.id " +
+                        "INNER JOIN departamento AS D ON A.iddpto = D.id " +
+                        "WHERE U.Username = @username";
+
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
                 using (var reader = command.ExecuteReader())
                 {
@@ -67,9 +73,10 @@ namespace WPF_LoginForm.Repositories
                     {
                         user = new UserModel()
                         {
-                            TrabajadorNombre = reader[0].ToString(),
-                            Username = reader[1].ToString(),
-                            Rol = reader[2].ToString(),
+                            Username = reader[0].ToString(),
+                            Rol = reader[1].ToString(),
+                            TrabajadorNombre = reader[2].ToString(),
+                            Departamento = reader[3].ToString(),
                         };
                     }
                 }

@@ -103,7 +103,7 @@
                         <TextBox IsEnabled="False" x:Name="txtLugar" Text="Entrenamiento en Piso" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="1" Width="390">
+                    <StackPanel Orientation="Vertical" Grid.Column="1" Width="370">
                         <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <TextBox IsEnabled="False" Text="Javier Aviles Ortiz" x:Name="txtInst" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
@@ -119,9 +119,9 @@
               
                   x:Name="listaDataGrid" Width="Auto" Height="auto" Margin="0 0 0 13" HorizontalContentAlignment="Center">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
-                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
+                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding Nombre}"/>
+                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding Puesto}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>

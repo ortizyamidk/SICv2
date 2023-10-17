@@ -18,7 +18,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select nomdepto from departamento;";
+                command.CommandText = "SELECT nomdepto FROM departamento WHERE registra = 1;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

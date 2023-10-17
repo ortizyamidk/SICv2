@@ -8,6 +8,8 @@
              xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
+    
+    
 
     <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>
@@ -56,11 +58,11 @@
                           CellStyle="{DynamicResource DataGridCellStyle1}" 
                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                           RowStyle="{DynamicResource DataGridRowStyle1}" 
-                          x:Name="cursosDataGrid" Width="Auto" Height="480" SelectionChanged="cursosDataGrid_SelectionChanged">
+                          x:Name="cursosDataGrid" Width="Auto" Height="480">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding num}"/>
-                        <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                        <DataGridTextColumn Header="Área temática" IsReadOnly="True" Width="*" Binding="{Binding area}"/>
+                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding NomCurso}"/>
+                        <DataGridTextColumn Header="Área temática" IsReadOnly="True" Width="*" Binding="{Binding AreaTematica}"/>
 
                         <DataGridTemplateColumn Header="Ver/Editar Info" Width="*">
                             <DataGridTemplateColumn.CellTemplate>

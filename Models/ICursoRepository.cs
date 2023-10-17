@@ -9,6 +9,7 @@ namespace WPF_LoginForm.Models
     public interface ICursoRepository
     {
         IEnumerable<CursoModel> GetCursosNotRegistered(string area);
+        IEnumerable<CursoModel> GetByAll();
 
         int GetCountCursosRegistered(string area);
 

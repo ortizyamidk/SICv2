@@ -16,18 +16,15 @@
                 </Border.Background>
 
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="90"/>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+            
 
-                    <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
-                        <Label Content="Folio lista:" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" Text="329" HorizontalContentAlignment="Center" x:Name="txtFolio" Style="{StaticResource myTextBox}" FontSize="20" Width="100" BorderBrush="Black"/>
-                    </StackPanel>
 
-                    <Grid Grid.Column="1">
+                <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
                             <RowDefinition Height="95"/>
@@ -47,18 +44,8 @@
                             <StackPanel Orientation="Vertical" Grid.Column="0" Width="360"  HorizontalAlignment="Center">
                                 <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Border CornerRadius="9" BorderBrush="Black" Width="auto" BorderThickness="0.3">
-                                    <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
-                                        <ComboBox.Items>
-                                            <ComboBoxItem Content="Seguridad y Ecología" />
-                                            <ComboBoxItem Content="Solución de problemas" />
-                                            <ComboBoxItem Content="Auditores Internos" />
-                                            <ComboBoxItem Content="Básicos del Supervisor" />
-                                            <ComboBoxItem Content="Calibración de Instrumentos" />
-                                        </ComboBox.Items>
-
-                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                    </ComboBox>
-                                </Border>
+                                <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand"/>
+                            </Border>
                             </StackPanel>
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="400">
@@ -153,9 +140,6 @@
                                             <ComboBox Name="cbInstructor" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
                                                 <ComboBox.Items>
                                                     <ComboBoxItem Content="--Escriba un instructor temporal--" />
-                                                    <ComboBoxItem Content="Jose Dominguez" />
-                                                    <ComboBoxItem Content="Juan Luis Aviles" />
-                                                    <ComboBoxItem Content="Jorge Ortiz" />
                                                 </ComboBox.Items>
 
                                                 <ComboBox.SelectedIndex>1</ComboBox.SelectedIndex>
@@ -201,12 +185,14 @@
                                       CellStyle="{DynamicResource DataGridCellStyle2}" 
                                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
                                       RowStyle="{DynamicResource DataGridRowStyle2}"
-                                      x:Name="participantesDataGrid" Width="Auto" Height="auto" HorizontalContentAlignment="Center">
+                                      
+                                      x:Name="participantesDataGrid" Width="Auto" Height="auto" 
+                                      HorizontalContentAlignment="Center">
                                 
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
-                                    <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                                    <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
+                                    <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding Id}"/>
+                                    <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding Nombre}"/>
+                                    <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding Puesto}"/>
                                     <DataGridTemplateColumn Header="Borrar" Width="90">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
@@ -220,7 +206,7 @@
                             </DataGrid>
                         </Border>
 
-                        <Button x:Name="btnGuardar" Grid.Row="6" HorizontalAlignment="Center" Margin="0 0 15 0" Content="Guardar lista" FontWeight="DemiBold" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnGuardar_Click"/>
+                    <Button x:Name="btnGuardar" Grid.Row="6" HorizontalAlignment="Center" Margin="0 0 15 0" Content="Guardar lista" FontWeight="DemiBold" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnGuardar_Click"/>
                     </Grid>
 
                     <Image Source="/Images/h.png" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" Width="70"/>

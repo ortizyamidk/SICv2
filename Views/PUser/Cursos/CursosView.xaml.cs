@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
 
 namespace WPF_LoginForm.Views
 {
@@ -22,27 +24,18 @@ namespace WPF_LoginForm.Views
     {
 
         //filtrar
-        private ObservableCollection<Curso> cursoOriginal;
+        private ObservableCollection<CursoModel> cursoOriginal;
         private ICollectionView cursoFiltrado;
 
         public CursosView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
            
-            var converter = new BrushConverter();
-            ObservableCollection<Curso> cursos = new ObservableCollection<Curso>();
-
-            //create datagrid items info
-            cursos.Add(new Curso { num = "128", nombre = "Bloqueo y Etiquetado", area = "Area 1" });
-            cursos.Add(new Curso { num = "2", nombre = "Curso 2", area = "Area 2" });
-            cursos.Add(new Curso { num = "3", nombre = "Curso 3", area = "Area 3" });
-            cursos.Add(new Curso { num = "4", nombre = "Curso 4", area = "Area 4" });
-            cursos.Add(new Curso { num = "5", nombre = "Curso 5", area = "Area 5" });
-            cursos.Add(new Curso { num = "6", nombre = "Curso 6", area = "Area 6" });
-            cursos.Add(new Curso { num = "7", nombre = "Curso 7", area = "Area 7" });
-            cursos.Add(new Curso { num = "8", nombre = "Curso 8", area = "Area 8" });
-
+            CursoRepository repository = new CursoRepository();
+            IEnumerable<CursoModel> cursoList = repository.GetByAll();        
+            ObservableCollection<CursoModel> cursos = new ObservableCollection<CursoModel>(cursoList);
             cursosDataGrid.ItemsSource = cursos;
 
             //filtrar
@@ -52,13 +45,6 @@ namespace WPF_LoginForm.Views
             txtSearch.TextChanged += TxtSearch_TextChanged;
 
 
-        }
-
-        public class Curso
-        {
-            public string num { get; set; }
-            public string nombre { get; set; }
-            public string area { get; set; }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -92,21 +78,9 @@ namespace WPF_LoginForm.Views
             {
                 cursoFiltrado.Filter = item =>
                 {
-                    var curso = item as Curso;
-                    return curso.nombre.ToLower().Contains(search);
+                    var cursoBuscado = item as CursoModel;
+                    return cursoBuscado.NomCurso.ToLower().Contains(search);
                 };
-            }
-        }
-
-        private void cursosDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cursosDataGrid.SelectedItem != null)
-            {
-                // Obtén el valor de la columna "#" (num)
-                string numValue = (cursosDataGrid.SelectedItem as Curso)?.num;
-
-                // Ahora, puedes usar la variable 'numValue' para hacer lo que necesites con ese valor.
-                //txtSearch.Text = numValue.ToString();
             }
         }
     }
