@@ -35,10 +35,24 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="2" Width="130">
-                            <Label Content="No ficha:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                            <TextBox x:Name="txtNoFicha" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
-                        </StackPanel>
+                        <Grid Grid.Row="0" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="110"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Width="110">
+                            <Label Content="No. ficha:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox x:Name="txtNoFicha" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="14" BorderBrush="Black"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Width="120" HorizontalAlignment="Center">
+                                <Label Content="Tarjeta:" HorizontalAlignment="Center" Foreground="White" FontWeight="Bold" FontSize="18" Margin="0 3 0 7"/>
+                                <TextBox x:Name="txtNumTarjeta" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="14" BorderBrush="Black"/>
+                            </StackPanel>
+                        </Grid>
+
+                        
 
                         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
                             <Image x:Name="imgTrabajador" Source="/Images/up.png" Width="120" Height="180"/>

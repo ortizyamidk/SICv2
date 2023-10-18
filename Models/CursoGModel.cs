@@ -13,6 +13,7 @@ namespace WPF_LoginForm.Models
         public string NomCurso { get; set; }
         public string AreaTematica { get; set; }
 
+        public int IdLista {  get; set; }
         public string Inicia { get; set; }
         public string Termina { get; set; }
         public string Horario { get; set; }

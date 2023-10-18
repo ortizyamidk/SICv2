@@ -21,9 +21,6 @@ using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views.GUser
 {
-    /// <summary>
-    /// Lógica de interacción para CursoInfoGView.xaml
-    /// </summary>
     public partial class CursoInfoGView : UserControl
     {
 
@@ -32,7 +29,7 @@ namespace WPF_LoginForm.Views.GUser
             InitializeComponent();
 
             var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(16); //traer idlistaasistencia
+            CursoGModel asistencia = repository.GetById(19); //traer idlistaasistencia
 
             txtNoLista.Text = asistencia.Id.ToString();
             txtCurso.Text=asistencia.NomCurso.ToString();
@@ -50,7 +47,6 @@ namespace WPF_LoginForm.Views.GUser
             IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlistacurso);
             ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
             listaDataGrid.ItemsSource = participantes;
-
         }
 
 

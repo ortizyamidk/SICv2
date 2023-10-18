@@ -36,15 +36,14 @@ namespace WPF_LoginForm.Views.GUser
             CursoGRepository repository = new CursoGRepository();
             IEnumerable<CursoGModel> cursosList = repository.GetByAll();
             ObservableCollection<CursoGModel> cursos = new ObservableCollection<CursoGModel>(cursosList);
-            cursosGDataGrid.ItemsSource = cursos;
+            cursosGDataGrid.ItemsSource = cursos;                         
 
             //filtrar busqueda
             listaOriginal = cursos;
             listaFiltrada = CollectionViewSource.GetDefaultView(listaOriginal);
             cursosGDataGrid.ItemsSource = listaFiltrada;
             txtSearch.TextChanged += TxtSearch_TextChanged;
-
-            
+          
         }
 
         //enfocar en barra de busqueda

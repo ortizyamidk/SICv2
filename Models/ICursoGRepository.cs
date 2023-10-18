@@ -8,6 +8,7 @@ namespace WPF_LoginForm.Models
 {
     public interface ICursoGRepository
     {
+
         IEnumerable<CursoGModel> GetByAll();
 
         CursoGModel GetById(int id);
@@ -20,6 +21,7 @@ namespace WPF_LoginForm.Models
 
         void Edit(int idlista, int numficha);
         void AddInstructor(int idinstructor, int idcurso);
+        void AddInstructorTemporal(string nominstr, int idcurso);
         void AddListaAsistencia (string inicia, string termina, string horario, int duracion, string lugar, int curso);
 
         void IsCursoRegistered(int idcurso);

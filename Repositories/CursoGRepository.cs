@@ -91,19 +91,20 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, I.nominstr, LC.fechainicio, LC.fechaterm " +
-                                      "FROM cursos as C " +
-                                      "INNER JOIN instructor as I " +
-                                      "ON C.idinstructor = I.id " +
-                                      "INNER JOIN listacursos as LC ON C.id = LC.idcurso " +
-                                      "WHERE C.areatematica ='Calidad' AND C.registrado = 1";
+                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, COALESCE(I.nominstr, LC.nominstr) AS nominstr, LC.fechainicio, LC.fechaterm " +
+                                    "FROM cursos as C " +
+                                    "LEFT JOIN instructor as I " +
+                                    "ON C.idinstructor = I.id " +
+                                    "RIGHT JOIN listacursos as LC ON C.id = LC.idcurso " +
+                                    "WHERE C.areatematica ='Calidad' AND C.registrado = 1";
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         CursoGModel curso = new CursoGModel()
                         {
-                            Id = (int)reader[0],
+                            IdLista = (int)reader[0],
                             NomCurso = reader[1].ToString(),
                             AreaTematica = reader[2].ToString(),
                             Instructor = reader[3].ToString(),
@@ -282,6 +283,22 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return idlista;
+        }
+
+        public void AddInstructorTemporal(string nominstr, int idcurso)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE listacursos SET nominstr = @nombreinstr WHERE idcurso = @idcurso";
+
+                command.Parameters.Add("@nombreinstr", SqlDbType.VarChar).Value = nominstr;
+                command.Parameters.Add("@idcurso", SqlDbType.Int).Value = idcurso;
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }

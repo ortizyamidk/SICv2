@@ -161,21 +161,36 @@ namespace WPF_LoginForm.Views.GUser
                ComboBoxItem selectedItem = (ComboBoxItem) cbCurso.SelectedItem;
                string nombrecurso = selectedItem.Content.ToString();
 
-               ComboBoxItem selectedItemInst = (ComboBoxItem) cbInstructor.SelectedItem;
-               string nombreinstructor = selectedItemInst.Content.ToString();
-
-               CursoGModel cursoidModel = repository.GetIDCursoByNombre(nombrecurso);
-               InstructorModel instridModel = instructorRepository.GetIdByNombre(nombreinstructor);
-
+               CursoGModel cursoidModel = repository.GetIDCursoByNombre(nombrecurso);             
                int cursoid = cursoidModel.Id;
-               int instrid = instridModel.Id;
+               
 
                 //insertar en tabla lista cursos
                 repository.AddListaAsistencia(inicia, termina, horario, duracion, lugar, cursoid);
                 //editar tabla cursos de que ya fue registrado
                 repository.IsCursoRegistered(cursoid);
-                //editar tabla cursos para agregar instructor
-                repository.AddInstructor(instrid, cursoid);
+
+                if (cbInstructor.SelectedIndex==0)
+                {
+                    MessageBox.Show("index: "+cbInstructor.SelectedIndex.ToString()+" instructor: "+txtcbInstructor.Text);
+                    string instructortemporal = txtcbInstructor.Text;
+
+                    repository.AddInstructorTemporal(instructortemporal, cursoid);
+                }
+                else
+                {
+                    ComboBoxItem selectedItemInst = (ComboBoxItem) cbInstructor.SelectedItem;
+                    string nombreinstructor = selectedItemInst.Content.ToString();
+                    InstructorModel instridModel = instructorRepository.GetIdByNombre(nombreinstructor);
+                    int instrid = instridModel.Id;
+
+                    MessageBox.Show("Instructor: "+ instrid);
+
+                    //editar tabla cursos para agregar instructor
+                    repository.AddInstructor(instrid, cursoid);
+                }
+                
+                
 
                 CursoGModel lastidlista = repository.GetLastIdLista();
                 int lastid = lastidlista.Id;

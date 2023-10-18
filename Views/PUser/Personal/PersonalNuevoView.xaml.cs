@@ -99,6 +99,7 @@ namespace WPF_LoginForm.Views
         public void limpiar()
         {
             txtNoFicha.Text = string.Empty;
+            txtNumTarjeta.Text = string.Empty;
             dtIngreso.SelectedDate = DateTime.Now;
             txtNombre.Text = string.Empty;
             txtRFC.Text = string.Empty;
