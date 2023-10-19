@@ -52,12 +52,7 @@ namespace WPF_LoginForm.Views.GUser
             trabajadoresList = new ObservableCollection<TrabajadorModel>();
 
             CargarCursos();
-            CargarInstructores();
-
-            if (cbCurso.Items.Count == 0)
-            {
-                btnGuardar.IsEnabled = false; // Deshabilitar el botón de guardar
-            }
+            CargarInstructores();           
 
             // Suscribir al evento SelectionChanged del ComboBox
             cbInstructor.SelectionChanged += ComboBox_SelectionChanged;
@@ -149,6 +144,22 @@ namespace WPF_LoginForm.Views.GUser
                 MessageBox.Show("La lista no contiene registros. Agregue al menos un participante.", "No hay registros", MessageBoxButton.OK, MessageBoxImage.Error);
                 errores = true;
             }
+            if (cbCurso.Items.Count == 0)
+            {
+                errores = true;
+                dtInicia.IsEnabled = false;
+                dtTermina.IsEnabled = false;
+                tiHorario.IsEnabled = false;
+                txtDuracion.IsEnabled = false;
+                txtLugar.IsEnabled = false;
+                cbInstructor.IsEnabled = false;
+                txtcbInstructor.IsEnabled = false;
+                btnSearch.IsEnabled = false;
+                txtBuscar.IsEnabled = false;
+
+                limpiar();
+                MessageBox.Show("No hay cursos a registrar");
+            }
 
             if (!errores)
             {
@@ -172,7 +183,6 @@ namespace WPF_LoginForm.Views.GUser
 
                 if (cbInstructor.SelectedIndex==0)
                 {
-                    MessageBox.Show("index: "+cbInstructor.SelectedIndex.ToString()+" instructor: "+txtcbInstructor.Text);
                     string instructortemporal = txtcbInstructor.Text;
 
                     repository.AddInstructorTemporal(instructortemporal, cursoid);

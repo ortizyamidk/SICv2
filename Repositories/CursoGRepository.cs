@@ -126,10 +126,13 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, LC.fechainicio, LC.fechaterm, LC.horario, LC.duracion, LC.lugar, I.nominstr " +
-                                    "FROM instructor AS I " +
-                                    "INNER JOIN cursos AS C " +
-                                    "INNER JOIN listacursos AS LC ON C.id = LC.idcurso ON I.id = C.idinstructor " +
+                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, COALESCE(I.nominstr, LC.nominstr) AS nominstr, " +
+                                    "CONVERT(varchar,LC.fechainicio, 103) AS fechainicio, CONVERT(varchar,LC.fechaterm, 103) AS fechaterm, " +
+                                    "CONVERT(varchar, LC.horario, 108) AS horario, LC.duracion, LC.lugar " +
+                                    "FROM cursos as C " +
+                                    "LEFT JOIN instructor as I " +
+                                    "ON C.idinstructor = I.id " +
+                                    "RIGHT JOIN listacursos as LC ON C.id = LC.idcurso " +
                                     "WHERE LC.id = @id";
 
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -143,12 +146,12 @@ namespace WPF_LoginForm.Repositories
                             Id = (int)reader[0],
                             NomCurso = reader[1].ToString(),
                             AreaTematica = reader[2].ToString(),
-                            Inicia = reader[3].ToString(),
-                            Termina = reader[4].ToString(),
-                            Horario = reader[5].ToString(),
-                            Duracion = (int) reader[6],
-                            Lugar = reader[7].ToString(),
-                            Instructor = reader[8].ToString()
+                            Instructor = reader[3].ToString(),
+                            Inicia = reader[4].ToString(),
+                            Termina = reader[5].ToString(),
+                            Horario = reader[6].ToString(),
+                            Duracion = (int)reader[7],
+                            Lugar = reader[8].ToString()
 
                         };
                     }

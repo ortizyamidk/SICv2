@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace WPF_LoginForm.Views.GUser
             InitializeComponent();
 
             var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(19); //traer idlistaasistencia
+            CursoGModel asistencia = repository.GetById(20); //traer idlistaasistencia
 
             txtNoLista.Text = asistencia.Id.ToString();
             txtCurso.Text=asistencia.NomCurso.ToString();

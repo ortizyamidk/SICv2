@@ -50,7 +50,7 @@
 
                             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="400">
                                 <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox IsEnabled="False" x:Name="txtArea" Text="Calidad" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                                <TextBox IsEnabled="False" x:Name="txtArea" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                             </StackPanel>
                         </Grid>
 
