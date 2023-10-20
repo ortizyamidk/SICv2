@@ -11,6 +11,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorModel
     {
+        //ver trabajadores para tabla en vista CustomerView
         public IEnumerable<TrabajadorModel> GetByAll()
         {
             List<TrabajadorModel> trabajadores = new List<TrabajadorModel>();
@@ -44,6 +45,7 @@ namespace WPF_LoginForm.Repositories
             return trabajadores;
         }
 
+        //ver trabajador especifico para vista PersonalInfoView
         public TrabajadorModel GetById(int id)
         {
             TrabajadorModel trabajador = null;
@@ -76,6 +78,7 @@ namespace WPF_LoginForm.Repositories
             return trabajador;
         }
 
+        //participantes para CursoInfoGView
         public IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista)
         {
             List<TrabajadorModel> participantes = new List<TrabajadorModel>();

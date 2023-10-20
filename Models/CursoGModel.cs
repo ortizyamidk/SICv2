@@ -9,7 +9,6 @@ namespace WPF_LoginForm.Models
     public class CursoGModel
     {
         public int Id { get; set; }
-
         public string NomCurso { get; set; }
         public string AreaTematica { get; set; }
 

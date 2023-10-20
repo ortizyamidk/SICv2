@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para CursoInfoView.xaml
-    /// </summary>
     public partial class CursoInfoView : UserControl
     {
 
@@ -31,6 +31,35 @@ namespace WPF_LoginForm.Views
             InitializeComponent();
 
             deshabilitar();
+
+            var cursoRepository = new CursoRepository();
+            CursoModel curso = cursoRepository.GetById(9);
+
+            txtNoCurso.Text = curso.Id.ToString();
+            txtNombreC.Text = curso.NomCurso.ToString();
+
+            string areaTematica = curso.AreaTematica.ToString(); // Obtén el valor de la base de datos
+
+            foreach (ComboBoxItem item in cbAreaT.Items)
+            {
+                if (item.Content.ToString() == areaTematica)
+                {
+                    cbAreaT.SelectedItem = item; // Selecciona el elemento coincidente
+                    break; // Termina el bucle una vez que se encuentra la coincidencia
+                }
+            }
+
+            string mesLimite = curso.MesLimite.ToString();
+            foreach (ComboBoxItem itemMes in cbMes.Items)
+            {
+                if (itemMes.Content.ToString() == mesLimite)
+                {
+                    cbMes.SelectedItem = itemMes; // Selecciona el elemento coincidente
+                    break; // Termina el bucle una vez que se encuentra la coincidencia
+                }
+            }
+
+
         }
 
         public void habilitar()
@@ -70,6 +99,18 @@ namespace WPF_LoginForm.Views
             }
             else
             {
+                ComboBoxItem areaseleccionada = (ComboBoxItem)cbAreaT.SelectedItem;
+                ComboBoxItem messeleccionado = (ComboBoxItem)cbMes.SelectedItem;
+
+                int idcurso = int.Parse(txtNoCurso.Text);
+                string nombrecurso = txtNombreC.Text;
+                string areatematica = areaseleccionada.Content.ToString();
+                string meslimite = messeleccionado.Content.ToString();
+
+                var cursoEdit = new CursoRepository();
+                cursoEdit.EditCurso(nombrecurso, areatematica, meslimite, idcurso);
+
+                
                 MostrarCustomMessageBox();
                 errCurso.Content = string.Empty;
                 txtNombreC.BorderBrush = bordeNormal;

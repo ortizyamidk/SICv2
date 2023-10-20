@@ -24,9 +24,6 @@ using static WPF_LoginForm.Views.GUser.CursoNuevoGView;
 
 namespace WPF_LoginForm.Views.GUser
 {
-    /// <summary>
-    /// Lógica de interacción para CursoNuevoGView.xaml
-    /// </summary>
     public partial class CursoNuevoGView : UserControl
     {
         SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
@@ -34,9 +31,11 @@ namespace WPF_LoginForm.Views.GUser
         string req = "*Campo requerido";
         string inicia, termina, horario, lugar;
         int duracion;
+        string nombrecurso;
 
         CursoGRepository repository;
         InstructorRepository instructorRepository;
+        TrabajadorRepository trabajadorRepository;
 
         ObservableCollection<TrabajadorModel> trabajadoresList = new ObservableCollection<TrabajadorModel>();
 
@@ -48,56 +47,44 @@ namespace WPF_LoginForm.Views.GUser
 
             repository = new CursoGRepository();
             instructorRepository = new InstructorRepository();
-            // Inicializa la ObservableCollection
+            trabajadorRepository = new TrabajadorRepository();
+
             trabajadoresList = new ObservableCollection<TrabajadorModel>();
 
             CargarCursos();
-            CargarInstructores();           
+            CargarInstructores();
 
-            // Suscribir al evento SelectionChanged del ComboBox
+            ComboBoxItem selectedItem = (ComboBoxItem)cbCurso.SelectedItem;
+            nombrecurso = selectedItem.Content.ToString();
+
+            CursoGModel areacurso = repository.GetIDCursoByNombre(nombrecurso);            
+            txtArea.Text = areacurso.AreaTematica;
+
             cbInstructor.SelectionChanged += ComboBox_SelectionChanged;
-            // Suscribir al evento LostFocus del TextBox
             txtcbInstructor.LostFocus += TextBox_LostFocus;
 
-            //insertar fechas actuales
             dtInicia.SelectedDate = DateTime.Now;
             dtTermina.SelectedDate = DateTime.Now;
-
             tiHorario.SelectedTime = DateTime.Now;
 
-            // Suscribir al evento SelectionChanged del TimePicker
             tiHorario.SelectedTimeChanged += TiHorario_SelectedTimeChanged;
         }
 
         private void CargarCursos()
         {
-            // Llama al método GetCursos del repositorio para obtener la lista de cursos
-            var cursos = repository.GetCursos();
+            var cursos = repository.GetCursos("Calidad");
 
-            // Limpia cualquier elemento existente en el ComboBox
             cbCurso.Items.Clear();
 
-            // Agrega los cursos al ComboBox
             foreach (var curso in cursos)
             {
-                // Agrega un nuevo ComboBoxItem para cada curso
                 var item = new ComboBoxItem
                 {
                     Content = curso.NomCurso
                 };
                 cbCurso.Items.Add(item);
             }
-
-            // Si deseas seleccionar el primer elemento por defecto, puedes hacerlo así:
-            if (cbCurso.Items.Count > 0)
-            {
-                cbCurso.SelectedIndex = 0;
-                btnGuardar.IsEnabled = true;
-            }
-            else
-            {
-                btnGuardar.IsEnabled = false; // Deshabilita el botón de guardar si no hay elementos en el ComboBox
-            }
+           
         }
 
         private void CargarInstructores()
@@ -168,14 +155,11 @@ namespace WPF_LoginForm.Views.GUser
                 horario = tiHorario.SelectedTime.ToString();
                 duracion = int.Parse(txtDuracion.Text);
                 lugar = txtLugar.Text;
-
-               ComboBoxItem selectedItem = (ComboBoxItem) cbCurso.SelectedItem;
-               string nombrecurso = selectedItem.Content.ToString();
+                
 
                CursoGModel cursoidModel = repository.GetIDCursoByNombre(nombrecurso);             
                int cursoid = cursoidModel.Id;
                
-
                 //insertar en tabla lista cursos
                 repository.AddListaAsistencia(inicia, termina, horario, duracion, lugar, cursoid);
                 //editar tabla cursos de que ya fue registrado
@@ -198,14 +182,10 @@ namespace WPF_LoginForm.Views.GUser
 
                     //editar tabla cursos para agregar instructor
                     repository.AddInstructor(instrid, cursoid);
-                }
-                
-                
+                }                              
 
                 CursoGModel lastidlista = repository.GetLastIdLista();
                 int lastid = lastidlista.Id;
-
-                //MessageBox.Show(lastid.ToString());               
 
                 MostrarCustomMessageBox();
 
@@ -267,9 +247,8 @@ namespace WPF_LoginForm.Views.GUser
             else
             {
                int numficha = int.Parse(txtBuscar.Text);
-
-               TrabajadorRepository repository = new TrabajadorRepository();
-               TrabajadorModel trabajador = repository.GetById(numficha);
+               
+               TrabajadorModel trabajador = trabajadorRepository.GetById(numficha);
 
                 if (trabajador!=null)
                 {
@@ -284,12 +263,12 @@ namespace WPF_LoginForm.Views.GUser
                     }
                     else
                     {
-                        MessageBox.Show("Trabajador ya agregado", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        MessageBox.Show("Trabajador ya agregado", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("No existe Trabajador con ese Num. de ficha");
+                    MessageBox.Show("No existe Trabajador con ese Num. de ficha", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
 
                 txtBuscar.Text = string.Empty;

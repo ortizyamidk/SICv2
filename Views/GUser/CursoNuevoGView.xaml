@@ -44,7 +44,7 @@
                             <StackPanel Orientation="Vertical" Grid.Column="0" Width="360"  HorizontalAlignment="Center">
                                 <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Border CornerRadius="9" BorderBrush="Black" Width="auto" BorderThickness="0.3">
-                                <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand"/>
+                                <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand" SelectedIndex="0"/>
                             </Border>
                             </StackPanel>
 

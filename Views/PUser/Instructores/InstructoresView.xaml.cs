@@ -98,8 +98,8 @@ namespace WPF_LoginForm.Views
                 if (instructor != null)
                 {
                     // Maneja el resultado, por ejemplo, muestra los datos en un MessageBox
-                    string message = $"ID: {instructor.Id}\nNombre: {instructor.NomInstr}\nRFC: {instructor.RFC}\nTipo: {instructor.TipoInstr}\nNombre de la Compañía: {instructor.NomCia}";
-                    MessageBox.Show(message, "Detalles del Instructor");
+                    //string message = $"ID: {instructor.Id}\nNombre: {instructor.NomInstr}\nRFC: {instructor.RFC}\nTipo: {instructor.TipoInstr}\nNombre de la Compañía: {instructor.NomCia}";
+                    //MessageBox.Show(message, "Detalles del Instructor");
                 }
                 else
                 {

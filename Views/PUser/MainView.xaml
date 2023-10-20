@@ -259,7 +259,7 @@
                                 Margin="0,0,10,0">
 
                             <StackPanel Orientation="Vertical">
-                                <TextBlock x:Name="UserDpto" Text="{Binding CurrentUserAccount.DisplayDpto}"
+                                <TextBlock x:Name="UserDpto" Text="{Binding CurrentUserAccount.DisplayArea}"
                                            Foreground="{StaticResource titleColor3}"
                                            FontFamily="Montserrat"
                                            FontWeight="SemiBold"

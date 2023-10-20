@@ -37,12 +37,12 @@
                     </Grid.ColumnDefinitions>
                     
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center">
-                        <Label Content="No. curso:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <Label Content="No. lista:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnAnt_Click">
                                 <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
                             </Button>
-                            <TextBox IsEnabled="False" x:Name="txtNoCurso" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="130" />
+                            <TextBox IsEnabled="False" x:Name="txtNoLista" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="130" />
                             <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnSig_Click">
                                 <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
                             </Button>
@@ -52,11 +52,11 @@
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Height="60" VerticalAlignment="Center">
                         <Grid>
                             <TextBox x:Name="txtSearch" PreviewTextInput="TextBox_PreviewTextInput" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
-                                 Height="auto" Width="115" Background="Transparent"
+                                 Height="auto" Width="135" Background="Transparent"
                                  FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                                  BorderThickness="0,0,0,1" VerticalAlignment="Bottom">
                             </TextBox>
-                            <TextBlock Text="Buscar Curso" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,5" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                            <TextBlock Text="Buscar No. Lista" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,5" FontSize="18" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -150,9 +150,9 @@
                         x:Name="cursosTrabajadorDataGrid" Width="Auto" Height="auto" Margin="0 0 0 13" HorizontalContentAlignment="Center">
                         
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding num}"/>
-                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding nombre}"/>
-                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding puesto}"/>
+                            <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding Nombre}"/>
+                            <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding Puesto}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>

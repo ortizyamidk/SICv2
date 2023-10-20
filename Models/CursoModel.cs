@@ -10,8 +10,9 @@ namespace WPF_LoginForm.Models
     {
         public int Id { get; set; }
         public string NomCurso { get; set; }
-        public string AreaTematica { get; set; }
+        public string AreaTematica { get; set; }         
         public bool Registrado { get; set; }
+        public string MesLimite { get; set; } 
         public int IdInstructor { get; set; }
     }
 }

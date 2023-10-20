@@ -12,6 +12,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class InstructorRepository : RepositoryBase, IInstructorRepository
     {
+        //ver todos los instructores dados de alta en bd para combobox
         public IEnumerable<InstructorModel> GetByAll()
         {
             List<InstructorModel> instructores = new List<InstructorModel>();
@@ -40,6 +41,7 @@ namespace WPF_LoginForm.Repositories
             return instructores;
         }
 
+        //Obtener el id del instructor seleccionado en el combobox
         public InstructorModel GetIdByNombre(string nombreinstr)
         {
             InstructorModel instrid = null;
@@ -64,6 +66,7 @@ namespace WPF_LoginForm.Repositories
             return instrid;
         }
 
+        //ver datos del instructor especifico
         InstructorModel IInstructorRepository.GetById(int id)
         {
             InstructorModel instructor = null;

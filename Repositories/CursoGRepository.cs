@@ -13,6 +13,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class CursoGRepository : RepositoryBase, ICursoGRepository
     {
+        //insertar nueva lista de asistencia
         public void AddListaAsistencia(string inicia, string termina, string horario, int duracion, string lugar, int curso)
         {
             using (var connection = GetConnection())
@@ -34,6 +35,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
+        //insertar instructor dado de alta en bd
         public void AddInstructor(int idinstructor, int idcurso)
         {
             using (var connection = GetConnection())
@@ -50,6 +52,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
+        //insertar participantes de la lista de asistencia a un curso
         public void AddParticipantes(int numficha, int idcurso)
         {
             using (var connection = GetConnection())
@@ -66,6 +69,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
+        //pase de lista
         public void Edit(int idlista, int numficha)
         {
             using (var connection = GetConnection())
@@ -83,6 +87,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
+        //ver todos los cursos de cierta area que ya está registrada su lista de asistencia para tabla
         public IEnumerable<CursoGModel> GetByAll()
         {
             List<CursoGModel> cursos = new List<CursoGModel>();
@@ -118,6 +123,7 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
+        //ver la lista de asistencia especifica de cierta area
         public CursoGModel GetById(int id)
         {
            CursoGModel asistencia = null;
@@ -133,7 +139,7 @@ namespace WPF_LoginForm.Repositories
                                     "LEFT JOIN instructor as I " +
                                     "ON C.idinstructor = I.id " +
                                     "RIGHT JOIN listacursos as LC ON C.id = LC.idcurso " +
-                                    "WHERE LC.id = @id";
+                                    "WHERE LC.id = @id AND C.areatematica='Calidad'";
 
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
@@ -160,7 +166,8 @@ namespace WPF_LoginForm.Repositories
             return asistencia;
         }
 
-        public IEnumerable<CursoGModel> GetCursos()
+        //ver cursos NO registrados aun de cierta area para mostrarselo a usuario gral en combobox al insertar nueva lista
+        public IEnumerable<CursoGModel> GetCursos(string area)
         {
             List<CursoGModel> cursos = new List<CursoGModel>();
             using (var connection = GetConnection())
@@ -168,7 +175,10 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT nomcurso, areatematica FROM cursos WHERE registrado = 0 AND areatematica = 'Calidad'";
+                command.CommandText = "SELECT nomcurso FROM cursos " +
+                                    "WHERE registrado = 0 AND areatematica = @areatematica";
+
+                command.Parameters.Add("@areatematica", SqlDbType.VarChar).Value = area;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -176,8 +186,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         CursoGModel curso = new CursoGModel()
                         {
-                            NomCurso = reader[0].ToString(),
-                            AreaTematica = reader[1].ToString()
+                            NomCurso = reader[0].ToString()                        
                         };
                         cursos.Add(curso);
                     }
@@ -186,6 +195,7 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
+        //Obtener el id del curso, obteniendolo x su nombre
         public CursoGModel GetIDCursoByNombre(string nombrecurso)
         {
             CursoGModel cursoid = null;
@@ -194,7 +204,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id FROM cursos WHERE nomcurso = @nombrecurso";
+                command.CommandText = "SELECT id, areatematica FROM cursos WHERE nomcurso = @nombrecurso";
 
                 command.Parameters.Add("@nombrecurso", SqlDbType.VarChar).Value = nombrecurso;
 
@@ -204,7 +214,8 @@ namespace WPF_LoginForm.Repositories
                     {
                         cursoid = new CursoGModel()
                         {
-                            Id = (int)reader[0]
+                            Id = (int)reader[0],
+                            AreaTematica = reader[1].ToString()
                         };
                     }
                 }
@@ -212,6 +223,7 @@ namespace WPF_LoginForm.Repositories
             return cursoid;
         }
 
+        //????
         public IEnumerable<CursoGModel> GetParticipantes(int id)
         {
             List<CursoGModel> participantes = new List<CursoGModel>();
@@ -227,7 +239,7 @@ namespace WPF_LoginForm.Repositories
                                         "INNER JOIN cursotrabajador AS CT ON LC.id = CT.idlistacursos " +
                                         "INNER JOIN puesto AS P " +
                                         "INNER JOIN trabajador AS T ON P.id = T.idpuesto ON CT.idtrabajador = T.id " +
-                                        "WHERE LC.id = @id";
+                                        "WHERE LC.id = @id AND C.areatematica = 'Calidad'";
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
                 using (var reader = command.ExecuteReader())
@@ -247,6 +259,7 @@ namespace WPF_LoginForm.Repositories
             return participantes;
         }
 
+        //se edita el curso de que ya fue registrada su lista de asistencia
         public void IsCursoRegistered(int idcurso)
         {
             using (var connection = GetConnection())
@@ -262,6 +275,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
+        //obtener el ultimo id de la lista de asistencia insertada para poder insertar en tabla relacion cursostrabajador
         public CursoGModel GetLastIdLista()
         {
             CursoGModel idlista = null;
@@ -288,6 +302,7 @@ namespace WPF_LoginForm.Repositories
             return idlista;
         }
 
+        //insertar instructor temporal
         public void AddInstructorTemporal(string nominstr, int idcurso)
         {
             using (var connection = GetConnection())
@@ -303,5 +318,7 @@ namespace WPF_LoginForm.Repositories
                 command.ExecuteNonQuery();
             }
         }
+
+        
     }
 }

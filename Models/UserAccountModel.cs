@@ -10,6 +10,6 @@ namespace WPF_LoginForm.Models
     {
         public string Username { get; set; }
         public string DisplayName { get; set; }
-        public string DisplayDpto { get; set; }
+        public string DisplayArea { get; set; }
     }
 }

@@ -369,7 +369,7 @@ namespace WPF_LoginForm.ViewModels
             {
                 CurrentUserAccount.Username = user.Username;
                 CurrentUserAccount.DisplayName = $"{user.TrabajadorNombre}";
-                CurrentUserAccount.DisplayDpto = $"{user.Departamento}";
+                CurrentUserAccount.DisplayArea = $"{user.Area}";
 
                 UserRole = user.Rol;
 
@@ -387,7 +387,7 @@ namespace WPF_LoginForm.ViewModels
             else
             {
                 CurrentUserAccount.DisplayName = "User not logged in";
-                CurrentUserAccount.DisplayDpto = "User not logged in";
+                CurrentUserAccount.DisplayArea = "User not logged in";
                 //Hide child views.
             }
         }
