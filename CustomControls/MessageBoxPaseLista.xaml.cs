@@ -30,7 +30,7 @@ namespace WPF_LoginForm.CustomControls
             Loaded += MainWindow_Loaded;
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1); // Configura el intervalo de 2 segundos
+            timer.Interval = TimeSpan.FromSeconds(1.5); // Configura el intervalo de 2 segundos
             timer.Tick += Timer_Tick;
 
         }
@@ -87,7 +87,7 @@ namespace WPF_LoginForm.CustomControls
 
                 CursoGRepository repository = new CursoGRepository();
 
-                repository.Edit(16, numficha); //traerme idlistaasistencia
+                repository.Edit(23, numficha); //traerme idlistaasistencia
 
                 // Detén el temporizador
                 timer.Stop();

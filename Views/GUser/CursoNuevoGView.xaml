@@ -11,156 +11,101 @@
 
     <Grid>
         <Border CornerRadius="25" BorderThickness="1">
-                <Border.Background>
+           <Border.Background>
                     <ImageBrush ImageSource="/Images/fondoform.jpg"/>
                 </Border.Background>
 
-                <Grid>
+              <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="140"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="90"/>
                 </Grid.ColumnDefinitions>
-            
-
 
                 <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="20"/>
-                            <RowDefinition Height="95"/>
+                            <RowDefinition Height="120"/>
                             <RowDefinition Height="105"/>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*"/>
                             <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="60"/>
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="270"/>
+                                <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="0" Width="360"  HorizontalAlignment="Center">
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Width="270"  HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <Border CornerRadius="9" BorderBrush="Black" Width="auto" BorderThickness="0.3">
-                                <ComboBox Name="cbCurso" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand" SelectedIndex="0"/>
-                            </Border>
-                            </StackPanel>
+                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                    <ComboBox x:Name="cbCurso" Height="42" Width="auto" SelectionChanged="cbCurso_SelectionChanged" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">
+                                        <ComboBox.Items>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="400">
+                                        </ComboBox.Items>
+
+                                    </ComboBox>
+                                </Border>
+                        </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="250">
                                 <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox IsEnabled="False" x:Name="txtArea" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel HorizontalAlignment="Center" Grid.Column="0">
-                                <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <DatePicker Name="dtInicia" Width="140" SelectedDateChanged="dtInicia_SelectedDateChanged" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                                <Label x:Name="errIn" Foreground="Red" FontSize="11" Margin="20 -10 0 0"/>
+                                <TextBox IsEnabled="False" x:Name="txtArea" TextWrapping="Wrap" Height="50" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                             </StackPanel>
 
-                            <StackPanel HorizontalAlignment="Center" Grid.Column="1">
-                                <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <DatePicker Name="dtTermina" SelectedDateChanged="dtTermina_SelectedDateChanged" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                                <Label x:Name="errTer" Foreground="Red" FontSize="11" Margin="20 -10 0 0"/>
-                            </StackPanel>
-
-                            <StackPanel HorizontalAlignment="Center" Grid.Column="2">
-                                <Label Content="Horario Inicio:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <materialDesign:TimePicker Name="tiHorario" Width="140" Margin="10" HorizontalContentAlignment="Right" FontSize="15"/>
-                                <Label x:Name="errHor" Foreground="Red" FontSize="11" Margin="20 -10 0 0"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
-                                <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-
-                                <Grid>
-                                    <TextBox x:Name="txtDuracion" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
-                                    <TextBlock x:Name="tbDuracion" Text="En minutos" FontSize="14" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Text, ElementName=txtDuracion}" Value="">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Grid>
-
-                                <Label x:Name="errDur" Foreground="Red" FontSize="11" Margin="20 0 0 0"/>
-
-                            </StackPanel>
-                        </Grid>
-
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Width="390">
+                            <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Left" Width="300">
                                 <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                                <TextBox IsEnabled="False" x:Name="txtLugar" TextWrapping="Wrap" Text="" Height="50" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                            </StackPanel>                       
+                    </Grid>
 
-                                <Grid>
-                                    <TextBox x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
-                                    <TextBlock Text="Lugar donde se impartirá" Foreground="Gray" FontSize="14" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Text, ElementName=txtLugar}" Value="">
-                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="145"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                                <Label x:Name="errLug" Foreground="Red" FontSize="11" Margin="20 -4 0 0"/>
-                            </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Grid.Column="0" Width="125" Margin="15 0 0 0">
+                            <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox IsEnabled="False" x:Name="txtInicia" TextAlignment="Center" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="1"  HorizontalAlignment="Left" Width="350">
-                                <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <Grid>
-                                    <Grid>
-                                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                            <ComboBox Name="cbInstructor" Height="42" BorderThickness="0" FontSize="15" Cursor="Hand">
-                                                <ComboBox.Items>
-                                                    <ComboBoxItem Content="--Escriba un instructor temporal--" />
-                                                </ComboBox.Items>
+                        <StackPanel HorizontalAlignment="Center" Grid.Column="1" Width="125">
+                            <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox IsEnabled="False" x:Name="txtTermina" TextAlignment="Center" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
 
-                                                <ComboBox.SelectedIndex>1</ComboBox.SelectedIndex>
-                                            </ComboBox>
-                                        </Border>
-                                    </Grid>
+                        <StackPanel HorizontalAlignment="Center" Grid.Column="2" Width="140">
+                            <Label Content="Horario Inicio:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox IsEnabled="False" x:Name="txtHor" TextAlignment="Center" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
 
-                                    <TextBox x:Name="txtcbInstructor" Style="{StaticResource myTextBox}" Visibility="Hidden" Width="350" Margin="0 0 10 0"/>
-                                </Grid>
-                            </StackPanel>
-                        </Grid>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3" Width="125">
+                            <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox x:Name="txtDuracion" IsEnabled="False" TextAlignment="Center" Text="" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
 
-                        <TextBlock Text="Participantes:" Grid.Row="4" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" Grid.Column="4"  HorizontalAlignment="Left" Width="300">
+                            <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <TextBox IsEnabled="False" x:Name="txtInstr" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                        </StackPanel>
+                    </Grid>
 
-                        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Right">
+                        <TextBlock Text="Participantes:" Grid.Row="3" Foreground="Black" Margin="10 0 0 0" Grid.Column="1" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0 0 80 0" HorizontalAlignment="Right">
                             <Grid>
                                 <TextBox x:Name="txtBuscar" PreviewTextInput="TextBox_PreviewTextInput" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Foreground="black" FontSize="14" 
                                      Height="24" Width="112" Background="Transparent"
                                      FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
                                      BorderThickness="0,0,0,1">
                                 </TextBox>
+                                
                                 <TextBlock Text="Buscar No. ficha" Foreground="Gray" IsHitTestVisible="False" Margin="10,0,0,5" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
@@ -180,13 +125,13 @@
                             </Button>
                         </StackPanel>
 
-                        <Border Grid.Row="5" CornerRadius="10" Margin="20 0 20 0" Width="auto">
+                        <Border Grid.Row="4" CornerRadius="10" Margin="20 0 20 0" Width="auto">
                             <DataGrid Style="{DynamicResource DataGridStyle2}" 
                                       CellStyle="{DynamicResource DataGridCellStyle2}" 
                                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
                                       RowStyle="{DynamicResource DataGridRowStyle2}"
                                       
-                                      x:Name="participantesDataGrid" Width="Auto" Height="auto" 
+                                      x:Name="participantesDataGrid" Width="auto" Height="auto" 
                                       HorizontalContentAlignment="Center">
                                 
                                 <DataGrid.Columns>
@@ -209,8 +154,13 @@
                     <Button x:Name="btnGuardar" Grid.Row="6" HorizontalAlignment="Center" Margin="0 0 15 0" Content="Guardar lista" FontWeight="DemiBold" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnGuardar_Click"/>
                     </Grid>
 
-                    <Image Source="/Images/h.png" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 10 10 0" Width="70"/>
-                </Grid>
+                <Image Source="/Images/h.png" Grid.Column="0" HorizontalAlignment="Left" Margin="10 25 0 10" VerticalAlignment="Bottom"  Width="70"/>
+                  
+                <StackPanel HorizontalAlignment="Center" Grid.Column="0" Width="125" Margin="0 20 0 0">
+                    <Label Content="ID Curso:" Foreground="White" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                    <TextBox IsEnabled="False" x:Name="txtID" Text="" Style="{StaticResource myTextBox}" FontSize="20" TextAlignment="Center" BorderBrush="Black"/>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

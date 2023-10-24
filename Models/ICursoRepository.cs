@@ -11,12 +11,18 @@ namespace WPF_LoginForm.Models
         IEnumerable<CursoModel> GetCursosNotRegistered(string area);
         IEnumerable<CursoModel> GetByAll();
 
-        int GetCountCursosRegistered(string area);
-        int GetCountTotalCursos(string area);
 
-        void AddCurso(string nomcurso, string areatem, string meslim);
-        void EditCurso(string nomcurso, string areatem, string meslim, int idcurso);
-        CursoModel GetById(int id);
+        int GetCountCursosRegistered(string areadpto);
+        int GetCountTotalCursos();
+
+        void AddCursoInstructorTemporal(string id, string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, string instructor);
+        void AddCursoInstructor(string id, string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor);
+        void AddCursoArea(int idarea, string idcurso);
+
+        void EditCursoITemporal(string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, string instructor, string id);
+        void EditCurso(string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor, string id);
+
+        CursoModel GetByName(string nomcurso);
 
         CursoGModel GetAsistenciaById(int id);
         IEnumerable<CursoGModel> GetParticipantes(int id);

@@ -32,8 +32,8 @@
 
             </Border>
 
-                <Grid Grid.Row="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+            <Grid Grid.Row="1">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding ListaDeptos}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -42,16 +42,13 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <uc:InfoCard Grid.Column="0" Width="240" Height="130" HorizontalAlignment="Left" 
-                                            Icon="Charity" Title="{Binding NomDepto}" Desc="Capturó 5/5 cursos" Percentage="100%" Value="10"/>
+                                <uc:InfoCard x:Name="infocard" Grid.Column="0" Width="240" Height="130" HorizontalAlignment="Left" 
+                                            Icon="Cog" Title="{Binding NomDepto}" CursosRegistrados="{Binding CursosRegistrados, StringFormat='Capturó: {0}'}" CursosARegistrar="{Binding CursosARegistrar, StringFormat='/{0} cursos'}" Percentage="{Binding PorcentajeAvance, StringFormat='{}{0}%'}" Value="{Binding ValorPorcentaje}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-                </Grid>
-                
-
-
+            </Grid>
 
             <Border CornerRadius="10" Margin="10" Grid.Row="2" Background="#FFF1EAEA">
                 <Grid>
@@ -62,12 +59,12 @@
 
                     <lvc:PieChart Grid.Column="0" LegendLocation="None" InnerRadius="120" Hoverable="False" Height="280" DataTooltip="{x:Null}">
                         <lvc:PieChart.Series>
-                            <lvc:PieSeries Values="5" StrokeThickness="0" Fill="{StaticResource panelOverColor}" />
-                            <lvc:PieSeries Values="5" StrokeThickness="0" Fill="DarkGray" />
+                            <lvc:PieSeries x:Name="valorAvance" Values="" StrokeThickness="0" Fill="{StaticResource panelOverColor}" />
+                            <lvc:PieSeries x:Name="valorFaltante" Values="" StrokeThickness="0" Fill="DarkGray" />
                         </lvc:PieChart.Series>
                     </lvc:PieChart>
 
-                    <TextBlock Text="50%" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
+                    <TextBlock x:Name="avanceGral" Text="" VerticalAlignment="Center" Foreground="#8C2029" FontWeight="Bold" HorizontalAlignment="Center" FontSize="70"/>
 
 
                     <Grid Grid.Column="1">
@@ -77,7 +74,7 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Margin="7" Text="Total Departamentos que terminaron su registro" FontSize="28" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <TextBlock Grid.Row="1" Text="3" Foreground="{StaticResource panelActiveColor}" FontSize="100" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBlock x:Name="areasTerminadas" Grid.Row="1" Text="" Foreground="{StaticResource panelActiveColor}" FontSize="100" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                     </Grid>
 
 

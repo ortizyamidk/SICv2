@@ -7,48 +7,127 @@ using System.Text;
 using System.Threading.Tasks;
 using WPF_LoginForm.Models;
 using System.Collections;
+using System.Windows;
 
 namespace WPF_LoginForm.Repositories
 {
     public class CursoRepository : RepositoryBase, ICursoRepository
     {
-        //insertar curso nuevo
-        public void AddCurso(string nomcurso, string areatem, string meslim)
+        public void AddCursoArea(int idarea, string idcurso)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO cursos (nomcurso, areatematica, meslim) VALUES (@nomcurso, @areatem, @meslim)";
+                command.CommandText = "INSERT INTO curso_area (idarea, idcurso) VALUES (@idarea, @idcurso)";
 
+                command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddCursoInstructor(string id, string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO curso (id, nomcurso, areatematica, fechainicio, fechaterm, horario, duracion, lugar, idinstructor) VALUES(@id, @nomcurso, @area, @inicio, @term, @hor, @dur, @lugar, @idinstr)";
+
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
-                command.Parameters.Add("@areatem", SqlDbType.VarChar).Value = areatem;
-                command.Parameters.Add("@meslim", SqlDbType.VarChar).Value = meslim;
+                command.Parameters.Add("@area", SqlDbType.VarChar).Value = areatematica;
+                command.Parameters.Add("@inicio", SqlDbType.VarChar).Value = inicia;
+                command.Parameters.Add("@term", SqlDbType.VarChar).Value = termina;
+                command.Parameters.Add("@hor", SqlDbType.VarChar).Value = horario;
+                command.Parameters.Add("@dur", SqlDbType.Int).Value = duracion;
+                command.Parameters.Add("@lugar", SqlDbType.VarChar).Value = lugar;
+                command.Parameters.Add("@idinstr", SqlDbType.Int).Value = idinstructor;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddCursoInstructorTemporal(string id,string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, string instructor)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO curso (id, nomcurso, areatematica, fechainicio, fechaterm, horario, duracion, lugar, nominstr) VALUES(@id, @nomcurso, @area, @inicio, @term, @hor, @dur, @lugar, @instr)";
+
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+                command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
+                command.Parameters.Add("@area", SqlDbType.VarChar).Value = areatematica;
+                command.Parameters.Add("@inicio", SqlDbType.VarChar).Value = inicia;
+                command.Parameters.Add("@term", SqlDbType.VarChar).Value = termina;
+                command.Parameters.Add("@hor", SqlDbType.VarChar).Value = horario;
+                command.Parameters.Add("@dur", SqlDbType.Int).Value = duracion;
+                command.Parameters.Add("@lugar", SqlDbType.VarChar).Value = lugar;
+                command.Parameters.Add("@instr", SqlDbType.VarChar).Value = instructor;
 
                 command.ExecuteNonQuery();
             }
         }
 
         //editar curso
-        public void EditCurso(string nomcurso, string areatem, string meslim, int idcurso)
+        public void EditCurso(string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor, string id)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE cursos SET nomcurso = @nomcurso, areatematica = @areatem, meslim = @meslim WHERE id = @id";
+                command.CommandText = "UPDATE curso SET nomcurso = @nomcurso, areatematica = @areatem, " +
+                                    "fechainicio = @inicia, fechaterm = @termina, horario = @horario, duracion = @duracion, lugar = @lugar, nominstr = NULL, idinstructor = @idinstr " +
+                                    "WHERE id = @id";
 
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
-                command.Parameters.Add("@areatem", SqlDbType.VarChar).Value = areatem;
-                command.Parameters.Add("@meslim", SqlDbType.VarChar).Value = meslim;
+                command.Parameters.Add("@areatem", SqlDbType.VarChar).Value = areatematica;
+                command.Parameters.Add("@inicia", SqlDbType.VarChar).Value = inicia;
+                command.Parameters.Add("@termina", SqlDbType.VarChar).Value = termina;
+                command.Parameters.Add("@horario", SqlDbType.VarChar).Value = horario;
+                command.Parameters.Add("@duracion", SqlDbType.Int).Value = duracion;
+                command.Parameters.Add("@lugar", SqlDbType.VarChar).Value = lugar;
+                command.Parameters.Add("@idinstr", SqlDbType.Int).Value = idinstructor;
 
-                command.Parameters.Add("@id", SqlDbType.Int).Value = idcurso;
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
 
                 command.ExecuteNonQuery();
             }
         }
+
+        public void EditCursoITemporal(string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, string instructor, string id)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE curso SET nomcurso = @nomcurso, areatematica = @areatem, " +
+                                    "fechainicio = @inicia, fechaterm = @termina, horario = @horario, duracion = @duracion, lugar = @lugar, nominstr = @nominstr, idinstructor = NULL " +
+                                    "WHERE id = @id";
+
+                command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
+                command.Parameters.Add("@areatem", SqlDbType.VarChar).Value = areatematica;
+                command.Parameters.Add("@inicia", SqlDbType.VarChar).Value = inicia;
+                command.Parameters.Add("@termina", SqlDbType.VarChar).Value = termina;
+                command.Parameters.Add("@horario", SqlDbType.VarChar).Value = horario;
+                command.Parameters.Add("@duracion", SqlDbType.Int).Value = duracion;
+                command.Parameters.Add("@lugar", SqlDbType.VarChar).Value = lugar;
+                command.Parameters.Add("@nominstr", SqlDbType.VarChar).Value = instructor;
+
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
 
         //ver la lista de asistencia especifica de un curso por el id del curso de todas las areas
         public CursoGModel GetAsistenciaById(int id)
@@ -102,7 +181,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select id, nomcurso, areatematica from cursos";
+                command.CommandText = "SELECT id, nomcurso, areatematica FROM curso";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -110,9 +189,9 @@ namespace WPF_LoginForm.Repositories
                     {
                         CursoModel curso = new CursoModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             NomCurso = reader[1].ToString(),
-                            AreaTematica = reader[2].ToString(),
+                            AreaTematica = reader[2].ToString()
                         };
                         cursos.Add(curso);
                     }
@@ -122,7 +201,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //ver curso especifico
-        public CursoModel GetById(int id)
+        public CursoModel GetByName(string nomcurso)
         {
             CursoModel curso = null;
                 using (var connection = GetConnection())
@@ -130,9 +209,15 @@ namespace WPF_LoginForm.Repositories
                 {
                     connection.Open();
                     command.Connection = connection;
-                    command.CommandText = "SELECT id, nomcurso, areatematica, meslim FROM cursos WHERE id = @id";
+                    command.CommandText = "SELECT C.id, C.nomcurso, C.areatematica, " +
+                                        "CONVERT(varchar, C.fechainicio, 103) AS fechainicio, " +
+                                        "CONVERT(varchar, C.fechaterm, 103) AS fechaterm, " +
+                                        "C.horario, C.duracion, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
+                                        "FROM curso AS C " +
+                                        "LEFT JOIN instructor AS I " +
+                                        "ON C.idinstructor = I.id WHERE C.nomcurso = @nomcurso";
 
-                    command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                    command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
 
                     using (var reader = command.ExecuteReader())
                     {
@@ -140,10 +225,15 @@ namespace WPF_LoginForm.Repositories
                         {
                         curso = new CursoModel()
                             {
-                                Id = (int)reader[0],
+                                Id = reader[0].ToString(),
                                 NomCurso = reader[1].ToString(),
                                 AreaTematica = reader[2].ToString(),
-                                MesLimite = reader[3].ToString()
+                                Inicio = reader[3].ToString(),
+                                Termino = reader[4].ToString(),
+                                Horario = reader[5].ToString(),
+                                Duracion = (int) reader[6],
+                                Lugar = reader[7].ToString(),
+                                Instructor = reader[8].ToString()
 
                             };
                         }
@@ -162,8 +252,16 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT nomcurso FROM cursos WHERE areatematica=@area AND registrado=0;";
-                command.Parameters.Add("@area", SqlDbType.NVarChar).Value = area;
+                command.CommandText = "SELECT C.nomcurso " +
+                    "FROM curso_area AS CA " +
+                    "INNER JOIN curso AS C " +
+                    "ON CA.idcurso = C.id " +
+                    "INNER JOIN area AS A " +
+                    "ON CA.idarea = A.id " +
+                    "WHERE A.nomarea = @area AND CA.listaregistrada = 0";
+
+                command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -185,7 +283,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //obtener la cantidad de cursos q ya fueron registrados para dashboard gral de cierta area
-        int ICursoRepository.GetCountCursosRegistered(string area)
+        int ICursoRepository.GetCountCursosRegistered(string areadpto)
         {
             int count = 0;
             using (var connection = GetConnection())
@@ -193,8 +291,14 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM cursos WHERE areatematica=@area AND registrado=1;";
-                command.Parameters.Add("@area", SqlDbType.NVarChar).Value = area;
+                command.CommandText = "SELECT SUM(CASE WHEN CA.listaregistrada = 1 THEN 1 ELSE 0 END) AS CursosRegistrados " +
+                    "FROM area AS A " +
+                    "INNER JOIN curso_area AS CA ON A.id = CA.idarea " +
+                    "WHERE A.nomarea = @areadpto " +
+                    "GROUP BY A.nomarea " +
+                    "HAVING COUNT(*) = (SELECT COUNT(DISTINCT idcurso) FROM curso_area)";
+
+                command.Parameters.Add("@areadpto", SqlDbType.NVarChar).Value = areadpto;
 
                 // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();
@@ -202,8 +306,8 @@ namespace WPF_LoginForm.Repositories
             return count;
         }
 
-        //obtener la cantidad del total de cursos que hay de cierta area
-        int ICursoRepository.GetCountTotalCursos(string area)
+        //obtener la cantidad del total de cursos que registrar
+        int ICursoRepository.GetCountTotalCursos()
         {
             int count = 0;
             using (var connection = GetConnection())
@@ -211,8 +315,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) FROM cursos WHERE areatematica=@area";
-                command.Parameters.Add("@area", SqlDbType.NVarChar).Value = area;
+                command.CommandText = "SELECT COUNT (*) AS CursosARegistrar FROM curso WHERE registrado = 0";
 
                 // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();

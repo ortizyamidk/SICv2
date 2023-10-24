@@ -27,6 +27,21 @@ namespace WPF_LoginForm.ViewModels
         private string _userRole;
         private LoginViewModel _loginViewModel;
 
+        /*private HomeGViewModel _homeGViewModel;
+
+        public HomeGViewModel HomeGViewModel
+        {
+            get
+            {
+                return _homeGViewModel;
+            }
+            set
+            {
+                _homeGViewModel = value;
+                OnPropertyChanged(nameof(HomeGViewModel));
+            }
+        }*/
+
 
         //Properties
         public UserAccountModel CurrentUserAccount
@@ -206,6 +221,9 @@ namespace WPF_LoginForm.ViewModels
         //----------USER GENERAL----------
         private void ExecuteShowHomeGViewCommand(object obj)
         {
+            //HomeGViewModel = new HomeGViewModel();
+            //HomeGViewModel.CurrentUserAccount = CurrentUserAccount;
+
             CurrentChildView = new HomeGViewModel();
             Caption = "Inicio";
             Icon = IconChar.Home;

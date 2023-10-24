@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WPF_LoginForm.Models
 {
-    public interface IDepartamentoRepository
+    public interface IAreaRepository
     {
-        IEnumerable<DepartamentoModel> GetDepartamentos();
-        int GetAreasTerminadas();
-        int GetTotalAreas();
+        IEnumerable<AreaModel> GetIdAreasRegistran();
+        AreaModel GetIdByName(string nomarea);
     }
 }

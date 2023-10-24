@@ -12,5 +12,10 @@ namespace WPF_LoginForm.Models
         public string NomDepto  { get; set; }
         public int DeptoCorto { get; set; }
         public int IdTrabajador { get; set; }
+
+        public int CursosARegistrar { get; set; }
+        public int CursosRegistrados {  get; set; }
+        public int PorcentajeAvance {  get; set; }
+        public int ValorPorcentaje {  get; set; }
     }
 }

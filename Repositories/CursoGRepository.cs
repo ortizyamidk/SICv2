@@ -53,17 +53,17 @@ namespace WPF_LoginForm.Repositories
         }
 
         //insertar participantes de la lista de asistencia a un curso
-        public void AddParticipantes(int numficha, int idcurso)
+        public void AddParticipantes(int numficha, string idcurso)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO cursotrabajador (idtrabajador, idlistacursos) VALUES (@numficha,@idcurso);";
+                command.CommandText = "INSERT INTO cursotrabajador (idtrabajador, idcurso) VALUES (@numficha, @idcurso)";
 
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
-                command.Parameters.Add("@idcurso", SqlDbType.Int).Value = idcurso;
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
                 command.ExecuteNonQuery();
             }
@@ -96,12 +96,13 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, COALESCE(I.nominstr, LC.nominstr) AS nominstr, LC.fechainicio, LC.fechaterm " +
-                                    "FROM cursos as C " +
-                                    "LEFT JOIN instructor as I " +
+                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.fechainicio, C.fechaterm, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
+                                    "FROM curso AS C " +
+                                    "INNER JOIN instructor AS I " +
                                     "ON C.idinstructor = I.id " +
-                                    "RIGHT JOIN listacursos as LC ON C.id = LC.idcurso " +
-                                    "WHERE C.areatematica ='Calidad' AND C.registrado = 1";
+                                    "INNER JOIN curso_area AS CA " +
+                                    "ON C.id = CA.idcurso " +
+                                    "WHERE CA.listaregistrada = 1";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -111,10 +112,10 @@ namespace WPF_LoginForm.Repositories
                         {
                             IdLista = (int)reader[0],
                             NomCurso = reader[1].ToString(),
-                            AreaTematica = reader[2].ToString(),
-                            Instructor = reader[3].ToString(),
-                            Inicia = ((DateTime)reader[4]).ToString("dd/MM/yyyy"),
-                            Termina = ((DateTime)reader[5]).ToString("dd/MM/yyyy")
+                            AreaTematica = reader[2].ToString(),                           
+                            Inicia = ((DateTime)reader[3]).ToString("dd/MM/yyyy"),
+                            Termina = ((DateTime)reader[4]).ToString("dd/MM/yyyy"),
+                            Instructor = reader[5].ToString()
                         };
                         cursos.Add(curso);
                     }
@@ -275,32 +276,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        //obtener el ultimo id de la lista de asistencia insertada para poder insertar en tabla relacion cursostrabajador
-        public CursoGModel GetLastIdLista()
-        {
-            CursoGModel idlista = null;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT TOP 1 id AS SiguienteID " +
-                                    "FROM listacursos " +
-                                    "ORDER BY id DESC;";
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        idlista = new CursoGModel()
-                        {
-                            Id = (int)reader[0]
-                        };
-                    }
-                }
-            }
-            return idlista;
-        }
+        
 
         //insertar instructor temporal
         public void AddInstructorTemporal(string nominstr, int idcurso)
@@ -319,6 +295,20 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        
+        public void AddListaAsistencia(int idarea, string idcurso)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE curso_area SET listaregistrada = 1 WHERE idcurso = @idcurso AND idarea = @idarea";
+
+                command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

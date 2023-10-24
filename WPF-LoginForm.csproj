@@ -98,9 +98,11 @@
     <Compile Include="CustomControls\MessageBoxPaseLista.xaml.cs">
       <DependentUpon>MessageBoxPaseLista.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\AreaModel.cs" />
     <Compile Include="Models\CursoGModel.cs" />
     <Compile Include="Models\CursoModel.cs" />
     <Compile Include="Models\DepartamentoModel.cs" />
+    <Compile Include="Models\IAreaRepository.cs" />
     <Compile Include="Models\ICursoGRepository.cs" />
     <Compile Include="Models\ICursoRepository.cs" />
     <Compile Include="Models\IDepartamentoRepository.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Models\TrabajadorModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Repositories\AreaRepository.cs" />
     <Compile Include="Repositories\CursoGRepository.cs" />
     <Compile Include="Repositories\CursoRepository.cs" />
     <Compile Include="Repositories\DepartamentoRepository.cs" />

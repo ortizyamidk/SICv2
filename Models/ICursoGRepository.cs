@@ -16,7 +16,6 @@ namespace WPF_LoginForm.Models
 
         IEnumerable<CursoGModel> GetCursos(string area);
 
-        CursoGModel GetLastIdLista();
         CursoGModel GetIDCursoByNombre(string nombrecurso);
 
 
@@ -27,6 +26,8 @@ namespace WPF_LoginForm.Models
 
         void IsCursoRegistered(int idcurso);
 
-        void AddParticipantes(int numficha, int idcurso);
+        void AddParticipantes(int numficha, string idcurso);
+
+        void AddListaAsistencia(int idarea, string idcurso);
     }
 }

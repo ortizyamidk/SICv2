@@ -33,14 +33,22 @@ namespace WPF_LoginForm.CustomControls
 
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(InfoCard));
 
-        public string Desc
+        public string CursosRegistrados
         {
-            get { return (string)GetValue(DescProperty); }
-            set { SetValue(DescProperty, value); }
+            get { return (string)GetValue(CursosRegistradosProperty); }
+            set { SetValue(CursosRegistradosProperty, value); }
         }
 
-        public static readonly DependencyProperty DescProperty = DependencyProperty.Register("Desc", typeof(string), typeof(InfoCard));
+        public static readonly DependencyProperty CursosRegistradosProperty = DependencyProperty.Register("CursosRegistrados", typeof(string), typeof(InfoCard));
         
+        public string CursosARegistrar
+        {
+            get { return (string)GetValue(RegistrarProperty); }
+            set { SetValue(RegistrarProperty, value); }
+        }
+
+        public static readonly DependencyProperty RegistrarProperty = DependencyProperty.Register("CursosARegistrar", typeof(string), typeof(InfoCard));
+
         public string Percentage
         {
             get { return (string)GetValue(PercentageProperty); }

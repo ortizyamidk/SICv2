@@ -14,6 +14,8 @@ namespace WPF_LoginForm.ViewModels
     {
         public ObservableCollection<CursoModel> CursosNoRegistrados { get; set; }
 
+        //public UserAccountModel CurrentUserAccount { get; set; }
+
         private int _countCursosRegistered;
         public int CountCursosRegistered
         {
@@ -49,10 +51,10 @@ namespace WPF_LoginForm.ViewModels
             ICursoRepository cursoRepository = new CursoRepository();
 
             //cuantos cursos han sido registrados de esa area
-            CountCursosRegistered = cursoRepository.GetCountCursosRegistered("Calidad"); //obtener area tematica
+            CountCursosRegistered = cursoRepository.GetCountCursosRegistered("Calidad"); //obtener area de user loggeado
 
             //cuantos cursos hay que registrar en total d esa area
-            CountCursos = cursoRepository.GetCountTotalCursos("Calidad"); //obtener area tematica
+            CountCursos = cursoRepository.GetCountTotalCursos(); //obtener area tematica
 
         }
 
@@ -61,7 +63,7 @@ namespace WPF_LoginForm.ViewModels
             // Aquí puedes llamar al método del repositorio para obtener los resultados
             // Asumiendo que tienes una instancia del repositorio llamada "cursoRepository"
             CursoRepository cursoRepository = new CursoRepository();
-            var resultados = cursoRepository.GetCursosNotRegistered("Calidad"); //obtener area tematica
+            var resultados = cursoRepository.GetCursosNotRegistered("Calidad"); //obtener area de user loggeado
 
             // Agrega los resultados a la colección
             foreach (var resultado in resultados)
@@ -69,10 +71,5 @@ namespace WPF_LoginForm.ViewModels
                 CursosNoRegistrados.Add(resultado);
             }
         }
-
-
-
-
-
     }
 }

@@ -24,5 +24,9 @@ namespace WPF_LoginForm.Models
         public string NomTrabajador { get; set; }
         public string Puesto { get; set; }
 
+
+        public int IdArea {  get; set; }
+        public string IdCurso {  get; set; }
+
     }
 }

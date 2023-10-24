@@ -46,7 +46,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //ver trabajador especifico para vista PersonalInfoView
-        public TrabajadorModel GetById(int id)
+        public TrabajadorModel GetById(int numficha, string nomarea)
         {
             TrabajadorModel trabajador = null;
             using (var connection = GetConnection())
@@ -55,12 +55,15 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT T.id, T.nombre, P.nompuesto " +
-                                        "FROM trabajador AS T " +
-                                        "INNER JOIN puesto AS P " +
-                                        "ON T.idpuesto = P.id " +
-                                        "WHERE T.id = @numficha";
+                    "FROM trabajador AS T " +
+                    "INNER JOIN puesto AS P " +
+                    "ON T.idpuesto = P.id " +
+                    "INNER JOIN area AS A " +
+                    "ON T.idarea = A.id " +
+                    "WHERE T.id = @numficha AND A.nomarea = @nomarea";
 
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
                 using (var reader = command.ExecuteReader())
                 {

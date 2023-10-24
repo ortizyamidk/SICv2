@@ -57,9 +57,9 @@
                           x:Name="cursosGDataGrid" Width="Auto" Height="480">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="100" Binding="{Binding IdLista}"/>
+                        <DataGridTextColumn Header="# lista" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding IdLista}"/>
                         <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding NomCurso}"/>
-                        <DataGridTextColumn Header="Área temática" IsReadOnly="True" Width="130" Binding="{Binding AreaTematica}"/>
+                        <DataGridTextColumn Header="Área temática" IsReadOnly="True" Width="*" Binding="{Binding AreaTematica}"/>
                         <DataGridTextColumn Header="Instructor" IsReadOnly="True" Width="*" Binding="{Binding Instructor}"/>
                         <DataGridTextColumn Header="Inicia" IsReadOnly="True" Width="110" Binding="{Binding Inicia, StringFormat='dd/MM/yyyy'}"/>
                         <DataGridTextColumn Header="Termina" IsReadOnly="True" Width="110" Binding="{Binding Termina, StringFormat='dd/MM/yyyy'}"/>
