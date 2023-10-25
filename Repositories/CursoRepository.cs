@@ -258,7 +258,10 @@ namespace WPF_LoginForm.Repositories
                     "ON CA.idcurso = C.id " +
                     "INNER JOIN area AS A " +
                     "ON CA.idarea = A.id " +
-                    "WHERE A.nomarea = @area AND CA.listaregistrada = 0";
+                    "WHERE A.nomarea = @area " +
+                    "AND CA.listaregistrada = 0 " +
+                    "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
+                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE());";
 
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
 
@@ -277,6 +280,68 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
+        public IEnumerable<CursoModel> GetCursosVencidos(string area)
+        {
+            List<CursoModel> cursos = new List<CursoModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT C.nomcurso, DATENAME(MONTH, C.fechaterm) AS MesLimite " +
+                    "FROM curso_area AS CA " +
+                    "INNER JOIN curso AS C ON CA.idcurso = C.id " +
+                    "INNER JOIN area AS A ON CA.idarea = A.id " +
+                    "WHERE A.nomarea = @area " +
+                    "AND CA.listaregistrada = 0 " +
+                    "AND C.fechainicio < DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) " +
+                    "AND C.fechaterm < DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0);";
+
+                command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        CursoModel curso = new CursoModel()
+                        {
+                            NomCurso = reader[0].ToString(),
+                            MesLimite = reader[1].ToString()
+                        };
+                        cursos.Add(curso);
+                    }
+                }
+            }
+            return cursos;
+        }
+
+        public CursoModel GetIdByName(string nomcurso)
+        {
+            CursoModel curso = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT id FROM curso WHERE nomcurso = @nomcurso";
+
+                command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        curso = new CursoModel()
+                        {
+                            Id = reader[0].ToString()
+
+                        };
+                    }
+                }
+            }
+            return curso;
+        }
+
         public IEnumerable<CursoGModel> GetParticipantes(int id)
         {
             throw new NotImplementedException();
@@ -291,12 +356,8 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT SUM(CASE WHEN CA.listaregistrada = 1 THEN 1 ELSE 0 END) AS CursosRegistrados " +
-                    "FROM area AS A " +
-                    "INNER JOIN curso_area AS CA ON A.id = CA.idarea " +
-                    "WHERE A.nomarea = @areadpto " +
-                    "GROUP BY A.nomarea " +
-                    "HAVING COUNT(*) = (SELECT COUNT(DISTINCT idcurso) FROM curso_area)";
+                command.CommandText = "SELECT ISNULL((\r\n  SELECT SUM(CASE WHEN CA.listaregistrada = 1 THEN 1 ELSE 0 END)\r\n  FROM area AS A \r\n  INNER JOIN curso_area AS CA ON A.id = CA.idarea\r\n  INNER JOIN curso AS C ON CA.idcurso = C.id\r\n  WHERE A.nomarea = 'Calidad'\r\n  AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE())\r\n  AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())\r\n  GROUP BY A.nomarea \r\n  HAVING COUNT(*) = (SELECT COUNT(DISTINCT idcurso) FROM curso_area)\r\n), 0) AS CursosRegistrados";
+
 
                 command.Parameters.Add("@areadpto", SqlDbType.NVarChar).Value = areadpto;
 
@@ -315,7 +376,9 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT (*) AS CursosARegistrar FROM curso WHERE registrado = 0";
+                command.CommandText = "SELECT COUNT(nomcurso) AS CursosARegistrarMesActual FROM curso WHERE registrado = 0 " +
+                    "AND DATEPART(MONTH, fechainicio) = DATEPART(MONTH, GETDATE()) " +
+                    "AND DATEPART(MONTH, fechaterm) = DATEPART(MONTH, GETDATE());";
 
                 // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();

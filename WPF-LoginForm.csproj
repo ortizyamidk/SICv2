@@ -89,6 +89,9 @@
     <Compile Include="CustomControls\cardVencidos.xaml.cs">
       <DependentUpon>cardVencidos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\cursosVencidos.xaml.cs">
+      <DependentUpon>cursosVencidos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\InfoCard.xaml.cs">
       <DependentUpon>InfoCard.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomControls\cardVencidos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\cursosVencidos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

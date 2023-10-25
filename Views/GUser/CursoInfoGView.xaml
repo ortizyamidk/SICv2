@@ -84,22 +84,22 @@
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="0">
                         <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" Text="" x:Name="txtInicia" Style="{StaticResource myTextBox}"  FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" Text="" x:Name="txtInicia" TextAlignment="Center" Style="{StaticResource myTextBox}"  FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="1">
                         <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" x:Name="txtTermina" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" x:Name="txtTermina" Text="" TextAlignment="Center" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="2">
                         <Label Content="Horario:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" x:Name="txtHorario" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" x:Name="txtHorario" Text="" TextAlignment="Center" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
                         <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" x:Name="txtDura" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" x:Name="txtDura" Text="" TextAlignment="Center" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 

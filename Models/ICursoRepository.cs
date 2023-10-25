@@ -9,6 +9,8 @@ namespace WPF_LoginForm.Models
     public interface ICursoRepository
     {
         IEnumerable<CursoModel> GetCursosNotRegistered(string area);
+        IEnumerable<CursoModel> GetCursosVencidos(string area);
+
         IEnumerable<CursoModel> GetByAll();
 
 
@@ -23,6 +25,7 @@ namespace WPF_LoginForm.Models
         void EditCurso(string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor, string id);
 
         CursoModel GetByName(string nomcurso);
+        CursoModel GetIdByName(string nomcurso);
 
         CursoGModel GetAsistenciaById(int id);
         IEnumerable<CursoGModel> GetParticipantes(int id);

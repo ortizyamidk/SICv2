@@ -54,7 +54,8 @@
                 </Border.Background>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="600"/>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
@@ -93,7 +94,30 @@
                                     <ItemsControl ItemsSource="{Binding CursosNoRegistrados}">
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <uc:cardVencidos Title="{Binding NomCurso}" Desc="Registrar lista" Icon="Information" Margin="7"/>
+                                                <uc:cardVencidos Title="{Binding NomCurso}" Desc="Registrar lista" Icon="BookEdit" Margin="7"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <Border CornerRadius="10" Margin="10" Grid.Column="2" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Cursos Vencidos" Foreground="Black" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28" FontWeight="Bold"/>
+
+                            <Grid Grid.Row="1">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding CursosVencidos}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <uc:cursosVencidos Title="{Binding NomCurso}" Desc="{Binding MesLimite, StringFormat='Venció en: {0}'}" Margin="7"/>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>

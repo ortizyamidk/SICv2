@@ -70,17 +70,16 @@ namespace WPF_LoginForm.Repositories
         }
 
         //pase de lista
-        public void Edit(int idlista, int numficha)
+        public void Edit(string idcurso, int numficha)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE cursotrabajador SET asistio = 1 " +
-                                       "WHERE idlistacursos = @idlista AND idtrabajador = @numficha";
+                command.CommandText = "UPDATE cursotrabajador SET asistio = 1 WHERE idcurso = @idcurso AND idtrabajador = @numficha";
 
-                command.Parameters.Add("@idlista", SqlDbType.Int).Value = idlista;
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
 
                 command.ExecuteNonQuery();
@@ -137,7 +136,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr, C.fechainicio, C.fechaterm, C.horario, C.duracion " +
+                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.horario, C.duracion " +
                     "FROM curso AS C " +
                     "LEFT JOIN instructor AS I " +
                     "ON C.idinstructor = I.id " +

@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
 using WPF_LoginForm.Views.GUser;
 
@@ -22,15 +23,20 @@ namespace WPF_LoginForm.CustomControls
     {
 
         private DispatcherTimer timer;
+        CursoGRepository repository;
+        CursoRepository cursoRepository;
 
         public MessageBoxPaseLista()
         {
             InitializeComponent();
+            repository = new CursoGRepository();
+            cursoRepository = new CursoRepository();
+
             this.Opacity = 0;
             Loaded += MainWindow_Loaded;
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1.5); // Configura el intervalo de 2 segundos
+            timer.Interval = TimeSpan.FromSeconds(1); // Configura el intervalo de n segundos
             timer.Tick += Timer_Tick;
 
         }
@@ -85,9 +91,10 @@ namespace WPF_LoginForm.CustomControls
                 //PASE DE LISTA
                 int numficha = int.Parse(txtBuscar.Text);
 
-                CursoGRepository repository = new CursoGRepository();
+                //guardar nombre del curso de la ventana CursoInfoGView y traerlo
+                CursoModel cursoModel = cursoRepository.GetIdByName("Curso 1.2");
 
-                repository.Edit(23, numficha); //traerme idlistaasistencia de CursoInfoView
+                repository.Edit(cursoModel.Id, numficha); //traerme idcurso de CursoInfoView
 
                 // Detén el temporizador
                 timer.Stop();

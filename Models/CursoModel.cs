@@ -22,5 +22,7 @@ namespace WPF_LoginForm.Models
 
         public int IdLista { get; set; }
 
+        public string MesLimite { get; set; }
+
     }
 }

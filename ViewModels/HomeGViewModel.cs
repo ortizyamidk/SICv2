@@ -13,6 +13,7 @@ namespace WPF_LoginForm.ViewModels
     public class HomeGViewModel : ViewModelBase
     {
         public ObservableCollection<CursoModel> CursosNoRegistrados { get; set; }
+        public ObservableCollection<CursoModel> CursosVencidos { get; set; }
 
         //public UserAccountModel CurrentUserAccount { get; set; }
 
@@ -43,8 +44,11 @@ namespace WPF_LoginForm.ViewModels
         {
             // Inicializa la colección de cursos
             CursosNoRegistrados = new ObservableCollection<CursoModel>();
+            CursosVencidos = new ObservableCollection<CursoModel>();
+
             // Llama al método para obtener resultados de la consulta
             ObtenerResultadosDeConsulta();
+            ObtenerCursosVencidos();
 
 
             // Crear una instancia de CursoRepository y llamar a GetCountCursosRegistered
@@ -69,6 +73,17 @@ namespace WPF_LoginForm.ViewModels
             foreach (var resultado in resultados)
             {
                 CursosNoRegistrados.Add(resultado);
+            }
+        }
+
+        public void ObtenerCursosVencidos()
+        {
+            CursoRepository cr = new CursoRepository();
+            var resultadosCV = cr.GetCursosVencidos("Calidad"); //obtener area de user loggeado
+
+            foreach(var resultadoCV in resultadosCV)
+            {
+                CursosVencidos.Add(resultadoCV);
             }
         }
     }

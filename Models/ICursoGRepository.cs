@@ -19,7 +19,7 @@ namespace WPF_LoginForm.Models
         CursoGModel GetIDCursoByNombre(string nombrecurso);
 
 
-        void Edit(int idlista, int numficha);
+        void Edit(string idcurso, int numficha);
         void AddInstructor(int idinstructor, int idcurso);
         void AddInstructorTemporal(string nominstr, int idcurso);
         void AddListaAsistencia (string inicia, string termina, string horario, int duracion, string lugar, int curso);
