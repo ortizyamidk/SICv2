@@ -30,7 +30,7 @@ namespace WPF_LoginForm.Views.GUser
             InitializeComponent();
 
             var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(23); //traer idlistaasistencia
+            CursoGModel asistencia = repository.GetById(1); //traer idlistaasistencia seleccionada en la tabla de CursoGView
 
             txtNoLista.Text = asistencia.Id.ToString();
             txtCurso.Text=asistencia.NomCurso.ToString();

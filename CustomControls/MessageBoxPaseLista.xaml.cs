@@ -87,7 +87,7 @@ namespace WPF_LoginForm.CustomControls
 
                 CursoGRepository repository = new CursoGRepository();
 
-                repository.Edit(23, numficha); //traerme idlistaasistencia
+                repository.Edit(23, numficha); //traerme idlistaasistencia de CursoInfoView
 
                 // Detén el temporizador
                 timer.Stop();

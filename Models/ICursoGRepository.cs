@@ -9,7 +9,7 @@ namespace WPF_LoginForm.Models
     public interface ICursoGRepository
     {
 
-        IEnumerable<CursoGModel> GetByAll();
+        IEnumerable<CursoGModel> GetByAll(string nomarea);
 
         CursoGModel GetById(int id);
         IEnumerable<CursoGModel> GetParticipantes(int id);

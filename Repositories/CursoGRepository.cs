@@ -88,7 +88,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //ver todos los cursos de cierta area que ya está registrada su lista de asistencia para tabla
-        public IEnumerable<CursoGModel> GetByAll()
+        public IEnumerable<CursoGModel> GetByAll(string nomarea)
         {
             List<CursoGModel> cursos = new List<CursoGModel>();
             using (var connection = GetConnection())
@@ -96,13 +96,17 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.fechainicio, C.fechaterm, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
-                                    "FROM curso AS C " +
-                                    "INNER JOIN instructor AS I " +
-                                    "ON C.idinstructor = I.id " +
-                                    "INNER JOIN curso_area AS CA " +
-                                    "ON C.id = CA.idcurso " +
-                                    "WHERE CA.listaregistrada = 1";
+                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.fechainicio, C.fechaterm, COALESCE(C.nominstr, I.nominstr) AS nominstr, A.nomarea " +
+                    "FROM curso AS C " +
+                    "LEFT JOIN instructor AS I " +
+                    "ON C.idinstructor = I.id " +
+                    "INNER JOIN curso_area AS CA " +
+                    "ON C.id = CA.idcurso " +
+                    "INNER JOIN area AS A " +
+                    "ON CA.idarea = A.id " +
+                    "WHERE CA.listaregistrada = 1 AND A.nomarea = @nomarea";
+
+                command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -124,7 +128,7 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
-        //ver la lista de asistencia especifica de cierta area
+        //ver la lista de asistencia especifica al dar click en ver info de tabla
         public CursoGModel GetById(int id)
         {
            CursoGModel asistencia = null;
@@ -133,16 +137,15 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, COALESCE(I.nominstr, LC.nominstr) AS nominstr, " +
-                                    "CONVERT(varchar,LC.fechainicio, 103) AS fechainicio, CONVERT(varchar,LC.fechaterm, 103) AS fechaterm, " +
-                                    "CONVERT(varchar, LC.horario, 108) AS horario, LC.duracion, LC.lugar " +
-                                    "FROM cursos as C " +
-                                    "LEFT JOIN instructor as I " +
-                                    "ON C.idinstructor = I.id " +
-                                    "RIGHT JOIN listacursos as LC ON C.id = LC.idcurso " +
-                                    "WHERE LC.id = @id AND C.areatematica='Calidad'";
+                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr, C.fechainicio, C.fechaterm, C.horario, C.duracion " +
+                    "FROM curso AS C " +
+                    "LEFT JOIN instructor AS I " +
+                    "ON C.idinstructor = I.id " +
+                    "INNER JOIN curso_area AS CA " +
+                    "ON C.id = CA.idcurso " +
+                    "WHERE CA.id = @idlista";
 
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@idlista", SqlDbType.Int).Value = id;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -153,13 +156,12 @@ namespace WPF_LoginForm.Repositories
                             Id = (int)reader[0],
                             NomCurso = reader[1].ToString(),
                             AreaTematica = reader[2].ToString(),
-                            Instructor = reader[3].ToString(),
-                            Inicia = reader[4].ToString(),
-                            Termina = reader[5].ToString(),
-                            Horario = reader[6].ToString(),
-                            Duracion = (int)reader[7],
-                            Lugar = reader[8].ToString()
-
+                            Lugar = reader[3].ToString(),
+                            Instructor = reader[4].ToString(),
+                            Inicia = reader[5].ToString(),
+                            Termina = reader[6].ToString(),
+                            Horario = reader[7].ToString(),
+                            Duracion = (int)reader[8]                          
                         };
                     }
                 }

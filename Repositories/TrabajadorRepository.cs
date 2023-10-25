@@ -97,9 +97,11 @@ namespace WPF_LoginForm.Repositories
                     "ON T.idpuesto = P.id " +
                     "INNER JOIN cursotrabajador AS CT " +
                     "ON T.id = CT.idtrabajador " +
-                    "INNER JOIN listacursos AS LC " +
-                    "ON CT.idlistacursos = LC.id " +
-                    "WHERE LC.id = @idlistacursos";
+                    "INNER JOIN curso AS C " +
+                    "ON CT.idcurso = C.id " +
+                    "INNER JOIN curso_area AS CA " +
+                    "ON C.id = CA.idcurso " +
+                    "WHERE CA.id = @idlistacursos";
 
                 command.Parameters.Add("@idlistacursos", SqlDbType.Int).Value = idlista;
 

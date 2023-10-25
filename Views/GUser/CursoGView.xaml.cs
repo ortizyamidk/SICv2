@@ -34,7 +34,7 @@ namespace WPF_LoginForm.Views.GUser
             Loaded += MainWindow_Loaded;
 
             CursoGRepository repository = new CursoGRepository();
-            IEnumerable<CursoGModel> cursosList = repository.GetByAll();
+            IEnumerable<CursoGModel> cursosList = repository.GetByAll("Calidad"); //obtener area loggeada
             ObservableCollection<CursoGModel> cursos = new ObservableCollection<CursoGModel>(cursosList);
             cursosGDataGrid.ItemsSource = cursos;                         
 

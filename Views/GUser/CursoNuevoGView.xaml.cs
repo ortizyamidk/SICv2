@@ -48,12 +48,16 @@ namespace WPF_LoginForm.Views.GUser
 
             trabajadoresList = new ObservableCollection<TrabajadorModel>();
 
+            //traer y guardar el nombre del curso seleccionado en la tarjeta de Home, hacer una comparacion con los cursos que existen y seleccionar ese index
+            //string cursoSelecTarjeta;
+
+            //si el valor es nulo, entonces...
             cbCurso.SelectedIndex = 0;
         }
 
         private void CargarCursos()
         {
-            var cursos = cursoRepository.GetCursosNotRegistered("Calidad");
+            var cursos = cursoRepository.GetCursosNotRegistered("Calidad"); //obtener area loggeada
             foreach (var curso in cursos)
             {
                 var item = new ComboBoxItem
