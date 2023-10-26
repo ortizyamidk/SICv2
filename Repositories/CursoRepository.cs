@@ -294,8 +294,10 @@ namespace WPF_LoginForm.Repositories
                     "INNER JOIN area AS A ON CA.idarea = A.id " +
                     "WHERE A.nomarea = @area " +
                     "AND CA.listaregistrada = 0 " +
-                    "AND C.fechainicio < DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0) " +
-                    "AND C.fechaterm < DATEADD(MONTH, DATEDIFF(MONTH, 0, GETDATE()), 0);";
+                    "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
+                    "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
+                    "AND MONTH(C.fechainicio) < MONTH(GETDATE()) " +
+                    "AND MONTH(C.fechaterm) < MONTH(GETDATE()); ";
 
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
 
@@ -356,7 +358,17 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT ISNULL((\r\n  SELECT SUM(CASE WHEN CA.listaregistrada = 1 THEN 1 ELSE 0 END)\r\n  FROM area AS A \r\n  INNER JOIN curso_area AS CA ON A.id = CA.idarea\r\n  INNER JOIN curso AS C ON CA.idcurso = C.id\r\n  WHERE A.nomarea = 'Calidad'\r\n  AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE())\r\n  AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())\r\n  GROUP BY A.nomarea \r\n  HAVING COUNT(*) = (SELECT COUNT(DISTINCT idcurso) FROM curso_area)\r\n), 0) AS CursosRegistrados";
+                command.CommandText = "SELECT ISNULL(" +
+                    "(SELECT COUNT(*) " +
+                    "FROM curso AS C " +
+                    "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
+                    "INNER JOIN area AS A ON CA.idarea = A.id " +
+                    "WHERE CA.listaregistrada = 1 " +
+                    "AND A.nomarea = 'Calidad' " +
+                    "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
+                    "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
+                    "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
+                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())), 0) AS CursosRegistrados";
 
 
                 command.Parameters.Add("@areadpto", SqlDbType.NVarChar).Value = areadpto;

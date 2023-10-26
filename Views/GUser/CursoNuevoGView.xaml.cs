@@ -53,6 +53,8 @@ namespace WPF_LoginForm.Views.GUser
 
             //si el valor es nulo, entonces...
             cbCurso.SelectedIndex = 0;
+
+            
         }
 
         private void CargarCursos()
@@ -72,13 +74,17 @@ namespace WPF_LoginForm.Views.GUser
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            bool errores = false;   
+            bool errores = false;
 
             if (participantesDataGrid.Items.Count == 0)
             {
                 MessageBox.Show("La lista no contiene registros. Agregue al menos un participante.", "No hay registros", MessageBoxButton.OK, MessageBoxImage.Error);
                 errores = true;
             }
+
+            
+
+            
 
             if (!errores)
             {                                                        
@@ -111,6 +117,14 @@ namespace WPF_LoginForm.Views.GUser
         {
             txtBuscar.Focus();
             CargarCursos();
+
+            if (cbCurso.Items.Count == 0)
+            {
+                MessageBox.Show("No hay cursos por registrar.", "Sin cursos para el mes", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                txtBuscar.IsEnabled = false;
+                btnGuardar.IsEnabled = false;
+                btnSearch.IsEnabled = false;
+            }
         }
 
         private void cbCurso_SelectionChanged(object sender, SelectionChangedEventArgs e)
