@@ -6,12 +6,51 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WPF_LoginForm.Models;
+using static System.Windows.Forms.MonthCalendar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace WPF_LoginForm.Repositories
 {
     public class InstructorRepository : RepositoryBase, IInstructorRepository
     {
+        public void AddInstructor(string nominstr, string rfc, string tipo, string compania)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "INSERT INTO instructor (nominstr, rfc, tipoinstr, nomcia) VALUES (@nominstr, @rfc, @tipo, @compania)";
+
+                command.Parameters.Add("@nominstr", SqlDbType.VarChar).Value = nominstr;
+                command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
+                command.Parameters.Add("@tipo", SqlDbType.VarChar).Value = tipo;
+                command.Parameters.Add("@compania", SqlDbType.VarChar).Value = compania;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+        public void EditInstructor(string nominstr, string rfc, string tipo, string compania, int id)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE instructor SET nominstr = @nominstr, rfc = @rfc, tipoinstr = @tipo, nomcia = @compania WHERE id = @id";
+
+                command.Parameters.Add("@nominstr", SqlDbType.VarChar).Value = nominstr;
+                command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
+                command.Parameters.Add("@tipo", SqlDbType.VarChar).Value = tipo;
+                command.Parameters.Add("@compania", SqlDbType.VarChar).Value = compania;
+
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         //ver todos los instructores dados de alta en bd para combobox
         public IEnumerable<InstructorModel> GetByAll()
         {

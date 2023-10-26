@@ -45,15 +45,7 @@
 
                 <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
                     <Label Content="No. Instructor:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
-                            <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
-                        </Button>
-                        <TextBox x:Name="txtNoInst" Text="" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="200" />
-                        <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0">
-                            <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
-                        </Button>
-                    </StackPanel>
+                    <TextBox x:Name="txtNoInst" Text="" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="200" />
                 </StackPanel>
 
                 <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>

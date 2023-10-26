@@ -25,14 +25,18 @@ namespace WPF_LoginForm.Views
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
         string req = "*Campo requerido";
 
+        InstructorRepository repository;
+        string nombre, rfc, tipo, comp;
+        int id;
+
         public InstructorInfoView()
         {
             InitializeComponent();
             deshabilitar();
             
 
-            var repository = new InstructorRepository();
-            InstructorModel instructor = (repository as IInstructorRepository).GetById(1);
+            repository = new InstructorRepository();
+            InstructorModel instructor = (repository as IInstructorRepository).GetById(1); //traer id del instructor seleccionado en la tabla
 
             if(instructor != null)
             {
@@ -82,7 +86,7 @@ namespace WPF_LoginForm.Views
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
-        {
+        {          
             habilitar();
         }
 
@@ -128,7 +132,16 @@ namespace WPF_LoginForm.Views
             }
 
             if (!errores)
-            {              
+            {
+                id = int.Parse(txtNoInst.Text);
+                nombre = txtNombreI.Text;
+                rfc = txtRFC.Text;
+                ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
+                tipo = instructorS.Content.ToString();
+                comp = txtCompania.Text;
+
+
+                repository.EditInstructor(nombre, rfc, tipo, comp, id);
                 MostrarCustomMessageBox();
                 deshabilitar();
             }

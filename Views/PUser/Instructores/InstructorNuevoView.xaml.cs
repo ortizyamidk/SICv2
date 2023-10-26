@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using WPF_LoginForm.Repositories;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using static WPF_LoginForm.Views.CustomerView;
 
 namespace WPF_LoginForm.Views
@@ -28,12 +30,18 @@ namespace WPF_LoginForm.Views
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
         string req = "*Campo requerido";
 
-       
+        string nombre, rfc, tipo, compania;
+
+        InstructorRepository repository;
+
+
 
         public InstructorNuevoView()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;          
+            Loaded += MainWindow_Loaded;  
+            
+            repository = new InstructorRepository();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -96,6 +104,14 @@ namespace WPF_LoginForm.Views
 
             if (!errores)
             {
+                nombre = txtNombreI.Text;
+                rfc = txtRFC.Text;
+                ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
+                tipo = instructorS.Content.ToString();
+                compania = txtCompania.Text;
+
+                repository.AddInstructor(nombre, rfc, tipo, compania);
+                
                 MostrarCustomMessageBox();
                 limpiar();             
             }
@@ -117,6 +133,7 @@ namespace WPF_LoginForm.Views
             txtNombreI.Text = string.Empty;
             txtCompania.Text = string.Empty;
             txtRFC.Text = string.Empty;
+            cbTipo.SelectedIndex = 0;
 
             txtNombreI.Focus();
         }
