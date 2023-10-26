@@ -26,14 +26,27 @@
 
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="50"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="85"/>
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="1">
+                    <Border CornerRadius="10" Grid.Row="0" Margin="10" BorderBrush="#E41E1E" BorderThickness="1" Opacity="0.985">
+                        <Border.Background>
+                            <SolidColorBrush Color="#FFF89A8F" Opacity="0.8"/>
+                        </Border.Background>
+                        <Grid Grid.Row="0">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <fa:IconImage Icon="CircleInfo" Foreground="#E41E1E" Margin="6 0 6 0" Width="20" Height="20"/>
+                                <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="#1F2A21" Text="Capture los cursos a impartir ESTE MES o posteriores" FontSize="17"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="1" Margin="0 20 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="210"/>
                             <ColumnDefinition Width="*"/>

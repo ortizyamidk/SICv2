@@ -38,15 +38,7 @@
                     
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center">
                         <Label Content="No. lista:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnAnt_Click">
-                                <fa:IconImage Icon="ChevronLeft" Width="20" Height="25" />
-                            </Button>
-                            <TextBox IsEnabled="False" x:Name="txtNoLista" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="130" />
-                            <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnSig_Click">
-                                <fa:IconImage Icon="ChevronRight" Width="20" Height="25" />
-                            </Button>
-                        </StackPanel>
+                        <TextBox IsEnabled="False" x:Name="txtNoLista" Text="128" FontSize="20" HorizontalContentAlignment="Center" Style="{StaticResource myTextBox}" Width="130" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Height="60" VerticalAlignment="Center">
@@ -103,22 +95,22 @@
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="0">
                         <Label Content="Inicia:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" Text="12/10/2023" x:Name="txtInicia" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" TextAlignment="Center" Text="12/10/2023" x:Name="txtInicia" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="1">
                         <Label Content="Termina:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" Text="12/10/2023" x:Name="txtTerm" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" TextAlignment="Center" Text="12/10/2023" x:Name="txtTerm" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="2">
                         <Label Content="Horario:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" Text="8:00" x:Name="txtHor" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" TextAlignment="Center" Text="8:00" x:Name="txtHor" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="3">
                         <Label Content="Duración:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" Text="20 min" x:Name="txtDur" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
+                        <TextBox IsEnabled="False" TextAlignment="Center" Text="20 min" x:Name="txtDur" Style="{StaticResource myTextBox}" FontSize="15" Width="140" BorderBrush="Black"/>
                     </StackPanel>
                 </Grid>
 

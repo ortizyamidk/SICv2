@@ -200,6 +200,47 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
+        public CursoModel GetById(string id)
+        {
+            CursoModel curso = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT C.id, C.nomcurso, C.areatematica, " +
+                                    "CONVERT(varchar, C.fechainicio, 103) AS fechainicio, " +
+                                    "CONVERT(varchar, C.fechaterm, 103) AS fechaterm, " +
+                                    "C.horario, C.duracion, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
+                                    "FROM curso AS C " +
+                                    "LEFT JOIN instructor AS I " +
+                                    "ON C.idinstructor = I.id WHERE C.id = @id";
+
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        curso = new CursoModel()
+                        {
+                            Id = reader[0].ToString(),
+                            NomCurso = reader[1].ToString(),
+                            AreaTematica = reader[2].ToString(),
+                            Inicio = reader[3].ToString(),
+                            Termino = reader[4].ToString(),
+                            Horario = reader[5].ToString(),
+                            Duracion = (int)reader[6],
+                            Lugar = reader[7].ToString(),
+                            Instructor = reader[8].ToString()
+
+                        };
+                    }
+                }
+            }
+            return curso;
+        }
+
         //ver curso especifico
         public CursoModel GetByName(string nomcurso)
         {

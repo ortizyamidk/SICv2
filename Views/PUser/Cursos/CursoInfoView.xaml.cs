@@ -43,7 +43,7 @@ namespace WPF_LoginForm.Views
             cursoRepository = new CursoRepository();
             instructorRepository = new InstructorRepository();
 
-            CursoModel curso = cursoRepository.GetByName("Curso 1"); //obtener curso
+            CursoModel curso = cursoRepository.GetById("CU1"); //obtener curso
 
             txtID.Text = curso.Id.ToString();
             txtNombreC.Text = curso.NomCurso.ToString();

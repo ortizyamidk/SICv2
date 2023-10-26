@@ -126,6 +126,7 @@
                   x:Name="listaDataGrid" Width="Auto" Height="auto" Margin="0 0 0 13" HorizontalContentAlignment="Center">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Num Tarjeta" CanUserResize="false" IsReadOnly="True" Width="120" Binding="{Binding NumTarjeta}"/>
                             <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding Nombre}"/>
                             <DataGridTextColumn Header="Puesto"  IsReadOnly="True" Width="*" Binding="{Binding Puesto}"/>
                         </DataGrid.Columns>

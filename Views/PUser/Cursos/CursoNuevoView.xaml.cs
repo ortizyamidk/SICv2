@@ -285,19 +285,19 @@ namespace WPF_LoginForm.Views
                 // Verificar el índice seleccionado en cbArea
                 if (cbArea.SelectedIndex == 0)
                 {
-                    area = txtcbArea.Text;
+                    area = txtcbArea.Text; //escribe un area en especifico
                 }
                 else if (cbArea.SelectedIndex > 0)
                 {
                     ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea.SelectedItem;
-                    area = areaseleccionada.Content.ToString();
+                    area = areaseleccionada.Content.ToString(); //toma un area que ya existe
                 }
 
                 // Verificar el índice seleccionado en cbInstructor
                 if (cbInstructor.SelectedIndex == 0)
                 {
                     instructor = txtcbInstructor.Text;
-                    cursoRepository.AddCursoInstructorTemporal(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instructor);
+                    cursoRepository.AddCursoInstructorTemporal(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instructor); //insertar si se escribe un instructor temporal
                 }
                 else if (cbInstructor.SelectedIndex > 0)
                 {
@@ -306,7 +306,7 @@ namespace WPF_LoginForm.Views
 
                     InstructorModel instridModel = instructorRepository.GetIdByNombre(instructor);
                     int instrid = instridModel.Id;
-                    cursoRepository.AddCursoInstructor(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instrid);
+                    cursoRepository.AddCursoInstructor(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instrid); //insertar si se selecciona un instructor que ya existe
 
                 }
 
@@ -317,7 +317,7 @@ namespace WPF_LoginForm.Views
                 {
                     int idarea = areaId.Id;
 
-                    cursoRepository.AddCursoArea(idarea, id);
+                    cursoRepository.AddCursoArea(idarea, id); //permite asignarle el curso a todas las areas que registran
                 }
 
                 MostrarCustomMessageBox();

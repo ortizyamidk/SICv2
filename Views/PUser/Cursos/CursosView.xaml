@@ -8,8 +8,6 @@
              xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    
-    
 
     <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>

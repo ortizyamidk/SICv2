@@ -80,7 +80,7 @@ namespace WPF_LoginForm.Views
             }
             else
             {
-                //hacer consulta. Hacer otro if por si no existe el curso
+               
             }            
         }
 

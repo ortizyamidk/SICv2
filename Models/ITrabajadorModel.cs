@@ -9,7 +9,10 @@ namespace WPF_LoginForm.Models
     public interface ITrabajadorModel
     {
         IEnumerable<TrabajadorModel> GetByAll();
-        TrabajadorModel GetById(int numficha, string nomarea);
         IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista);
+
+        TrabajadorModel GetById(int numficha, string nomarea);
+        TrabajadorModel GetIdByNumTarjeta(string numtarjeta);
+        
     }
 }

@@ -89,7 +89,12 @@ namespace WPF_LoginForm.CustomControls
             if (!string.IsNullOrEmpty(txtBuscar.Text))
             {
                 //PASE DE LISTA
-                int numficha = int.Parse(txtBuscar.Text);
+                string numtarjeta = txtBuscar.Text;
+
+                TrabajadorRepository trabajador = new TrabajadorRepository();
+                TrabajadorModel trabajadorModel = trabajador.GetIdByNumTarjeta(numtarjeta);
+
+                int numficha = trabajadorModel.Id;
 
                 //guardar nombre del curso de la ventana CursoInfoGView y traerlo
                 CursoModel cursoModel = cursoRepository.GetIdByName("Curso 1");

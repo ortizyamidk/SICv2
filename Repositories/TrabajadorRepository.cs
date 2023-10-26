@@ -81,6 +81,32 @@ namespace WPF_LoginForm.Repositories
             return trabajador;
         }
 
+        public TrabajadorModel GetIdByNumTarjeta(string numtarjeta)
+        {
+            TrabajadorModel trabajador = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT id FROM trabajador WHERE numtarjeta = @numtarjeta";
+
+                command.Parameters.Add("@numtarjeta", SqlDbType.Int).Value = numtarjeta;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        trabajador = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0]
+                        };
+                    }
+                }
+            }
+            return trabajador;
+        }
+
         //participantes para CursoInfoGView
         public IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista)
         {
@@ -91,7 +117,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, P.nompuesto " +
+                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, P.nompuesto " +
                     "FROM trabajador AS T " +
                     "INNER JOIN puesto AS P " +
                     "ON T.idpuesto = P.id " +
@@ -112,8 +138,9 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel participante = new TrabajadorModel()
                         {
                             Id = (int)reader[0],
-                            Nombre = reader[1].ToString(),
-                            Puesto = reader[2].ToString()
+                            NumTarjeta = reader[1].ToString(),
+                            Nombre = reader[2].ToString(),
+                            Puesto = reader[3].ToString()
                         };
 
                         participantes.Add(participante);

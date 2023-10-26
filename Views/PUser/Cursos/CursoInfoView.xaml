@@ -51,7 +51,7 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" Width="190" HorizontalAlignment="Center">
                         <Label Content="ID Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Grid>
-                            <TextBox x:Name="txtID" Style="{StaticResource myTextBox}" FontSize="15" Width="auto" BorderBrush="Black"/>
+                            <TextBox IsEnabled="False" x:Name="txtID" Style="{StaticResource myTextBox}" FontSize="15" Width="auto" BorderBrush="Black"/>
                             <TextBlock Text="Identificador único" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
