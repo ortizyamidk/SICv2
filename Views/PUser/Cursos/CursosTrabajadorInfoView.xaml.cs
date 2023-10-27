@@ -22,34 +22,16 @@ namespace WPF_LoginForm.Views
     
     public partial class CursosTrabajadorInfoView : UserControl
     {
+        string idCurso;
+
         public CursosTrabajadorInfoView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            
 
-            var repository = new CursoRepository();
-            CursoGModel asistencia = repository.GetAsistenciaById(23); //traer idlista
-
-            txtNoLista.Text = asistencia.Id.ToString();
-            txtCurso.Text = asistencia.NomCurso.ToString();
-            txtArea.Text = asistencia.AreaTematica.ToString();
-            txtInicia.Text = asistencia.Inicia.ToString();
-            txtTerm.Text = asistencia.Termina.ToString();
-            txtHor.Text = asistencia.Horario.ToString();
-            txtDur.Text = asistencia.Duracion.ToString() + " min";
-            txtLugar.Text = asistencia.Lugar.ToString();
-            txtInst.Text = asistencia.Instructor.ToString();
-
-            int idlista = int.Parse(txtNoLista.Text);
-
-            TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
-            IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlista);
-            ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
-            cursosTrabajadorDataGrid.ItemsSource = participantes;
 
         }
-
-  
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -73,6 +55,7 @@ namespace WPF_LoginForm.Views
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+
             if (string.IsNullOrEmpty(txtSearch.Text))
             {
                 MessageBox.Show("Ingrese un No. de curso", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -80,7 +63,45 @@ namespace WPF_LoginForm.Views
             }
             else
             {
-               
+                var repository = new CursoRepository();
+                CursoGModel asistencia = repository.GetAsistenciaById(txtSearch.Text);
+
+                txtIDCurso.Text = asistencia.IdCurso.ToString();
+                txtCurso.Text = asistencia.NomCurso.ToString();
+                txtArea.Text = asistencia.AreaTematica.ToString();
+                txtInicia.Text = asistencia.Inicia.ToString();
+                txtTerm.Text = asistencia.Termina.ToString();
+                txtHor.Text = asistencia.Horario.ToString();
+                txtDur.Text = asistencia.Duracion.ToString() + " min";
+                txtLugar.Text = asistencia.Lugar.ToString();
+                txtInst.Text = asistencia.Instructor.ToString();
+
+                idCurso = txtIDCurso.Text;
+
+                TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
+                IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesById(idCurso);
+                ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                cursosTrabajadorDataGrid.ItemsSource = participantes;
+
+                var repositoryAsistencia = new CursoGRepository();
+
+                int cursoimp = repositoryAsistencia.CursoImpartido(txtCurso.Text);
+
+                if(cursoimp == 1)
+                {
+                    border.Visibility = Visibility.Visible;
+
+                }
+                else
+                {
+                    border.Visibility = Visibility.Visible;
+
+                    SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
+                    border.Background = colorNOimpartido;
+                    txtImpartido.Text = "NO IMPARTIDO";
+                }
+
+                txtSearch.Focus();
             }            
         }
 

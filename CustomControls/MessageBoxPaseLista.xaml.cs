@@ -97,7 +97,7 @@ namespace WPF_LoginForm.CustomControls
                 int numficha = trabajadorModel.Id;
 
                 //guardar nombre del curso de la ventana CursoInfoGView y traerlo
-                CursoModel cursoModel = cursoRepository.GetIdByName("Curso 1");
+                CursoModel cursoModel = cursoRepository.GetIdByName("Curso 2");
 
                 repository.Edit(cursoModel.Id, numficha); //traerme idcurso de CursoInfoView
 

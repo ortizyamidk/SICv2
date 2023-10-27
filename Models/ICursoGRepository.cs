@@ -29,5 +29,7 @@ namespace WPF_LoginForm.Models
         void AddParticipantes(int numficha, string idcurso);
 
         void AddListaAsistencia(int idarea, string idcurso);
+
+        int CursoImpartido(string nomcurso);
     }
 }

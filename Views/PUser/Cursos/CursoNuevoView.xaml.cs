@@ -243,10 +243,19 @@ namespace WPF_LoginForm.Views
             txtNombreC.BorderBrush = bordeNormal;
             txtID.BorderBrush = bordeNormal;
 
+            
             if (string.IsNullOrEmpty(txtID.Text))
             {
                 errID.Content = req;
                 txtID.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            var existingCurso = cursoRepository.GetByAll().FirstOrDefault(c => c.Id == txtID.Text);
+
+            if (existingCurso != null)
+            {
+                MessageBox.Show("Ya existe ese ID del Curso", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 errores = true;
             }
 
@@ -322,11 +331,7 @@ namespace WPF_LoginForm.Views
 
                 MostrarCustomMessageBox();
                 Limpiar();
-
-            }
-
-            
-
+            }          
         }
 
         private void MostrarCustomMessageBox()

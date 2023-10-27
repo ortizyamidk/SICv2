@@ -28,7 +28,7 @@ namespace WPF_LoginForm.Models
         CursoModel GetIdByName(string nomcurso);
         CursoModel GetById(string id);
 
-        CursoGModel GetAsistenciaById(int id);
+        CursoGModel GetAsistenciaById(string idcurso);
         IEnumerable<CursoGModel> GetParticipantes(int id);
     }
 }

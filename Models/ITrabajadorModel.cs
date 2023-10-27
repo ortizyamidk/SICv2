@@ -11,6 +11,8 @@ namespace WPF_LoginForm.Models
         IEnumerable<TrabajadorModel> GetByAll();
         IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista);
 
+        IEnumerable<TrabajadorModel> GetParticipantesById(string idcurso);
+
         TrabajadorModel GetById(int numficha, string nomarea);
         TrabajadorModel GetIdByNumTarjeta(string numtarjeta);
         

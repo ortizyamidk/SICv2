@@ -311,5 +311,29 @@ namespace WPF_LoginForm.Repositories
                 command.ExecuteNonQuery();
             }
         }
+
+        public int CursoImpartido(string nomcurso)
+        {
+            int cursoImpartido = 0;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT CASE WHEN MAX(CAST(CT.asistio AS INT)) = 1 THEN 1 " +
+                    "ELSE 0 END AS CursoImpartido " +
+                    "FROM trabajador AS T " +
+                    "INNER JOIN cursotrabajador AS CT ON T.id = CT.idtrabajador " +
+                    "INNER JOIN curso AS C ON CT.idcurso = C.id " +
+                    "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
+                    "WHERE C.nomcurso = @nomcurso";
+
+
+                command.Parameters.Add("@nomcurso", SqlDbType.NVarChar).Value = nomcurso;
+
+                cursoImpartido = (int)command.ExecuteScalar();
+            }
+            return cursoImpartido;
+        }
     }
 }

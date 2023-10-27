@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -21,7 +22,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, A.nomarea, P.nompuesto " +
+                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, A.nomarea, P.nompuesto " +
                                     "FROM trabajador AS T " +
                                     "INNER JOIN area AS A ON T.idarea = A.id " +
                                     "INNER JOIN puesto AS P ON T.idpuesto = P.id";
@@ -33,9 +34,10 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel trabajador = new TrabajadorModel()
                         {
                             Id = (int)reader[0],
-                            Nombre = reader[1].ToString(),
-                            Area = reader[2].ToString(),
-                            Puesto = reader[3].ToString()
+                            NumTarjeta = reader[1].ToString(),
+                            Nombre = reader[2].ToString(),
+                            Area = reader[3].ToString(),
+                            Puesto = reader[4].ToString()
                         };
 
                         trabajadores.Add(trabajador);
@@ -105,6 +107,50 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return trabajador;
+        }
+
+        public IEnumerable<TrabajadorModel> GetParticipantesById(string idcurso)
+        {
+            List<TrabajadorModel> participantes = new List<TrabajadorModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT T.id, T.nombre, P.nompuesto, A.nomarea " +
+                    "FROM curso AS C " +
+                    "LEFT JOIN instructor AS I " +
+                    "ON C.idinstructor = I.id " +
+                    "INNER JOIN cursotrabajador AS CT " +
+                    "ON C.id = CT.idcurso " +
+                    "INNER JOIN trabajador AS T " +
+                    "ON CT.idtrabajador = T.id " +
+                    "INNER JOIN puesto AS P " +
+                    "ON T.idpuesto = P.id " +
+                    "INNER JOIN area AS A " +
+                    "ON T.idarea = A.id " +
+                    "WHERE C.id = @idcurso";
+
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TrabajadorModel participante = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0],
+                            Nombre = reader[1].ToString(),
+                            Puesto = reader[2].ToString(),
+                            Area = reader[3].ToString()
+                        };
+
+                        participantes.Add(participante);
+                    }
+                }
+            }
+            return participantes;
         }
 
         //participantes para CursoInfoGView

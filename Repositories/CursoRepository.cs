@@ -130,7 +130,7 @@ namespace WPF_LoginForm.Repositories
 
 
         //ver la lista de asistencia especifica de un curso por el id del curso de todas las areas
-        public CursoGModel GetAsistenciaById(int id)
+        public CursoGModel GetAsistenciaById(string idcurso)
         {
             CursoGModel asistencia = null;
             using (var connection = GetConnection())
@@ -138,16 +138,21 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT LC.id, C.nomcurso, C.areatematica, COALESCE(I.nominstr, LC.nominstr) AS nominstr, " +
-                                    "CONVERT(varchar,LC.fechainicio, 103) AS fechainicio, CONVERT(varchar,LC.fechaterm, 103) AS fechaterm, " +
-                                    "CONVERT(varchar, LC.horario, 108) AS horario, LC.duracion, LC.lugar " +
-                                    "FROM cursos as C " +
-                                    "LEFT JOIN instructor as I " +
-                                    "ON C.idinstructor = I.id " +
-                                    "RIGHT JOIN listacursos as LC ON C.id = LC.idcurso " +
-                                    "WHERE LC.id = @id";
+                command.CommandText = "SELECT DISTINCT C.id, C.nomcurso, C.areatematica, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.horario, C.duracion, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
+                    "FROM curso AS C " +
+                    "LEFT JOIN instructor AS I " +
+                    "ON C.idinstructor = I.id " +
+                    "INNER JOIN cursotrabajador AS CT " +
+                    "ON C.id = CT.idcurso " +
+                    "INNER JOIN trabajador AS T " +
+                    "ON CT.idtrabajador = T.id " +
+                    "INNER JOIN puesto AS P " +
+                    "ON T.idpuesto = P.id " +
+                    "INNER JOIN area AS A " +
+                    "ON T.idarea = A.id " +
+                    "WHERE C.id = @idcurso";
 
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -155,15 +160,15 @@ namespace WPF_LoginForm.Repositories
                     {
                         asistencia = new CursoGModel()
                         {
-                            Id = (int)reader[0],
+                            IdCurso = reader[0].ToString(),
                             NomCurso = reader[1].ToString(),
-                            AreaTematica = reader[2].ToString(),
-                            Instructor = reader[3].ToString(),
-                            Inicia = reader[4].ToString(),
-                            Termina = reader[5].ToString(),
-                            Horario = reader[6].ToString(),
-                            Duracion = (int)reader[7],
-                            Lugar = reader[8].ToString()
+                            AreaTematica = reader[2].ToString(),                           
+                            Inicia = reader[3].ToString(),
+                            Termina = reader[4].ToString(),
+                            Horario = reader[5].ToString(),
+                            Duracion = (int)reader[6],
+                            Lugar = reader[7].ToString(),
+                            Instructor = reader[8].ToString()
 
                         };
                     }
@@ -384,6 +389,7 @@ namespace WPF_LoginForm.Repositories
             }
             return curso;
         }
+
 
         public IEnumerable<CursoGModel> GetParticipantes(int id)
         {

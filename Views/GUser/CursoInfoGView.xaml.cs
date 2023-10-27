@@ -28,9 +28,10 @@ namespace WPF_LoginForm.Views.GUser
         public CursoInfoGView()
         {
             InitializeComponent();
+            SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
 
             var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(81); //traer idlistaasistencia seleccionada en la tabla de CursoGView
+            CursoGModel asistencia = repository.GetById(89); //traer idlistaasistencia seleccionada en la tabla de CursoGView
 
             txtNoLista.Text = asistencia.Id.ToString();
             txtCurso.Text=asistencia.NomCurso.ToString();
@@ -48,6 +49,19 @@ namespace WPF_LoginForm.Views.GUser
             IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlistacurso);
             ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
             listaDataGrid.ItemsSource = participantes;
+
+            int cursoimp = repository.CursoImpartido(txtCurso.Text);
+
+            if(cursoimp == 1)
+            {
+                btnPaseLista.Content = "IMPARTIDO";
+                btnPaseLista.Background = colorImpartido;
+                btnPaseLista.IsEnabled = false;
+            }
+            else
+            {
+
+            }
         }
 
 
