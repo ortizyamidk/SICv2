@@ -177,6 +177,8 @@ namespace WPF_LoginForm.Repositories
             return asistencia;
         }
 
+        
+
         //ver todos los cursos para mostrarlos en tabla de CursosView
         public IEnumerable<CursoModel> GetByAll()
         {
@@ -411,7 +413,7 @@ namespace WPF_LoginForm.Repositories
                     "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
                     "INNER JOIN area AS A ON CA.idarea = A.id " +
                     "WHERE CA.listaregistrada = 1 " +
-                    "AND A.nomarea = 'Calidad' " +
+                    "AND A.nomarea = @areadpto " +
                     "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
                     "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
                     "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
@@ -437,7 +439,9 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "SELECT COUNT(nomcurso) AS CursosARegistrarMesActual FROM curso WHERE registrado = 0 " +
                     "AND DATEPART(MONTH, fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, fechaterm) = DATEPART(MONTH, GETDATE());";
+                    "AND DATEPART(MONTH, fechaterm) = DATEPART(MONTH, GETDATE()) " +
+                    "AND YEAR(fechainicio) = YEAR(GETDATE()) " +
+                    "AND YEAR(fechaterm) = YEAR(GETDATE())";
 
                 // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();
