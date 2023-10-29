@@ -71,6 +71,8 @@
                             <fa:IconImage HorizontalAlignment="Right" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                         </Button>
                     </StackPanel>
+
+                    <Button x:Name="btnPaseLista" Grid.Column="2" Content="Pase de Lista" FontSize="18" FontWeight="Bold" Height="35" Width="140" Style="{StaticResource mainButton}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnPaseLista_Click"/>
                 </Grid>
                
                 <Grid Grid.Row="1" Margin="0 20 0 0">
@@ -160,6 +162,7 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="No. ficha" CanUserResize="false" FontSize="10" IsReadOnly="True" Width="90" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Num Tarjeta" CanUserResize="false" FontSize="10" IsReadOnly="True" Width="120" Binding="{Binding NumTarjeta}"/>
                             <DataGridTextColumn Header="Nombre" IsReadOnly="True" FontSize="10" Width="*" Binding="{Binding Nombre}"/>
                             <DataGridTextColumn Header="Puesto"  IsReadOnly="True" FontSize="10" Width="*" Binding="{Binding Puesto}"/>
                             <DataGridTextColumn Header="Área"  IsReadOnly="True" FontSize="10" Width="*" Binding="{Binding Area}"/>

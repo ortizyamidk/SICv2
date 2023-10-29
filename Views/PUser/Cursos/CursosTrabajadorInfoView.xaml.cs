@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPF_LoginForm.CustomControls;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
 using static WPF_LoginForm.Views.CursosView;
@@ -66,7 +67,7 @@ namespace WPF_LoginForm.Views
             txtSearch.Focus(); // Establece el enfoque en el TextBox
           
             CargarAreas();
-
+            btnPaseLista.Visibility = Visibility.Collapsed;
 
         }
 
@@ -136,6 +137,7 @@ namespace WPF_LoginForm.Views
                         SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
                         border.Background = colorImpartido;
                         txtImpartido.Text = "IMPARTIDO";
+                        btnPaseLista.Visibility = Visibility.Collapsed;
                     }
                     else if (cursoimp == 0)
                     {
@@ -145,12 +147,14 @@ namespace WPF_LoginForm.Views
                         SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
                         border.Background = colorNOimpartido;
                         txtImpartido.Text = "NO IMPARTIDO";
+                        btnPaseLista.Visibility = Visibility.Visible;
                     }
                     else
                     {
                         border.Visibility = Visibility.Collapsed;
                         txtImpartido.Visibility = Visibility.Collapsed;
                         txtImpartido.Text = string.Empty;
+                        btnPaseLista.Visibility = Visibility.Collapsed;
                     }
 
                 }
@@ -202,6 +206,18 @@ namespace WPF_LoginForm.Views
                 participantes = new ObservableCollection<TrabajadorModel>(participantesList);
                 cursosTrabajadorDataGrid.ItemsSource = participantes;
             }
+            
+        }
+
+        private void btnPaseLista_Click(object sender, RoutedEventArgs e)
+        {
+            MostrarCustomMessageBox();
+        }
+
+        private void MostrarCustomMessageBox()
+        {
+            MessageBoxPaseLista customMessageBox = new MessageBoxPaseLista();
+            customMessageBox.ShowDialog();
         }
     }
 }

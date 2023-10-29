@@ -118,7 +118,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, P.nompuesto, A.nomarea " +
+                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, P.nompuesto, A.nomarea " +
                     "FROM curso AS C " +
                     "LEFT JOIN instructor AS I " +
                     "ON C.idinstructor = I.id " +
@@ -141,9 +141,10 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel participante = new TrabajadorModel()
                         {
                             Id = (int)reader[0],
-                            Nombre = reader[1].ToString(),
-                            Puesto = reader[2].ToString(),
-                            Area = reader[3].ToString()
+                            NumTarjeta = reader[1].ToString(),
+                            Nombre = reader[2].ToString(),
+                            Puesto = reader[3].ToString(),
+                            Area = reader[4].ToString()
                         };
 
                         participantes.Add(participante);
@@ -162,7 +163,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, P.nompuesto, A.nomarea " +
+                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, P.nompuesto, A.nomarea " +
                     "FROM curso AS C " +
                     "LEFT JOIN instructor AS I " +
                     "ON C.idinstructor = I.id " +
@@ -186,9 +187,10 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel participante = new TrabajadorModel()
                         {
                             Id = (int)reader[0],
-                            Nombre = reader[1].ToString(),
-                            Puesto = reader[2].ToString(),
-                            Area = reader[3].ToString()
+                            NumTarjeta = reader[1].ToString(),
+                            Nombre = reader[2].ToString(),
+                            Puesto = reader[3].ToString(),
+                            Area = reader[4].ToString()
                         };
 
                         participantes.Add(participante);
@@ -208,16 +210,16 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, P.nompuesto " +
-                    "FROM trabajador AS T " +
+                command.CommandText = "SELECT DISTINCT T.id, T.numtarjeta, T.nombre, P.nompuesto " +
+                    "FROM curso_area AS CA " +
+                    "INNER JOIN area AS A " +
+                    "ON CA.idarea = A.id " +
+                    "INNER JOIN trabajador AS T " +
+                    "ON A.id = T.idarea " +
                     "INNER JOIN puesto AS P " +
                     "ON T.idpuesto = P.id " +
                     "INNER JOIN cursotrabajador AS CT " +
                     "ON T.id = CT.idtrabajador " +
-                    "INNER JOIN curso AS C " +
-                    "ON CT.idcurso = C.id " +
-                    "INNER JOIN curso_area AS CA " +
-                    "ON C.id = CA.idcurso " +
                     "WHERE CA.id = @idlistacursos";
 
                 command.Parameters.Add("@idlistacursos", SqlDbType.Int).Value = idlista;

@@ -59,7 +59,7 @@ namespace WPF_LoginForm.Views.GUser
 
         private void CargarCursos()
         {
-            var cursos = cursoRepository.GetCursosNotRegistered("Calidad"); //obtener area loggeada
+            var cursos = cursoRepository.GetCursosNotRegistered("Ingeniería"); //obtener area loggeada
             foreach (var curso in cursos)
             {
                 var item = new ComboBoxItem
@@ -80,11 +80,7 @@ namespace WPF_LoginForm.Views.GUser
             {
                 MessageBox.Show("La lista no contiene registros. Agregue al menos un participante.", "No hay registros", MessageBoxButton.OK, MessageBoxImage.Error);
                 errores = true;
-            }
-
-            
-
-            
+            }                      
 
             if (!errores)
             {                                                        
@@ -96,7 +92,7 @@ namespace WPF_LoginForm.Views.GUser
                     repository.AddParticipantes(participante.Id, idcurso);
                 }
 
-                AreaModel areaModel = areaRepository.GetIdByName("Calidad");
+                AreaModel areaModel = areaRepository.GetIdByName("Ingeniería"); //area loggeada
                 int idCurrentArea = areaModel.Id;
 
                 repository.AddListaAsistencia(idCurrentArea, idcurso);
@@ -184,7 +180,7 @@ namespace WPF_LoginForm.Views.GUser
             {
                int numficha = int.Parse(txtBuscar.Text);
                
-               TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, "Calidad");
+               TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, "Ingeniería"); //area loggeada
 
                 if (trabajador!=null)
                 {

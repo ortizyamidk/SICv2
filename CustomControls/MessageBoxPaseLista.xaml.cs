@@ -94,12 +94,20 @@ namespace WPF_LoginForm.CustomControls
                 TrabajadorRepository trabajador = new TrabajadorRepository();
                 TrabajadorModel trabajadorModel = trabajador.GetIdByNumTarjeta(numtarjeta);
 
-                int numficha = trabajadorModel.Id;
+                
 
-                //guardar nombre del curso de la ventana CursoInfoGView y traerlo
-                CursoModel cursoModel = cursoRepository.GetIdByName("Curso 2");
+                if (trabajadorModel != null)
+                {
+                    int numficha = trabajadorModel.Id;
+                    string idcurso = "CU1"; //traerlo de ventana CursoTrabajadorInfoView
 
-                repository.Edit(cursoModel.Id, numficha); //traerme idcurso de CursoInfoView
+                    repository.Edit(idcurso, numficha); //traerme idcurso de CursoInfoView
+                }
+                else
+                {
+                    MessageBox.Show("No existe trabajador o no está inscrito al curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                
 
                 // Detén el temporizador
                 timer.Stop();

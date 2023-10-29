@@ -24,14 +24,18 @@ namespace WPF_LoginForm.Views.GUser
 {
     public partial class CursoInfoGView : UserControl
     {
+        CursoGRepository cursoGRepository;
 
         public CursoInfoGView()
         {
             InitializeComponent();
             SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
+            SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
+
+            cursoGRepository = new CursoGRepository();
 
             var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(89); //traer idlistaasistencia seleccionada en la tabla de CursoGView
+            CursoGModel asistencia = repository.GetById(98); //traer idlistaasistencia seleccionada en la tabla de CursoGView
 
             txtNoLista.Text = asistencia.Id.ToString();
             txtCurso.Text=asistencia.NomCurso.ToString();
@@ -46,34 +50,36 @@ namespace WPF_LoginForm.Views.GUser
             int idlistacurso = int.Parse(txtNoLista.Text);
 
             TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
-            IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlistacurso);
+            IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlistacurso); 
             ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
             listaDataGrid.ItemsSource = participantes;
 
-            int cursoimp = repository.CursoImpartido(txtCurso.Text);
+            int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
 
-            if(cursoimp == 1)
+            if (cursoimp == 1)
             {
-                btnPaseLista.Content = "IMPARTIDO";
-                btnPaseLista.Background = colorImpartido;
-                btnPaseLista.IsEnabled = false;
+                border.Visibility = Visibility.Visible;
+                txtImpartido.Visibility = Visibility.Visible;
+
+                border.Background = colorImpartido;
+                txtImpartido.Text = "IMPARTIDO";
+            }
+            else if (cursoimp == 0)
+            {
+                border.Visibility = Visibility.Visible;
+                txtImpartido.Visibility = Visibility.Visible;
+
+                
+                border.Background = colorNOimpartido;
+                txtImpartido.Text = "NO IMPARTIDO";
             }
             else
             {
-
+                border.Visibility = Visibility.Collapsed;
+                txtImpartido.Visibility = Visibility.Collapsed;
+                txtImpartido.Text = string.Empty;
             }
         }
-
-
-        private void btnPaseLista_Click(object sender, RoutedEventArgs e)
-        {
-            MostrarCustomMessageBox();
-        }
-
-        private void MostrarCustomMessageBox()
-        {
-            MessageBoxPaseLista customMessageBox = new MessageBoxPaseLista();
-            customMessageBox.ShowDialog();
-        }
+      
     }
 }

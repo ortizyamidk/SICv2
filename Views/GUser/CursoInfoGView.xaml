@@ -113,9 +113,10 @@
                 </Grid>
 
                 <TextBlock Text="Participantes:" Grid.Row="3" Margin="10 0 0 0" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
-                <Button x:Name="btnPaseLista" Grid.Row="3" Grid.Column="1" Content="Pase de Lista" FontSize="18" FontWeight="Bold" Height="35" Width="140" Margin="0 0 20 0" Style="{StaticResource mainButton}" HorizontalAlignment="Right" Click="btnPaseLista_Click"/>
 
-
+                <Border x:Name="border" CornerRadius="12" Grid.Row="3" Background="Green" HorizontalAlignment="Right" Visibility="Visible" Height="35" Width="145" Margin="20 5 20 20" Grid.Column="0">
+                    <TextBox x:Name="txtImpartido" Visibility="Visible" Text="IMPARTIDO" TextAlignment="Center" Foreground="White" BorderThickness="0" Background="Transparent" FontSize="18" FontWeight="Bold" Height="35" Width="145"  HorizontalAlignment="Left"/>
+                </Border>
 
                 <Border Grid.Row="4" CornerRadius="10" Margin="20 0 20 0" Width="auto">
                     <DataGrid Style="{DynamicResource DataGridStyle2}" 
