@@ -16,6 +16,8 @@ namespace WPF_LoginForm.Models
 
         TrabajadorModel GetById(int numficha, string nomarea);
         TrabajadorModel GetIdByNumTarjeta(string numtarjeta);
+
+        TrabajadorModel FormatoDC3(int numficha);
         
     }
 }

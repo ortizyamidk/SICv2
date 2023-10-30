@@ -26,7 +26,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT Id, Username, Rol FROM [user] WHERE Username=@username AND Password=@contra";
+                command.CommandText = "SELECT * FROM [user] WHERE Username=@username AND Password=@contra";
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
                 command.Parameters.Add("@contra", SqlDbType.NVarChar).Value = credential.Password;
 

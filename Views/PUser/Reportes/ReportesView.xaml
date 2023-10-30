@@ -83,9 +83,7 @@
                     <Border Grid.Column="1" CornerRadius="9" HorizontalAlignment="Center" Background="White" BorderBrush="Black" BorderThickness="0.3" Width="170" Height="40" Margin="0 0 0 150">
                             <ComboBox x:Name="cbArea" Height="auto" Width="auto" HorizontalContentAlignment="Center" BorderThickness="0" Cursor="Hand" FontSize="13">
                                 <ComboBox.Items>
-                                    <ComboBoxItem Content="Almacén de componentes" />
-                                    <ComboBoxItem Content="Calidad" />
-                                    <ComboBoxItem Content="Capacitación" />
+                                    
                                 </ComboBox.Items>
 
                                 <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
@@ -214,7 +212,7 @@
                 </Border>
 
                 <Grid Grid.Column="1" Grid.Row="4">
-                    <TextBox x:Name="buscarCurso" Style="{StaticResource myTextBox}" PreviewTextInput="buscarTrab_PreviewTextInput" Width="150" Margin="0 0 0 150"/>
+                    <TextBox x:Name="buscarCurso" Style="{StaticResource myTextBox}" Width="150" Margin="0 0 0 150"/>
                     <TextBlock Text="Buscar No. Curso" Width="130" FontSize="15" Height="25" Margin="0 0 0 145" Foreground="Gray" IsHitTestVisible="False" HorizontalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">

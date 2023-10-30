@@ -12,6 +12,7 @@ namespace WPF_LoginForm.Models
         public string NumTarjeta { get; set; }
         public string Nombre { get; set; }
         public string Area { get; set; }
+        public string RFC {  get; set; }
         public string Puesto { get; set; }
 
         public string Departamento { get; set; }

@@ -37,7 +37,7 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT " +
-                    "A.nomarea AS AREA, " +
+                    "A.nomarea AS AREA, A.jefearea, " +
                     "(SELECT ISNULL(COUNT(*), 0) " +
                     "FROM curso AS C " +
                     "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
@@ -80,10 +80,11 @@ namespace WPF_LoginForm.Repositories
                         DepartamentoModel depto = new DepartamentoModel()
                         {
                             NomDepto = reader[0].ToString(),
-                            CursosRegistrados = (int)reader[1],
-                            CursosARegistrar = (int)reader[2],
-                            PorcentajeAvance = (int)reader[3],
-                            ValorPorcentaje = (int)reader[4]
+                            Jefe = reader[1].ToString(),
+                            CursosRegistrados = (int)reader[2],
+                            CursosARegistrar = (int)reader[3],
+                            PorcentajeAvance = (int)reader[4],
+                            ValorPorcentaje = (int)reader[5]
                         };
                         deptos.Add(depto);
                     }

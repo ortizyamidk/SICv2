@@ -33,6 +33,14 @@ namespace WPF_LoginForm.CustomControls
 
         public static readonly DependencyProperty TitleProperty = DependencyProperty.Register("Title", typeof(string), typeof(InfoCard));
 
+        public string Jefe
+        {
+            get { return (string)GetValue(JefeProperty); }
+            set { SetValue(JefeProperty, value); }
+        }
+
+        public static readonly DependencyProperty JefeProperty = DependencyProperty.Register("Jefe", typeof(string), typeof(InfoCard));
+
         public string CursosRegistrados
         {
             get { return (string)GetValue(CursosRegistradosProperty); }

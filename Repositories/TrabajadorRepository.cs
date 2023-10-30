@@ -12,6 +12,39 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorModel
     {
+        public TrabajadorModel FormatoDC3(int numficha)
+        {
+            TrabajadorModel trabajador = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT T.id, T.nombre, T.rfc, P.nompuesto " +
+                                    "FROM trabajador AS T " +
+                                    "INNER JOIN puesto AS P " +
+                                    "ON T.idpuesto = P.id " +
+                                    "WHERE T.id = @numficha";
+
+                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        trabajador = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0],
+                            Nombre = reader[1].ToString(),
+                            RFC = reader[2].ToString(),
+                            Puesto = reader[3].ToString()
+                        };
+                    }
+                }
+            }
+            return trabajador;
+        }
+
         //ver trabajadores para tabla en vista CustomerView
         public IEnumerable<TrabajadorModel> GetByAll()
         {
