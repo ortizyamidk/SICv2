@@ -161,7 +161,7 @@ namespace WPF_LoginForm.Views
                 else
                 {
                     Limpiar();
-                    MessageBox.Show("No existe curso con ese ID", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("No existe curso con ese ID o no se ha registrado la Lista", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
                 
                 txtSearch.Focus();
@@ -170,19 +170,47 @@ namespace WPF_LoginForm.Views
 
         private void Limpiar()
         {
-            txtIDCurso.Text = string.Empty;
-            txtCurso.Text = string.Empty;
-            txtArea.Text = string.Empty;
-            txtInicia.Text = string.Empty;
-            txtTerm.Text = string.Empty;
-            txtHor.Text = string.Empty;
-            txtDur.Text = string.Empty;
-            txtLugar.Text = string.Empty;
-            txtInst.Text = string.Empty;
-            txtSearch.Text = string.Empty;
-            participantes.Clear();
-            border.Visibility= Visibility.Collapsed;
-            cbBorder.Visibility= Visibility.Collapsed;
+            
+
+            if (participantes != null)
+            {
+                txtIDCurso.Text = string.Empty;
+                txtCurso.Text = string.Empty;
+                txtArea.Text = string.Empty;
+                txtInicia.Text = string.Empty;
+                txtTerm.Text = string.Empty;
+                txtHor.Text = string.Empty;
+                txtDur.Text = string.Empty;
+                txtLugar.Text = string.Empty;
+                txtInst.Text = string.Empty;
+                txtSearch.Text = string.Empty;
+
+                border.Visibility = Visibility.Collapsed;
+                cbBorder.Visibility = Visibility.Collapsed;
+                
+
+                participantes.Clear();
+            }
+            else
+            {
+                txtIDCurso.Text = string.Empty;
+                txtCurso.Text = string.Empty;
+                txtArea.Text = string.Empty;
+                txtInicia.Text = string.Empty;
+                txtTerm.Text = string.Empty;
+                txtHor.Text = string.Empty;
+                txtDur.Text = string.Empty;
+                txtLugar.Text = string.Empty;
+                txtInst.Text = string.Empty;
+                txtSearch.Text = string.Empty;
+
+                border.Visibility = Visibility.Collapsed;
+                cbBorder.Visibility = Visibility.Collapsed;
+            }
+
+            btnPaseLista.Visibility = Visibility.Collapsed;
+           
+            
         }
 
 
@@ -197,12 +225,18 @@ namespace WPF_LoginForm.Views
 
         private void cbArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {          
-            if (cbArea.SelectedIndex > 0)
+            if (cbArea.SelectedIndex > 1)
             {               
                 ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea.SelectedItem;
                 string area = areaseleccionada.Content.ToString();
 
                 IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesByIdAndArea(idCurso, area);
+                participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                cursosTrabajadorDataGrid.ItemsSource = participantes;
+            }
+            else if(cbArea.SelectedIndex == 1)
+            {
+                IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesById(idCurso);
                 participantes = new ObservableCollection<TrabajadorModel>(participantesList);
                 cursosTrabajadorDataGrid.ItemsSource = participantes;
             }

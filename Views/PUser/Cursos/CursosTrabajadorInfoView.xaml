@@ -145,6 +145,7 @@
                         <ComboBox x:Name="cbArea" Height="30" Width="180" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno" SelectionChanged="cbArea_SelectionChanged">
                             <ComboBox.Items>
                                 <ComboBoxItem Content="--Filtrar por Área--" />
+                                <ComboBoxItem Content="Todas las áreas"/>
                             </ComboBox.Items>
 
                             <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>

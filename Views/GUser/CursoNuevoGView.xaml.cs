@@ -23,6 +23,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using static WPF_LoginForm.Views.CursosView;
 using static WPF_LoginForm.Views.GUser.CursoGView;
 using static WPF_LoginForm.Views.GUser.CursoNuevoGView;
+using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views.GUser
 {
@@ -99,6 +100,9 @@ namespace WPF_LoginForm.Views.GUser
 
                 MostrarCustomMessageBox();
                 btnGuardar.IsEnabled = false;
+
+                Loaded += MainWindow_Loaded;
+
             }
 
         }
