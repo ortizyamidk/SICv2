@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ using System.Windows.Shapes;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
 using WPF_LoginForm.ViewModels;
+using objWord = Microsoft.Office.Interop.Word;
 
 namespace WPF_LoginForm.Views
 {
@@ -82,7 +84,49 @@ namespace WPF_LoginForm.Views
 
             TrabajadorModel trabajador = trabajadorRepository.FormatoDC3(numficha);
 
+            string idtrabajador = trabajador.Id.ToString();
+            string nombretrabajador = trabajador.Nombre.ToString();
+            string rfc = trabajador.RFC.ToString();
+            string puesto = trabajador.Puesto.ToString();
+
+
+            //crear documento
+            object ObjMiss = System.Reflection.Missing.Value;
+            objWord.Application ObjWord = new objWord.Application();
+
+            object numf1 = "mnumficha";
+            object nombre1 = "mnombre";
+            //object rfc1 = "mrfc";
+            object puesto1 = "mpuesto";
             
+
+            objWord.Document ObjDoc = ObjWord.Documents.Open("\"C:\\Users\\yami_\\Documents\\PLANTILLAS\\formatodc3.docx\"");
+
+            objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
+            num.Text = idtrabajador;
+
+            objWord.Range nom = ObjDoc.Bookmarks.get_Item(ref nombre1).Range;
+            nom.Text = nombretrabajador;
+
+            //objWord.Range RFC = ObjDoc.Bookmarks.get_Item(ref rfc1).Range;
+            //RFC.Text = rfc;
+
+            objWord.Range pues = ObjDoc.Bookmarks.get_Item(ref puesto1).Range;
+            pues.Text = puesto;
+
+            object rango1 = num;
+            object rango2 = nom;
+            //object rango3 = RFC;
+            object rango4 = pues;
+
+            ObjDoc.Bookmarks.Add("mnum", ref rango1);
+            ObjDoc.Bookmarks.Add("mnombre", ref rango2);
+            //ObjDoc.Bookmarks.Add("mrfc", ref rango3);
+            ObjDoc.Bookmarks.Add("mpuesto", ref rango4);
+
+            ObjWord.Visible = true;
+
+
         }
 
         private void btnAsistencia_Click(object sender, RoutedEventArgs e)

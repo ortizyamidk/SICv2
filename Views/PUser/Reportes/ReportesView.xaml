@@ -173,7 +173,7 @@
                         </TextBlock>
                     </Grid>
 
-                    <Button x:Name="btnDC3" Grid.Column="1" ToolTip="Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador" Style="{StaticResource mainButton}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
+                    <Button x:Name="btnDC3" Grid.Column="1" ToolTip="Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador" Style="{StaticResource mainButton}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
 
                     <!--Formato DC4-->
                     <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="0">

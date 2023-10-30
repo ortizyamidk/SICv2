@@ -41,9 +41,9 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = areatematica;
-                command.Parameters.Add("@inicio", SqlDbType.VarChar).Value = inicia;
-                command.Parameters.Add("@term", SqlDbType.VarChar).Value = termina;
-                command.Parameters.Add("@hor", SqlDbType.VarChar).Value = horario;
+                command.Parameters.Add("@inicio", SqlDbType.DateTime).Value = inicia;
+                command.Parameters.Add("@term", SqlDbType.DateTime).Value = termina;
+                command.Parameters.Add("@hor", SqlDbType.DateTime).Value = horario;
                 command.Parameters.Add("@dur", SqlDbType.Int).Value = duracion;
                 command.Parameters.Add("@lugar", SqlDbType.VarChar).Value = lugar;
                 command.Parameters.Add("@idinstr", SqlDbType.Int).Value = idinstructor;
@@ -64,9 +64,9 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = areatematica;
-                command.Parameters.Add("@inicio", SqlDbType.VarChar).Value = inicia;
-                command.Parameters.Add("@term", SqlDbType.VarChar).Value = termina;
-                command.Parameters.Add("@hor", SqlDbType.VarChar).Value = horario;
+                command.Parameters.Add("@inicio", SqlDbType.DateTime).Value = inicia;
+                command.Parameters.Add("@term", SqlDbType.DateTime).Value = termina;
+                command.Parameters.Add("@hor", SqlDbType.DateTime).Value = horario;
                 command.Parameters.Add("@dur", SqlDbType.Int).Value = duracion;
                 command.Parameters.Add("@lugar", SqlDbType.VarChar).Value = lugar;
                 command.Parameters.Add("@instr", SqlDbType.VarChar).Value = instructor;
