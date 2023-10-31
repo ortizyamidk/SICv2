@@ -93,14 +93,24 @@ namespace WPF_LoginForm.Views
             //crear documento
             object ObjMiss = System.Reflection.Missing.Value;
             objWord.Application ObjWord = new objWord.Application();
+            object filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\formatodc3.docx";
+            //object filePath = "/Plantillas/formatodc3.docx"; // Reemplaza "NombreCarpetaEnProyecto" con la ubicación correcta
+
+            objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
 
             object numf1 = "mnumficha";
             object nombre1 = "mnombre";
-            //object rfc1 = "mrfc";
             object puesto1 = "mpuesto";
-            
 
-            objWord.Document ObjDoc = ObjWord.Documents.Open("\"C:\\Users\\yami_\\Documents\\PLANTILLAS\\formatodc3.docx\"");
+            for (int i = 0; i < rfc.Length; i++)
+            {
+                object bookmarkName = "x" + (i + 1);
+                char character = rfc[i];
+
+                objWord.Range bookmarkRange = ObjDoc.Bookmarks.get_Item(ref bookmarkName).Range;
+                bookmarkRange.Text = character.ToString();
+            }
+
 
             objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
             num.Text = idtrabajador;
@@ -108,21 +118,19 @@ namespace WPF_LoginForm.Views
             objWord.Range nom = ObjDoc.Bookmarks.get_Item(ref nombre1).Range;
             nom.Text = nombretrabajador;
 
-            //objWord.Range RFC = ObjDoc.Bookmarks.get_Item(ref rfc1).Range;
-            //RFC.Text = rfc;
 
             objWord.Range pues = ObjDoc.Bookmarks.get_Item(ref puesto1).Range;
             pues.Text = puesto;
 
-            object rango1 = num;
+            /*object rango1 = num;
             object rango2 = nom;
-            //object rango3 = RFC;
+            object rango3 = RFC;
             object rango4 = pues;
 
             ObjDoc.Bookmarks.Add("mnum", ref rango1);
             ObjDoc.Bookmarks.Add("mnombre", ref rango2);
-            //ObjDoc.Bookmarks.Add("mrfc", ref rango3);
-            ObjDoc.Bookmarks.Add("mpuesto", ref rango4);
+            ObjDoc.Bookmarks.Add("mrfc", ref rango3);
+            ObjDoc.Bookmarks.Add("mpuesto", ref rango4);*/
 
             ObjWord.Visible = true;
 
