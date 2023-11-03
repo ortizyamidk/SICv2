@@ -176,9 +176,7 @@ namespace WPF_LoginForm.Repositories
             }
             return asistencia;
         }
-
-        
-
+       
         //ver todos los cursos para mostrarlos en tabla de CursosView
         public IEnumerable<CursoModel> GetByAll()
         {
@@ -289,6 +287,94 @@ namespace WPF_LoginForm.Repositories
                 }
                 return curso;
             
+        }
+
+        //reportes
+        public CursoModel GetCursoListaAsistencia(string idcurso)
+        {
+            CursoModel curso = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT DISTINCT C.id, C.nomcurso, COALESCE(C.nominstr, I.nominstr) AS nominstr, C.fechainicio, C.fechaterm, C.duracion, C.lugar, C.horario " +
+                                    "FROM curso AS C " +
+                                    "INNER JOIN instructor AS I " +
+                                    "ON C.idinstructor = I.id " +
+                                    "INNER JOIN cursotrabajador AS CT " +
+                                    "ON C.id = CT.idcurso " +
+                                    "INNER JOIN trabajador AS T " +
+                                    "ON CT.idtrabajador = T.id " +
+                                    "INNER JOIN area AS A " +
+                                    "ON T.idarea = A.id " +
+                                    "WHERE C.id = @idcurso";
+
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        curso = new CursoModel()
+                        {
+                            Id = reader[0].ToString(),
+                            NomCurso = reader[1].ToString(),
+                            Instructor = reader[2].ToString(),
+                            Inicio = reader[3].ToString(),
+                            Termino = reader[4].ToString(),
+                            Duracion = (int)reader[5],                            
+                            Lugar = reader[6].ToString(),
+                            Horario = reader[7].ToString(),                           
+                        };
+                    }
+                }
+            }
+            return curso;
+        }
+
+        //reportes
+        public IEnumerable<CursoModel> GetCursosHistorialCursos(int numficha)
+        {
+            List<CursoModel> cursos = new List<CursoModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT C.nomcurso, C.fechainicio, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
+                                    "FROM trabajador AS T " +
+                                    "INNER JOIN puesto AS P " +
+                                    "ON T.idpuesto = P.id " +
+                                    "INNER JOIN area AS A " +
+                                    "ON T.idarea = A.id " +
+                                    "INNER JOIN departamento AS D " +
+                                    "ON A.iddpto = D.id " +
+                                    "INNER JOIN cursotrabajador AS CT " +
+                                    "ON T.id = CT.idtrabajador " +
+                                    "INNER JOIN curso AS C " +
+                                    "ON CT.idcurso = C.id " +
+                                    "INNER JOIN instructor AS I " +
+                                    "ON C.idinstructor = I.id " +
+                                    "WHERE T.id = @numficha";
+
+                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        CursoModel curso = new CursoModel()
+                        {
+                            NomCurso = reader[0].ToString(),
+                            Inicio = reader[1].ToString(),
+                            Instructor = reader[2].ToString()
+                        };
+                        cursos.Add(curso);
+                    }
+                }
+            }
+            return cursos;
         }
 
         //obtener los cursos que no han sido registrados de cierta area para mostrar en dashboard gral

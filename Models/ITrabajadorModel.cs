@@ -14,10 +14,18 @@ namespace WPF_LoginForm.Models
         IEnumerable<TrabajadorModel> GetParticipantesById(string idcurso);
         IEnumerable<TrabajadorModel> GetParticipantesByIdAndArea(string idcurso, string area);
 
+        //reportes
+        IEnumerable<TrabajadorModel> GetPersonalCalificadoGral();
+        IEnumerable<TrabajadorModel> GetPersonalCalificadoByArea(string nomarea);
+        IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistencia(string idcurso);
+
+
         TrabajadorModel GetById(int numficha, string nomarea);
         TrabajadorModel GetIdByNumTarjeta(string numtarjeta);
 
+        //reportes
         TrabajadorModel FormatoDC3(int numficha);
+        TrabajadorModel GetTrabajadorHistorialCursos(int numficha);
         
     }
 }

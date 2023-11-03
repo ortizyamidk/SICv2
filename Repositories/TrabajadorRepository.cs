@@ -12,6 +12,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorModel
     {
+        //reportes
         public TrabajadorModel FormatoDC3(int numficha)
         {
             TrabajadorModel trabajador = null;
@@ -114,7 +115,7 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return trabajador;
-        }
+        }       
 
         public TrabajadorModel GetIdByNumTarjeta(string numtarjeta)
         {
@@ -274,6 +275,170 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return participantes;
+        }
+
+        //reportes
+        public IEnumerable<TrabajadorModel> GetPersonalCalificadoByArea(string nomarea)
+        {
+            List<TrabajadorModel> personasCalif = new List<TrabajadorModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT A.nomarea, T.id, T.nombre, P.nompuesto " +
+                                    "FROM trabajador AS T " +
+                                    "INNER JOIN area AS A " +
+                                    "ON T.idarea = A.id " +
+                                    "INNER JOIN puesto AS P " +
+                                    "ON T.idpuesto = P.id " +
+                                    "WHERE perscalif = 1 AND A.nomarea = @nomarea";
+
+                command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TrabajadorModel personalCalif = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0],
+                            Nombre = reader[1].ToString(),
+                            Area = reader[2].ToString(),
+                            Puesto = reader[3].ToString()
+                        };
+
+                        personasCalif.Add(personalCalif);
+                    }
+                }
+            }
+            return personasCalif;
+        }
+
+        //reportes
+        public IEnumerable<TrabajadorModel> GetPersonalCalificadoGral()
+        {
+            List<TrabajadorModel> personasCalif = new List<TrabajadorModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT T.id, T.nombre, A.nomarea, P.nompuesto " +
+                                    "FROM trabajador AS T " +
+                                    "INNER JOIN area AS A " +
+                                    "ON T.idarea = A.id " +
+                                    "INNER JOIN puesto AS P " +
+                                    "ON T.idpuesto = P.id " +
+                                    "WHERE perscalif = 1";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TrabajadorModel personalCalif = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0],
+                            Nombre = reader[1].ToString(),
+                            Area = reader[2].ToString(),
+                            Puesto = reader[3].ToString()
+                        };
+
+                        personasCalif.Add(personalCalif);
+                    }
+                }
+            }
+            return personasCalif;
+        }
+
+        //reportes
+        public IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistencia(string idcurso)
+        {
+            List<TrabajadorModel> trabajadores = new List<TrabajadorModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT T.id, T.nombre, A.nomarea " +
+                                        "FROM curso AS C " +
+                                        "INNER JOIN instructor AS I " +
+                                        "ON C.idinstructor = I.id " +
+                                        "INNER JOIN cursotrabajador AS CT " +
+                                        "ON C.id = CT.idcurso " +
+                                        "INNER JOIN trabajador AS T " +
+                                        "ON CT.idtrabajador = T.id " +
+                                        "INNER JOIN area AS A " +
+                                        "ON T.idarea = A.id " +
+                                        "WHERE C.id = @idcurso";
+
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TrabajadorModel trabajador = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0],
+                            Nombre = reader[1].ToString(),
+                            Area = reader[2].ToString()
+                        };
+
+                        trabajadores.Add(trabajador);
+                    }
+                }
+            }
+            return trabajadores;
+        }
+
+        //reportes
+        public TrabajadorModel GetTrabajadorHistorialCursos(int numficha)
+        {
+            TrabajadorModel trabajador = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT DISTINCT T.id, T.nombre, P.nompuesto, D.nomdepto, A.nomarea, T.fechaing " +
+                                    "FROM trabajador AS T " +
+                                    "INNER JOIN puesto AS P " +
+                                    "ON T.idpuesto = P.id " +
+                                    "INNER JOIN area AS A " +
+                                    "ON T.idarea = A.id " +
+                                    "INNER JOIN departamento AS D " +
+                                    "ON A.iddpto = D.id " +
+                                    "INNER JOIN cursotrabajador AS CT " +
+                                    "ON T.id = CT.idtrabajador " +
+                                    "INNER JOIN curso AS C " +
+                                    "ON CT.idcurso = C.id " +
+                                    "INNER JOIN instructor AS I " +
+                                    "ON C.idinstructor = I.id " +
+                                    "WHERE T.id = @numficha";
+
+                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        trabajador = new TrabajadorModel()
+                        {
+                            Id = (int)reader[0],
+                            Nombre = reader[1].ToString(),
+                            Puesto = reader[2].ToString(),
+                            Departamento = reader[3].ToString(),
+                            Area = reader[4].ToString(),
+                            FechaIngreso = reader[5].ToString()
+                        };
+                    }
+                }
+            }
+            return trabajador;
         }
     }
 }
