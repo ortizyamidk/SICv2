@@ -100,8 +100,7 @@ namespace WPF_LoginForm.Views.GUser
 
                 MostrarCustomMessageBox();
                 btnGuardar.IsEnabled = false;
-
-                Loaded += MainWindow_Loaded;
+                CargarCursos();
 
             }
 

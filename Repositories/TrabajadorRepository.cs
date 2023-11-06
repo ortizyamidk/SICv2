@@ -303,9 +303,9 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel personalCalif = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
-                            Nombre = reader[1].ToString(),
-                            Area = reader[2].ToString(),
+                            Area = reader[0].ToString(),
+                            Id = (int)reader[1],
+                            Nombre = reader[2].ToString(),                                                                                
                             Puesto = reader[3].ToString()
                         };
 
@@ -365,7 +365,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "SELECT T.id, T.nombre, A.nomarea " +
                                         "FROM curso AS C " +
-                                        "INNER JOIN instructor AS I " +
+                                        "LEFT JOIN instructor AS I " +
                                         "ON C.idinstructor = I.id " +
                                         "INNER JOIN cursotrabajador AS CT " +
                                         "ON C.id = CT.idcurso " +
@@ -404,7 +404,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT T.id, T.nombre, P.nompuesto, D.nomdepto, A.nomarea, T.fechaing " +
+                command.CommandText = "SELECT DISTINCT T.id, T.nombre, P.nompuesto, D.nomdepto, A.nomarea, CONVERT(varchar, T.fechaing, 103) AS fechaing " +
                                     "FROM trabajador AS T " +
                                     "INNER JOIN puesto AS P " +
                                     "ON T.idpuesto = P.id " +
@@ -416,7 +416,7 @@ namespace WPF_LoginForm.Repositories
                                     "ON T.id = CT.idtrabajador " +
                                     "INNER JOIN curso AS C " +
                                     "ON CT.idcurso = C.id " +
-                                    "INNER JOIN instructor AS I " +
+                                    "LEFT JOIN instructor AS I " +
                                     "ON C.idinstructor = I.id " +
                                     "WHERE T.id = @numficha";
 

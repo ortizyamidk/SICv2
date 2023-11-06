@@ -298,9 +298,9 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT C.id, C.nomcurso, COALESCE(C.nominstr, I.nominstr) AS nominstr, C.fechainicio, C.fechaterm, C.duracion, C.lugar, C.horario " +
+                command.CommandText = "SELECT DISTINCT C.id, C.nomcurso, COALESCE(C.nominstr, I.nominstr) AS nominstr, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.duracion, C.lugar, C.horario " +
                                     "FROM curso AS C " +
-                                    "INNER JOIN instructor AS I " +
+                                    "LEFT JOIN instructor AS I " +
                                     "ON C.idinstructor = I.id " +
                                     "INNER JOIN cursotrabajador AS CT " +
                                     "ON C.id = CT.idcurso " +
@@ -342,7 +342,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT C.nomcurso, C.fechainicio, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
+                command.CommandText = "SELECT C.nomcurso, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
                                     "FROM trabajador AS T " +
                                     "INNER JOIN puesto AS P " +
                                     "ON T.idpuesto = P.id " +
@@ -354,7 +354,7 @@ namespace WPF_LoginForm.Repositories
                                     "ON T.id = CT.idtrabajador " +
                                     "INNER JOIN curso AS C " +
                                     "ON CT.idcurso = C.id " +
-                                    "INNER JOIN instructor AS I " +
+                                    "LEFT JOIN instructor AS I " +
                                     "ON C.idinstructor = I.id " +
                                     "WHERE T.id = @numficha";
 
@@ -477,7 +477,6 @@ namespace WPF_LoginForm.Repositories
             }
             return curso;
         }
-
 
         public IEnumerable<CursoGModel> GetParticipantes(int id)
         {
