@@ -479,7 +479,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //reportes
-        public CursoModel GetListaAsistenciaExcel(string idcurso, string area)
+        public CursoModel GetListaAsistenciaExcel(string idcurso)
         {
             CursoModel curso = null;
             using (var connection = GetConnection())
@@ -501,10 +501,9 @@ namespace WPF_LoginForm.Repositories
                     "ON CT.idtrabajador = T.id " +
                     "INNER JOIN area AS A " +
                     "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso AND A.nomarea = @area";
+                    "WHERE C.id = @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
-                command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
 
                 using (var reader = command.ExecuteReader())
                 {

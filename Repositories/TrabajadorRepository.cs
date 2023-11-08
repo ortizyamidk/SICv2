@@ -395,7 +395,7 @@ namespace WPF_LoginForm.Repositories
             return trabajadores;
         }
 
-        public IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistenciaExcel(string idcurso, string area)
+        public IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistenciaExcel(string idcurso)
         {
             List<TrabajadorModel> trabajadores = new List<TrabajadorModel>();
 
@@ -414,10 +414,9 @@ namespace WPF_LoginForm.Repositories
                     "ON CT.idtrabajador = T.id " +
                     "INNER JOIN area AS A " +
                     "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso AND A.nomarea = @area";
+                    "WHERE C.id = @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
-                command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
 
                 using (var reader = command.ExecuteReader())
                 {

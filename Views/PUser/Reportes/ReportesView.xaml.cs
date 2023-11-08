@@ -74,23 +74,10 @@ namespace WPF_LoginForm.Views
             }
         }
 
-        private void CargarAreas2()
-        {
-            var areas = departamentoRepository.GetDepartamentos();
-            foreach (var area in areas)
-            {
-                var item = new ComboBoxItem
-                {
-                    Content = area.NomDepto
-                };
-                cbArea2.Items.Add(item);
-            }
-        }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             CargarAreas();
-            CargarAreas2();
         }
 
         private void btnGeneral_Click(object sender, RoutedEventArgs e)
@@ -144,11 +131,9 @@ namespace WPF_LoginForm.Views
             else
             {
                 idcurso = buscarCurso2.Text;
-                ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea2.SelectedItem;
-                string areaS = areaseleccionada.Content.ToString();
 
-                cursoModel = cursoRepository.GetListaAsistenciaExcel(idcurso, areaS);
-                List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetTrabajadoresListaAsistenciaExcel(idcurso, areaS);
+                cursoModel = cursoRepository.GetListaAsistenciaExcel(idcurso);
+                List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetTrabajadoresListaAsistenciaExcel(idcurso);
 
                 if (cursoModel != null && trabajadores.Count > 0)
                 {
@@ -191,21 +176,45 @@ namespace WPF_LoginForm.Views
 
 
                     int lim = trabajadores.Count + 9;
-                    int contador = 0;
+                    int registrosPorHoja = 20;
+                    int hojasCreadas = 0;
+                    int totalRegistros = trabajadores.Count;
 
-                    for (int i = 9; i < lim; i++)
+                    for (int inicioGrupo = 0; inicioGrupo < totalRegistros; inicioGrupo += registrosPorHoja)
                     {
-                        var trabajador = trabajadores[contador];
-                        worksheet.Cells[i, 2] = trabajador.Nombre;
-                        worksheet.Cells[i, 5] = trabajador.Id;
-                        worksheet.Cells[i, 7] = trabajador.Area;
-                        contador++;
+                        hojasCreadas++;
+                        int finGrupo = Math.Min(inicioGrupo + registrosPorHoja, totalRegistros);
+
+                        // Copiar la hoja original si se crean hojas adicionales
+                        if (hojasCreadas > 1)
+                        {
+                            worksheet.Copy(Type.Missing, workbook.Sheets[workbook.Sheets.Count]);
+                        }
+
+                        // Acceder a la hoja actual
+                        Microsoft.Office.Interop.Excel.Worksheet currentWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets[workbook.Sheets.Count];
+
+                        // Vaciar las celdas en la hoja actual
+                        for (int i = 9; i < lim; i++)
+                        {
+                            currentWorksheet.Cells[i, 2] = "";
+                            currentWorksheet.Cells[i, 5] = "";
+                            currentWorksheet.Cells[i, 7] = "";
+                        }
+
+                        int contadorGrupo = inicioGrupo;
+
+                        // Llenar la hoja actual con el grupo de registros
+                        for (int i = 9; i < 9 + finGrupo - inicioGrupo; i++)
+                        {
+                            var trabajador = trabajadores[contadorGrupo];
+                            currentWorksheet.Cells[i, 2] = trabajador.Nombre;
+                            currentWorksheet.Cells[i, 5] = trabajador.Id;
+                            currentWorksheet.Cells[i, 7] = trabajador.Area;
+                            contadorGrupo++;
+                        }
                     }
 
-                    // Liberar recursos
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
                 }
                 else
                 {
