@@ -36,7 +36,7 @@ namespace WPF_LoginForm.Views
             
 
             repository = new InstructorRepository();
-            InstructorModel instructor = (repository as IInstructorRepository).GetById(1); //traer id del instructor seleccionado en la tabla
+            InstructorModel instructor = (repository as IInstructorRepository).GetById('1'); //traer id del instructor seleccionado en la tabla
 
             if(instructor != null)
             {

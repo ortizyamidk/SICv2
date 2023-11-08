@@ -18,6 +18,7 @@ namespace WPF_LoginForm.Models
         IEnumerable<TrabajadorModel> GetPersonalCalificadoGral();
         IEnumerable<TrabajadorModel> GetPersonalCalificadoByArea(string nomarea);
         IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistencia(string idcurso);
+        IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistenciaExcel(string idcurso, string area);
 
 
         TrabajadorModel GetById(int numficha, string nomarea);

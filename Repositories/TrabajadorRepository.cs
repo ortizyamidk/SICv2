@@ -395,6 +395,48 @@ namespace WPF_LoginForm.Repositories
             return trabajadores;
         }
 
+        public IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistenciaExcel(string idcurso, string area)
+        {
+            List<TrabajadorModel> trabajadores = new List<TrabajadorModel>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT DISTINCT T.nombre, T.id, A.nomarea " +
+                    "FROM curso AS C " +
+                    "LEFT JOIN instructor AS I " +
+                    "ON C.idinstructor = I.id " +
+                    "INNER JOIN cursotrabajador AS CT " +
+                    "ON C.id = CT.idcurso " +
+                    "INNER JOIN trabajador AS T " +
+                    "ON CT.idtrabajador = T.id " +
+                    "INNER JOIN area AS A " +
+                    "ON T.idarea = A.id " +
+                    "WHERE C.id = @idcurso AND A.nomarea = @area";
+
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+                command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        TrabajadorModel trabajador = new TrabajadorModel()
+                        {
+                            Nombre = reader[0].ToString(),
+                            Id = (int)reader[1],                           
+                            Area = reader[2].ToString()
+                        };
+
+                        trabajadores.Add(trabajador);
+                    }
+                }
+            }
+            return trabajadores;
+        }
+
         //reportes
         public TrabajadorModel GetTrabajadorHistorialCursos(int numficha)
         {

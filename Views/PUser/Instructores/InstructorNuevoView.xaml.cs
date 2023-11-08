@@ -31,6 +31,7 @@ namespace WPF_LoginForm.Views
         string req = "*Campo requerido";
 
         string nombre, rfc, tipo, compania;
+        int id;
 
         InstructorRepository repository;
 
@@ -46,7 +47,7 @@ namespace WPF_LoginForm.Views
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            txtNombreI.Focus();
+            txtNumF.Focus();
         }
 
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
@@ -62,18 +63,42 @@ namespace WPF_LoginForm.Views
             return text.All(char.IsLetter);
         }
 
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado es numérico
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        // Método para verificar si una cadena es numérica
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _); // Intenta convertir el texto a un entero
+        }
+
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             bool errores = false;
 
             // Restablecer los mensajes de error y los bordes al estado inicial
+            errNumF.Content = string.Empty;
             errNombre.Content = string.Empty;
             errRfc.Content = string.Empty;
             errComp.Content = string.Empty;
 
+            txtNumF.BorderBrush = bordeNormal;
             txtNombreI.BorderBrush = bordeNormal;
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
+
+            if (string.IsNullOrEmpty(txtNumF.Text))
+            {
+                errNumF.Content = req;
+                txtNumF.BorderBrush = bordeError;
+                errores = true;
+            }
 
             if (string.IsNullOrEmpty(txtNombreI.Text))
             {
@@ -104,13 +129,14 @@ namespace WPF_LoginForm.Views
 
             if (!errores)
             {
+                id = int.Parse(txtNumF.Text);
                 nombre = txtNombreI.Text;
                 rfc = txtRFC.Text;
                 ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
                 tipo = instructorS.Content.ToString();
                 compania = txtCompania.Text;
 
-                repository.AddInstructor(nombre, rfc, tipo, compania);
+                repository.AddInstructor(id, nombre, rfc, tipo, compania);
                 
                 MostrarCustomMessageBox();
                 limpiar();             
@@ -130,12 +156,13 @@ namespace WPF_LoginForm.Views
 
         public void limpiar()
         {
+            txtNumF.Text = string.Empty;
             txtNombreI.Text = string.Empty;
             txtCompania.Text = string.Empty;
             txtRFC.Text = string.Empty;
             cbTipo.SelectedIndex = 0;
 
-            txtNombreI.Focus();
+            txtNumF.Focus();
         }
 
         private void txtRFC_PreviewTextInput(object sender, TextCompositionEventArgs e)

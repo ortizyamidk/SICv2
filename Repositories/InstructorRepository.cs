@@ -13,15 +13,16 @@ namespace WPF_LoginForm.Repositories
 {
     public class InstructorRepository : RepositoryBase, IInstructorRepository
     {
-        public void AddInstructor(string nominstr, string rfc, string tipo, string compania)
+        public void AddInstructor(int id, string nominstr, string rfc, string tipo, string compania)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO instructor (nominstr, rfc, tipoinstr, nomcia) VALUES (@nominstr, @rfc, @tipo, @compania)";
+                command.CommandText = "INSERT INTO instructor (id, nominstr, rfc, tipoinstr, nomcia) VALUES (@id, @nominstr, @rfc, @tipo, @compania)";
 
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.Parameters.Add("@nominstr", SqlDbType.VarChar).Value = nominstr;
                 command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
                 command.Parameters.Add("@tipo", SqlDbType.VarChar).Value = tipo;
@@ -67,7 +68,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         InstructorModel instructor = new InstructorModel()
                         {
-                            Id = (int) reader[0],
+                            Id = (int)reader[0],
                             NomInstr = reader[1].ToString(),
                             RFC = reader[2].ToString(),
                             TipoInstr = reader[3].ToString(),
@@ -115,14 +116,14 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "select * from instructor where id = @id";
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
                         instructor = new InstructorModel()
                         {
-                            Id = (int) reader[0],
+                            Id = (int)reader[0],
                             NomInstr = reader[1].ToString(),
                             RFC = reader[2].ToString(),
                             TipoInstr = reader[3].ToString(),

@@ -86,9 +86,9 @@ namespace WPF_LoginForm.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (instructoresDataGrid.SelectedItem != null)
+            /*if (instructoresDataGrid.SelectedItem != null)
             {
-                int numValue = (int)((instructoresDataGrid.SelectedItem as InstructorModel)?.Id);             
+                string numValue = ((instructoresDataGrid.SelectedItem as InstructorModel)?.Id);             
                 txtSearch.Text = numValue.ToString();
 
                 // Llama al método GetById en el repositorio
@@ -105,7 +105,7 @@ namespace WPF_LoginForm.Views
                 {
                     MessageBox.Show("Instructor no encontrado", "Error");
                 }
-            }
+            }*/
         }
     }
 }

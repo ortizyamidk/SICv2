@@ -14,37 +14,40 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using NPOI.XSSF.UserModel;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
 using WPF_LoginForm.ViewModels;
 using objWord = Microsoft.Office.Interop.Word;
+using Microsoft.Win32;
+using Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para ReportesView.xaml
-    /// </summary>
+
     public partial class ReportesView : UserControl
     {
         DepartamentoRepository departamentoRepository;
         TrabajadorRepository trabajadorRepository;
         CursoRepository cursoRepository;
         TrabajadorModel trabajadorModel;
-        CursoModel cursoModel;
+        CursoModel cursoModel, cursoModel2;
 
         int numficha;
         string idtrabajador, nombretrabajador, rfc, puesto, depto, area, fechaing;
 
         string idcurso;
-        string numcurso, nomcurso, instructor, inicio, termino, duracion, lugar, horario;
+        string numcurso, nomcurso, instructor, inicio, termino, duracion, lugar, horario, idinstructor, rfcinstructor;
 
         object ObjMiss, filePath;
 
         object numf1, nombre1, puesto1, depto1, area1, fechaing1;
+      
         object numc1, curso1, instructor1, inicio1, termino1, duracion1, lugar1, horario1;
 
         object bookmarkName, participantesBookmarkName, cursosBookmarkName, personalCABookmarkName;
-
 
 
 
@@ -71,9 +74,23 @@ namespace WPF_LoginForm.Views
             }
         }
 
+        private void CargarAreas2()
+        {
+            var areas = departamentoRepository.GetDepartamentos();
+            foreach (var area in areas)
+            {
+                var item = new ComboBoxItem
+                {
+                    Content = area.NomDepto
+                };
+                cbArea2.Items.Add(item);
+            }
+        }
+
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             CargarAreas();
+            CargarAreas2();
         }
 
         private void btnGeneral_Click(object sender, RoutedEventArgs e)
@@ -117,6 +134,88 @@ namespace WPF_LoginForm.Views
         {
             
         }
+
+        private void btnAsistencia2_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(buscarCurso2.Text))
+            {
+                MessageBox.Show("Escriba un número de curso", "Vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            else
+            {
+                idcurso = buscarCurso2.Text;
+                ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea2.SelectedItem;
+                string areaS = areaseleccionada.Content.ToString();
+
+                cursoModel = cursoRepository.GetListaAsistenciaExcel(idcurso, areaS);
+                List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetTrabajadoresListaAsistenciaExcel(idcurso, areaS);
+
+                if (cursoModel != null && trabajadores.Count > 0)
+                {
+                    nomcurso = cursoModel.NomCurso.ToString();
+                    numcurso = cursoModel.Id.ToString();
+                    duracion = cursoModel.Duracion.ToString();
+                    inicio = cursoModel.Inicio.ToString();
+                    termino = cursoModel.Termino.ToString();
+                    horario = cursoModel.Horario.ToString();
+                    instructor = cursoModel.Instructor.ToString();
+                    idinstructor = cursoModel.idinstructor.ToString();
+                    rfcinstructor = cursoModel.rfcinstructor.ToString();
+                    lugar = cursoModel.Lugar.ToString();
+
+                    string filePathExcel = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\listaAs.xlsx";
+
+                    // Crear una aplicación Excel
+                    Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+                    excelApp.Visible = true; // Mostrar Excel (opcional)
+
+                    // Abrir la plantilla
+                    Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Open(filePathExcel);
+
+                    // Acceder a la hoja de trabajo (puedes cambiar el nombre de la hoja si es necesario)
+                    Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets["ListaAsistencia"];
+
+                    //ASIGNAR DATOS A CELDAS
+                    worksheet.Cells[3, 3] = nomcurso;
+                    worksheet.Cells[3, 27] = numcurso;
+                    worksheet.Cells[4, 3] = duracion;
+                    worksheet.Cells[4, 8] = inicio;
+                    worksheet.Cells[4, 14] = termino;
+                    worksheet.Cells[4, 27] = horario;
+                    worksheet.Cells[5, 3] = instructor;
+                    worksheet.Cells[5, 8] = idinstructor;
+                    worksheet.Cells[5, 11] = rfcinstructor;
+                    worksheet.Cells[5, 27] = lugar;
+
+                    worksheet.Cells[34, 6] = instructor;
+
+
+                    int lim = trabajadores.Count + 9;
+                    int contador = 0;
+
+                    for (int i = 9; i < lim; i++)
+                    {
+                        var trabajador = trabajadores[contador];
+                        worksheet.Cells[i, 2] = trabajador.Nombre;
+                        worksheet.Cells[i, 5] = trabajador.Id;
+                        worksheet.Cells[i, 7] = trabajador.Area;
+                        contador++;
+                    }
+
+                    // Liberar recursos
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+                }
+                else
+                {
+                    MessageBox.Show("No existen registros para ese número de curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
+
+            buscarCurso2.Focus();
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -322,7 +421,7 @@ namespace WPF_LoginForm.Views
 
                 List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetTrabajadoresListaAsistencia(idcurso);
 
-                if (cursoModel != null && trabajadores.Count>0)
+                if (cursoModel != null && trabajadores.Count>0 && cursoModel2 != null)
                 {
                     //obtener los resultados de la consulta sql en variables string
                     numcurso = cursoModel.Id.ToString();
@@ -391,6 +490,10 @@ namespace WPF_LoginForm.Views
                     }
 
                     ObjWord.Visible = true;
+
+
+                    //EXCEL
+
                 }
                 else
                 {
@@ -437,6 +540,7 @@ namespace WPF_LoginForm.Views
             buscarTrab.Text = string.Empty;
             buscarDC3.Text = string.Empty;
             buscarCurso.Text = string.Empty;
+            buscarCurso2.Text = string.Empty;
         }
     }
 }

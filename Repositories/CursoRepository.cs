@@ -478,6 +478,59 @@ namespace WPF_LoginForm.Repositories
             return curso;
         }
 
+        //reportes
+        public CursoModel GetListaAsistenciaExcel(string idcurso, string area)
+        {
+            CursoModel curso = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT DISTINCT C.nomcurso, C.id AS idcurso, C.duracion, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, " +
+                    "CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.horario, " +
+                    "COALESCE(COALESCE(C.nominstr, I.nominstr, 'N/A'), 'N/A') AS nominstr, " +
+                    "COALESCE(C.idinstructor, I.id, 0) AS idinstructor, " +
+                    "COALESCE(I.rfc, 'N/A') AS rfc, C.lugar " +
+                    "FROM curso AS C " +
+                    "LEFT JOIN instructor AS I " +
+                    "ON C.idinstructor = I.id " +
+                    "INNER JOIN cursotrabajador AS CT " +
+                    "ON C.id = CT.idcurso " +
+                    "INNER JOIN trabajador AS T " +
+                    "ON CT.idtrabajador = T.id " +
+                    "INNER JOIN area AS A " +
+                    "ON T.idarea = A.id " +
+                    "WHERE C.id = @idcurso AND A.nomarea = @area";
+
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
+                command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        curso = new CursoModel()
+                        {
+                            
+                            NomCurso = reader[0].ToString(),
+                            Id = reader[1].ToString(),
+                            Duracion = (int)reader[2],
+                            Inicio = reader[3].ToString(),
+                            Termino = reader[4].ToString(),
+                            Horario = reader[5].ToString(),
+                            Instructor = reader[6].ToString(),
+                            idinstructor = (int)reader[7],
+                            rfcinstructor = reader[8].ToString(),                                                   
+                            Lugar = reader[9].ToString()
+                            
+                        };
+                    }
+                }
+            }
+            return curso;
+        }
+
         public IEnumerable<CursoGModel> GetParticipantes(int id)
         {
             throw new NotImplementedException();

@@ -175,20 +175,26 @@
                     </Border>
                     <Button x:Name="btnDC4" ToolTip="Generar reporte de la Lista de Constancias de Habilidades Laborales de los Trabajadores de la Empresa" Style="{StaticResource mainButton}" Grid.Column="0" Height="55" Content="Formato DC-4" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC4_Click"/>
                 </Grid>
-
+                
                 <TextBlock Text="Lista de Asistencia" FontWeight="DemiBold"
-           Foreground="White" 
-           FontSize="29" FontFamily="Montserrat" 
-           HorizontalAlignment="Center" VerticalAlignment="Center"
-           Grid.Row="3" Grid.Column="1"/>
+                           Foreground="White" 
+                           FontSize="29" FontFamily="Montserrat" 
+                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Grid.Row="3" Grid.Column="1"/>
+                
+                <Grid Grid.Row="4" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <!--Historial Cursos-->
-                <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="4" Grid.Column="1">
+                <!--Lista Asistencia Cursos-->
+                <Border  Width="190" Height="210" CornerRadius="18" Grid.Column="1">
                     <Border.Background>
                         <ImageBrush x:Name="tarjeta6" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
                     </Border.Background>
                 </Border>
-                <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="4" Grid.Column="1">
+                <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Column="1">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                             <GradientStop Color="#000000" Offset="0"/>
@@ -196,7 +202,7 @@
                     </Border.Background>
                 </Border>
 
-                <Grid Grid.Column="1" Grid.Row="4">
+                <Grid Grid.Column="1">
                     <TextBox x:Name="buscarCurso" Style="{StaticResource myTextBox}" Width="150" Margin="0 0 0 150"/>
                     <TextBlock Text="Buscar No. Curso" Width="130" FontSize="15" Height="25" Margin="0 0 0 145" Foreground="Gray" IsHitTestVisible="False" HorizontalAlignment="Center">
                         <TextBlock.Style>
@@ -212,7 +218,53 @@
                     </TextBlock>
                 </Grid>
 
-                <Button x:Name="btnAsistencia" ToolTip="Generar reporte de la Lista de Asistencia de cada Curso" Style="{StaticResource mainButton}" Grid.Column="1" Grid.Row="4" Height="55" Content="Por Cursos" Width="140" FontWeight="Bold" FontSize="20" Click="btnAsistencia_Click"/>
+                <Button x:Name="btnAsistencia" ToolTip="Generar reporte de la Lista de Asistencia de cada Curso" Style="{StaticResource mainButton}" Grid.Column="1" Height="55" Content="Por Cursos" Width="140" FontWeight="Bold" FontSize="20" Click="btnAsistencia_Click"/>
+                    
+                <!--Generar Excel para pase lista por área-->               
+                <Border  Width="190" Height="210" CornerRadius="18" Grid.Column="0">
+                    <Border.Background>
+                        <ImageBrush x:Name="tarjeta7" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+                <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Column="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Grid>
+                        <TextBox x:Name="buscarCurso2" Style="{StaticResource myTextBox}" Width="170" Margin="0 0 0 150"/>
+                        <TextBlock Text="Buscar No. Curso" Width="150" FontSize="15" Height="25" Margin="0 0 0 145" Foreground="Gray" IsHitTestVisible="False" HorizontalAlignment="Center">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=buscarCurso2}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                <Border Grid.Column="0" CornerRadius="9" HorizontalAlignment="Center" Background="White" BorderBrush="Black" BorderThickness="0.3" Width="170" Height="40" Margin="0 -50 0 0">
+                    <ComboBox x:Name="cbArea2" Height="auto" Width="auto" HorizontalContentAlignment="Center" BorderThickness="0" Cursor="Hand" FontSize="13">
+                        <ComboBox.Items>
+
+                        </ComboBox.Items>
+
+                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                    </ComboBox>
+                </Border>
+
+                <Button x:Name="btnAsistencia2" ToolTip="Generar reporte de la Lista de Asistencia de cada Curso en Excel" Style="{StaticResource mainButton}" Grid.Column="0" Height="45" Content="Generar Excel" Width="140" Margin="0 130 0 0" FontWeight="Bold" FontSize="20" Click="btnAsistencia2_Click"/>
+            </Grid>
+               
+
+                
             </Grid>
     </Grid>
 

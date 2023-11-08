@@ -45,25 +45,55 @@
 
                 <Separator Grid.Row="0" Grid.ColumnSpan="3" Height="0.7" Width="750" VerticalAlignment="Bottom" Background="#374655" Margin="0 20"/>
 
-                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
-                    <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                    <Grid>
-                        <TextBox x:Name="txtNombreI" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
-                        <TextBlock Text="Escriba el nombre del Instructor" FontSize="14" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=txtNombreI}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </Grid>
-                    <Label x:Name="errNombre" Foreground="Red" Margin="30 -3 0 0"/>
-                </StackPanel>
+                <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left">
+                        <Label Content="No. Ficha:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <Grid>
+                            <TextBox x:Name="txtNumF" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" Width="150" BorderBrush="Black"/>
+                            <TextBlock Text="Escriba núm. de ficha" FontSize="14" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtNumF}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Label x:Name="errNumF" Foreground="Red" Margin="30 -3 0 0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Left">
+                        <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                        <Grid>
+                            <TextBox x:Name="txtNombreI" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" FontSize="15" Width="420" BorderBrush="Black"/>
+                            <TextBlock Text="Escriba el nombre del Instructor" FontSize="14" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=txtNombreI}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Label x:Name="errNombre" Foreground="Red" Margin="30 -3 0 0"/>
+                    </StackPanel>
+
+                </Grid>
+                
 
                 <Grid Grid.Row="2" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>

@@ -16,7 +16,10 @@ namespace WPF_LoginForm.Models
         public string Horario { get; set; }
         public int Duracion { get; set; }
         public string Lugar { get; set; }
+
+        public int idinstructor {  get; set; }
         public string Instructor { get; set; }
+        public string rfcinstructor {  get; set; }
 
         public int idarea { get; set; }
 
