@@ -11,6 +11,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class DepartamentoRepository : RepositoryBase, IDepartamentoRepository
     {
+        //obtener la cantidad de areas que ya terminaron de registrar todos los cursos
         public int GetAreasTerminadas()
         {
             int count = 0;
@@ -19,15 +20,36 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) AS RegistrosConPorcentaje100\r\nFROM (\r\n    SELECT\r\n        A.nomarea AS AREA,\r\n        (\r\n            (\r\n                SELECT ISNULL(COUNT(*), 0)\r\n                FROM curso AS C\r\n                INNER JOIN curso_area AS CA ON C.id = CA.idcurso\r\n                INNER JOIN area AS A2 ON CA.idarea = A2.id\r\n                WHERE CA.listaregistrada = 1\r\n                AND A2.nomarea = A.nomarea\r\n                AND YEAR(C.fechainicio) = YEAR(GETDATE()) \r\n                AND YEAR(C.fechaterm) = YEAR(GETDATE())\r\n                AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE())\r\n                AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())\r\n            ) * 100.0\r\n        ) / \r\n        (\r\n            SELECT COUNT(nomcurso)\r\n            FROM curso AS C2\r\n            WHERE C2.registrado = 0\r\n            AND DATEPART(MONTH, C2.fechainicio) = DATEPART(MONTH, GETDATE())\r\n            AND DATEPART(MONTH, C2.fechaterm) = DATEPART(MONTH, GETDATE())\r\n            AND YEAR(C2.fechainicio) = YEAR(GETDATE()) \r\n            AND YEAR(C2.fechaterm) = YEAR(GETDATE())\r\n        ) AS PorcentajeAvance\r\n    FROM area AS A\r\n    WHERE A.registracursos = 1\r\n) AS Subconsulta\r\nWHERE Subconsulta.PorcentajeAvance = 100";
+                command.CommandText = "SELECT COUNT(*) AS RegistrosConPorcentaje100 " +
+                                        "FROM (" +
+                                            "SELECT A.nomarea AS AREA,(( " +
+                                                "SELECT ISNULL(COUNT(*), 0) " +
+                                                "FROM curso AS C " +
+                                                "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
+                                                "INNER JOIN area AS A2 ON CA.idarea = A2.id " +
+                                                "WHERE CA.listaregistrada = 1 " +
+                                                "AND A2.nomarea = A.nomarea " +
+                                                "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
+                                                "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
+                                                "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
+                                                "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())) * 100.0) / " +
+                                                    "(SELECT COUNT(nomcurso) " +
+                                                    "FROM curso AS C2 " +
+                                                    "WHERE C2.registrado = 0 " +
+                                                    "AND DATEPART(MONTH, C2.fechainicio) = DATEPART(MONTH, GETDATE()) " +
+                                                    "AND DATEPART(MONTH, C2.fechaterm) = DATEPART(MONTH, GETDATE()) " +
+                                                    "AND YEAR(C2.fechainicio) = YEAR(GETDATE()) " +
+                                                    "AND YEAR(C2.fechaterm) = YEAR(GETDATE())) AS PorcentajeAvance " +
+                                                    "FROM area AS A " +
+                                                    "WHERE A.registracursos = 1) AS Subconsulta " +
+                                                    "WHERE Subconsulta.PorcentajeAvance = 100";
 
-                // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();
             }
             return count;
         }
 
-        //ver los departamentos que SÍ registran cursos (modificar) para dashboard Principal
+        //DASHBOARD PRINCIPAL ver departamentos y su avance de progreso en registro de cursos
         public IEnumerable<DepartamentoModel> GetDepartamentos()
         {
             List<DepartamentoModel> deptos = new List<DepartamentoModel>();
@@ -37,7 +59,7 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "SELECT " +
-                    "A.nomarea AS AREA, A.jefearea, " +
+                    "A.nomarea AS AREA, " +
                     "(SELECT ISNULL(COUNT(*), 0) " +
                     "FROM curso AS C " +
                     "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
@@ -80,11 +102,10 @@ namespace WPF_LoginForm.Repositories
                         DepartamentoModel depto = new DepartamentoModel()
                         {
                             NomDepto = reader[0].ToString(),
-                            Jefe = reader[1].ToString(),
-                            CursosRegistrados = (int)reader[2],
-                            CursosARegistrar = (int)reader[3],
-                            PorcentajeAvance = (int)reader[4],
-                            ValorPorcentaje = (int)reader[5]
+                            CursosRegistrados = (int)reader[1],
+                            CursosARegistrar = (int)reader[2],
+                            PorcentajeAvance = (int)reader[3],
+                            ValorPorcentaje = (int)reader[4]
                         };
                         deptos.Add(depto);
                     }
@@ -93,6 +114,7 @@ namespace WPF_LoginForm.Repositories
             return deptos;
         }
 
+        //Contar el total de áreas que registran cursos para grafico de progreso
         public int GetTotalAreas()
         {
             int count = 0;
@@ -103,7 +125,6 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "SELECT COUNT(nomarea) AS AreasQueRegistran FROM area WHERE registracursos = 1";
 
-                // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();
             }
             return count;

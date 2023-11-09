@@ -221,7 +221,7 @@ namespace WPF_LoginForm.Views
                     MessageBox.Show("No existen registros para ese número de curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
             }
-
+            Limpiar();
             buscarCurso2.Focus();
         }
 

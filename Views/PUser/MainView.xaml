@@ -267,13 +267,6 @@
                                            VerticalAlignment="Center"
                                            Margin="20,0,10,0"/>
 
-                                <TextBlock x:Name="UserLoggeado" Text="{Binding CurrentUserAccount.DisplayName}"
-                                           Foreground="{StaticResource titleColor3}"
-                                           FontFamily="Montserrat"
-                                           FontSize="14"
-                                           VerticalAlignment="Center"
-                                           Margin="20,0,10,0"/>
-
                             </StackPanel>
 
 

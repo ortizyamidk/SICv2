@@ -12,10 +12,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
-        public void Add(UserModel userModel)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public bool AuthenticateUser(NetworkCredential credential)
         {
@@ -34,22 +31,7 @@ namespace WPF_LoginForm.Repositories
             }
 
             return validUser;
-        }
-
-        public void Edit(UserModel userModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<UserModel> GetByAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserModel GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        }     
 
         public UserModel GetByUsername(string username)
         {
@@ -59,10 +41,9 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT U.Username, U.rol, T.nombre, A.nomarea " +
+                command.CommandText = "SELECT U.rol, A.nomarea " +
                                     "FROM [user] AS U " +
-                                    "INNER JOIN trabajador AS T ON U.idtrabajador = T.id " +
-                                    "INNER JOIN area AS A ON T.idarea = A.id " +
+                                    "INNER JOIN area AS A ON U.idarea = A.id " +
                                     "WHERE U.Username = @username";
 
                 command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
@@ -72,10 +53,8 @@ namespace WPF_LoginForm.Repositories
                     {
                         user = new UserModel()
                         {
-                            Username = reader[0].ToString(),
-                            Rol = reader[1].ToString(),
-                            TrabajadorNombre = reader[2].ToString(),
-                            Area = reader[3].ToString(),
+                            Rol = reader[0].ToString(),
+                            Area = reader[1].ToString()
                         };
                     }
                 }
@@ -107,9 +86,6 @@ namespace WPF_LoginForm.Repositories
             return roles;
         }
 
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

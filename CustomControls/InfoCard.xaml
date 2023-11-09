@@ -42,7 +42,6 @@
 
                 <!--Titles-->
                 <TextBlock Text="{Binding ElementName=infoCard, Path=Title}" Foreground="#5d5382" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 25 0 0"/>
-                <TextBlock Text="{Binding ElementName=infoCard, Path=Jefe}" Foreground="#FF450A0A" FontSize="10" HorizontalAlignment="Center" FontWeight="DemiBold"/>
 
                 <Grid Margin="0 5 0 0">
                     <Grid.ColumnDefinitions>

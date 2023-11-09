@@ -27,21 +27,6 @@ namespace WPF_LoginForm.ViewModels
         private string _userRole;
         private LoginViewModel _loginViewModel;
 
-        /*private HomeGViewModel _homeGViewModel;
-
-        public HomeGViewModel HomeGViewModel
-        {
-            get
-            {
-                return _homeGViewModel;
-            }
-            set
-            {
-                _homeGViewModel = value;
-                OnPropertyChanged(nameof(HomeGViewModel));
-            }
-        }*/
-
 
         //Properties
         public UserAccountModel CurrentUserAccount
@@ -221,8 +206,6 @@ namespace WPF_LoginForm.ViewModels
         //----------USER GENERAL----------
         private void ExecuteShowHomeGViewCommand(object obj)
         {
-            //HomeGViewModel = new HomeGViewModel();
-            //HomeGViewModel.CurrentUserAccount = CurrentUserAccount;
 
             CurrentChildView = new HomeGViewModel();
             Caption = "Inicio";
@@ -231,8 +214,6 @@ namespace WPF_LoginForm.ViewModels
             LoginViewModel.IsViewVisible = false;
             LoginViewModel.IsLoggedIn = true;
 
-            //MessageBox.Show("EXECUTE HOME Login visible: "+LoginViewModel.IsViewVisible.ToString());
-            //MessageBox.Show("EXECUTE HOME Usuario loggeado: " + LoginViewModel.IsLoggedIn.ToString());
         }
 
         private void ExecuteShowCursoGViewCommand(object obj)
@@ -338,43 +319,7 @@ namespace WPF_LoginForm.ViewModels
 
         //CERRAR SESION
         private void ExecuteCerrarSesionCommand(object obj)
-        {
-
-            // Llamar al comando de LogoutCommand en el LoginViewModel
-            /*LoginViewModel.LogoutCommand.Execute(null);
-
-            MessageBox.Show("COMANDO SECUNDARIO Login Visible: "+LoginViewModel.IsViewVisible.ToString());
-            MessageBox.Show("COMANDO SECUNDARIO Usuario loggeado: " + LoginViewModel.IsLoggedIn.ToString());
-
-            CurrentChildView = null;
-            MessageBox.Show("COMANDO SECUNDARIO CurrentChildView: " + CurrentChildView);
-
-            Caption = null;
-            MessageBox.Show("COMANDO SECUNDARIO Caption: " + Caption);
-
-            Icon = 0;
-            MessageBox.Show("COMANDO SECUNDARIO Icon: " + Icon);
-
-            UserRole = null;
-            MessageBox.Show("COMANDO SECUNDARIO UserRole: " + UserRole);
-
-            IsMainVisible = false;
-            MessageBox.Show("COMANDO SECUNDARIO IsMainVisible: " + IsMainVisible);
-
-            CurrentUserAccount.DisplayName = null;
-            MessageBox.Show("COMANDO SECUNDARIO DisplayName: " + CurrentUserAccount.DisplayName);            
-
-            var loginView = new LoginView();
-            loginView.Show();
-
-            //MessageBox.Show("COMANDO SECUNDARIO CurrentInstance: " + MainViewG.CurrentInstance);
-            MainViewG.CurrentInstance.Close();*/
-
-            
-
-            /*var mainViewG = new MainViewG();
-            mainViewG.UserLoggeado.Text=string.Empty;
-            MessageBox.Show("COMANDO SECUNDARIO mainViewG: " + mainViewG.UserLoggeado.Text);*/
+        {   
 
             
         }
@@ -385,8 +330,6 @@ namespace WPF_LoginForm.ViewModels
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
             if (user != null)
             {
-                CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $"{user.TrabajadorNombre}";
                 CurrentUserAccount.DisplayArea = $"{user.Area}";
 
                 UserRole = user.Rol;
@@ -404,7 +347,6 @@ namespace WPF_LoginForm.ViewModels
             }
             else
             {
-                CurrentUserAccount.DisplayName = "User not logged in";
                 CurrentUserAccount.DisplayArea = "User not logged in";
                 //Hide child views.
             }
