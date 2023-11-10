@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WPF_LoginForm.Views
 {
@@ -111,6 +112,10 @@ namespace WPF_LoginForm.Views
             string imagePath = "/Images/up.png"; // Ruta relativa a la imagen predeterminada
             BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.Relative));
             imgTrabajador.Source = bitmapImage;
+
+            cbDpto.SelectedIndex = 0;
+            cbArea.SelectedIndex = 0;
+            cbPuesto.SelectedIndex = 0;
 
 
             txtNoFicha.Focus();

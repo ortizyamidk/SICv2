@@ -72,7 +72,6 @@ namespace WPF_LoginForm.Views
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             ComboBox comboBox = sender as ComboBox; // Obtener el ComboBox que disparó el evento
 
             // Verificar si el primer elemento está seleccionado (índice 0)
@@ -115,7 +114,6 @@ namespace WPF_LoginForm.Views
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-
             TextBox textBox = sender as TextBox; // Obtener el TextBox que disparó el evento
 
             if (textBox == txtcbArea)
@@ -201,8 +199,6 @@ namespace WPF_LoginForm.Views
                 errIn.Visibility = Visibility.Visible;
                 dtInicia.BorderBrush = bordeError;
             }
-
-
         }
 
         private void TiHorario_SelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
@@ -252,10 +248,16 @@ namespace WPF_LoginForm.Views
             }
 
             var existingCurso = cursoRepository.GetByAll().FirstOrDefault(c => c.Id == txtID.Text);
+            var existingCurso2 = cursoRepository.GetByAll().FirstOrDefault(c => c.NomCurso == txtNombreC.Text);
 
             if (existingCurso != null)
             {
                 MessageBox.Show("Ya existe ese ID del Curso", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                errores = true;
+            }
+            if (existingCurso2 != null)
+            {
+                MessageBox.Show("No puede haber 2 cursos con el mismo nombre", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 errores = true;
             }
 

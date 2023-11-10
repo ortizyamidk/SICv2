@@ -86,26 +86,7 @@ namespace WPF_LoginForm.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            /*if (instructoresDataGrid.SelectedItem != null)
-            {
-                string numValue = ((instructoresDataGrid.SelectedItem as InstructorModel)?.Id);             
-                txtSearch.Text = numValue.ToString();
-
-                // Llama al método GetById en el repositorio
-                InstructorRepository repository = new InstructorRepository();
-                InstructorModel instructor = (repository as IInstructorRepository).GetById(numValue);
-
-                if (instructor != null)
-                {
-                    // Maneja el resultado, por ejemplo, muestra los datos en un MessageBox
-                    //string message = $"ID: {instructor.Id}\nNombre: {instructor.NomInstr}\nRFC: {instructor.RFC}\nTipo: {instructor.TipoInstr}\nNombre de la Compañía: {instructor.NomCia}";
-                    //MessageBox.Show(message, "Detalles del Instructor");
-                }
-                else
-                {
-                    MessageBox.Show("Instructor no encontrado", "Error");
-                }
-            }*/
+            
         }
     }
 }

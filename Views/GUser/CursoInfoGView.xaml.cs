@@ -32,10 +32,17 @@ namespace WPF_LoginForm.Views.GUser
             SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
             SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
 
+            DataContext = new CursoInfoGViewModel(new CursoGViewModel());
+
+            CursoInfoGViewModel cursoInfoGViewModel = (CursoInfoGViewModel)this.DataContext;
+            MessageBox.Show("ID SELECCIONADO: "+cursoInfoGViewModel.idlista);
+
+
+
             cursoGRepository = new CursoGRepository();
 
             var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(98); //traer idlistaasistencia seleccionada en la tabla de CursoGView
+            CursoGModel asistencia = repository.GetById(82); //traer idlistaasistencia seleccionada en la tabla de CursoGView
 
             txtNoLista.Text = asistencia.Id.ToString();
             txtCurso.Text=asistencia.NomCurso.ToString();

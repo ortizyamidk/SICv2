@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,9 +22,7 @@ using static WPF_LoginForm.Views.CustomerView;
 
 namespace WPF_LoginForm.Views
 {
-    /// <summary>
-    /// Lógica de interacción para InstructorNuevoView.xaml
-    /// </summary>
+ 
     public partial class InstructorNuevoView : UserControl
     {
         SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
@@ -93,6 +92,15 @@ namespace WPF_LoginForm.Views
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
 
+            int numf = int.Parse(txtNumF.Text);
+            var existingInstructor = repository.GetByAll().FirstOrDefault(c => c.Id == numf);
+
+            if (existingInstructor != null)
+            {
+                MessageBox.Show("Ya existe ese ID de Instructor", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                errores = true;
+            }
+
             if (string.IsNullOrEmpty(txtNumF.Text))
             {
                 errNumF.Content = req;
@@ -132,8 +140,10 @@ namespace WPF_LoginForm.Views
                 id = int.Parse(txtNumF.Text);
                 nombre = txtNombreI.Text;
                 rfc = txtRFC.Text;
+
                 ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
                 tipo = instructorS.Content.ToString();
+
                 compania = txtCompania.Text;
 
                 repository.AddInstructor(id, nombre, rfc, tipo, compania);

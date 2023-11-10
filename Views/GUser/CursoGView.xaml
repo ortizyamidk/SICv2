@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views.GUser"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
             mc:Ignorable="d" 
             d:DesignHeight="600" d:DesignWidth="800">
 
+    <UserControl.DataContext>
+        <viewModel:CursoGViewModel/>
+    </UserControl.DataContext>
 
     <Border Background="Transparent" CornerRadius="10" BorderThickness="1">
         <Grid>
@@ -39,15 +43,14 @@
             </Grid>
 
             <fa:IconImage Icon="Search" Grid.Column="1" HorizontalAlignment="Left" Foreground="White" Width="20" Height="20"/>
-                   
+
             <Button x:Name="btnNueva" Style="{StaticResource addButton}" Width="180" Grid.Column="2" Margin="0 0 5 0"
                         Command="{Binding DataContext.ShowCursoNuevoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
-                        <TextBlock Text="Nueva Lista de Asistencia"/>
-                    </StackPanel>
-                </Button>
-
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
+                    <TextBlock Text="Nueva Lista de Asistencia"/>
+                </StackPanel>
+            </Button>
 
             <Border Grid.Row="1" CornerRadius="7" Grid.ColumnSpan="3">
                 <DataGrid Style="{DynamicResource DataGridStyle1}" 
@@ -69,7 +72,8 @@
                                 <DataTemplate>
                                     <Button Style="{StaticResource eyeButton}"
                                             Cursor="Hand"                                         
-                                            Command="{Binding DataContext.ShowCursoInfoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                                            Command="{Binding DataContext.ShowCursoInfoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                                            Click="Button_Click">
                                         <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
                                     </Button>
                                 </DataTemplate>

@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:WPF_LoginForm.Views.GUser"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="1060">
+
+    <UserControl.DataContext>
+        <viewModel:CursoNuevoGViewModel/>
+    </UserControl.DataContext>
 
     <Grid>
         <Border CornerRadius="25" BorderThickness="1">

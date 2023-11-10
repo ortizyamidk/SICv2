@@ -43,7 +43,7 @@ namespace WPF_LoginForm.Views
             cursoRepository = new CursoRepository();
             instructorRepository = new InstructorRepository();
 
-            CursoModel curso = cursoRepository.GetById("CU1"); //obtener curso
+            CursoModel curso = cursoRepository.GetById("37847"); //obtener curso
 
             txtID.Text = curso.Id.ToString();
             txtNombreC.Text = curso.NomCurso.ToString();
@@ -239,16 +239,14 @@ namespace WPF_LoginForm.Views
 
         private void dtInicia_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime? selectedDate = dtInicia.SelectedDate;
-            DateTime fechaActual = DateTime.Now;
-            DateTime fechaAnterior = fechaActual.AddDays(-1);
+            DateTime? fechaInicia = dtInicia.SelectedDate;
+            DateTime? fechaTermina = dtTermina.SelectedDate;
 
-            if (selectedDate.HasValue)
+            if (fechaInicia.HasValue)
             {
-                if (selectedDate < fechaAnterior)
+                if (fechaInicia > fechaTermina)
                 {
-                    // La fecha seleccionada es anterior a la fecha actual
-                    errIn.Content = "Debe ser posterior a la actual";
+                    errIn.Content = "Debe ser previa a la de término";
                     errIn.Visibility = Visibility.Visible;
                     btnSave.IsEnabled = false;
 

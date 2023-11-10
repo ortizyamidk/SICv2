@@ -36,7 +36,7 @@ namespace WPF_LoginForm.Views
             
 
             repository = new InstructorRepository();
-            InstructorModel instructor = (repository as IInstructorRepository).GetById('1'); //traer id del instructor seleccionado en la tabla
+            InstructorModel instructor = (repository as IInstructorRepository).GetById(5); //traer id del instructor seleccionado en la tabla
 
             if(instructor != null)
             {
@@ -58,6 +58,12 @@ namespace WPF_LoginForm.Views
             {
                 // Maneja el caso en el que el instructor es null
                 MessageBox.Show("Instructor no encontrado", "Error");
+
+                txtNoInst.Text = string.Empty; 
+                txtNombreI.Text = string.Empty;
+                txtRFC.Text = string.Empty;
+                txtCompania.Text = string.Empty;
+                cbTipo.SelectedIndex = 0;
             }
         }
 

@@ -52,7 +52,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        //ver todos los instructores dados de alta en bd para combobox
+        //ver todos los instructores dados de alta en bd
         public IEnumerable<InstructorModel> GetByAll()
         {
             List<InstructorModel> instructores = new List<InstructorModel>();
@@ -61,7 +61,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from instructor;";
+                command.CommandText = "select * from instructor";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

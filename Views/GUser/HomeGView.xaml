@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_LoginForm.Views.GUser"
              xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls"
+             xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" xmlns:local1="clr-namespace:WPF_LoginForm.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="570" d:DesignWidth="1060">
 
     <UserControl.DataContext>
-        <local1:HomeGViewModel/>
+        <viewModel:HomeGViewModel/>
     </UserControl.DataContext>
 
     <Border CornerRadius="27" BorderThickness="1">

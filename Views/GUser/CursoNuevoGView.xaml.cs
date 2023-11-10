@@ -36,11 +36,14 @@ namespace WPF_LoginForm.Views.GUser
 
         ObservableCollection<TrabajadorModel> trabajadoresList = new ObservableCollection<TrabajadorModel>();
 
+        
 
         public CursoNuevoGView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+
+            
 
             repository = new CursoGRepository();
             trabajadorRepository = new TrabajadorRepository();
@@ -60,7 +63,8 @@ namespace WPF_LoginForm.Views.GUser
 
         private void CargarCursos()
         {
-            var cursos = cursoRepository.GetCursosNotRegistered("Ingeniería"); //obtener area loggeada
+            var viewModel = (CursoNuevoGViewModel)DataContext;
+            var cursos = cursoRepository.GetCursosNotRegistered(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
             foreach (var curso in cursos)
             {
                 var item = new ComboBoxItem
@@ -93,7 +97,8 @@ namespace WPF_LoginForm.Views.GUser
                     repository.AddParticipantes(participante.Id, idcurso);
                 }
 
-                AreaModel areaModel = areaRepository.GetIdByName("Ingeniería"); //area loggeada
+                var viewModel = (CursoNuevoGViewModel)DataContext;
+                AreaModel areaModel = areaRepository.GetIdByName(viewModel.CurrentUserAccount.DisplayArea); //area loggeada
                 int idCurrentArea = areaModel.Id;
 
                 repository.AddListaAsistencia(idCurrentArea, idcurso);
@@ -182,8 +187,9 @@ namespace WPF_LoginForm.Views.GUser
             else
             {
                int numficha = int.Parse(txtBuscar.Text);
-               
-               TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, "Ingeniería"); //area loggeada
+
+                var viewModel = (CursoNuevoGViewModel)DataContext;
+                TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, viewModel.CurrentUserAccount.DisplayArea); //area loggeada
 
                 if (trabajador!=null)
                 {
@@ -203,7 +209,7 @@ namespace WPF_LoginForm.Views.GUser
                 }
                 else
                 {
-                    MessageBox.Show("No existe Trabajador con ese Num. de ficha", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show("No existe Trabajador o no es del área de "+ viewModel.CurrentUserAccount.DisplayArea, "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
 
                 txtBuscar.Text = string.Empty;

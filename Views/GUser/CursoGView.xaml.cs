@@ -32,9 +32,12 @@ namespace WPF_LoginForm.Views.GUser
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+       
+
+            var viewModel = (CursoGViewModel)DataContext;
 
             CursoGRepository repository = new CursoGRepository();
-            IEnumerable<CursoGModel> cursosList = repository.GetByAll("Ingeniería"); //obtener area loggeada
+            IEnumerable<CursoGModel> cursosList = repository.GetByAll(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
             ObservableCollection<CursoGModel> cursos = new ObservableCollection<CursoGModel>(cursosList);
             cursosGDataGrid.ItemsSource = cursos;                         
 
@@ -49,7 +52,7 @@ namespace WPF_LoginForm.Views.GUser
         //enfocar en barra de busqueda
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            txtSearch.Focus();
+            txtSearch.Focus();       
         }
 
         //filtrar
@@ -68,6 +71,27 @@ namespace WPF_LoginForm.Views.GUser
                     var curso = item as CursoGModel;
                     return curso.NomCurso.ToLower().Contains(search);
                 };
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (cursosGDataGrid.SelectedCells.Count > 0)
+            {
+                // Obtiene el elemento seleccionado (fila)
+                var selectedItem = cursosGDataGrid.SelectedItem;
+
+                // Verifica si el elemento seleccionado no es nulo y contiene la propiedad "IdLista"
+                if (selectedItem != null && selectedItem is CursoGModel item)
+                {
+                    // Accede al valor de la propiedad "IdLista"
+                    var valorIdLista = item.IdLista;
+
+                    var cursoGViewModel = new CursoGViewModel();
+                    cursoGViewModel.SetIdListaFromExternalSource(valorIdLista);
+
+                    MessageBox.Show("ID LISTA: " + valorIdLista);
+                }
             }
         }
     }

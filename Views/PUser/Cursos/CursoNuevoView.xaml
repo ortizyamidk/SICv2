@@ -201,12 +201,10 @@
                                             <ComboBox.Items>
                                                 <ComboBoxItem Content="--Escriba un instructor temporal--" />
                                             </ComboBox.Items>
-
                                             <ComboBox.SelectedIndex>1</ComboBox.SelectedIndex>
                                         </ComboBox>
                                     </Border>
                                 </Grid>
-
                                 <TextBox x:Name="txtcbInstructor" Style="{StaticResource myTextBox}" Visibility="Hidden" Width="350" Margin="0 0 10 0"/>
                             </Grid>
                         </StackPanel>

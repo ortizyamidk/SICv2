@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
@@ -15,7 +16,7 @@ namespace WPF_LoginForm.ViewModels
         public ObservableCollection<CursoModel> CursosNoRegistrados { get; set; }
         public ObservableCollection<CursoModel> CursosVencidos { get; set; }
 
-        //public UserAccountModel CurrentUserAccount { get; set; }
+        private IUserRepository userRepository;
 
         private int _countCursosRegistered;
         public int CountCursosRegistered
@@ -39,9 +40,27 @@ namespace WPF_LoginForm.ViewModels
             }
         }
 
+        private UserAccountModel _currentUserAccount;
+        public UserAccountModel CurrentUserAccount
+        {
+            get
+            {
+                return _currentUserAccount;
+            }
+
+            set
+            {
+                _currentUserAccount = value;
+                OnPropertyChanged(nameof(CurrentUserAccount));
+            }
+        }
+
         //Constructor
         public HomeGViewModel()
         {
+            userRepository = new UserRepository();
+            CurrentUserAccount = new UserAccountModel();
+
             // Inicializa la colección de cursos
             CursosNoRegistrados = new ObservableCollection<CursoModel>();
             CursosVencidos = new ObservableCollection<CursoModel>();
@@ -54,8 +73,12 @@ namespace WPF_LoginForm.ViewModels
             // Crear una instancia de CursoRepository y llamar a GetCountCursosRegistered
             ICursoRepository cursoRepository = new CursoRepository();
 
+            //AREA LOGGEADA
+            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+
+
             //cuantos cursos han sido registrados de esa area
-            CountCursosRegistered = cursoRepository.GetCountCursosRegistered("Ingeniería"); //obtener area de user loggeado
+            CountCursosRegistered = cursoRepository.GetCountCursosRegistered(user.Area); //obtener area de user loggeado
 
             //cuantos cursos hay que registrar en total d esa area
             CountCursos = cursoRepository.GetCountTotalCursos(); //obtener area tematica
@@ -64,10 +87,13 @@ namespace WPF_LoginForm.ViewModels
 
         public void ObtenerResultadosDeConsulta()
         {
+            //AREA LOGGEADA
+            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+
             // Aquí puedes llamar al método del repositorio para obtener los resultados
             // Asumiendo que tienes una instancia del repositorio llamada "cursoRepository"
             CursoRepository cursoRepository = new CursoRepository();
-            var resultados = cursoRepository.GetCursosNotRegistered("Ingeniería"); //obtener area de user loggeado
+            var resultados = cursoRepository.GetCursosNotRegistered(user.Area); //obtener area de user loggeado
 
             // Agrega los resultados a la colección
             foreach (var resultado in resultados)
@@ -78,8 +104,11 @@ namespace WPF_LoginForm.ViewModels
 
         public void ObtenerCursosVencidos()
         {
+            //AREA LOGGEADA
+            var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
+
             CursoRepository cr = new CursoRepository();
-            var resultadosCV = cr.GetCursosVencidos("Ingeniería"); //obtener area de user loggeado
+            var resultadosCV = cr.GetCursosVencidos(user.Area); //obtener area de user loggeado
 
             foreach(var resultadoCV in resultadosCV)
             {

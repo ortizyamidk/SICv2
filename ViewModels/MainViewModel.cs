@@ -27,6 +27,9 @@ namespace WPF_LoginForm.ViewModels
         private string _userRole;
         private LoginViewModel _loginViewModel;
 
+        public CursoGViewModel CursoGVM { get; }
+        public CursoInfoGViewModel CursoIGVM { get; }
+
 
         //Properties
         public UserAccountModel CurrentUserAccount
@@ -157,6 +160,9 @@ namespace WPF_LoginForm.ViewModels
             CurrentUserAccount = new UserAccountModel();
 
             LoginViewModel = new LoginViewModel();
+
+            CursoGVM = new CursoGViewModel();
+            CursoIGVM = new CursoInfoGViewModel(CursoGVM);
 
 
             //Initialize commands
