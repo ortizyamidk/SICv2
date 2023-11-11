@@ -230,7 +230,7 @@ namespace WPF_LoginForm.ViewModels
         }
         private void ExecuteShowCursoInfoGViewCommand(object obj)
         {
-            CurrentChildView = new CursoInfoGViewModel();
+            CurrentChildView = new CursoInfoGViewModel(CursoGVM);
             Caption = "Cursos";
             Icon = IconChar.ChalkboardUser;
         }
