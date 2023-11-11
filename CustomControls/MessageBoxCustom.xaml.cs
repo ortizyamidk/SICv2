@@ -15,19 +15,12 @@ using System.Windows.Shapes;
 
 namespace WPF_LoginForm.CustomControls
 {
-    /// <summary>
-    /// Lógica de interacción para MessageBoxCustom.xaml
-    /// </summary>
     public partial class MessageBoxCustom : Window
-    {
-       
-
+    {       
         public MessageBoxCustom()
         {
             InitializeComponent();
             this.Opacity = 0; // Establece la opacidad inicial en 0
-
-
         }
 
         // Este evento se dispara cuando el contenido de la ventana se ha renderizado.

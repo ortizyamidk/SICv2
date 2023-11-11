@@ -89,8 +89,6 @@ namespace WPF_LoginForm.Views.GUser
 
                     var cursoGViewModel = new CursoGViewModel();
                     cursoGViewModel.SetIdListaFromExternalSource(valorIdLista);
-
-                    MessageBox.Show("ID LISTA: " + valorIdLista);
                 }
             }
         }

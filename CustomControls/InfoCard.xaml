@@ -28,8 +28,6 @@
                         <DataTrigger Binding="{Binding ElementName=grid, Path=IsMouseOver}" Value="True">
                             <Setter Property="Visibility" Value="Visible"/>
                         </DataTrigger>
-
-                        
                     </Style.Triggers>
                 </Style>
             </Border.Style>
@@ -39,7 +37,6 @@
         <Border Background="White" CornerRadius="20" Padding="10" BorderBrush="LightGray" BorderThickness="1">
             <StackPanel>
                 <Separator Background="Transparent"/>
-
                 <!--Titles-->
                 <TextBlock Text="{Binding ElementName=infoCard, Path=Title}" Foreground="#5d5382" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 25 0 0"/>
 
@@ -48,12 +45,10 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <TextBlock Grid.Column="0" Text="{Binding ElementName=infoCard, Path=CursosRegistrados}" Foreground="#958ead" FontSize="10" HorizontalAlignment="Right"/>
                     <TextBlock Grid.Column="1" Text="{Binding ElementName=infoCard, Path=CursosARegistrar}" Foreground="#958ead" FontSize="10" HorizontalAlignment="Left"/>
-                    
                 </Grid>
-                
 
                 <!--Top Slider Texts-->
                 <Grid Margin="0 -5 0 0">

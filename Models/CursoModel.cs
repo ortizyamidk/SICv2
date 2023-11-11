@@ -27,5 +27,7 @@ namespace WPF_LoginForm.Models
 
         public string MesLimite { get; set; }
 
+        public string Impartido { get; set; } 
+
     }
 }

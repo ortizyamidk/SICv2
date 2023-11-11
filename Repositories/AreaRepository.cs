@@ -55,7 +55,6 @@ namespace WPF_LoginForm.Repositories
                         area = new AreaModel()
                         {
                             Id = (int)reader[0]
-
                         };
                     }
                 }

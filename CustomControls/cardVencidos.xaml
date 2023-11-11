@@ -22,18 +22,15 @@
 
                 <Button Background="Transparent" Grid.Column="1" BorderThickness="0" HorizontalAlignment="Left"  Height="70" Width="70" Cursor="Hand" 
                         Command="{Binding DataContext.ShowCursoNuevoGViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                    
+
                     <Icon:PackIconMaterial  Kind="{Binding ElementName=CardVencidos, Path=Icon}" VerticalAlignment="Center" Width="40" Height="30" Foreground="{StaticResource panelActiveColor}"/>
                 </Button>
                 <StackPanel Orientation="Vertical" Grid.Column="0">
                     <TextBlock Text="{Binding ElementName=CardVencidos, Path=Title}" TextWrapping="Wrap" Foreground="#1F2A21" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="5"/>
-                    
+
                     <TextBlock Text="{Binding ElementName=CardVencidos, Path=Desc}" FontSize="16" Foreground="{StaticResource panelOverColor}" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="15 0 0 0"/>
-                    
                 </StackPanel>
-
             </Grid>
-
         </Border>
 
         <!--red border-->
@@ -55,5 +52,4 @@
             </Border.Style>
         </Border>
     </Grid>
-
 </UserControl>

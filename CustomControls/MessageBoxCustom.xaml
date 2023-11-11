@@ -42,11 +42,6 @@
             </Grid>
 
             <Button Content="Aceptar" Grid.Row="2" Background="{StaticResource panelOverColor}" BorderBrush="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Click="Aceptar_Click"/>
-
         </Grid>
     </Border>
-
-
-
-
 </Window>

@@ -61,7 +61,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from instructor";
+                command.CommandText = "SELECT * from INSTRUCTOR";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -115,7 +115,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from instructor where id = @id";
+                command.CommandText = "SELECT * FROM instructor WHERE id = @id";
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 using (var reader = command.ExecuteReader())
                 {

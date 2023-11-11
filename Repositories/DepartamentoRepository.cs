@@ -20,29 +20,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(*) AS RegistrosConPorcentaje100 " +
-                                        "FROM (" +
-                                            "SELECT A.nomarea AS AREA,(( " +
-                                                "SELECT ISNULL(COUNT(*), 0) " +
-                                                "FROM curso AS C " +
-                                                "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
-                                                "INNER JOIN area AS A2 ON CA.idarea = A2.id " +
-                                                "WHERE CA.listaregistrada = 1 " +
-                                                "AND A2.nomarea = A.nomarea " +
-                                                "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
-                                                "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
-                                                "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                                                "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())) * 100.0) / " +
-                                                    "(SELECT COUNT(nomcurso) " +
-                                                    "FROM curso AS C2 " +
-                                                    "WHERE C2.registrado = 0 " +
-                                                    "AND DATEPART(MONTH, C2.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                                                    "AND DATEPART(MONTH, C2.fechaterm) = DATEPART(MONTH, GETDATE()) " +
-                                                    "AND YEAR(C2.fechainicio) = YEAR(GETDATE()) " +
-                                                    "AND YEAR(C2.fechaterm) = YEAR(GETDATE())) AS PorcentajeAvance " +
-                                                    "FROM area AS A " +
-                                                    "WHERE A.registracursos = 1) AS Subconsulta " +
-                                                    "WHERE Subconsulta.PorcentajeAvance = 100";
+                command.CommandText = "exec AreasListas";
 
                 count = (int)command.ExecuteScalar();
             }
@@ -58,42 +36,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT " +
-                    "A.nomarea AS AREA, " +
-                    "(SELECT ISNULL(COUNT(*), 0) " +
-                    "FROM curso AS C " +
-                    "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
-                    "INNER JOIN area AS A2 ON CA.idarea = A2.id " +
-                    "WHERE CA.listaregistrada = 1 " +
-                    "AND A2.nomarea = A.nomarea " +
-                    "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())) AS CursosRegistrados, " +
-                    "(SELECT COUNT(nomcurso) " +
-                    "FROM curso AS C2 " +
-                    "WHERE C2.registrado = 0 " +
-                    "AND DATEPART(MONTH, C2.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, C2.fechaterm) = DATEPART(MONTH, GETDATE()) " +
-                    "AND YEAR(C2.fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(C2.fechaterm) = YEAR(GETDATE())) AS CursosARegistrarMesActual, " +
-                    "CAST(((SELECT ISNULL(COUNT(*), 0) FROM curso AS C " +
-                    "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
-                    "INNER JOIN area AS A2 ON CA.idarea = A2.id " +
-                    "WHERE CA.listaregistrada = 1 " +
-                    "AND A2.nomarea = A.nomarea " +
-                    "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE())  " +
-                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())) * 100.0) / (SELECT COUNT(nomcurso) FROM curso AS C2 WHERE C2.registrado = 0 " +
-                    "AND DATEPART(MONTH, C2.fechainicio) = DATEPART(MONTH, GETDATE()) AND DATEPART(MONTH, C2.fechaterm) = DATEPART(MONTH, GETDATE())  AND YEAR(C2.fechainicio) = YEAR(GETDATE()) AND YEAR(C2.fechaterm) = YEAR(GETDATE())) AS INT) AS PorcentajeAvance, CAST((CAST(((" +
-                    "SELECT ISNULL(COUNT(*), 0) FROM curso AS C INNER JOIN curso_area AS CA ON C.id = CA.idcurso INNER JOIN area AS A2 ON CA.idarea = A2.id WHERE CA.listaregistrada = 1 AND A2.nomarea = A.nomarea AND YEAR(C.fechainicio) = YEAR(GETDATE()) AND YEAR(C.fechaterm) = YEAR(GETDATE()) AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())) * 100.0) / (SELECT COUNT(nomcurso) FROM curso AS C2 WHERE C2.registrado = 0 " +
-                    "AND DATEPART(MONTH, C2.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, C2.fechaterm) = DATEPART(MONTH, GETDATE()) AND YEAR(C2.fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(C2.fechaterm) = YEAR(GETDATE())) AS INT) / 10) AS INT) AS ValuePorcentaje " +
-                    "FROM area AS A " +
-                    "WHERE A.registracursos = 1";
+                command.CommandText = "exec ProgresoAreas";
 
                 using (var reader = command.ExecuteReader())
                 {

@@ -21,11 +21,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, T.rfc, P.nompuesto " +
-                                    "FROM trabajador AS T " +
-                                    "INNER JOIN puesto AS P " +
-                                    "ON T.idpuesto = P.id " +
-                                    "WHERE T.id = @numficha";
+                command.CommandText = "exec ReporteDC3 @numficha";
 
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
 
@@ -56,10 +52,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, A.nomarea, P.nompuesto " +
-                                    "FROM trabajador AS T " +
-                                    "INNER JOIN area AS A ON T.idarea = A.id " +
-                                    "INNER JOIN puesto AS P ON T.idpuesto = P.id";
+                command.CommandText = "exec VerTrabajadores";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -81,7 +74,7 @@ namespace WPF_LoginForm.Repositories
             return trabajadores;
         }
 
-        //ver trabajador especifico para vista PersonalInfoView
+        //ver trabajador especifico para buscar al crear listas de asistencia
         public TrabajadorModel GetById(int numficha, string nomarea)
         {
             TrabajadorModel trabajador = null;
@@ -90,13 +83,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, P.nompuesto " +
-                    "FROM trabajador AS T " +
-                    "INNER JOIN puesto AS P " +
-                    "ON T.idpuesto = P.id " +
-                    "INNER JOIN area AS A " +
-                    "ON T.idarea = A.id " +
-                    "WHERE T.id = @numficha AND A.nomarea = @nomarea";
+                command.CommandText = "exec BuscarTrabajadorEsp_PorArea @numficha, @nomarea";
 
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
                 command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
@@ -152,19 +139,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, P.nompuesto, A.nomarea " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN cursotrabajador AS CT " +
-                    "ON C.id = CT.idcurso " +
-                    "INNER JOIN trabajador AS T " +
-                    "ON CT.idtrabajador = T.id " +
-                    "INNER JOIN puesto AS P " +
-                    "ON T.idpuesto = P.id " +
-                    "INNER JOIN area AS A " +
-                    "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso";
+                command.CommandText = "exec ParticipantesPorCurso @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
@@ -197,19 +172,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.numtarjeta, T.nombre, P.nompuesto, A.nomarea " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN cursotrabajador AS CT " +
-                    "ON C.id = CT.idcurso " +
-                    "INNER JOIN trabajador AS T " +
-                    "ON CT.idtrabajador = T.id " +
-                    "INNER JOIN puesto AS P " +
-                    "ON T.idpuesto = P.id " +
-                    "INNER JOIN area AS A " +
-                    "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso AND A.nomarea = @area";
+                command.CommandText = "exec ParticipantesPorCurso_PorArea @idcurso, @area";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
@@ -244,17 +207,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT T.id, T.numtarjeta, T.nombre, P.nompuesto " +
-                    "FROM curso_area AS CA " +
-                    "INNER JOIN area AS A " +
-                    "ON CA.idarea = A.id " +
-                    "INNER JOIN trabajador AS T " +
-                    "ON A.id = T.idarea " +
-                    "INNER JOIN puesto AS P " +
-                    "ON T.idpuesto = P.id " +
-                    "INNER JOIN cursotrabajador AS CT " +
-                    "ON T.id = CT.idtrabajador " +
-                    "WHERE CA.id = @idlistacursos";
+                command.CommandText = "exec ParticipantesPorListaAsistencia @idlistacursos";
 
                 command.Parameters.Add("@idlistacursos", SqlDbType.Int).Value = idlista;
 
@@ -287,13 +240,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT A.nomarea, T.id, T.nombre, P.nompuesto " +
-                                    "FROM trabajador AS T " +
-                                    "INNER JOIN area AS A " +
-                                    "ON T.idarea = A.id " +
-                                    "INNER JOIN puesto AS P " +
-                                    "ON T.idpuesto = P.id " +
-                                    "WHERE perscalif = 1 AND A.nomarea = @nomarea";
+                command.CommandText = "exec ReportePersonalCalificado_PorArea @nomarea";
 
                 command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
@@ -326,13 +273,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, A.nomarea, P.nompuesto " +
-                                    "FROM trabajador AS T " +
-                                    "INNER JOIN area AS A " +
-                                    "ON T.idarea = A.id " +
-                                    "INNER JOIN puesto AS P " +
-                                    "ON T.idpuesto = P.id " +
-                                    "WHERE perscalif = 1";
+                command.CommandText = "exec ReportePersonalCalificadoGral";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -363,17 +304,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, A.nomarea " +
-                                        "FROM curso AS C " +
-                                        "LEFT JOIN instructor AS I " +
-                                        "ON C.idinstructor = I.id " +
-                                        "INNER JOIN cursotrabajador AS CT " +
-                                        "ON C.id = CT.idcurso " +
-                                        "INNER JOIN trabajador AS T " +
-                                        "ON CT.idtrabajador = T.id " +
-                                        "INNER JOIN area AS A " +
-                                        "ON T.idarea = A.id " +
-                                        "WHERE C.id = @idcurso";
+                command.CommandText = "exec Reporte_AsistenciaACurso_Trabajadores @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
@@ -404,17 +335,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT T.nombre, T.id, A.nomarea " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN cursotrabajador AS CT " +
-                    "ON C.id = CT.idcurso " +
-                    "INNER JOIN trabajador AS T " +
-                    "ON CT.idtrabajador = T.id " +
-                    "INNER JOIN area AS A " +
-                    "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso";
+                command.CommandText = "exec ReporteExcel_Trabajadores @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
@@ -445,21 +366,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT T.id, T.nombre, P.nompuesto, D.nomdepto, A.nomarea, CONVERT(varchar, T.fechaing, 103) AS fechaing " +
-                                    "FROM trabajador AS T " +
-                                    "INNER JOIN puesto AS P " +
-                                    "ON T.idpuesto = P.id " +
-                                    "INNER JOIN area AS A " +
-                                    "ON T.idarea = A.id " +
-                                    "INNER JOIN departamento AS D " +
-                                    "ON A.iddpto = D.id " +
-                                    "INNER JOIN cursotrabajador AS CT " +
-                                    "ON T.id = CT.idtrabajador " +
-                                    "INNER JOIN curso AS C " +
-                                    "ON CT.idcurso = C.id " +
-                                    "LEFT JOIN instructor AS I " +
-                                    "ON C.idinstructor = I.id " +
-                                    "WHERE T.id = @numficha";
+                command.CommandText = "exec ReporteHistorialCursos_TrabajadorEsp @numficha";
 
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
 

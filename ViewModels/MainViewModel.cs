@@ -27,9 +27,6 @@ namespace WPF_LoginForm.ViewModels
         private string _userRole;
         private LoginViewModel _loginViewModel;
 
-        public CursoGViewModel CursoGVM { get; }
-        public CursoInfoGViewModel CursoIGVM { get; }
-
 
         //Properties
         public UserAccountModel CurrentUserAccount
@@ -161,9 +158,6 @@ namespace WPF_LoginForm.ViewModels
 
             LoginViewModel = new LoginViewModel();
 
-            CursoGVM = new CursoGViewModel();
-            CursoIGVM = new CursoInfoGViewModel(CursoGVM);
-
 
             //Initialize commands
             //--------------USER PRINCIPAL------------
@@ -230,7 +224,7 @@ namespace WPF_LoginForm.ViewModels
         }
         private void ExecuteShowCursoInfoGViewCommand(object obj)
         {
-            CurrentChildView = new CursoInfoGViewModel(CursoGVM);
+            CurrentChildView = new CursoInfoGViewModel();
             Caption = "Cursos";
             Icon = IconChar.ChalkboardUser;
         }

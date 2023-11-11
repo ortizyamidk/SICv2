@@ -128,7 +128,6 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-
         //ver la lista de asistencia especifica de un curso por el id del curso de todas las areas
         public CursoGModel GetAsistenciaById(string idcurso)
         {
@@ -138,19 +137,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT C.id, C.nomcurso, C.areatematica, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.horario, C.duracion, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN cursotrabajador AS CT " +
-                    "ON C.id = CT.idcurso " +
-                    "INNER JOIN trabajador AS T " +
-                    "ON CT.idtrabajador = T.id " +
-                    "INNER JOIN puesto AS P " +
-                    "ON T.idpuesto = P.id " +
-                    "INNER JOIN area AS A " +
-                    "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso";
+                command.CommandText = "exec VerAsistenciaGralCursoEsp @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
@@ -186,7 +173,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT id, nomcurso, areatematica FROM curso";
+                command.CommandText = "exec VerCursos";
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -196,7 +183,8 @@ namespace WPF_LoginForm.Repositories
                         {
                             Id = reader[0].ToString(),
                             NomCurso = reader[1].ToString(),
-                            AreaTematica = reader[2].ToString()
+                            AreaTematica = reader[2].ToString(),
+                            Impartido = reader[3].ToString()
                         };
                         cursos.Add(curso);
                     }
@@ -213,15 +201,9 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT C.id, C.nomcurso, C.areatematica, " +
-                                    "CONVERT(varchar, C.fechainicio, 103) AS fechainicio, " +
-                                    "CONVERT(varchar, C.fechaterm, 103) AS fechaterm, " +
-                                    "C.horario, C.duracion, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
-                                    "FROM curso AS C " +
-                                    "LEFT JOIN instructor AS I " +
-                                    "ON C.idinstructor = I.id WHERE C.id = @id";
+                command.CommandText = "exec VerInfoCursoEsp @idcurso";
 
-                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+                command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = id;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -238,7 +220,6 @@ namespace WPF_LoginForm.Repositories
                             Duracion = (int)reader[6],
                             Lugar = reader[7].ToString(),
                             Instructor = reader[8].ToString()
-
                         };
                     }
                 }
@@ -246,7 +227,7 @@ namespace WPF_LoginForm.Repositories
             return curso;
         }
 
-        //ver curso especifico
+        //ver curso especifico para registrar listas
         public CursoModel GetByName(string nomcurso)
         {
             CursoModel curso = null;
@@ -255,13 +236,7 @@ namespace WPF_LoginForm.Repositories
                 {
                     connection.Open();
                     command.Connection = connection;
-                    command.CommandText = "SELECT C.id, C.nomcurso, C.areatematica, " +
-                                        "CONVERT(varchar, C.fechainicio, 103) AS fechainicio, " +
-                                        "CONVERT(varchar, C.fechaterm, 103) AS fechaterm, " +
-                                        "C.horario, C.duracion, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
-                                        "FROM curso AS C " +
-                                        "LEFT JOIN instructor AS I " +
-                                        "ON C.idinstructor = I.id WHERE C.nomcurso = @nomcurso";
+                    command.CommandText = "exec VerInfoCursoPorNombre @nomcurso";
 
                     command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
 
@@ -280,7 +255,6 @@ namespace WPF_LoginForm.Repositories
                                 Duracion = (int) reader[6],
                                 Lugar = reader[7].ToString(),
                                 Instructor = reader[8].ToString()
-
                             };
                         }
                     }
@@ -298,17 +272,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT C.id, C.nomcurso, COALESCE(C.nominstr, I.nominstr) AS nominstr, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.duracion, C.lugar, C.horario " +
-                                    "FROM curso AS C " +
-                                    "LEFT JOIN instructor AS I " +
-                                    "ON C.idinstructor = I.id " +
-                                    "INNER JOIN cursotrabajador AS CT " +
-                                    "ON C.id = CT.idcurso " +
-                                    "INNER JOIN trabajador AS T " +
-                                    "ON CT.idtrabajador = T.id " +
-                                    "INNER JOIN area AS A " +
-                                    "ON T.idarea = A.id " +
-                                    "WHERE C.id = @idcurso";
+                command.CommandText = "exec ReporteAsistenciaInfoCurso @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
@@ -342,21 +306,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT C.nomcurso, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, COALESCE(C.nominstr, I.nominstr) AS nominstr " +
-                                    "FROM trabajador AS T " +
-                                    "INNER JOIN puesto AS P " +
-                                    "ON T.idpuesto = P.id " +
-                                    "INNER JOIN area AS A " +
-                                    "ON T.idarea = A.id " +
-                                    "INNER JOIN departamento AS D " +
-                                    "ON A.iddpto = D.id " +
-                                    "INNER JOIN cursotrabajador AS CT " +
-                                    "ON T.id = CT.idtrabajador " +
-                                    "INNER JOIN curso AS C " +
-                                    "ON CT.idcurso = C.id " +
-                                    "LEFT JOIN instructor AS I " +
-                                    "ON C.idinstructor = I.id " +
-                                    "WHERE T.id = @numficha";
+                command.CommandText = "exec ReporteHistorialCursos_InfoCurso @numficha";
 
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
 
@@ -377,7 +327,7 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
-        //obtener los cursos que no han sido registrados de cierta area para mostrar en dashboard gral
+        //obtener los cursos que no han sido registrados en el mes y año actual de cierta area para mostrar en dashboard gral
         public IEnumerable<CursoModel> GetCursosNotRegistered(string area)
         {
             List<CursoModel> cursos = new List<CursoModel>();
@@ -386,16 +336,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT C.nomcurso " +
-                    "FROM curso_area AS CA " +
-                    "INNER JOIN curso AS C " +
-                    "ON CA.idcurso = C.id " +
-                    "INNER JOIN area AS A " +
-                    "ON CA.idarea = A.id " +
-                    "WHERE A.nomarea = @area " +
-                    "AND CA.listaregistrada = 0 " +
-                    "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE());";
+                command.CommandText = "exec CursosNoRegistrados_AreaEsp @area";
 
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
 
@@ -414,6 +355,7 @@ namespace WPF_LoginForm.Repositories
             return cursos;
         }
 
+        //cursos vencidos en el año
         public IEnumerable<CursoModel> GetCursosVencidos(string area)
         {
             List<CursoModel> cursos = new List<CursoModel>();
@@ -422,16 +364,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT C.nomcurso, DATENAME(MONTH, C.fechaterm) AS MesLimite " +
-                    "FROM curso_area AS CA " +
-                    "INNER JOIN curso AS C ON CA.idcurso = C.id " +
-                    "INNER JOIN area AS A ON CA.idarea = A.id " +
-                    "WHERE A.nomarea = @area " +
-                    "AND CA.listaregistrada = 0 " +
-                    "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
-                    "AND MONTH(C.fechainicio) < MONTH(GETDATE()) " +
-                    "AND MONTH(C.fechaterm) < MONTH(GETDATE()); ";
+                command.CommandText = "exec CursosVencidos_AreaEsp @area";
 
                 command.Parameters.Add("@area", SqlDbType.VarChar).Value = area;
 
@@ -487,21 +420,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT DISTINCT C.nomcurso, C.id AS idcurso, C.duracion, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, " +
-                    "CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.horario, " +
-                    "COALESCE(COALESCE(C.nominstr, I.nominstr, 'N/A'), 'N/A') AS nominstr, " +
-                    "COALESCE(C.idinstructor, I.id, 0) AS idinstructor, " +
-                    "COALESCE(I.rfc, 'N/A') AS rfc, C.lugar " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN cursotrabajador AS CT " +
-                    "ON C.id = CT.idcurso " +
-                    "INNER JOIN trabajador AS T " +
-                    "ON CT.idtrabajador = T.id " +
-                    "INNER JOIN area AS A " +
-                    "ON T.idarea = A.id " +
-                    "WHERE C.id = @idcurso";
+                command.CommandText = "exec ReporteListaExcel @idcurso";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
@@ -510,8 +429,7 @@ namespace WPF_LoginForm.Repositories
                     if (reader.Read())
                     {
                         curso = new CursoModel()
-                        {
-                            
+                        {                           
                             NomCurso = reader[0].ToString(),
                             Id = reader[1].ToString(),
                             Duracion = (int)reader[2],
@@ -521,18 +439,12 @@ namespace WPF_LoginForm.Repositories
                             Instructor = reader[6].ToString(),
                             idinstructor = (int)reader[7],
                             rfcinstructor = reader[8].ToString(),                                                   
-                            Lugar = reader[9].ToString()
-                            
+                            Lugar = reader[9].ToString()                           
                         };
                     }
                 }
             }
             return curso;
-        }
-
-        public IEnumerable<CursoGModel> GetParticipantes(int id)
-        {
-            throw new NotImplementedException();
         }
 
         //obtener la cantidad de cursos q ya fueron registrados para dashboard gral de cierta area
@@ -544,22 +456,10 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT ISNULL(" +
-                    "(SELECT COUNT(*) " +
-                    "FROM curso AS C " +
-                    "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
-                    "INNER JOIN area AS A ON CA.idarea = A.id " +
-                    "WHERE CA.listaregistrada = 1 " +
-                    "AND A.nomarea = @areadpto " +
-                    "AND YEAR(C.fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(C.fechaterm) = YEAR(GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, C.fechaterm) = DATEPART(MONTH, GETDATE())), 0) AS CursosRegistrados";
-
+                command.CommandText = "exec CantidadCursosRegistrados_AreaEsp @areadpto";
 
                 command.Parameters.Add("@areadpto", SqlDbType.NVarChar).Value = areadpto;
 
-                // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();
             }
             return count;
@@ -574,13 +474,8 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(nomcurso) AS CursosARegistrarMesActual FROM curso WHERE registrado = 0 " +
-                    "AND DATEPART(MONTH, fechainicio) = DATEPART(MONTH, GETDATE()) " +
-                    "AND DATEPART(MONTH, fechaterm) = DATEPART(MONTH, GETDATE()) " +
-                    "AND YEAR(fechainicio) = YEAR(GETDATE()) " +
-                    "AND YEAR(fechaterm) = YEAR(GETDATE())";
+                command.CommandText = "exec TotalCursosARegistrar";
 
-                // Ejecutar la consulta y obtener el recuento
                 count = (int)command.ExecuteScalar();
             }
             return count;

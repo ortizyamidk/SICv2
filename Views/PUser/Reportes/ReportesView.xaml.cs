@@ -430,7 +430,7 @@ namespace WPF_LoginForm.Views
 
                 List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetTrabajadoresListaAsistencia(idcurso);
 
-                if (cursoModel != null && trabajadores.Count>0 && cursoModel2 != null)
+                if (cursoModel != null && trabajadores.Count>0)
                 {
                     //obtener los resultados de la consulta sql en variables string
                     numcurso = cursoModel.Id.ToString();

@@ -95,15 +95,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.fechainicio, C.fechaterm, COALESCE(C.nominstr, I.nominstr) AS nominstr, A.nomarea " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN curso_area AS CA " +
-                    "ON C.id = CA.idcurso " +
-                    "INNER JOIN area AS A " +
-                    "ON CA.idarea = A.id " +
-                    "WHERE CA.listaregistrada = 1 AND A.nomarea = @nomarea";
+                command.CommandText = "exec CursosRegistradosPorArea @nomarea";
 
                 command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
@@ -136,13 +128,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT CA.id, C.nomcurso, C.areatematica, C.lugar, COALESCE(C.nominstr, I.nominstr) AS nominstr, CONVERT(varchar, C.fechainicio, 103) AS fechainicio, CONVERT(varchar, C.fechaterm, 103) AS fechaterm, C.horario, C.duracion " +
-                    "FROM curso AS C " +
-                    "LEFT JOIN instructor AS I " +
-                    "ON C.idinstructor = I.id " +
-                    "INNER JOIN curso_area AS CA " +
-                    "ON C.id = CA.idcurso " +
-                    "WHERE CA.id = @idlista";
+                command.CommandText = "exec VerInfoListaAsistencia @idlista";
 
                 command.Parameters.Add("@idlista", SqlDbType.Int).Value = id;
 
@@ -177,8 +163,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT nomcurso FROM cursos " +
-                                    "WHERE registrado = 0 AND areatematica = @areatematica";
+                command.CommandText = "SELECT nomcurso FROM cursos WHERE registrado = 0 AND areatematica = @areatematica";
 
                 command.Parameters.Add("@areatematica", SqlDbType.VarChar).Value = area;
 
@@ -225,42 +210,6 @@ namespace WPF_LoginForm.Repositories
             return cursoid;
         }
 
-        //????
-        public IEnumerable<CursoGModel> GetParticipantes(int id)
-        {
-            List<CursoGModel> participantes = new List<CursoGModel>();
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.nombre, P.nompuesto " +
-                                        "FROM instructor AS I " +
-                                        "INNER JOIN cursos AS C " +
-                                        "INNER JOIN listacursos AS LC ON C.id = LC.idcurso ON I.id = C.idinstructor " +
-                                        "INNER JOIN cursotrabajador AS CT ON LC.id = CT.idlistacursos " +
-                                        "INNER JOIN puesto AS P " +
-                                        "INNER JOIN trabajador AS T ON P.id = T.idpuesto ON CT.idtrabajador = T.id " +
-                                        "WHERE LC.id = @id AND C.areatematica = 'Calidad'";
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while(reader.Read())
-                    {
-                        CursoGModel participante = new CursoGModel()
-                        {
-                            NumFicha = (int)reader[0],
-                            NomTrabajador = reader[1].ToString(),
-                            Puesto = reader[2].ToString()
-                        };
-                        participantes.Add(participante);
-                    }
-                }
-            }
-            return participantes;
-        }
-
         //se edita el curso de que ya fue registrada su lista de asistencia
         public void IsCursoRegistered(int idcurso)
         {
@@ -275,9 +224,7 @@ namespace WPF_LoginForm.Repositories
 
                 command.ExecuteNonQuery();
             }
-        }
-
-        
+        }     
 
         //insertar instructor temporal
         public void AddInstructorTemporal(string nominstr, int idcurso)
@@ -320,14 +267,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT CASE WHEN MAX(CAST(CT.asistio AS INT)) = 1 THEN 1 " +
-                    "ELSE 0 END AS CursoImpartido " +
-                    "FROM trabajador AS T " +
-                    "INNER JOIN cursotrabajador AS CT ON T.id = CT.idtrabajador " +
-                    "INNER JOIN curso AS C ON CT.idcurso = C.id " +
-                    "INNER JOIN curso_area AS CA ON C.id = CA.idcurso " +
-                    "WHERE C.nomcurso = @nomcurso";
-
+                command.CommandText = "exec IsCursoImpartido @nomcurso";
 
                 command.Parameters.Add("@nomcurso", SqlDbType.NVarChar).Value = nomcurso;
 
