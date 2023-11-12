@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FontAwesome.Sharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -84,6 +85,7 @@ namespace WPF_LoginForm.ViewModels
             CountCursos = cursoRepository.GetCountTotalCursos(); //obtener area tematica
 
         }
+
 
         public void ObtenerResultadosDeConsulta()
         {

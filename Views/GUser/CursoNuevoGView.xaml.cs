@@ -69,8 +69,7 @@ namespace WPF_LoginForm.Views.GUser
 
                 cbCurso.Items.Add(item);
             }
-        }
-    
+        }    
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
@@ -99,8 +98,7 @@ namespace WPF_LoginForm.Views.GUser
                 repository.AddListaAsistencia(idCurrentArea, idcurso);
 
                 MostrarCustomMessageBox();
-                btnGuardar.IsEnabled = false;
-                CargarCursos();
+                Limpiar();
             }
         }
 
@@ -239,6 +237,32 @@ namespace WPF_LoginForm.Views.GUser
             if(e.Key == Key.Enter)
             {
                 btnSearch_Click(sender, e);
+            }
+        }
+
+        private void Limpiar()
+        {
+            txtID.Text = string.Empty;
+            cbCurso.Items.Clear();
+            txtArea.Text = string.Empty;
+            txtLugar.Text = string.Empty;
+            txtInicia.Text = string.Empty;
+            txtTermina.Text = string.Empty;
+            txtHor.Text = string.Empty;
+            txtDuracion.Text = string.Empty;
+            txtInstr.Text = string.Empty;
+            trabajadoresList.Clear();
+
+            CargarCursos();
+            cbCurso.SelectedIndex = 0;
+            txtBuscar.Focus();
+
+            if (cbCurso.Items.Count == 0)
+            {
+                MessageBox.Show("No hay cursos por registrar.", "Sin cursos para el mes", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                txtBuscar.IsEnabled = false;
+                btnGuardar.IsEnabled = false;
+                btnSearch.IsEnabled = false;
             }
         }
     }

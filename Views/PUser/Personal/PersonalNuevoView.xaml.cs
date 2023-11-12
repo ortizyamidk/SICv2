@@ -34,9 +34,7 @@ namespace WPF_LoginForm.Views
 
             txtJefe.IsEnabled = false;
 
-            dtIngreso.SelectedDate = DateTime.Now;
-
-           
+            dtIngreso.SelectedDate = DateTime.Now;           
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -56,9 +54,25 @@ namespace WPF_LoginForm.Views
             txtNombre.BorderBrush = bordeNormal;
             txtRFC.BorderBrush = bordeNormal;
 
-            if (string.IsNullOrEmpty(txtNoFicha.Text))
+            DateTime? selectedDate = dtIngreso.SelectedDate;
+            DateTime fechaActual = DateTime.Now;
+
+            string selecteddate = selectedDate.ToString();
+
+
+            if (selectedDate > fechaActual)
             {
-                txtNoFicha.BorderBrush = bordeError;
+               errores = true;
+            }
+
+            if (string.IsNullOrEmpty(selecteddate))
+            {
+                errores = true;
+            }
+
+            if (string.IsNullOrEmpty(txtNoFicha.Text) || string.IsNullOrEmpty(txtNumTarjeta.Text))
+            {
+                MessageBox.Show("Debe llenar No. ficha y Tarjeta");
                 txtNoFicha.Focus();
                 errores = true;
             }
@@ -116,7 +130,8 @@ namespace WPF_LoginForm.Views
             cbDpto.SelectedIndex = 0;
             cbArea.SelectedIndex = 0;
             cbPuesto.SelectedIndex = 0;
-
+            cbCat.SelectedIndex = 0;
+            cbNivel.SelectedIndex = 0;
 
             txtNoFicha.Focus();
         }
@@ -161,7 +176,6 @@ namespace WPF_LoginForm.Views
                     errFecha.Content = "No puede ser posterior a la actual";
                     errFecha.Visibility = Visibility.Visible;
                     btnGuardar.IsEnabled = false;
-
                 }
                 else
                 {

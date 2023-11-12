@@ -182,7 +182,6 @@ namespace WPF_LoginForm.Views
                     errIn.Content = "Debe ser posterior a la actual";
                     errIn.Visibility = Visibility.Visible;
                     btnGuardar.IsEnabled = false;
-
                 }
                 else
                 {
@@ -279,6 +278,30 @@ namespace WPF_LoginForm.Views
             {
                 errLug.Content = req;
                 txtLugar.BorderBrush = bordeError;
+                errores = true;
+            }
+
+            DateTime? selectedDate = dtInicia.SelectedDate;
+            DateTime? selectedDateT = dtTermina.SelectedDate;
+            if (selectedDateT < selectedDate)
+            {
+                errores = true;
+            }
+
+            DateTime fechaActual = DateTime.Now;
+            DateTime fechaAnterior = fechaActual.AddDays(-1);
+            if (selectedDate < fechaAnterior)
+            {
+                errores = true;
+            }
+
+            string selectedinicia = selectedDate.ToString();
+            string selectedtermina = selectedDateT.ToString();
+            DateTime? horaSeleccionada = tiHorario.SelectedTime;
+            string selectedhora = horaSeleccionada.ToString();
+
+            if (string.IsNullOrEmpty(selectedinicia)||string.IsNullOrEmpty(selectedtermina)||string.IsNullOrEmpty(selectedhora))
+            {
                 errores = true;
             }
 

@@ -92,19 +92,25 @@ namespace WPF_LoginForm.Views
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
 
-            int numf = int.Parse(txtNumF.Text);
-            var existingInstructor = repository.GetByAll().FirstOrDefault(c => c.Id == numf);
-
-            if (existingInstructor != null)
-            {
-                MessageBox.Show("Ya existe ese ID de Instructor", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                errores = true;
-            }
+            
 
             if (string.IsNullOrEmpty(txtNumF.Text))
             {
                 errNumF.Content = req;
                 txtNumF.BorderBrush = bordeError;
+                errores = true;
+            }
+            else
+            {
+                int numf = int.Parse(txtNumF.Text);
+                var existingInstructor = repository.GetByAll().FirstOrDefault(c => c.Id == numf);
+
+                if (existingInstructor != null)
+                {
+                    MessageBox.Show("Ya existe ese ID de Instructor", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    errores = true;
+                }
+
                 errores = true;
             }
 
