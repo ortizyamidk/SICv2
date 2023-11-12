@@ -332,6 +332,15 @@ namespace WPF_LoginForm.Views
             habilitar();
         }
 
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Llama al manejador de eventos del botón btnSearch.
+                btnSave_Click(sender, e);
+            }
+        }
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             bool errores = false;

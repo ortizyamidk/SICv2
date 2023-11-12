@@ -33,7 +33,7 @@ namespace WPF_LoginForm.Views
         TrabajadorRepository trabajadorRepository;
         CursoRepository cursoRepository;
         TrabajadorModel trabajadorModel;
-        CursoModel cursoModel, cursoModel2;
+        CursoModel cursoModel;
 
         int numficha;
         string idtrabajador, nombretrabajador, rfc, puesto, depto, area, fechaing;

@@ -26,14 +26,10 @@ namespace WPF_LoginForm.Views
         string idCurso;
 
         ObservableCollection<TrabajadorModel> participantes;
-
         
         DepartamentoRepository departamentoRepository;
         TrabajadorRepository trabajadorRepository;
         CursoGRepository cursoGRepository;
-
-
-
 
         public CursosTrabajadorInfoView()
         {
@@ -43,8 +39,6 @@ namespace WPF_LoginForm.Views
             departamentoRepository = new DepartamentoRepository();
             trabajadorRepository = new TrabajadorRepository();
             cursoGRepository = new CursoGRepository();
-            
-
         }
 
         private void CargarAreas()
@@ -57,14 +51,12 @@ namespace WPF_LoginForm.Views
                     Content = area.NomDepto
                 };
                 cbArea.Items.Add(item);
-            }
-
-         
+            }       
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            txtSearch.Focus(); // Establece el enfoque en el TextBox
+            txtSearch.Focus();
           
             CargarAreas();
             btnPaseLista.Visibility = Visibility.Collapsed;
@@ -106,7 +98,6 @@ namespace WPF_LoginForm.Views
 
                 if (asistencia != null)
                 {                   
-
                     cbArea.SelectedIndex = 0;
 
                     txtIDCurso.Text = asistencia.IdCurso.ToString();
@@ -156,7 +147,6 @@ namespace WPF_LoginForm.Views
                         txtImpartido.Text = string.Empty;
                         btnPaseLista.Visibility = Visibility.Collapsed;
                     }
-
                 }
                 else
                 {
@@ -208,13 +198,10 @@ namespace WPF_LoginForm.Views
                 cbBorder.Visibility = Visibility.Collapsed;
             }
 
-            btnPaseLista.Visibility = Visibility.Collapsed;
-           
-            
+            btnPaseLista.Visibility = Visibility.Collapsed;                    
         }
 
-
-        private void btnSearch_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void CursosTrabajadorInfoView_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {

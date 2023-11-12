@@ -20,7 +20,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO instructor (id, nominstr, rfc, tipoinstr, nomcia) VALUES (@id, @nominstr, @rfc, @tipo, @compania)";
+                command.CommandText = "exec Insertar_Instructor @id, @nominstr, @rfc, @tipo, @compania";
 
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.Parameters.Add("@nominstr", SqlDbType.VarChar).Value = nominstr;
@@ -39,7 +39,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE instructor SET nominstr = @nominstr, rfc = @rfc, tipoinstr = @tipo, nomcia = @compania WHERE id = @id";
+                command.CommandText = "exec Editar_Instructor @nominstr, @rfc, @tipo, @compania, @id";
 
                 command.Parameters.Add("@nominstr", SqlDbType.VarChar).Value = nominstr;
                 command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;

@@ -59,6 +59,13 @@ namespace WPF_LoginForm.CustomControls
             this.Close();
         }
 
-        
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Llama al manejador de eventos del botón btnSearch.
+                Aceptar_Click(sender, e);
+            }
+        }
     }
 }

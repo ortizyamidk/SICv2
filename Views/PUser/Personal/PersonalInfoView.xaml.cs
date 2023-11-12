@@ -122,11 +122,6 @@ namespace WPF_LoginForm.Views
             customMessageBox.ShowDialog();
         }
 
-        private void btnSig_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
         {
             if (!IsLetter(e.Text))
@@ -189,6 +184,15 @@ namespace WPF_LoginForm.Views
                     imagenByte = memoria.ToArray();
                 }
             }
+        }
+
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Llama al manejador de eventos del botón btnSearch.
+                btnSave_Click(sender, e);
+            }          
         }
     }
 }

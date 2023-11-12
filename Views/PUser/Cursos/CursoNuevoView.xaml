@@ -9,7 +9,8 @@
              xmlns:uc="clr-namespace:WPF_LoginForm.CustomControls" 
              xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
              mc:Ignorable="d" 
-            d:DesignHeight="500" d:DesignWidth="1060">
+            d:DesignHeight="500" d:DesignWidth="1060"
+             PreviewKeyDown="UserControl_PreviewKeyDown">
 
     <Grid>
         <Border CornerRadius="27" BorderThickness="1">

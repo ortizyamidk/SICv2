@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:WPF_LoginForm.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="580" d:DesignWidth="1050">
+             d:DesignHeight="580" d:DesignWidth="1050"
+             PreviewKeyDown="CursosTrabajadorInfoView_PreviewKeyDown">
 
     <Border CornerRadius="25" BorderThickness="1">
         <Border.Background>
@@ -67,7 +68,7 @@
                             </TextBlock>
                         </Grid>
 
-                        <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" PreviewKeyDown="btnSearch_PreviewKeyDown" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnSearch_Click">
+                        <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnSearch_Click">
                             <fa:IconImage HorizontalAlignment="Right" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
                         </Button>
                     </StackPanel>

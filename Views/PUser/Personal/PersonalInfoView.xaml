@@ -7,7 +7,8 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="570" d:DesignWidth="1060">
+             d:DesignHeight="570" d:DesignWidth="1060"
+             PreviewKeyDown="UserControl_PreviewKeyDown">
 
     <Grid>
         <Border CornerRadius="27" BorderThickness="1">
@@ -38,17 +39,7 @@
 
                             <TextBlock x:Name="lblNoFicha" Grid.Column="0" TextWrapping="Wrap" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 57019" HorizontalAlignment="Center" Margin="5 10 0 10" FontSize="23"/>
 
-                            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 10">
-                                <Button x:Name="btnAnt" Background="Transparent" Cursor="Hand" BorderThickness="0">
-                                    <fa:IconImage Icon="ChevronLeft" Foreground="White" Width="20" Height="30" />
-                                </Button>
-
-                                <Image x:Name="imgTrabajador" Source="/Images/perfil.jpg" Width="120" Height="180"/>
-
-                                <Button x:Name="btnSig" Background="Transparent" Cursor="Hand" BorderThickness="0" Click="btnSig_Click">
-                                    <fa:IconImage Icon="ChevronRight" Foreground="White" Width="20" Height="30" />
-                                </Button>
-                            </StackPanel>
+                            <Image x:Name="imgTrabajador" Grid.Row="1" HorizontalAlignment="Center" Source="/Images/perfil.jpg" Width="120" Height="180"/>       
                             
                             <Button x:Name="btnExam" Grid.Row="2" Content="Cargar Foto" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="110" Height="30" Cursor="Hand" VerticalAlignment="Top" Click="btnExam_Click"/>
 

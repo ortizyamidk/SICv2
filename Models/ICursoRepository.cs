@@ -30,7 +30,6 @@ namespace WPF_LoginForm.Models
         void EditCurso(string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor, string id);
 
         CursoModel GetByName(string nomcurso);
-        CursoModel GetIdByName(string nomcurso);
         CursoModel GetById(string id);
 
         CursoGModel GetAsistenciaById(string idcurso);

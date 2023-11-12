@@ -159,6 +159,15 @@ namespace WPF_LoginForm.Views
             customMessageBox.ShowDialog();
         }
 
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Llama al manejador de eventos del botón btnSearch.
+                btnSave_Click(sender, e);
+            }           
+        }
+
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
         {
             if (!IsLetter(e.Text))

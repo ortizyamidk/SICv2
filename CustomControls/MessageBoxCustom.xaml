@@ -16,7 +16,8 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize"
-        ContentRendered="Window_ContentRendered">
+        ContentRendered="Window_ContentRendered"
+        PreviewKeyDown="Window_PreviewKeyDown">
 
   
      <!-- Contenido de tu MessageBox -->

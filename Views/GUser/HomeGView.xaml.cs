@@ -22,26 +22,18 @@ namespace WPF_LoginForm.Views.GUser
 {
     public partial class HomeGView : UserControl
     {
-        private IHubProxy hubProxy;
-        private HubConnection hubConnection;
 
         public HomeGView()
         {
             InitializeComponent();
-
             Loaded += HomeGView_Loaded;
         }
 
         private void HomeGView_Loaded(object sender, RoutedEventArgs e)
         {
-            // Coloca aquí el código para actualizar tu vista, por ejemplo, volver a cargar los datos desde el ViewModel
-            // El código se ejecutará cuando la vista esté completamente cargada
-            // Obtén el valor de CountCursosRegistered desde el ViewModel
             var viewModel = (HomeGViewModel)DataContext;
 
             int count = viewModel.CountCursosRegistered; //2
-
-
             int count2 = viewModel.CountCursos; //6         
 
             if (count == 0 && count2 == 0)
@@ -69,12 +61,7 @@ namespace WPF_LoginForm.Views.GUser
                     valor1.Values = new ChartValues<double> { valor1I }; // Establece el valor deseado para valor1
                     valor2.Values = new ChartValues<double> { valor2I }; // Establece el valor deseado para valor2
                 }
-
             }
         }
-
-        
-                    
-
     }
 }

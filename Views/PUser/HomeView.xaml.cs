@@ -57,6 +57,8 @@ namespace WPF_LoginForm.Views
                 valorAvance.Values = new ChartValues<double> { valoravance };
                 valorFaltante.Values = new ChartValues<double> { valorfaltante };
             }
+
+
              
         }
     }

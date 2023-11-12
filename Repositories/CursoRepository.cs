@@ -36,7 +36,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO curso (id, nomcurso, areatematica, fechainicio, fechaterm, horario, duracion, lugar, idinstructor) VALUES(@id, @nomcurso, @area, @inicio, @term, @hor, @dur, @lugar, @idinstr)";
+                command.CommandText = "exec Crear_CursoInstructor @id, @nomcurso, @area, @inicio, @term, @hor, @dur, @lugar, @idinstr";
 
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
@@ -59,7 +59,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO curso (id, nomcurso, areatematica, fechainicio, fechaterm, horario, duracion, lugar, nominstr) VALUES(@id, @nomcurso, @area, @inicio, @term, @hor, @dur, @lugar, @instr)";
+                command.CommandText = "exec Crear_Curso @id, @nomcurso, @area, @inicio, @term, @hor, @dur, @lugar, @instr";
 
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
@@ -83,9 +83,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE curso SET nomcurso = @nomcurso, areatematica = @areatem, " +
-                                    "fechainicio = @inicia, fechaterm = @termina, horario = @horario, duracion = @duracion, lugar = @lugar, nominstr = NULL, idinstructor = @idinstr " +
-                                    "WHERE id = @id";
+                command.CommandText = "exec Editar_CursoInstructor @nomcurso, @areatem, @inicia, @termina, @horario, @duracion, @lugar, @idinstr, @id ";
 
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
                 command.Parameters.Add("@areatem", SqlDbType.VarChar).Value = areatematica;
@@ -109,9 +107,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE curso SET nomcurso = @nomcurso, areatematica = @areatem, " +
-                                    "fechainicio = @inicia, fechaterm = @termina, horario = @horario, duracion = @duracion, lugar = @lugar, nominstr = @nominstr, idinstructor = NULL " +
-                                    "WHERE id = @id";
+                command.CommandText = "exec Editar_Curso @nomcurso, @areatem, @inicia, @termina, @horario, @duracion, @lugar, @nominstr, @id";
 
                 command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
                 command.Parameters.Add("@areatem", SqlDbType.VarChar).Value = areatematica;
@@ -382,33 +378,6 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return cursos;
-        }
-
-        public CursoModel GetIdByName(string nomcurso)
-        {
-            CursoModel curso = null;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
-            {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "SELECT id FROM curso WHERE nomcurso = @nomcurso";
-
-                command.Parameters.Add("@nomcurso", SqlDbType.VarChar).Value = nomcurso;
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        curso = new CursoModel()
-                        {
-                            Id = reader[0].ToString()
-
-                        };
-                    }
-                }
-            }
-            return curso;
         }
 
         //reportes

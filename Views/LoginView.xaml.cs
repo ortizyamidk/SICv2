@@ -45,5 +45,14 @@ namespace WPF_LoginForm.Views
         {
             Application.Current.Shutdown();
         }
+
+        private void LoginView_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Llama al comando LoginCommand.
+                ((LoginViewModel)DataContext).LoginCommand.Execute(null);
+            }
+        }
     }
 }

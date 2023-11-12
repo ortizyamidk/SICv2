@@ -336,6 +336,15 @@ namespace WPF_LoginForm.Views
             }          
         }
 
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // Llama al manejador de eventos del botón btnSearch.
+                btnGuardar_Click(sender, e);
+            }
+        }
+
         private void MostrarCustomMessageBox()
         {
             MessageBoxCustom customMessageBox = new MessageBoxCustom();

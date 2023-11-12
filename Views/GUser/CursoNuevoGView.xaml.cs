@@ -36,14 +36,10 @@ namespace WPF_LoginForm.Views.GUser
 
         ObservableCollection<TrabajadorModel> trabajadoresList = new ObservableCollection<TrabajadorModel>();
 
-        
-
         public CursoNuevoGView()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-
-            
+            Loaded += MainWindow_Loaded;          
 
             repository = new CursoGRepository();
             trabajadorRepository = new TrabajadorRepository();
@@ -57,8 +53,7 @@ namespace WPF_LoginForm.Views.GUser
 
             //si el valor es nulo, entonces...
             cbCurso.SelectedIndex = 0;
-
-            
+           
         }
 
         private void CargarCursos()
@@ -106,9 +101,7 @@ namespace WPF_LoginForm.Views.GUser
                 MostrarCustomMessageBox();
                 btnGuardar.IsEnabled = false;
                 CargarCursos();
-
             }
-
         }
 
         private void MostrarCustomMessageBox()
@@ -148,7 +141,6 @@ namespace WPF_LoginForm.Views.GUser
                 txtHor.Text = curso.Horario;
                 txtDuracion.Text = curso.Duracion.ToString();
                 txtInstr.Text = curso.Instructor;
-
 
                 int cursoIndex = -1;
                 for (int i = 0; i < cbCurso.Items.Count; i++)
@@ -239,6 +231,14 @@ namespace WPF_LoginForm.Views.GUser
                     // Eliminar el elemento de la colección de datos
                     trabajadoresList.Remove(participante);
                 }
+            }
+        }
+
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                btnSearch_Click(sender, e);
             }
         }
     }
