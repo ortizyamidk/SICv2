@@ -281,9 +281,9 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel personalCalif = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
-                            Nombre = reader[1].ToString(),
-                            Area = reader[2].ToString(),
+                            Area = reader[0].ToString(),
+                            Id = (int)reader[1],
+                            Nombre = reader[2].ToString(),                         
                             Puesto = reader[3].ToString()
                         };
 

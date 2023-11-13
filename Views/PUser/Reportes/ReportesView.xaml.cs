@@ -22,7 +22,6 @@ using WPF_LoginForm.ViewModels;
 using objWord = Microsoft.Office.Interop.Word;
 using Microsoft.Win32;
 using Microsoft.Office.Interop.Excel;
-using System.Diagnostics;
 
 namespace WPF_LoginForm.Views
 {
@@ -49,8 +48,6 @@ namespace WPF_LoginForm.Views
 
         object bookmarkName, participantesBookmarkName, cursosBookmarkName, personalCABookmarkName;
 
-
-
         public ReportesView()
         {
             InitializeComponent();
@@ -74,7 +71,6 @@ namespace WPF_LoginForm.Views
             }
         }
 
-
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             CargarAreas();
@@ -84,32 +80,50 @@ namespace WPF_LoginForm.Views
         {
             List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetPersonalCalificadoGral();
 
-            if(trabajadores.Count > 0)
+            if (trabajadores.Count > 0)
             {
                 ObjMiss = System.Reflection.Missing.Value;
                 objWord.Application ObjWord = new objWord.Application();
-                filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\pcalificado.docx";
-                objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
 
-                personalCABookmarkName = "mpersonalCalificado";
+                string directorioAplicacion = AppDomain.CurrentDomain.BaseDirectory;
 
-                objWord.Range personalRange = ObjDoc.Bookmarks.get_Item(ref personalCABookmarkName).Range;
-                objWord.Table tabla = personalRange.Tables[1];
+                string filePath = System.IO.Path.Combine(directorioAplicacion, "PLANTILLAS\\pcalificado.docx");
 
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Documentos de Word (*.docx)|*.docx|Todos los archivos (*.*)|*.*";
+                saveFileDialog.Title = "Guardar copia del documento";
+                saveFileDialog.FileName = "pcalificado_copia.docx";
 
-                foreach (var personal in trabajadores)
+                if (saveFileDialog.ShowDialog() == true)
                 {
-                    // Agrega una fila a la tabla
-                    objWord.Row fila = tabla.Rows.Add();
+                    string copiaFilePath = saveFileDialog.FileName;
+                    System.IO.File.Copy(filePath, copiaFilePath, true);
 
-                    // Rellena las celdas con los datos del trabajador
-                    fila.Cells[1].Range.Text = personal.Id.ToString();
-                    fila.Cells[2].Range.Text = personal.Nombre;
-                    fila.Cells[3].Range.Text = personal.Area;
-                    fila.Cells[4].Range.Text = personal.Puesto;
+                    objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
+
+                    //edita el doc
+                    personalCABookmarkName = "mpersonalCalificado";
+
+                    objWord.Range personalRange = ObjDoc.Bookmarks.get_Item(ref personalCABookmarkName).Range;
+                    objWord.Table tabla = personalRange.Tables[1];
+
+
+                    foreach (var personal in trabajadores)
+                    {
+                        // Agrega una fila a la tabla
+                        objWord.Row fila = tabla.Rows.Add();
+
+                        // Rellena las celdas con los datos del trabajador
+                        fila.Cells[1].Range.Text = personal.Id.ToString();
+                        fila.Cells[2].Range.Text = personal.Nombre;
+                        fila.Cells[3].Range.Text = personal.Area;
+                        fila.Cells[4].Range.Text = personal.Puesto;
+                    }
+                    //fin edicion
+
+                    ObjDoc.SaveAs2(saveFileDialog.FileName);
+                    ObjWord.Visible = true;
                 }
-
-                ObjWord.Visible = true;
             }
             else
             {
@@ -147,74 +161,100 @@ namespace WPF_LoginForm.Views
                     idinstructor = cursoModel.idinstructor.ToString();
                     rfcinstructor = cursoModel.rfcinstructor.ToString();
                     lugar = cursoModel.Lugar.ToString();
+                
 
-                    string filePathExcel = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\listaAs.xlsx";
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Archivos de Excel|*.xlsx";
+                    saveFileDialog.Title = "Guardar lista de asistencia";
+                    saveFileDialog.FileName = "listaAsistencia_Copia.xlsx";
 
-                    // Crear una aplicación Excel
-                    Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
-                    excelApp.Visible = true; // Mostrar Excel (opcional)
-
-                    // Abrir la plantilla
-                    Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Open(filePathExcel);
-
-                    // Acceder a la hoja de trabajo (puedes cambiar el nombre de la hoja si es necesario)
-                    Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets["ListaAsistencia"];
-
-                    //ASIGNAR DATOS A CELDAS
-                    worksheet.Cells[3, 3] = nomcurso;
-                    worksheet.Cells[3, 27] = numcurso;
-                    worksheet.Cells[4, 3] = duracion;
-                    worksheet.Cells[4, 8] = inicio;
-                    worksheet.Cells[4, 14] = termino;
-                    worksheet.Cells[4, 27] = horario;
-                    worksheet.Cells[5, 3] = instructor;
-                    worksheet.Cells[5, 8] = idinstructor;
-                    worksheet.Cells[5, 11] = rfcinstructor;
-                    worksheet.Cells[5, 27] = lugar;
-
-                    worksheet.Cells[34, 6] = instructor;
-
-
-                    int lim = trabajadores.Count + 9;
-                    int registrosPorHoja = 20;
-                    int hojasCreadas = 0;
-                    int totalRegistros = trabajadores.Count;
-
-                    for (int inicioGrupo = 0; inicioGrupo < totalRegistros; inicioGrupo += registrosPorHoja)
+                    if (saveFileDialog.ShowDialog() == true)
                     {
-                        hojasCreadas++;
-                        int finGrupo = Math.Min(inicioGrupo + registrosPorHoja, totalRegistros);
+                        string filePathGuardar = saveFileDialog.FileName;
 
-                        // Copiar la hoja original si se crean hojas adicionales
-                        if (hojasCreadas > 1)
+                        Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+
+                        string directorioAplicacion = AppDomain.CurrentDomain.BaseDirectory;
+                        string filePathExcelOriginal = System.IO.Path.Combine(directorioAplicacion, "PLANTILLAS\\listaAs.xlsx");
+
+                        Microsoft.Office.Interop.Excel.Workbook workbook = excelApp.Workbooks.Open(filePathExcelOriginal);
+                        Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets["ListaAsistencia"];
+
+                        // Resto del código para editar el archivo Excel                      
+
+                        //EDITAR
+                        //ASIGNAR DATOS A CELDAS
+                        worksheet.Cells[3, 3] = nomcurso;
+                        worksheet.Cells[3, 27] = numcurso;
+                        worksheet.Cells[4, 3] = duracion;
+                        worksheet.Cells[4, 8] = inicio;
+                        worksheet.Cells[4, 14] = termino;
+                        worksheet.Cells[4, 27] = horario;
+                        worksheet.Cells[5, 3] = instructor;
+                        worksheet.Cells[5, 8] = idinstructor;
+                        worksheet.Cells[5, 11] = rfcinstructor;
+                        worksheet.Cells[5, 27] = lugar;
+
+                        worksheet.Cells[34, 6] = instructor;
+
+                        int lim = trabajadores.Count + 9;
+                        int registrosPorHoja = 20;
+                        int hojasCreadas = 0;
+                        int totalRegistros = trabajadores.Count;
+
+                        for (int inicioGrupo = 0; inicioGrupo < totalRegistros; inicioGrupo += registrosPorHoja)
                         {
-                            worksheet.Copy(Type.Missing, workbook.Sheets[workbook.Sheets.Count]);
+                            hojasCreadas++;
+                            int finGrupo = Math.Min(inicioGrupo + registrosPorHoja, totalRegistros);
+
+                            // Copiar la hoja original si se crean hojas adicionales
+                            if (hojasCreadas > 1)
+                            {
+                                worksheet.Copy(Type.Missing, workbook.Sheets[workbook.Sheets.Count]);
+                            }
+
+                            // Acceder a la hoja actual
+                            Microsoft.Office.Interop.Excel.Worksheet currentWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets[workbook.Sheets.Count];
+
+                            // Vaciar las celdas en la hoja actual
+                            for (int i = 9; i < lim; i++)
+                            {
+                                currentWorksheet.Cells[i, 2] = "";
+                                currentWorksheet.Cells[i, 5] = "";
+                                currentWorksheet.Cells[i, 7] = "";
+                            }
+
+                            int contadorGrupo = inicioGrupo;
+
+                            // Llenar la hoja actual con el grupo de registros
+                            for (int i = 9; i < 9 + finGrupo - inicioGrupo; i++)
+                            {
+                                var trabajador = trabajadores[contadorGrupo];
+                                currentWorksheet.Cells[i, 2] = trabajador.Nombre;
+                                currentWorksheet.Cells[i, 5] = trabajador.Id;
+                                currentWorksheet.Cells[i, 7] = trabajador.Area;
+                                contadorGrupo++;
+                            }
                         }
+                        //FIN EDICION
 
-                        // Acceder a la hoja actual
-                        Microsoft.Office.Interop.Excel.Worksheet currentWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets[workbook.Sheets.Count];
+                        workbook.SaveAs(filePathGuardar);
 
-                        // Vaciar las celdas en la hoja actual
-                        for (int i = 9; i < lim; i++)
-                        {
-                            currentWorksheet.Cells[i, 2] = "";
-                            currentWorksheet.Cells[i, 5] = "";
-                            currentWorksheet.Cells[i, 7] = "";
-                        }
+                        // Cerrar y liberar recursos
+                        workbook.Close(false, Type.Missing, Type.Missing);
+                        excelApp.Quit();
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
 
-                        int contadorGrupo = inicioGrupo;
+                        excelApp = null;
+                        workbook = null;
 
-                        // Llenar la hoja actual con el grupo de registros
-                        for (int i = 9; i < 9 + finGrupo - inicioGrupo; i++)
-                        {
-                            var trabajador = trabajadores[contadorGrupo];
-                            currentWorksheet.Cells[i, 2] = trabajador.Nombre;
-                            currentWorksheet.Cells[i, 5] = trabajador.Id;
-                            currentWorksheet.Cells[i, 7] = trabajador.Area;
-                            contadorGrupo++;
-                        }
-                    }
-
+                        // Mostrar el archivo guardado
+                        excelApp = new Microsoft.Office.Interop.Excel.Application();
+                        workbook = excelApp.Workbooks.Open(filePathGuardar);
+                        excelApp.Visible = true;
+                    }                    
+                    
                 }
                 else
                 {
@@ -224,7 +264,6 @@ namespace WPF_LoginForm.Views
             Limpiar();
             buscarCurso2.Focus();
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -237,34 +276,45 @@ namespace WPF_LoginForm.Views
             {
                 ObjMiss = System.Reflection.Missing.Value;
                 objWord.Application ObjWord = new objWord.Application();
-                filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\pcalificadoarea.docx";
 
-                objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
+                string directorioAplicacion = AppDomain.CurrentDomain.BaseDirectory;
+                string filePath = System.IO.Path.Combine(directorioAplicacion, "PLANTILLAS\\pcalificadoarea.docx");
 
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Documentos de Word (*.docx)|*.docx|Todos los archivos (*.*)|*.*";
+                saveFileDialog.Title = "Guardar copia del documento";
+                saveFileDialog.FileName = "pcalificadoarea_copia.docx";
 
-                area1 = "marea";
-                personalCABookmarkName = "mpersonal";
-
-
-                objWord.Range ar = ObjDoc.Bookmarks.get_Item(ref area1).Range;
-                ar.Text = area;
-
-                objWord.Range personalRange = ObjDoc.Bookmarks.get_Item(ref personalCABookmarkName).Range;
-                objWord.Table tabla = personalRange.Tables[1];
-                
-
-                foreach (var personal in trabajadores)
+                if (saveFileDialog.ShowDialog() == true)
                 {
-                    // Agrega una fila a la tabla
-                    objWord.Row fila = tabla.Rows.Add();
+                    string copiaFilePath = saveFileDialog.FileName;
+                    System.IO.File.Copy(filePath, copiaFilePath, true);
 
-                    // Rellena las celdas con los datos del trabajador
-                    fila.Cells[1].Range.Text = personal.Id.ToString();
-                    fila.Cells[2].Range.Text = personal.Nombre;
-                    fila.Cells[3].Range.Text = personal.Puesto;
+                    objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
+
+                    area1 = "marea";
+                    personalCABookmarkName = "mpersonal";
+
+                    objWord.Range ar = ObjDoc.Bookmarks.get_Item(ref area1).Range;
+                    ar.Text = area;
+
+                    objWord.Range personalRange = ObjDoc.Bookmarks.get_Item(ref personalCABookmarkName).Range;
+                    objWord.Table tabla = personalRange.Tables[1];
+
+
+                    foreach (var personal in trabajadores)
+                    {
+                        // Agrega una fila a la tabla
+                        objWord.Row fila = tabla.Rows.Add();
+
+                        // Rellena las celdas con los datos del trabajador
+                        fila.Cells[1].Range.Text = personal.Id.ToString();
+                        fila.Cells[2].Range.Text = personal.Nombre;
+                        fila.Cells[3].Range.Text = personal.Puesto;
+                    }
+                    ObjDoc.SaveAs2(saveFileDialog.FileName);
+                    ObjWord.Visible = true;
                 }
-
-                ObjWord.Visible = true;
             }
             else
             {
@@ -298,54 +348,65 @@ namespace WPF_LoginForm.Views
                     ObjMiss = System.Reflection.Missing.Value;
                     objWord.Application ObjWord = new objWord.Application();
 
-                    //filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\historialcursos.docx";
-                    // Obtén la ruta del directorio de la aplicación
-                    string directorioApp = AppDomain.CurrentDomain.BaseDirectory;
-                    filePath = System.IO.Path.Combine(directorioApp, "historialcursos.docx");
+                    string directorioAplicacion = AppDomain.CurrentDomain.BaseDirectory;
 
-                    objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
+                    string filePath = System.IO.Path.Combine(directorioAplicacion, "PLANTILLAS\\historialcursos.docx");
 
-                    numf1 = "mnumficha";
-                    nombre1 = "mnombre";
-                    puesto1 = "mpuesto";
-                    depto1 = "mdepto";
-                    area1 = "marea";
-                    fechaing1 = "mingreso";
-                    cursosBookmarkName = "mcursos";
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Documentos de Word (*.docx)|*.docx|Todos los archivos (*.*)|*.*";
+                    saveFileDialog.Title = "Guardar copia del documento";
+                    saveFileDialog.FileName = "historialcursos_copia.docx";
 
-                    objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
-                    num.Text = idtrabajador;
-
-                    objWord.Range nom = ObjDoc.Bookmarks.get_Item(ref nombre1).Range;
-                    nom.Text = nombretrabajador;
-
-                    objWord.Range pues = ObjDoc.Bookmarks.get_Item(ref puesto1).Range;
-                    pues.Text = puesto;
-
-                    objWord.Range dep = ObjDoc.Bookmarks.get_Item(ref depto1).Range;
-                    dep.Text = depto;
-
-                    objWord.Range ar = ObjDoc.Bookmarks.get_Item(ref area1).Range;
-                    ar.Text = area;
-
-                    objWord.Range fecha = ObjDoc.Bookmarks.get_Item(ref fechaing1).Range;
-                    fecha.Text = fechaing;
-
-                    objWord.Range cursosRange = ObjDoc.Bookmarks.get_Item(ref cursosBookmarkName).Range;
-                    objWord.Table tabla = cursosRange.Tables[1];
-
-                    foreach (var curso in cursos)
+                    if (saveFileDialog.ShowDialog() == true)
                     {
-                        // Agrega una fila a la tabla
-                        objWord.Row fila = tabla.Rows.Add();
+                        string copiaFilePath = saveFileDialog.FileName;
+                        System.IO.File.Copy(filePath, copiaFilePath, true);
 
-                        // Rellena las celdas con los datos del trabajador
-                        fila.Cells[1].Range.Text = curso.NomCurso;
-                        fila.Cells[2].Range.Text = curso.Inicio;
-                        fila.Cells[3].Range.Text = curso.Instructor;
+                        objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
+
+                        numf1 = "mnumficha";
+                        nombre1 = "mnombre";
+                        puesto1 = "mpuesto";
+                        depto1 = "mdepto";
+                        area1 = "marea";
+                        fechaing1 = "mingreso";
+                        cursosBookmarkName = "mcursos";
+
+                        objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
+                        num.Text = idtrabajador;
+
+                        objWord.Range nom = ObjDoc.Bookmarks.get_Item(ref nombre1).Range;
+                        nom.Text = nombretrabajador;
+
+                        objWord.Range pues = ObjDoc.Bookmarks.get_Item(ref puesto1).Range;
+                        pues.Text = puesto;
+
+                        objWord.Range dep = ObjDoc.Bookmarks.get_Item(ref depto1).Range;
+                        dep.Text = depto;
+
+                        objWord.Range ar = ObjDoc.Bookmarks.get_Item(ref area1).Range;
+                        ar.Text = area;
+
+                        objWord.Range fecha = ObjDoc.Bookmarks.get_Item(ref fechaing1).Range;
+                        fecha.Text = fechaing;
+
+                        objWord.Range cursosRange = ObjDoc.Bookmarks.get_Item(ref cursosBookmarkName).Range;
+                        objWord.Table tabla = cursosRange.Tables[1];
+
+                        foreach (var curso in cursos)
+                        {
+                            // Agrega una fila a la tabla
+                            objWord.Row fila = tabla.Rows.Add();
+
+                            // Rellena las celdas con los datos del trabajador
+                            fila.Cells[1].Range.Text = curso.NomCurso;
+                            fila.Cells[2].Range.Text = curso.Inicio;
+                            fila.Cells[3].Range.Text = curso.Instructor;
+                        }
+
+                        ObjDoc.SaveAs2(saveFileDialog.FileName);
+                        ObjWord.Visible = true;
                     }
-
-                    ObjWord.Visible = true;
                 }
                 else
                 {
@@ -355,7 +416,6 @@ namespace WPF_LoginForm.Views
 
             Limpiar();
             buscarTrab.Focus();
-
         }
 
         private void btnDC3_Click(object sender, RoutedEventArgs e)
@@ -379,36 +439,49 @@ namespace WPF_LoginForm.Views
                     //crear documento
                     ObjMiss = System.Reflection.Missing.Value;
                     objWord.Application ObjWord = new objWord.Application();
-                    filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\formatodc3.docx";
-                    //object filePath = "/Plantillas/formatodc3.docx"; // Reemplaza "NombreCarpetaEnProyecto" con la ubicación correcta
 
-                    objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
+                    string directorioAplicacion = AppDomain.CurrentDomain.BaseDirectory;
+                    string filePath = System.IO.Path.Combine(directorioAplicacion, "PLANTILLAS\\formatodc3.docx");
 
-                    numf1 = "mnumficha";
-                    nombre1 = "mnombre";
-                    puesto1 = "mpuesto";
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Documentos de Word (*.docx)|*.docx|Todos los archivos (*.*)|*.*";
+                    saveFileDialog.Title = "Guardar copia del documento";
+                    saveFileDialog.FileName = "formatodc3_copia.docx";
 
-                    for (int i = 0; i < rfc.Length; i++)
+                    if (saveFileDialog.ShowDialog() == true)
                     {
-                        bookmarkName = "x" + (i + 1);
-                        char character = rfc[i];
+                        string copiaFilePath = saveFileDialog.FileName;
+                        System.IO.File.Copy(filePath, copiaFilePath, true);
 
-                        objWord.Range bookmarkRange = ObjDoc.Bookmarks.get_Item(ref bookmarkName).Range;
-                        bookmarkRange.Text = character.ToString();
+                        objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
+
+                        numf1 = "mnumficha";
+                        nombre1 = "mnombre";
+                        puesto1 = "mpuesto";
+
+                        for (int i = 0; i < rfc.Length; i++)
+                        {
+                            bookmarkName = "x" + (i + 1);
+                            char character = rfc[i];
+
+                            objWord.Range bookmarkRange = ObjDoc.Bookmarks.get_Item(ref bookmarkName).Range;
+                            bookmarkRange.Text = character.ToString();
+                        }
+
+
+                        objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
+                        num.Text = idtrabajador;
+
+                        objWord.Range nom = ObjDoc.Bookmarks.get_Item(ref nombre1).Range;
+                        nom.Text = nombretrabajador;
+
+
+                        objWord.Range pues = ObjDoc.Bookmarks.get_Item(ref puesto1).Range;
+                        pues.Text = puesto;
+
+                        ObjDoc.SaveAs2(saveFileDialog.FileName);
+                        ObjWord.Visible = true;
                     }
-
-
-                    objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
-                    num.Text = idtrabajador;
-
-                    objWord.Range nom = ObjDoc.Bookmarks.get_Item(ref nombre1).Range;
-                    nom.Text = nombretrabajador;
-
-
-                    objWord.Range pues = ObjDoc.Bookmarks.get_Item(ref puesto1).Range;
-                    pues.Text = puesto;
-
-                    ObjWord.Visible = true;
                 }
                 else
                 {
@@ -434,7 +507,7 @@ namespace WPF_LoginForm.Views
 
                 List<TrabajadorModel> trabajadores = (List<TrabajadorModel>)trabajadorRepository.GetTrabajadoresListaAsistencia(idcurso);
 
-                if (cursoModel != null && trabajadores.Count>0)
+                if (cursoModel != null && trabajadores.Count > 0)
                 {
                     //obtener los resultados de la consulta sql en variables string
                     numcurso = cursoModel.Id.ToString();
@@ -449,9 +522,22 @@ namespace WPF_LoginForm.Views
                     //abrir plantilla documento
                     ObjMiss = System.Reflection.Missing.Value;
                     objWord.Application ObjWord = new objWord.Application();
-                    filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\listaasistencia.docx";
 
-                    objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
+                    string directorioAplicacion = AppDomain.CurrentDomain.BaseDirectory;
+
+                    string filePath = System.IO.Path.Combine(directorioAplicacion, "PLANTILLAS\\listaasistencia.docx");
+
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "Documentos de Word (*.docx)|*.docx|Todos los archivos (*.*)|*.*";
+                    saveFileDialog.Title = "Guardar copia del documento";
+                    saveFileDialog.FileName = "listaasistencia_copia.docx";
+
+                    if (saveFileDialog.ShowDialog() == true)
+                    {
+                        string copiaFilePath = saveFileDialog.FileName;
+                        System.IO.File.Copy(filePath, copiaFilePath, true);
+
+                        objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
 
                     //asignarle a los object de referencia el nombre de las bookmark en el word
                     numc1 = "midcurso";
@@ -490,6 +576,7 @@ namespace WPF_LoginForm.Views
 
                     objWord.Range participantesRange = ObjDoc.Bookmarks.get_Item(ref participantesBookmarkName).Range;
                     objWord.Table tabla = participantesRange.Tables[1];
+
                     // Itera a través de la lista de trabajadores y agrega cada uno a la tabla
                     foreach (var trabajador in trabajadores)
                     {
@@ -501,23 +588,18 @@ namespace WPF_LoginForm.Views
                         fila.Cells[2].Range.Text = trabajador.Nombre;
                         fila.Cells[3].Range.Text = trabajador.Area;
                     }
-
-                    ObjWord.Visible = true;
-
-
-                    //EXCEL
-
+                        ObjDoc.SaveAs2(saveFileDialog.FileName);
+                        ObjWord.Visible = true;
+                }
                 }
                 else
                 {
                     MessageBox.Show("No existen registros para ese número de curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
-
             }
 
             Limpiar();
-            buscarCurso.Focus();
-            
+            buscarCurso.Focus();            
         }
 
         private void buscarTrab_PreviewTextInput(object sender, TextCompositionEventArgs e)
