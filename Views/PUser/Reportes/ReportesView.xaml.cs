@@ -297,7 +297,11 @@ namespace WPF_LoginForm.Views
 
                     ObjMiss = System.Reflection.Missing.Value;
                     objWord.Application ObjWord = new objWord.Application();
-                    filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\historialcursos.docx";
+
+                    //filePath = "C:\\Users\\yami_\\Documents\\PLANTILLAS\\historialcursos.docx";
+                    // Obtén la ruta del directorio de la aplicación
+                    string directorioApp = AppDomain.CurrentDomain.BaseDirectory;
+                    filePath = System.IO.Path.Combine(directorioApp, "historialcursos.docx");
 
                     objWord.Document ObjDoc = ObjWord.Documents.Open(filePath);
 
