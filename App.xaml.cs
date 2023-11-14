@@ -12,16 +12,14 @@ using WPF_LoginForm.ViewModels;
 using WPF_LoginForm.Views;
 using WPF_LoginForm.Views.GUser;
 
-
 namespace WPF_LoginForm
 {
     public partial class App : Application
     {
         protected void ApplicationStart(object sender, EventArgs e)
         {
-
             var loginViewModel = new LoginViewModel();
-            var loginView = new LoginView(); //instanciar vista Login
+            var loginView = new LoginView(); 
             loginView.DataContext = loginViewModel;
             loginView.Show();
 
@@ -50,7 +48,6 @@ namespace WPF_LoginForm
                   loginView.Dispatcher.BeginInvoke(new Action(() =>{ loginView.Close(); }));
                 }
             };
-
-        }       
+        }
     }
 }

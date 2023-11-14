@@ -26,6 +26,9 @@ namespace WPF_LoginForm.Views
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
         string req = "*Campo requerido";
 
+        int id;
+        string numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, foto, auditoriso14001, puesto, area;
+
 
         public PersonalNuevoView()
         {
@@ -33,7 +36,6 @@ namespace WPF_LoginForm.Views
             Loaded += MainWindow_Loaded;
 
             txtJefe.IsEnabled = false;
-
             dtIngreso.SelectedDate = DateTime.Now;           
         }
 

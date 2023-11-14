@@ -25,7 +25,6 @@ namespace WPF_LoginForm.ViewModels
         private IUserRepository userRepository;
         private bool _isMainVisible = true;
         private string _userRole;
-        private LoginViewModel _loginViewModel;
 
 
         //Properties
@@ -103,16 +102,6 @@ namespace WPF_LoginForm.ViewModels
             }
         }
 
-        public LoginViewModel LoginViewModel
-        {
-            get { return _loginViewModel; }
-            set
-            {
-                _loginViewModel = value;
-                OnPropertyChanged(nameof(LoginViewModel));
-            }
-        }
-
 
         //-->Commands
         //-----------COMANDOS USER PRINCIPAL---------------
@@ -146,17 +135,11 @@ namespace WPF_LoginForm.ViewModels
         public ICommand ShowCursoInfoGViewCommand { get; }
         public ICommand ShowCursoNuevoGViewCommand { get; }
 
-        //CERRAR SESION
-        public ICommand CerrarSesionCommand { get; }
-
         //CONSTRUCTOR
         public MainViewModel()
         {
-
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
-
-            LoginViewModel = new LoginViewModel();
 
 
             //Initialize commands
@@ -190,30 +173,15 @@ namespace WPF_LoginForm.ViewModels
 
             ShowHomeGViewCommand = new ViewModelCommand(ExecuteShowHomeGViewCommand);
 
-
-            //CERRAR SESION
-            CerrarSesionCommand = new ViewModelCommand(ExecuteCerrarSesionCommand);
-            
-
             LoadCurrentUserData();
-        }
-
-        public MainViewModel(LoginViewModel loginViewModel)
-        {
-            LoginViewModel = loginViewModel;
         }
 
         //----------USER GENERAL----------
         private void ExecuteShowHomeGViewCommand(object obj)
         {
-
             CurrentChildView = new HomeGViewModel();
             Caption = "Inicio";
             Icon = IconChar.Home;
-
-            LoginViewModel.IsViewVisible = false;
-            LoginViewModel.IsLoggedIn = true;
-
         }
 
         private void ExecuteShowCursoGViewCommand(object obj)
@@ -314,14 +282,6 @@ namespace WPF_LoginForm.ViewModels
             CurrentChildView = new HomeViewModel();
             Caption = "Inicio";
             Icon = IconChar.Home;
-        }
-
-
-        //CERRAR SESION
-        private void ExecuteCerrarSesionCommand(object obj)
-        {   
-
-            
         }
 
 

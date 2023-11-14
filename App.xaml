@@ -5,9 +5,9 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              Startup="ApplicationStart"
-            xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
-    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
+             xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -21,8 +21,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.LightBlue.xaml" />
 
             </ResourceDictionary.MergedDictionaries>
-            
-           
 
             <Style x:Key="CustomDataGridScrollBarStyle" TargetType="ScrollBar">
                 <!-- Cambia el color de fondo del ScrollBar -->
@@ -47,8 +45,6 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-
-
 
             <!--#region DataGrid Style-->
             <SolidColorBrush x:Key="{x:Static DataGrid.FocusBorderBrushKey}" Color="#FF000000"/>
@@ -241,10 +237,6 @@
             </Style>
             <!--#endregion-->
 
-
-
-
-
             <!--TABLA PARTICIPANTES-->
             <Style x:Key="DataGridStyle2" TargetType="{x:Type DataGrid}">
                 <Setter Property="Background" Value="Transparent"/>
@@ -412,5 +404,4 @@
             </Style>
         </ResourceDictionary>
     </Application.Resources>
-
 </Application>

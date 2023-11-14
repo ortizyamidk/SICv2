@@ -12,8 +12,6 @@ namespace WPF_LoginForm.Repositories
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
-        
-
         public bool AuthenticateUser(NetworkCredential credential)
         {
             bool validUser;

@@ -99,16 +99,6 @@
                                 <TextBlock Text="Cursos" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
-
-                        <!--CERRAR SESION-->
-                        <Button x:Name="btnCerrarSesion" Style="{StaticResource logoutButton}"
-                                 Tag="{StaticResource color1}"
-                                  Margin="0 400 0 0" Cursor="Hand" Command="{Binding CerrarSesionCommand}">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="RightFromBracket" Style="{StaticResource menuButtonIcon}" Foreground="white"/>
-                                <TextBlock Text="Cerrar Sesión" Style="{StaticResource menuButtonText}" Foreground="White"/>
-                            </StackPanel>
-                        </Button>
                     </StackPanel>
                 </Grid>
             </Border>

@@ -208,7 +208,6 @@
     <Compile Include="Models\TrabajadorModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
-    <Compile Include="MyHub.cs" />
     <Compile Include="Repositories\AreaRepository.cs" />
     <Compile Include="Repositories\CursoGRepository.cs" />
     <Compile Include="Repositories\CursoRepository.cs" />

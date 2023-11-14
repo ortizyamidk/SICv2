@@ -12,6 +12,32 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorModel
     {
+        public void AddTrabajador(int id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "exec Crear_Trabajador @id, @numtarjeta, @nombre, @fechaing, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea)";
+
+                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
+                command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                command.Parameters.Add("@fechaing", SqlDbType.VarChar).Value = fechaing;
+                command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
+                command.Parameters.Add("@escolaridad", SqlDbType.VarChar).Value = escolaridad;
+                command.Parameters.Add("@antecedentes", SqlDbType.VarChar).Value = antecedentes;
+                command.Parameters.Add("@perscalif", SqlDbType.VarChar).Value = perscalif;
+                command.Parameters.Add("@foto", SqlDbType.VarBinary, foto.Length).Value = foto;
+                command.Parameters.Add("@auditoriso14001", SqlDbType.VarChar).Value = auditoriso14001;
+                command.Parameters.Add("@idpuesto", SqlDbType.Int).Value = idpuesto;
+                command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
         //reportes
         public TrabajadorModel FormatoDC3(int numficha)
         {

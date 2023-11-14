@@ -165,20 +165,6 @@
                                 <TextBlock Text="Reportes" Style="{StaticResource menuButtonText}"/>
                             </StackPanel>
                         </RadioButton>
-
-
-
-
-                        <!--CERRAR SESION-->
-                        <Button Style="{StaticResource logoutButton}"
-                                     Tag="{StaticResource color1}"
-                                     Command="{Binding LoginViewModel.LogoutCommand}" Margin="0 240 0 0" Cursor="Hand" Click="Button_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="RightFromBracket" Style="{StaticResource menuButtonIcon}" Foreground="white"/>
-                                <TextBlock Text="Cerrar Sesión" Style="{StaticResource menuButtonText}" Foreground="White"/>
-                            </StackPanel>
-                        </Button>
-
                     </StackPanel>
                 </Grid>
             </Border>

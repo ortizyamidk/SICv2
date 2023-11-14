@@ -23,11 +23,9 @@ namespace WPF_LoginForm.ViewModels
         private SecureString _password;
         private string _errorMessage;
         private bool _isViewVisible = true;
-
         private bool _isLoggedIn=false;
 
         private IUserRepository userRepository;
-
 
 
         //Properties
@@ -103,20 +101,13 @@ namespace WPF_LoginForm.ViewModels
 
         //-> Commands
         public ICommand LoginCommand { get; }
-        public ICommand RecoverPasswordCommand { get; }
-        public ICommand ShowPasswordCommand { get; }
         public ICommand LogoutCommand { get; }
-
-        //public ICommand RememberPasswordCommand { get; }
 
         //Constructor
         public LoginViewModel()
         {
             userRepository = new UserRepository(); //trae la conexion a bd
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            LogoutCommand = new ViewModelCommand(ExecuteLogoutCommand);
-
-            //RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverPassCommand("", ""));
         }
 
         private bool CanExecuteLoginCommand(object obj)
@@ -148,26 +139,5 @@ namespace WPF_LoginForm.ViewModels
                 ErrorMessage = "* Usuario o Contraseña inválido";           
             }
         }       
-
-        private void ExecuteLogoutCommand(object obj)
-        {
-           
-            IsViewVisible = true;
-            IsLoggedIn = false;
-            Username = null;
-            Password = null;
-            ErrorMessage = null;
-
-            //MessageBox.Show("EXECUTE LOGOUT Login visible: " + IsViewVisible.ToString());
-            //MessageBox.Show("EXECUTE LOGOUT Usuario loggeado: " + IsLoggedIn.ToString());
-
-            Thread.CurrentPrincipal=null;
-            //MessageBox.Show("user loggeado: " + Thread.CurrentPrincipal.Identity.Name);           
-        }
-
-        /*private void ExecuteRecoverPassCommand(string username, string email)
-        {
-            throw new NotImplementedException();
-        }*/
     }
 }

@@ -85,10 +85,5 @@ namespace WPF_LoginForm.Views.GUser
             else this.WindowState = WindowState.Normal;
 
         }
-
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
     }
 }
