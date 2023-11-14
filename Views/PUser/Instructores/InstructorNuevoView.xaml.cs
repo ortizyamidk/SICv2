@@ -91,9 +91,7 @@ namespace WPF_LoginForm.Views
             txtNombreI.BorderBrush = bordeNormal;
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
-
             
-
             if (string.IsNullOrEmpty(txtNumF.Text))
             {
                 errNumF.Content = req;
@@ -110,8 +108,6 @@ namespace WPF_LoginForm.Views
                     MessageBox.Show("Ya existe ese ID de Instructor", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     errores = true;
                 }
-
-                errores = true;
             }
 
             if (string.IsNullOrEmpty(txtNombreI.Text))

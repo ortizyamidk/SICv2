@@ -203,8 +203,10 @@
     <Compile Include="Models\IInstructorRepository.cs" />
     <Compile Include="Models\InstructorModel.cs" />
     <Compile Include="Models\InstructorSeleccionadoModel.cs" />
+    <Compile Include="Models\IPuestoRepository.cs" />
     <Compile Include="Models\ITrabajadorModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
+    <Compile Include="Models\PuestoModel.cs" />
     <Compile Include="Models\TrabajadorModel.cs" />
     <Compile Include="Models\UserAccountModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -213,6 +215,7 @@
     <Compile Include="Repositories\CursoRepository.cs" />
     <Compile Include="Repositories\DepartamentoRepository.cs" />
     <Compile Include="Repositories\InstructorRepository.cs" />
+    <Compile Include="Repositories\PuestoRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\TrabajadorRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

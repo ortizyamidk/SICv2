@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using WPF_LoginForm.Models;
+using WPF_LoginForm.Repositories;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WPF_LoginForm.Views
@@ -26,9 +28,12 @@ namespace WPF_LoginForm.Views
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
         string req = "*Campo requerido";
 
-        int id;
-        string numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, foto, auditoriso14001, puesto, area;
+        int id, idpuesto, idarea;
+        string numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, foto, auditoriso14001;
 
+        PuestoRepository puestoRepository;
+        AreaRepository areaRepository;
+        TrabajadorRepository trabajadorRepository;
 
         public PersonalNuevoView()
         {
@@ -36,7 +41,12 @@ namespace WPF_LoginForm.Views
             Loaded += MainWindow_Loaded;
 
             txtJefe.IsEnabled = false;
-            dtIngreso.SelectedDate = DateTime.Now;           
+            dtIngreso.SelectedDate = DateTime.Now;  
+            
+            puestoRepository = new PuestoRepository();
+            areaRepository = new AreaRepository();
+            trabajadorRepository = new TrabajadorRepository();
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -100,7 +110,50 @@ namespace WPF_LoginForm.Views
             }
 
             if (!errores)
-            {               
+            {
+                id = int.Parse(txtNoFicha.Text);
+                numtarjeta = txtNumTarjeta.Text;
+                nombre = txtNombre.Text;
+                fechaing = selecteddate;
+                rfc = txtRFC.Text;
+                ComboBoxItem escolaridadS = (ComboBoxItem)cbNivel.SelectedItem;
+                escolaridad = escolaridadS.Content.ToString();
+                antecedentes = txtAntecedentes.Text;
+
+                CheckBox calif = (CheckBox)chkCalif;
+                if (calif.IsChecked == true)
+                {
+                    perscalif = "1";
+                }
+                else
+                {
+                    perscalif = "0";
+                }
+
+                byte[] fotoBytes = ObtenerBytesDesdeImagen();
+
+                CheckBox audi = (CheckBox)chkAudit;
+                if (audi.IsChecked == true)
+                {
+                    auditoriso14001 = "1";
+                }
+                else
+                {
+                    auditoriso14001 = "0";
+                }
+
+                ComboBoxItem puestoS = (ComboBoxItem)cbPuesto.SelectedItem;
+                string puestoSelec = puestoS.Content.ToString();
+                PuestoModel puesModel = puestoRepository.GetIdByNombrePuesto(puestoSelec);
+                idpuesto = puesModel.Id;
+
+                ComboBoxItem areaS = (ComboBoxItem)cbArea.SelectedItem;
+                string areaSelec = puestoS.Content.ToString();
+                AreaModel areaModel = areaRepository.GetIdByName(areaSelec);
+                idarea = areaModel.Id;
+
+                
+
                 MostrarCustomMessageBox();
                 limpiar();
             }
@@ -260,6 +313,25 @@ namespace WPF_LoginForm.Views
                 // Llama al manejador de eventos del botón btnSearch.
                 btnGuardar_Click(sender, e);
             }           
+        }
+
+        private byte[] ObtenerBytesDesdeImagen()
+        {
+            byte[] fotoBytes = null;
+
+            if (imgTrabajador.Source is BitmapImage bitmapImage)
+            {
+                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+                using (MemoryStream memoria = new MemoryStream())
+                {
+                    encoder.Save(memoria);
+                    fotoBytes = memoria.ToArray();
+                }
+            }
+
+            return fotoBytes;
         }
     }
 }

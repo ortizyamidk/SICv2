@@ -18,5 +18,11 @@ namespace WPF_LoginForm.Models
 
         public string Departamento { get; set; }
 
+        public string Escolaridad { get; set; }
+        public string Antecedentes { get; set; }
+        public string PersCalif { get; set; }
+        public string Auditoriso14001 { get; set; }
+        public string Foto { get; set; }
+
     }
 }
