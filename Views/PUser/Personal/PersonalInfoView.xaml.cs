@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
+using WPF_LoginForm.Repositories;
 
 namespace WPF_LoginForm.Views
 {
@@ -23,13 +24,49 @@ namespace WPF_LoginForm.Views
     {
         SolidColorBrush bordeError = new SolidColorBrush(Colors.Red);
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
+
         string req = "*Campo requerido";
+
+        DepartamentoRepository departamentoRepository;
+        PuestoRepository puestoRepository;
 
         public PersonalInfoView()
         {
             InitializeComponent();
 
             Deshabilitar();
+
+            departamentoRepository = new DepartamentoRepository();
+            puestoRepository = new PuestoRepository();
+
+            LoadDepartamentosFromDatabase();
+            LoadPuestoFromDatabase();
+        }
+
+        private void LoadDepartamentosFromDatabase()
+        {
+            var deptos = departamentoRepository.GetByAll();
+            foreach (var depto in deptos)
+            {
+                var item = new ComboBoxItem
+                {
+                    Content = depto.NomDepto
+                };
+                cbDpto.Items.Add(item);
+            }
+        }
+
+        private void LoadPuestoFromDatabase()
+        {
+            var puestos = puestoRepository.GetByAll();
+            foreach (var puesto in puestos)
+            {
+                var item = new ComboBoxItem
+                {
+                    Content = puesto.NomPuesto
+                };
+                cbPuesto.Items.Add(item);
+            }
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -73,7 +110,6 @@ namespace WPF_LoginForm.Views
             btnSave.IsEnabled = false;
             btnEdit.IsEnabled = true;
             txtRFC.IsEnabled= false;
-            txtNoTarj.IsEnabled = false;
 
             btnExam.IsEnabled= false;
         }
@@ -193,6 +229,11 @@ namespace WPF_LoginForm.Views
                 // Llama al manejador de eventos del botón btnSearch.
                 btnSave_Click(sender, e);
             }          
+        }
+
+        private void cbDpto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

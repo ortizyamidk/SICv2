@@ -19,7 +19,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="190"/>
             </Grid.ColumnDefinitions>
 
             <Grid>
@@ -40,20 +40,29 @@
 
             <fa:IconImage Icon="Search" Width="20" Height="20" Foreground="White" Grid.Column="1" HorizontalAlignment="Left"/>
 
-            <Button x:Name="btnVerListas" Style="{StaticResource addButton}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="140 0 0 0" Width="145" Height="30"
+            <Button x:Name="btnVer" Style="{StaticResource addButton}" Width="90" Grid.Column="1" Margin="0 0 120 0"
+                    Command="{Binding DataContext.ShowCursoInfoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="Eye" Width="20" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
+                    <TextBlock Text="Ver Info." Margin="0 1 0 0"/>
+                </StackPanel>
+            </Button>
+            
+            <Button x:Name="btnVerListas" Style="{StaticResource addButton}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="140 10 0 0" Width="90"
                     Command="{Binding DataContext.ShowCursosTrabajadorViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                <TextBlock Text="Ver Listas de Asistencia"/>
+                <StackPanel Orientation="Horizontal">
+                    <fa:IconImage Icon="List" Width="20" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
+                    <TextBlock Text="Ver Listas" Margin="0 1 0 0"/>
+                </StackPanel>
             </Button>
 
-
-            <Button x:Name="btnNuevo" Style="{StaticResource addButton}" HorizontalAlignment="Right" Grid.Column="2" Margin="30 0 5 0"
-                    Command="{Binding DataContext.ShowCursoNuevoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="30" VerticalAlignment="Top">
+            <Button x:Name="btnNuevo" Style="{StaticResource addButton}" HorizontalAlignment="Right" Grid.Column="2" Margin="30 10 5 0"
+                    Command="{Binding DataContext.ShowCursoNuevoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal">
                     <fa:IconImage Icon="plus" Width="10" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
                     <TextBlock Text="Agregar curso nuevo"/>
                 </StackPanel>
             </Button>
-
 
             <Border Grid.Row="1" CornerRadius="7" Grid.ColumnSpan="3">
                 <DataGrid Style="{DynamicResource DataGridStyle1}" 
@@ -62,22 +71,10 @@
                           RowStyle="{DynamicResource DataGridRowStyle1}"  
                           x:Name="cursosDataGrid" Width="Auto" Height="480">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="70" Binding="{Binding Id}"/>
+                        <DataGridTextColumn Header="#" CanUserResize="False" IsReadOnly="True" Width="120" Binding="{Binding Id}"/>
                         <DataGridTextColumn Header="Nombre Curso" IsReadOnly="True" Width="*" Binding="{Binding NomCurso}"/>
                         <DataGridTextColumn Header="Área temática" IsReadOnly="True" Width="*" Binding="{Binding AreaTematica}"/>
                         <DataGridTextColumn Header="Impartido" IsReadOnly="True" Width="105" Binding="{Binding Impartido}"/>
-
-                        <DataGridTemplateColumn Header="Ver/Editar Info" Width="130">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource eyeButton}"
-                                            Cursor="Hand"
-                                            Command="{Binding DataContext.ShowCursoInfoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                                        <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

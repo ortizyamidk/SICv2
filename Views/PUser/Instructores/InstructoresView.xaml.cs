@@ -26,6 +26,8 @@ namespace WPF_LoginForm.Views
         private ObservableCollection<InstructorModel> original;
         private ICollectionView filtrado;
 
+        public event EventHandler<int> SelectedIdChanged;
+
         public InstructoresView()
         {
             InitializeComponent();
@@ -45,6 +47,8 @@ namespace WPF_LoginForm.Views
             filtrado = CollectionViewSource.GetDefaultView(original);
             instructoresDataGrid.ItemsSource = filtrado;
             txtSearch.TextChanged += TxtSearch_TextChanged;
+
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -84,9 +88,16 @@ namespace WPF_LoginForm.Views
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void instructoresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            if (instructoresDataGrid.SelectedItem != null)
+            {
+                // Suponiendo que tienes una clase Instructor y el ID está en la propiedad Id
+                InstructorModel selectedInstructor = (InstructorModel)instructoresDataGrid.SelectedItem;
+                int selectedId = selectedInstructor.Id;
+
+                
+            }
         }
     }
 }

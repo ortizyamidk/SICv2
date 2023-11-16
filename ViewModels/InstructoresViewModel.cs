@@ -13,52 +13,22 @@ namespace WPF_LoginForm.ViewModels
 {
     public class InstructoresViewModel : ViewModelBase
     {
-        private InstructorSeleccionadoModel _instructorSeleccionado;
-        private IInstructorRepository instructorRepository;
+        private int _idParametro;
 
-
-        public InstructorSeleccionadoModel CurrentInstructor
+        public int IdParametro
         {
             get
             {
-                return _instructorSeleccionado;
+                return _idParametro;
             }
 
             set
             {
-                _instructorSeleccionado = value;
-                OnPropertyChanged(nameof(CurrentInstructor));
+                _idParametro = value;
+                OnPropertyChanged(nameof(IdParametro));
             }
-        }
-
-        //COMMANDS
-        public ICommand ShowInstructorInfoViewCommand { get; }
-
-        public InstructoresViewModel()
-        {
-            CurrentInstructor = new InstructorSeleccionadoModel();
-            instructorRepository = new InstructorRepository();
-
-            LoadCurrentInstructorData();
-
         }
 
         
-
-        private void LoadCurrentInstructorData()
-        {
-            var instructor = instructorRepository.GetById(2);
-            if (instructor != null)
-            {
-                CurrentInstructor.IdS = instructor.Id;
-                CurrentInstructor.NomInstrS = instructor.NomInstr;
-                CurrentInstructor.TipoInstrS = instructor.TipoInstr;
-                CurrentInstructor.RFCS = instructor.RFC;
-                CurrentInstructor.NomCiaS = instructor.NomCia;
-            }
-        }
-
-       
-
     }
 }

@@ -20,7 +20,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid>
@@ -41,6 +41,14 @@
 
                 <fa:IconImage Icon="Search" Width="20" Height="20" Foreground="White" Grid.Column="1" HorizontalAlignment="Left"/>
 
+                <Button x:Name="btnVer" Style="{StaticResource addButton}" HorizontalAlignment="Right" Width="90" Grid.Column="1" Margin="0 0 20 0"
+                        Command="{Binding DataContext.ShowPersonalInfoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="Eye" Width="20" Height="20" Margin="0 0 5 0" Foreground="#ffffff"/>
+                        <TextBlock Text="Ver Info." Margin="0 1 0 0"/>
+                    </StackPanel>
+                </Button>
+
                 <Button x:Name="btnNuevo" Style="{StaticResource addButton}" Width="180" Grid.Column="2"
                         Command="{Binding DataContext.ShowPersonalNuevoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
                     <StackPanel Orientation="Horizontal">
@@ -59,21 +67,9 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Núm. Ficha" CanUserResize="False" IsReadOnly="True" Width="105" Binding="{Binding Id}"/>
-                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="270" Binding="{Binding Nombre}"/>
+                        <DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="*" Binding="{Binding Nombre}"/>
                         <DataGridTextColumn Header="Área" IsReadOnly="True" Width="*" Binding="{Binding Area}"/>
                         <DataGridTextColumn Header="Puesto" IsReadOnly="True" Width="*" Binding="{Binding Puesto}"/>
-
-                        <DataGridTemplateColumn Header="Ver/Editar Info" Width="100">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Style="{StaticResource eyeButton}"
-                                        Cursor="Hand"
-                                            Command="{Binding DataContext.ShowPersonalInfoViewCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
-                                        <fa:IconImage Icon="Eye" Style="{StaticResource controlButtonIcon}" Width="20" Height="20"/>
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

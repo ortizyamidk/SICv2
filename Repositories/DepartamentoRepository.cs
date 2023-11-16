@@ -27,6 +27,31 @@ namespace WPF_LoginForm.Repositories
             return count;
         }
 
+        public IEnumerable<DepartamentoModel> GetByAll()
+        {
+            List<DepartamentoModel> deptos = new List<DepartamentoModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT nomdepto FROM departamento";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DepartamentoModel depto = new DepartamentoModel()
+                        {
+                            NomDepto = reader[0].ToString()
+                        };
+                        deptos.Add(depto);
+                    }
+                }
+            }
+            return deptos;
+        }
+
         //DASHBOARD PRINCIPAL ver departamentos y su avance de progreso en registro de cursos
         public IEnumerable<DepartamentoModel> GetDepartamentos()
         {
@@ -55,6 +80,32 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return deptos;
+        }
+
+        public DepartamentoModel GetJefeByDepartamento(string depto)
+        {
+            DepartamentoModel jefe = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT jefedepto FROM departamento WHERE nomdepto = @depto";
+
+                command.Parameters.Add("@depto", SqlDbType.VarChar).Value = depto;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        jefe = new DepartamentoModel()
+                        {
+                            Jefe = reader[0].ToString()
+                        };
+                    }
+                }
+            }
+            return jefe;
         }
 
         //Contar el total de áreas que registran cursos para grafico de progreso

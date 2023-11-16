@@ -161,7 +161,6 @@ namespace WPF_LoginForm.Views
         private void Limpiar()
         {
             
-
             if (participantes != null)
             {
                 txtIDCurso.Text = string.Empty;

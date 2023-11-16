@@ -32,41 +32,19 @@ namespace WPF_LoginForm.Views
         public InstructorInfoView()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
             deshabilitar();
-            
+            btnSave.IsEnabled = false;
 
-            repository = new InstructorRepository();
-            InstructorModel instructor = (repository as IInstructorRepository).GetById(5); //traer id del instructor seleccionado en la tabla
-
-            if(instructor != null)
-            {
-                txtNoInst.Text = instructor.Id.ToString();
-                txtNombreI.Text = instructor.NomInstr.ToString();
-                txtRFC.Text = instructor.RFC.ToString();
-                txtCompania.Text=instructor.NomCia.ToString();
-
-                if (instructor.TipoInstr.Equals("Interno"))
-                {
-                    cbTipo.SelectedIndex = 0;
-                }
-                if (instructor.TipoInstr.Equals("Externo"))
-                {
-                    cbTipo.SelectedIndex = 1;
-                }
-            }
-            else
-            {
-                // Maneja el caso en el que el instructor es null
-                MessageBox.Show("Instructor no encontrado", "Error");
-
-                txtNoInst.Text = string.Empty; 
-                txtNombreI.Text = string.Empty;
-                txtRFC.Text = string.Empty;
-                txtCompania.Text = string.Empty;
-                cbTipo.SelectedIndex = 0;
-            }
+            repository = new InstructorRepository();                
         }
 
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Focus();
+            deshabilitar();
+            btnSave.IsEnabled = false;
+        }
 
         public void habilitar()
         {
@@ -94,6 +72,8 @@ namespace WPF_LoginForm.Views
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {          
             habilitar();
+            
+
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -109,6 +89,12 @@ namespace WPF_LoginForm.Views
             txtNombreI.BorderBrush = bordeNormal;
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
+
+            if (string.IsNullOrEmpty(txtNoInst.Text))
+            {
+                MessageBox.Show("Busque un instructor", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                errores = true;
+            }
 
             if (string.IsNullOrEmpty(txtNombreI.Text))
             {
@@ -150,6 +136,8 @@ namespace WPF_LoginForm.Views
                 repository.EditInstructor(nombre, rfc, tipo, comp, id);
                 MostrarCustomMessageBox();
                 deshabilitar();
+                txtSearch.Text = string.Empty;
+                txtSearch.Focus();
             }
         }
 
@@ -164,7 +152,7 @@ namespace WPF_LoginForm.Views
             if (e.Key == Key.Enter)
             {
                 // Llama al manejador de eventos del botón btnSearch.
-                btnSave_Click(sender, e);
+                btnSearch_Click(sender, e);
             }           
         }
 
@@ -179,6 +167,42 @@ namespace WPF_LoginForm.Views
         private bool IsLetter(string text)
         {
             return text.All(char.IsLetter);
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSearch.Text))
+            {
+                MessageBox.Show("Ingrese un No. de Instructor", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Limpiar();
+            }
+            else
+            {
+                int idinstructor = int.Parse(txtSearch.Text);
+                InstructorModel instructor = (repository as IInstructorRepository).GetById(idinstructor);
+
+                if(instructor != null)
+                {
+                    txtNoInst.Text = instructor.Id.ToString();
+                    txtNombreI.Text = instructor.NomInstr.ToString();
+                    txtRFC.Text = instructor.RFC.ToString();
+                    txtCompania.Text=instructor.NomCia.ToString();
+
+                    if (instructor.TipoInstr.Equals("Interno"))
+                    {
+                        cbTipo.SelectedIndex = 0;
+                    }
+                    if (instructor.TipoInstr.Equals("Externo"))
+                    {
+                        cbTipo.SelectedIndex = 1;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No existe instructor con ese ID", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    Limpiar();
+                }
+            }
         }
 
         private void txtRFC_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -204,6 +228,33 @@ namespace WPF_LoginForm.Views
                 // Permitir números (6 números).
                 e.Handled = !char.IsDigit(e.Text, 0);
             }
-        }      
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado es numérico
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _); // Intenta convertir el texto a un entero
+        }
+
+        private void Limpiar()
+        {
+            txtNoInst.Text = string.Empty;
+            txtNombreI.Text = string.Empty;
+            txtRFC.Text = string.Empty;
+            cbTipo.SelectedIndex = 0;
+            txtCompania.Text = string.Empty;
+            btnSave.IsEnabled = false;
+            txtSearch.Text = string.Empty;
+
+            txtSearch.Focus();
+        }
     }
 }

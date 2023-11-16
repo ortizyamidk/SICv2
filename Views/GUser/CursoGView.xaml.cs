@@ -28,6 +28,8 @@ namespace WPF_LoginForm.Views.GUser
         private ObservableCollection<CursoGModel> listaOriginal;
         private ICollectionView listaFiltrada;
 
+        public event EventHandler<int> CambiarAVistaInfo;
+
         public CursoGView()
         {
             InitializeComponent();
@@ -46,7 +48,8 @@ namespace WPF_LoginForm.Views.GUser
             listaFiltrada = CollectionViewSource.GetDefaultView(listaOriginal);
             cursosGDataGrid.ItemsSource = listaFiltrada;
             txtSearch.TextChanged += TxtSearch_TextChanged;
-          
+            
+
         }
 
         //enfocar en barra de busqueda
@@ -74,23 +77,5 @@ namespace WPF_LoginForm.Views.GUser
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (cursosGDataGrid.SelectedCells.Count > 0)
-            {
-                // Obtiene el elemento seleccionado (fila)
-                var selectedItem = cursosGDataGrid.SelectedItem;
-
-                // Verifica si el elemento seleccionado no es nulo y contiene la propiedad "IdLista"
-                if (selectedItem != null && selectedItem is CursoGModel item)
-                {
-                    // Accede al valor de la propiedad "IdLista"
-                    var valorIdLista = item.IdLista;
-
-                    var cursoGViewModel = new CursoGViewModel();
-                    cursoGViewModel.SetIdListaFromExternalSource(valorIdLista);
-                }
-            }
-        }
     }
 }

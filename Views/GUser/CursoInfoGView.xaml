@@ -8,7 +8,8 @@
              xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="580" d:DesignWidth="1060">
+             d:DesignHeight="580" d:DesignWidth="1060"
+             PreviewKeyDown="UserControl_PreviewKeyDown">
 
     <UserControl.DataContext>
         <viewModel:CursoInfoGViewModel/>
@@ -27,31 +28,58 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Vertical" Grid.Column="0">
-                <Label Content="No. lista:" HorizontalAlignment="Left" FontWeight="Bold" FontSize="18" Margin="15 3 0 7" Foreground="White"/>
-                <TextBox IsEnabled="False" Text="" FontSize="20" TextAlignment="Center" HorizontalContentAlignment="Left" x:Name="txtNoLista" Margin="0 0 30 0" Style="{StaticResource myTextBox}" Width="100" />
+                <Label Content="No. lista:" HorizontalAlignment="Left" FontWeight="Bold" FontSize="18" Margin="15 3 10 7" Foreground="White"/>
+                <TextBox IsEnabled="False" Text="" FontSize="18" TextAlignment="Center" HorizontalContentAlignment="Left" x:Name="txtNoLista" Margin="0 0 30 0" Style="{StaticResource myTextBox}" Width="80" />
             </StackPanel>
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="95"/>
                     <RowDefinition Height="95"/>
-                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="95"/>
+                    <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Grid>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0 18 0 0" HorizontalAlignment="Center" Height="60">
+                    <Grid>
+                        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
+                                 Height="auto" Width="135" Background="Transparent"
+                                 FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
+                                 BorderThickness="0,0,0,1" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput">
+                        </TextBox>
+                        <TextBlock Text="Buscar No. Lista" Foreground="Gray" IsHitTestVisible="False" Margin="0 0 0 5" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnSearch_Click">
+                        <fa:IconImage HorizontalAlignment="Right" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
+                    </Button>
+                </StackPanel>
+
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
-                    <StackPanel Orientation="Vertical" Width="380" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Width="380" HorizontalAlignment="Left">
                         <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 10 0 7"/>
                         <TextBox IsEnabled="False" x:Name="txtCurso" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="370">
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Width="370">
                         <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <TextBox IsEnabled="False" x:Name="txtAreaT" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
@@ -59,7 +87,7 @@
 
                 </Grid>
                 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -79,7 +107,7 @@
 
                 </Grid>
 
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -108,7 +136,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -117,19 +145,19 @@
                     
                 </Grid>
 
-                <TextBlock Text="Participantes:" Grid.Row="3" Margin="10 0 0 0" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                <TextBlock Text="Participantes:" Grid.Row="4" Margin="10 0 0 0" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
 
-                <Border x:Name="border" CornerRadius="12" Grid.Row="3" Background="Green" HorizontalAlignment="Right" Visibility="Visible" Height="35" Width="145" Margin="20 5 20 20" Grid.Column="0">
-                    <TextBox x:Name="txtImpartido" Visibility="Visible" Text="IMPARTIDO" TextAlignment="Center" Foreground="White" BorderThickness="0" Background="Transparent" FontSize="18" FontWeight="Bold" Height="35" Width="145"  HorizontalAlignment="Left"/>
+                <Border x:Name="border" CornerRadius="12" Grid.Row="4" Background="Green" HorizontalAlignment="Right" Visibility="Hidden" Height="35" Width="145" Margin="20 5 20 20" Grid.Column="0">
+                    <TextBox x:Name="txtImpartido" Visibility="Hidden" Text="IMPARTIDO" TextAlignment="Center" Foreground="White" BorderThickness="0" Background="Transparent" FontSize="18" FontWeight="Bold" Height="35" Width="145"  HorizontalAlignment="Left"/>
                 </Border>
 
-                <Border Grid.Row="4" CornerRadius="10" Margin="20 0 20 0" Width="auto">
+                <Border Grid.Row="5" CornerRadius="10" Margin="20 0 20 0" Width="auto">
                     <DataGrid Style="{DynamicResource DataGridStyle2}" 
                               CellStyle="{DynamicResource DataGridCellStyle2}" 
                               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
-                              RowStyle="{DynamicResource DataGridRowStyle2}" 
-              
-                  x:Name="listaDataGrid" Width="Auto" Height="auto" Margin="0 0 0 13" HorizontalContentAlignment="Center">
+                              RowStyle="{DynamicResource DataGridRowStyle2}"             
+                            x:Name="listaDataGrid" Width="Auto" Height="auto" Margin="0 0 0 13" HorizontalContentAlignment="Center">
+                        
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="No. ficha" CanUserResize="false" IsReadOnly="True" Width="90" Binding="{Binding Id}"/>
                             <DataGridTextColumn Header="Num Tarjeta" CanUserResize="false" IsReadOnly="True" Width="120" Binding="{Binding NumTarjeta}"/>

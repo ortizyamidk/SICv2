@@ -18,10 +18,11 @@
 
             <Grid Width="auto" Height="auto" Background="Transparent">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -31,8 +32,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!--Form Title-->
-                <Border CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
-                    <Ellipse Width="80" Height="80">
+                <Border Grid.Row="0" CornerRadius="50" BorderThickness="1.5" BorderBrush="Transparent" HorizontalAlignment="Left" Margin="20 0 0 0 ">
+                    <Ellipse Width="60" Height="60">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="/Images/curso.png"/>
                         </Ellipse.Fill>
@@ -40,9 +41,34 @@
                 </Border>
                 <Image Source="/Images/h.png" Grid.Column="3" HorizontalAlignment="Right" Width="60" VerticalAlignment="Top" Margin="0 20 10 0"/>
 
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0 18 0 0" HorizontalAlignment="Center" Height="60">
+                    <Grid>
+                        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
+                 Height="auto" Width="135" Background="Transparent"
+                 FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
+                 BorderThickness="0,0,0,1" VerticalAlignment="Top">
+                        </TextBox>
+                        <TextBlock Text="Buscar ID Curso" Foreground="Gray" IsHitTestVisible="False" Margin="0 0 0 5" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
 
+                    <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnSearch_Click">
+                        <fa:IconImage HorizontalAlignment="Right" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
+                    </Button>
+                </StackPanel>
+                
                 <!--Inputs-->
-                <Grid Grid.Row="0" Grid.Column="1" Margin="0 25 0 0">
+                <Grid Grid.Row="1" Grid.Column="1" Margin="0 25 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="210"/>
                         <ColumnDefinition Width="*"/>
@@ -110,7 +136,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="2" Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -160,7 +186,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="2" Grid.Column="1">
+                <Grid Grid.Row="3" Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -217,7 +243,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Button x:Name="btnEdit" Height="40" FontSize="16" Grid.Column="1" Content="Editar" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnEdit_Click"/>
-                    <Button x:Name="btnSave" Height="40" FontSize="15" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnSave_Click"/>
+                    <Button x:Name="btnSave" IsEnabled="False" Height="40" FontSize="15" Grid.Column="2" Content="Guardar cambios" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="150" Cursor="Hand" Click="btnSave_Click"/>
                 </Grid>
             </Grid>
         </Border>

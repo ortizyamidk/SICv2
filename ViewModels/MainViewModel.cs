@@ -174,6 +174,7 @@ namespace WPF_LoginForm.ViewModels
             ShowHomeGViewCommand = new ViewModelCommand(ExecuteShowHomeGViewCommand);
 
             LoadCurrentUserData();
+
         }
 
         //----------USER GENERAL----------
@@ -311,6 +312,9 @@ namespace WPF_LoginForm.ViewModels
                 //Hide child views.
             }
         }
-       
+
+        
+
+
     }
 }

@@ -19,7 +19,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec Crear_Trabajador @id, @numtarjeta, @nombre, @fechaing, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea)";
+                command.CommandText = "exec Crear_Trabajador @id, @numtarjeta, @nombre, @fechaing, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea";
 
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
@@ -224,7 +224,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //participantes para CursoInfoGView
-        public IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista)
+        public IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista, string nomarea)
         {
             List<TrabajadorModel> participantes = new List<TrabajadorModel>();
 
@@ -233,9 +233,10 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec ParticipantesPorListaAsistencia @idlistacursos";
+                command.CommandText = "exec ParticipantesPorListaAsistencia @idlistacursos, @nomarea";
 
                 command.Parameters.Add("@idlistacursos", SqlDbType.Int).Value = idlista;
+                command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
                 using (var reader = command.ExecuteReader())
                 {

@@ -26,60 +26,141 @@ namespace WPF_LoginForm.Views.GUser
     {
         CursoGRepository cursoGRepository;
 
+        SolidColorBrush colorImpartido;
+        SolidColorBrush colorNOimpartido;
+
+        ObservableCollection<TrabajadorModel> participantes;
+
+
         public CursoInfoGView()
         {
             InitializeComponent();
-            SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
-            SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
+            Loaded += MainWindow_Loaded;
 
-            cursoGRepository = new CursoGRepository();
+            colorImpartido = new SolidColorBrush(Colors.Green);
+            colorNOimpartido = new SolidColorBrush(Colors.Red);
 
-            var repository = new CursoGRepository();
-            CursoGModel asistencia = repository.GetById(82); //traer idlistaasistencia seleccionada en la tabla de CursoGView
+            cursoGRepository = new CursoGRepository();                    
+        }
 
-            txtNoLista.Text = asistencia.Id.ToString();
-            txtCurso.Text=asistencia.NomCurso.ToString();
-            txtAreaT.Text=asistencia.AreaTematica.ToString();
-            txtInicia.Text=asistencia.Inicia.ToString();
-            txtTermina.Text=asistencia.Termina.ToString();
-            txtHorario.Text=asistencia.Horario.ToString();
-            txtDura.Text=asistencia.Duracion.ToString() + " min";
-            txtLugar.Text=asistencia.Lugar.ToString();
-            txtInst.Text=asistencia.Instructor.ToString();
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Focus();
+        }
 
-            int idlistacurso = int.Parse(txtNoLista.Text);
-
-            TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
-            IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlistacurso); 
-            ObservableCollection<TrabajadorModel> participantes = new ObservableCollection<TrabajadorModel>(participantesList);
-            listaDataGrid.ItemsSource = participantes;
-
-            int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
-
-            if (cursoimp == 1)
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtSearch.Text))
             {
-                border.Visibility = Visibility.Visible;
-                txtImpartido.Visibility = Visibility.Visible;
-
-                border.Background = colorImpartido;
-                txtImpartido.Text = "IMPARTIDO";
-            }
-            else if (cursoimp == 0)
-            {
-                border.Visibility = Visibility.Visible;
-                txtImpartido.Visibility = Visibility.Visible;
-
-                
-                border.Background = colorNOimpartido;
-                txtImpartido.Text = "NO IMPARTIDO";
+                MessageBox.Show("Ingrese un No. de lista", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Limpiar();
             }
             else
             {
-                border.Visibility = Visibility.Collapsed;
-                txtImpartido.Visibility = Visibility.Collapsed;
-                txtImpartido.Text = string.Empty;
+                int idlista = int.Parse(txtSearch.Text);
+                CursoGModel asistencia = cursoGRepository.GetById(idlista);
+
+                TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
+                var viewModel = (CursoInfoGViewModel)DataContext;
+                string arealoggeada = viewModel.CurrentUserAccount.DisplayArea;
+
+                IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlista, arealoggeada);
+                participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                listaDataGrid.ItemsSource = participantes;
+
+                if (asistencia != null && participantes.Count > 0)
+                {
+                    txtNoLista.Text = asistencia.Id.ToString();
+                    txtCurso.Text = asistencia.NomCurso.ToString();
+                    txtAreaT.Text = asistencia.AreaTematica.ToString();
+                    txtInicia.Text = asistencia.Inicia.ToString();
+                    txtTermina.Text = asistencia.Termina.ToString();
+                    txtHorario.Text = asistencia.Horario.ToString();
+                    txtDura.Text = asistencia.Duracion.ToString() + " min";
+                    txtLugar.Text = asistencia.Lugar.ToString();
+                    txtInst.Text = asistencia.Instructor.ToString();
+
+                    int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
+
+                    if (cursoimp == 1)
+                    {
+                        border.Visibility = Visibility.Visible;
+                        txtImpartido.Visibility = Visibility.Visible;
+
+                        border.Background = colorImpartido;
+                        txtImpartido.Text = "IMPARTIDO";
+                    }
+                    else if (cursoimp == 0)
+                    {
+                        border.Visibility = Visibility.Visible;
+                        txtImpartido.Visibility = Visibility.Visible;
+
+
+                        border.Background = colorNOimpartido;
+                        txtImpartido.Text = "NO IMPARTIDO";
+                    }
+                    else
+                    {
+                        border.Visibility = Visibility.Collapsed;
+                        txtImpartido.Visibility = Visibility.Collapsed;
+                        txtImpartido.Text = string.Empty;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No existe lista de asistencia con ese ID o no pertenece al área de: "+arealoggeada, "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    Limpiar();
+                }            
             }
         }
-      
+
+        private void Limpiar()
+        {
+            txtSearch.Text = string.Empty;
+            txtNoLista.Text = string.Empty;
+            txtCurso.Text = string.Empty;
+            txtAreaT.Text = string.Empty;
+            txtLugar.Text = string.Empty;
+            txtInst.Text = string.Empty;
+            txtInicia.Text = string.Empty;
+            txtTermina.Text = string.Empty;
+            txtHorario.Text = string.Empty;
+            txtDura.Text = string.Empty;
+
+            border.Visibility = Visibility.Collapsed;
+            txtImpartido.Visibility = Visibility.Collapsed;
+            txtImpartido.Text = string.Empty;
+
+            if (participantes!=null)
+            {
+                participantes.Clear();
+            }
+
+            txtSearch.Focus();
+            
+        }
+
+        private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                btnSearch_Click(sender, e);
+            }
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verifica si el texto ingresado es numérico
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        // Método para verificar si una cadena es numérica
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _); // Intenta convertir el texto a un entero
+        }
     }
 }

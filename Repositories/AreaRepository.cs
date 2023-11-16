@@ -11,6 +11,33 @@ namespace WPF_LoginForm.Repositories
 {
     public class AreaRepository : RepositoryBase, IAreaRepository
     {
+        public IEnumerable<AreaModel> GetAreaByDepartamento(string depto)
+        {
+            List<AreaModel> areas = new List<AreaModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT A.nomarea FROM departamento AS D INNER JOIN area AS A ON D.id = A.iddpto WHERE D.nomdepto = @nomdepto";
+                
+                command.Parameters.Add("@nomdepto", SqlDbType.VarChar).Value = depto;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AreaModel area = new AreaModel()
+                        {
+                            NombreArea = reader[0].ToString()
+                        };
+                        areas.Add(area);
+                    }
+                }
+            }
+            return areas;
+        }
+
         public IEnumerable<AreaModel> GetIdAreasRegistran()
         {
             List<AreaModel> areas = new List<AreaModel>();

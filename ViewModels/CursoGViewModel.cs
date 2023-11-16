@@ -32,20 +32,6 @@ namespace WPF_LoginForm.ViewModels
             }
         }
 
-        private int _idLista;
-
-        public int IdLista
-        {
-            get { return _idLista; }
-            set
-            {
-                if (_idLista != value)
-                {
-                    _idLista = value;
-                    OnPropertyChanged(nameof(IdLista));
-                }
-            }
-        }
 
         public CursoGViewModel()
         {
@@ -56,11 +42,5 @@ namespace WPF_LoginForm.ViewModels
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
             CurrentUserAccount.DisplayArea = $"{user.Area}";
         }
-
-        public void SetIdListaFromExternalSource(int newIdLista)
-        {
-            IdLista = newIdLista;
-        }
-
     }
 }

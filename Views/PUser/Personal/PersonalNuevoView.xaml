@@ -178,11 +178,9 @@
                         <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
                             <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                             <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                <ComboBox x:Name="cbDpto" SelectionChanged="cbDpto_SelectionChanged" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
                                     <ComboBox.Items>
-                                        <ComboBoxItem Content="Calidad" />
-                                        <ComboBoxItem Content="Producción" />
-                                        <ComboBoxItem Content="Mantenimiento" />
+                                        
                                     </ComboBox.Items>
 
                                     <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
@@ -195,9 +193,7 @@
                             <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3" Width="auto">
                                 <ComboBox x:Name="cbArea" Height="42" BorderThickness="0" Cursor="Hand" FontSize="15">
                                     <ComboBox.Items>
-                                        <ComboBoxItem Content="Almacén de componentes" />
-                                        <ComboBoxItem Content="Calidad" />
-                                        <ComboBoxItem Content="Capacitación" />
+                                       
                                     </ComboBox.Items>
 
                                     <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
@@ -207,7 +203,7 @@
 
                         <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
                             <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                            <TextBox x:Name="txtJefe" Text="Lic. Eduardo Valdes Ceballos" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                            <TextBox x:Name="txtJefe" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                         </StackPanel>
                     </Grid>
 
@@ -228,9 +224,7 @@
                                 <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
                                     <ComboBox x:Name="cbPuesto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
                                         <ComboBox.Items>
-                                            <ComboBoxItem Content="Acomodo de material" />
-                                            <ComboBoxItem Content="Almacenista" />
-                                            <ComboBoxItem Content="Capturista" />
+                                            
                                         </ComboBox.Items>
 
                                         <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>

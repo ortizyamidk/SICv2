@@ -9,7 +9,7 @@ namespace WPF_LoginForm.Models
     public interface ITrabajadorModel
     {
         IEnumerable<TrabajadorModel> GetByAll();
-        IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista);
+        IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista, string nomarea);
 
         IEnumerable<TrabajadorModel> GetParticipantesById(string idcurso);
         IEnumerable<TrabajadorModel> GetParticipantesByIdAndArea(string idcurso, string area);

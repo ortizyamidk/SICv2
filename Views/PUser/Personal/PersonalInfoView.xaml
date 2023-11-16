@@ -31,8 +31,9 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="45"/>
                                 <RowDefinition Height="195"/>
-                                <RowDefinition Height="45"/>
-                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="33"/>
                                 <RowDefinition Height="30"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
@@ -43,20 +44,22 @@
                             
                             <Button x:Name="btnExam" Grid.Row="2" Content="Cargar Foto" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="110" Height="30" Cursor="Hand" VerticalAlignment="Top" Click="btnExam_Click"/>
 
-                            <TextBlock x:Name="lblIngreso" Grid.Row="3" FontWeight="DemiBold" Foreground="White" FontSize="17" Text="Ingreso: 09/09/2015" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                            <TextBlock x:Name="lblIngreso" Grid.Row="4" FontWeight="DemiBold" Foreground="White" FontSize="17" Text="Ingreso: 09/09/2015" HorizontalAlignment="Center" Margin="0 0 0 10"/>
 
-                            <TextBlock x:Name="lblAntig" Grid.Row="4" Text="Antigüedad: 8 año(s)" FontSize="15" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="lblAntig" Grid.Row="5" Text="Antigüedad: 8 año(s)" FontSize="15" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                            <Grid Grid.Column="0" Grid.Row="5" Margin="0 10 0 0">
+                            <TextBlock x:Name="lblTarjeta" Grid.Row="3" Text="No. tarjeta: 1231313442" FontSize="19" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                            <Grid Grid.Column="0" Grid.Row="6" Margin="0 10 0 0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="80"/>
+                                    <RowDefinition Height="80"/>
                                 </Grid.RowDefinitions>
 
                                 <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"  Width="200">
                                     <Label Foreground="White" Content="Nivel de Estudios:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                     <Border CornerRadius="9" BorderBrush="White" BorderThickness="0.5" Background="White">
-                                        <ComboBox x:Name="cbNivel" Foreground="black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
+                                        <ComboBox x:Name="cbNivel" Foreground="black" FontSize="13" Height="36" Width="auto" BorderThickness="0" Cursor="Hand">
                                             <ComboBox.Items>
                                                 <ComboBoxItem Content="Primaria" />
                                                 <ComboBoxItem Content="Secundaria" />
@@ -76,7 +79,7 @@
                                 <StackPanel Orientation="Vertical" Grid.Row="0" Width="200">
                                     <Label Foreground="White" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 0 0 4"/>
                                     <Border CornerRadius="9" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                        <ComboBox x:Name="cbCateg" Foreground="Black" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
+                                        <ComboBox x:Name="cbCateg" Foreground="Black" FontSize="13" Height="36" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
                                             <ComboBox.Items>
                                                 <ComboBoxItem Content="Empleado" />
                                                 <ComboBoxItem Content="Sindicalizado" />
@@ -96,16 +99,46 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="109"/>
                             <RowDefinition Height="110"/>
-                            <RowDefinition Height="220"/>
+                            <RowDefinition Height="205"/>
                             <RowDefinition Height="50"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto" HorizontalAlignment="Center">
-                            <Label Content="No. de Tarjeta:" FontWeight="Bold" FontSize="16" Margin="2" HorizontalAlignment="Center"/>
-                            <TextBox x:Name="txtNoTarj" Style="{StaticResource myTextBox}" Width="130" Height="10" HorizontalContentAlignment="Center" Text="424248961313" FontSize="15" BorderBrush="Black"/>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0 18 0 0" HorizontalAlignment="Center" Height="60">
+                            <Grid>
+                                <TextBox x:Name="txtSearch" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
+                                         Height="auto" Width="135" Background="Transparent"
+                                         FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
+                                         BorderThickness="0,0,0,1" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput">
+                                </TextBox>
+                                <TextBlock Text="Buscar No. Ficha" Foreground="Gray" IsHitTestVisible="False" Margin="0 0 0 5" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtSearch}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+
+                            <Button x:Name="btnSearch" Background="Transparent" BorderThickness="0" Tag="{StaticResource color10}" Cursor="Hand" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btnSearch_Click">
+                                <fa:IconImage HorizontalAlignment="Right" Icon="Search" Width="30" Height="auto" Foreground="Black" Style="{StaticResource controlButtonIcon}"/>
+                            </Button>
                         </StackPanel>
 
-                        <Image Source="/Images/h.png" HorizontalAlignment="Right" Margin="0 5 10 0"/>
+                    </Grid>
+
+                    <Image Source="/Images/h.png" HorizontalAlignment="Right" Margin="0 5 10 0"/>
 
                         <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.ColumnDefinitions>
@@ -157,11 +190,9 @@
                             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Width="200">
                                 <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                    <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                    <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand" SelectionChanged="cbDpto_SelectionChanged">
                                         <ComboBox.Items>
-                                            <ComboBoxItem Content="Calidad" />
-                                            <ComboBoxItem Content="Producción" />
-                                            <ComboBoxItem Content="Mantenimiento" />
+                                            
                                         </ComboBox.Items>
 
                                         <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
@@ -182,9 +213,7 @@
                                 <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
                                     <ComboBox x:Name="cbArea" FontSize="15" Height="42" Width="auto" BorderThickness="0" Cursor="Hand">
                                         <ComboBox.Items>
-                                            <ComboBoxItem Content="Almacén de componentes" />
-                                            <ComboBoxItem Content="Calidad" />
-                                            <ComboBoxItem Content="Capacitación" />
+                                            
                                         </ComboBox.Items>
 
                                         <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
@@ -199,9 +228,7 @@
                                 <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
                                     <ComboBox x:Name="cbPuesto" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
                                         <ComboBox.Items>
-                                            <ComboBoxItem Content="Acomodo de material" />
-                                            <ComboBoxItem Content="Almacenista" />
-                                            <ComboBoxItem Content="Capturista" />
+                                            
                                         </ComboBox.Items>
 
                                         <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
@@ -231,7 +258,7 @@
 
                             <StackPanel Orientation="Vertical" Grid.Column="1">
                                 <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="170"/>
+                                <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="150"/>
                             </StackPanel>
                         </Grid>
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,7 @@ namespace WPF_LoginForm.Views
         PuestoRepository puestoRepository;
         AreaRepository areaRepository;
         TrabajadorRepository trabajadorRepository;
+        DepartamentoRepository departamentoRepository;
 
         public PersonalNuevoView()
         {
@@ -46,12 +48,42 @@ namespace WPF_LoginForm.Views
             puestoRepository = new PuestoRepository();
             areaRepository = new AreaRepository();
             trabajadorRepository = new TrabajadorRepository();
+            departamentoRepository = new DepartamentoRepository();
 
+        }
+
+        private void LoadDepartamentosFromDatabase()
+        {
+            var deptos = departamentoRepository.GetByAll();
+            foreach (var depto in deptos)
+            {
+                var item = new ComboBoxItem
+                {
+                    Content = depto.NomDepto
+                };
+                cbDpto.Items.Add(item);
+            }
+        }
+
+        private void LoadPuestoFromDatabase()
+        {
+            var puestos = puestoRepository.GetByAll();
+            foreach (var puesto in puestos)
+            {
+                var item = new ComboBoxItem
+                {
+                    Content = puesto.NomPuesto
+                };
+                cbPuesto.Items.Add(item);
+            }
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             txtNoFicha.Focus();
+
+            LoadDepartamentosFromDatabase();
+            LoadPuestoFromDatabase();
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
@@ -148,11 +180,11 @@ namespace WPF_LoginForm.Views
                 idpuesto = puesModel.Id;
 
                 ComboBoxItem areaS = (ComboBoxItem)cbArea.SelectedItem;
-                string areaSelec = puestoS.Content.ToString();
+                string areaSelec = areaS.Content.ToString();
                 AreaModel areaModel = areaRepository.GetIdByName(areaSelec);
                 idarea = areaModel.Id;
 
-                
+                trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
 
                 MostrarCustomMessageBox();
                 limpiar();
@@ -189,6 +221,40 @@ namespace WPF_LoginForm.Views
             cbNivel.SelectedIndex = 0;
 
             txtNoFicha.Focus();
+        }
+
+        private void cbDpto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbDpto.SelectedItem != null)
+            {
+                ComboBoxItem deptoS = (ComboBoxItem)cbDpto.SelectedItem;
+                string departamento = deptoS.Content.ToString();
+
+                DepartamentoModel departamentoModel = departamentoRepository.GetJefeByDepartamento(departamento);
+                if (departamentoModel != null)
+                {
+                    txtJefe.Text = departamentoModel.Jefe.ToString();
+                }
+                else
+                {
+                    txtJefe.Text = string.Empty;
+                }
+
+                var areas = areaRepository.GetAreaByDepartamento(departamento);
+
+                cbArea.Items.Clear();
+                foreach (var area in areas)
+                {
+                    var item = new ComboBoxItem
+                    {
+                        Content = area.NombreArea
+                    };
+                    cbArea.Items.Add(item);
+                }
+
+                cbArea.SelectedIndex = 0;
+
+            }
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
