@@ -17,7 +17,6 @@ using System.Windows.Shapes;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
 using WPF_LoginForm.ViewModels;
-using static WPF_LoginForm.Views.GUser.CursoNuevoGView;
 
 namespace WPF_LoginForm.Views.GUser
 {
@@ -28,31 +27,33 @@ namespace WPF_LoginForm.Views.GUser
         private ObservableCollection<CursoGModel> listaOriginal;
         private ICollectionView listaFiltrada;
 
-        public event EventHandler<int> CambiarAVistaInfo;
-
         public CursoGView()
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-       
 
             var viewModel = (CursoGViewModel)DataContext;
 
             CursoGRepository repository = new CursoGRepository();
-            IEnumerable<CursoGModel> cursosList = repository.GetByAll(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
-            ObservableCollection<CursoGModel> cursos = new ObservableCollection<CursoGModel>(cursosList);
-            cursosGDataGrid.ItemsSource = cursos;                         
 
-            //filtrar busqueda
-            listaOriginal = cursos;
-            listaFiltrada = CollectionViewSource.GetDefaultView(listaOriginal);
-            cursosGDataGrid.ItemsSource = listaFiltrada;
-            txtSearch.TextChanged += TxtSearch_TextChanged;
-            
+            try
+            {
+                IEnumerable<CursoGModel> cursosList = repository.GetByAll(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
+                ObservableCollection<CursoGModel> cursos = new ObservableCollection<CursoGModel>(cursosList);
+                cursosGDataGrid.ItemsSource = cursos;
 
+                //filtrar busqueda
+                listaOriginal = cursos;
+                listaFiltrada = CollectionViewSource.GetDefaultView(listaOriginal);
+                cursosGDataGrid.ItemsSource = listaFiltrada;
+                txtSearch.TextChanged += TxtSearch_TextChanged;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los cursos: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        //enfocar en barra de busqueda
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             txtSearch.Focus();       
@@ -76,6 +77,5 @@ namespace WPF_LoginForm.Views.GUser
                 };
             }
         }
-
     }
 }

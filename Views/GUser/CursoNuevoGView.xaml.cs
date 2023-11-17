@@ -19,10 +19,6 @@ using WPF_LoginForm.CustomControls;
 using System.Windows.Controls.Primitives;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using static WPF_LoginForm.Views.CursosView;
-using static WPF_LoginForm.Views.GUser.CursoGView;
-using static WPF_LoginForm.Views.GUser.CursoNuevoGView;
 using WPF_LoginForm.ViewModels;
 
 namespace WPF_LoginForm.Views.GUser
@@ -34,7 +30,7 @@ namespace WPF_LoginForm.Views.GUser
         AreaRepository areaRepository;
         CursoRepository cursoRepository;
 
-        ObservableCollection<TrabajadorModel> trabajadoresList = new ObservableCollection<TrabajadorModel>();
+        ObservableCollection<TrabajadorModel> trabajadoresList;
 
         public CursoNuevoGView()
         {
@@ -46,28 +42,29 @@ namespace WPF_LoginForm.Views.GUser
             areaRepository = new AreaRepository();
             cursoRepository = new CursoRepository();
 
-            trabajadoresList = new ObservableCollection<TrabajadorModel>();
-
-            //traer y guardar el nombre del curso seleccionado en la tarjeta de Home, hacer una comparacion con los cursos que existen y seleccionar ese index
-            //string cursoSelecTarjeta;
-
-            //si el valor es nulo, entonces...
-            cbCurso.SelectedIndex = 0;
-           
+            trabajadoresList = new ObservableCollection<TrabajadorModel>();                      
         }
 
         private void CargarCursos()
         {
             var viewModel = (CursoNuevoGViewModel)DataContext;
-            var cursos = cursoRepository.GetCursosNotRegistered(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
-            foreach (var curso in cursos)
-            {
-                var item = new ComboBoxItem
-                {
-                    Content = curso.NomCurso
-                };
 
-                cbCurso.Items.Add(item);
+            try
+            {
+                var cursos = cursoRepository.GetCursosNotRegistered(viewModel.CurrentUserAccount.DisplayArea);
+                foreach (var curso in cursos)
+                {
+                    var item = new ComboBoxItem
+                    {
+                        Content = curso.NomCurso
+                    };
+
+                    cbCurso.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }    
 
@@ -82,23 +79,31 @@ namespace WPF_LoginForm.Views.GUser
             }                      
 
             if (!errores)
-            {                                                        
-                string idcurso = txtID.Text;               
-
-                // Recorrer la colección trabajadoresList y agregar a cada trabajador al mismo curso
-                foreach (var participante in trabajadoresList)
+            {
+                try
                 {
-                    repository.AddParticipantes(participante.Id, idcurso);
+                    string idcurso = txtID.Text;               
+
+                    // Recorrer la colección trabajadoresList y agregar a cada trabajador al mismo curso
+                    foreach (var participante in trabajadoresList)
+                    {
+                        repository.AddParticipantes(participante.Id, idcurso);
+                    }
+
+                    var viewModel = (CursoNuevoGViewModel)DataContext;
+                    AreaModel areaModel = areaRepository.GetIdByName(viewModel.CurrentUserAccount.DisplayArea); //area loggeada
+                    int idCurrentArea = areaModel.Id;
+
+                    repository.AddListaAsistencia(idCurrentArea, idcurso);
+
+                    MostrarCustomMessageBox();
+                    Limpiar();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                var viewModel = (CursoNuevoGViewModel)DataContext;
-                AreaModel areaModel = areaRepository.GetIdByName(viewModel.CurrentUserAccount.DisplayArea); //area loggeada
-                int idCurrentArea = areaModel.Id;
-
-                repository.AddListaAsistencia(idCurrentArea, idcurso);
-
-                MostrarCustomMessageBox();
-                Limpiar();
             }
         }
 
@@ -112,6 +117,7 @@ namespace WPF_LoginForm.Views.GUser
         {
             txtBuscar.Focus();
             CargarCursos();
+            cbCurso.SelectedIndex = 0;
 
             if (cbCurso.Items.Count == 0)
             {
@@ -119,6 +125,7 @@ namespace WPF_LoginForm.Views.GUser
                 txtBuscar.IsEnabled = false;
                 btnGuardar.IsEnabled = false;
                 btnSearch.IsEnabled = false;
+                cbCurso.IsEnabled = false;
             }
         }
 
@@ -176,42 +183,42 @@ namespace WPF_LoginForm.Views.GUser
             }
             else
             {
-               int numficha = int.Parse(txtBuscar.Text);
-
-                var viewModel = (CursoNuevoGViewModel)DataContext;
-                TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, viewModel.CurrentUserAccount.DisplayArea); //area loggeada
-
-                if (trabajador!=null)
+                try
                 {
-                    // Verificar si ya existe un trabajador con el mismo ID en la lista
-                    if (!trabajadoresList.Any(t => t.Id == numficha))
-                    {
-                        // Agregar trabajador a la ObservableCollection
-                        trabajadoresList.Add(trabajador);
+                    int numficha = int.Parse(txtBuscar.Text);
 
-                        // Actualizar el DataGrid
-                        participantesDataGrid.ItemsSource = trabajadoresList;
+                    var viewModel = (CursoNuevoGViewModel)DataContext;
+                    TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, viewModel.CurrentUserAccount.DisplayArea); //area loggeada
+
+                    if (trabajador!=null)
+                    {
+                        // Verificar si ya existe un trabajador con el mismo ID en la lista
+                        if (!trabajadoresList.Any(t => t.Id == numficha))
+                        {
+                            // Agregar trabajador a la ObservableCollection
+                            trabajadoresList.Add(trabajador);
+
+                            // Actualizar el DataGrid
+                            participantesDataGrid.ItemsSource = trabajadoresList;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Trabajador ya agregado", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Trabajador ya agregado", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        MessageBox.Show("No existe Trabajador o no es del área de "+ viewModel.CurrentUserAccount.DisplayArea, "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("No existe Trabajador o no es del área de "+ viewModel.CurrentUserAccount.DisplayArea, "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-
                 txtBuscar.Text = string.Empty;
             }
 
             txtBuscar.Focus();          
-        }
-      
-        public void limpiar()
-        {
-            txtBuscar.Focus();
-            trabajadoresList.Clear();            
         }
 
         private void btnBorrar_Click(object sender, RoutedEventArgs e)

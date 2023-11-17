@@ -71,14 +71,11 @@ namespace WPF_LoginForm.Views
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {          
-            habilitar();
-            
-
+            habilitar();            
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-
             bool errores = false;
 
             // Restablecer los mensajes de error y los bordes al estado inicial
@@ -90,55 +87,64 @@ namespace WPF_LoginForm.Views
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
 
-            if (string.IsNullOrEmpty(txtNoInst.Text))
+            try
             {
-                MessageBox.Show("Busque un instructor", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                errores = true;
+                if (string.IsNullOrEmpty(txtNoInst.Text))
+                {
+                    MessageBox.Show("Busque un instructor", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    errores = true;
+                }
+
+                if (string.IsNullOrEmpty(txtNombreI.Text))
+                {
+                    errNombre.Content = req;
+                    txtNombreI.BorderBrush = bordeError;
+                    errores = true;
+                }
+
+                if (string.IsNullOrEmpty(txtRFC.Text))
+                {
+                    errRfc.Content = req;
+                    txtRFC.BorderBrush = bordeError;
+                    errores = true;
+                }
+                else if (txtRFC.Text.Length < 13)
+                {
+                    errRfc.Content = "El RFC debe tener al menos 13 caracteres";
+                    txtRFC.BorderBrush = bordeError;
+                    errores = true;
+                }
+
+                if (string.IsNullOrEmpty(txtCompania.Text))
+                {
+                    errComp.Content = req;
+                    txtCompania.BorderBrush = bordeError;
+                    errores = true;
+                }
+
+                if (!errores)
+                {
+                    id = int.Parse(txtNoInst.Text);
+                    nombre = txtNombreI.Text;
+                    rfc = txtRFC.Text;
+                    ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
+                    tipo = instructorS.Content.ToString();
+                    comp = txtCompania.Text;
+
+
+                    repository.EditInstructor(nombre, rfc, tipo, comp, id);
+                    MostrarCustomMessageBox();
+                    deshabilitar();
+                    txtSearch.Text = string.Empty;
+                    txtSearch.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            if (string.IsNullOrEmpty(txtNombreI.Text))
-            {
-                errNombre.Content = req;
-                txtNombreI.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (string.IsNullOrEmpty(txtRFC.Text))
-            {
-                errRfc.Content = req;
-                txtRFC.BorderBrush = bordeError;
-                errores = true;
-            }
-            else if (txtRFC.Text.Length < 13)
-            {
-                errRfc.Content = "El RFC debe tener al menos 13 caracteres";
-                txtRFC.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (string.IsNullOrEmpty(txtCompania.Text))
-            {
-                errComp.Content = req;
-                txtCompania.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (!errores)
-            {
-                id = int.Parse(txtNoInst.Text);
-                nombre = txtNombreI.Text;
-                rfc = txtRFC.Text;
-                ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
-                tipo = instructorS.Content.ToString();
-                comp = txtCompania.Text;
-
-
-                repository.EditInstructor(nombre, rfc, tipo, comp, id);
-                MostrarCustomMessageBox();
-                deshabilitar();
-                txtSearch.Text = string.Empty;
-                txtSearch.Focus();
-            }
+            
         }
 
         private void MostrarCustomMessageBox()
@@ -151,7 +157,6 @@ namespace WPF_LoginForm.Views
         {
             if (e.Key == Key.Enter)
             {
-                // Llama al manejador de eventos del botón btnSearch.
                 btnSearch_Click(sender, e);
             }           
         }
@@ -171,38 +176,46 @@ namespace WPF_LoginForm.Views
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSearch.Text))
+            try
             {
-                MessageBox.Show("Ingrese un No. de Instructor", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                Limpiar();
-            }
-            else
-            {
-                int idinstructor = int.Parse(txtSearch.Text);
-                InstructorModel instructor = (repository as IInstructorRepository).GetById(idinstructor);
-
-                if(instructor != null)
+                if (string.IsNullOrEmpty(txtSearch.Text))
                 {
-                    txtNoInst.Text = instructor.Id.ToString();
-                    txtNombreI.Text = instructor.NomInstr.ToString();
-                    txtRFC.Text = instructor.RFC.ToString();
-                    txtCompania.Text=instructor.NomCia.ToString();
-
-                    if (instructor.TipoInstr.Equals("Interno"))
-                    {
-                        cbTipo.SelectedIndex = 0;
-                    }
-                    if (instructor.TipoInstr.Equals("Externo"))
-                    {
-                        cbTipo.SelectedIndex = 1;
-                    }
+                    MessageBox.Show("Ingrese un No. de Instructor", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    Limpiar();
                 }
                 else
                 {
-                    MessageBox.Show("No existe instructor con ese ID", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    Limpiar();
+                    int idinstructor = int.Parse(txtSearch.Text);
+                    InstructorModel instructor = (repository as IInstructorRepository).GetById(idinstructor);
+
+                    if(instructor != null)
+                    {
+                        txtNoInst.Text = instructor.Id.ToString();
+                        txtNombreI.Text = instructor.NomInstr.ToString();
+                        txtRFC.Text = instructor.RFC.ToString();
+                        txtCompania.Text=instructor.NomCia.ToString();
+
+                        if (instructor.TipoInstr.Equals("Interno"))
+                        {
+                            cbTipo.SelectedIndex = 0;
+                        }
+                        if (instructor.TipoInstr.Equals("Externo"))
+                        {
+                            cbTipo.SelectedIndex = 1;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe instructor con ese ID", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        Limpiar();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void txtRFC_PreviewTextInput(object sender, TextCompositionEventArgs e)

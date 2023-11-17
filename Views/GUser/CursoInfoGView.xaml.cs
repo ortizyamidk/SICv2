@@ -31,7 +31,6 @@ namespace WPF_LoginForm.Views.GUser
 
         ObservableCollection<TrabajadorModel> participantes;
 
-
         public CursoInfoGView()
         {
             InitializeComponent();
@@ -50,67 +49,76 @@ namespace WPF_LoginForm.Views.GUser
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtSearch.Text))
+            try
             {
-                MessageBox.Show("Ingrese un No. de lista", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                Limpiar();
-            }
-            else
-            {
-                int idlista = int.Parse(txtSearch.Text);
-                CursoGModel asistencia = cursoGRepository.GetById(idlista);
-
-                TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
-                var viewModel = (CursoInfoGViewModel)DataContext;
-                string arealoggeada = viewModel.CurrentUserAccount.DisplayArea;
-
-                IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlista, arealoggeada);
-                participantes = new ObservableCollection<TrabajadorModel>(participantesList);
-                listaDataGrid.ItemsSource = participantes;
-
-                if (asistencia != null && participantes.Count > 0)
+                if (string.IsNullOrEmpty(txtSearch.Text))
                 {
-                    txtNoLista.Text = asistencia.Id.ToString();
-                    txtCurso.Text = asistencia.NomCurso.ToString();
-                    txtAreaT.Text = asistencia.AreaTematica.ToString();
-                    txtInicia.Text = asistencia.Inicia.ToString();
-                    txtTermina.Text = asistencia.Termina.ToString();
-                    txtHorario.Text = asistencia.Horario.ToString();
-                    txtDura.Text = asistencia.Duracion.ToString() + " min";
-                    txtLugar.Text = asistencia.Lugar.ToString();
-                    txtInst.Text = asistencia.Instructor.ToString();
-
-                    int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
-
-                    if (cursoimp == 1)
-                    {
-                        border.Visibility = Visibility.Visible;
-                        txtImpartido.Visibility = Visibility.Visible;
-
-                        border.Background = colorImpartido;
-                        txtImpartido.Text = "IMPARTIDO";
-                    }
-                    else if (cursoimp == 0)
-                    {
-                        border.Visibility = Visibility.Visible;
-                        txtImpartido.Visibility = Visibility.Visible;
-
-
-                        border.Background = colorNOimpartido;
-                        txtImpartido.Text = "NO IMPARTIDO";
-                    }
-                    else
-                    {
-                        border.Visibility = Visibility.Collapsed;
-                        txtImpartido.Visibility = Visibility.Collapsed;
-                        txtImpartido.Text = string.Empty;
-                    }
+                    MessageBox.Show("Ingrese un No. de lista", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    Limpiar();
                 }
                 else
                 {
-                    MessageBox.Show("No existe lista de asistencia con ese ID o no pertenece al área de: "+arealoggeada, "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    Limpiar();
-                }            
+                    int idlista = int.Parse(txtSearch.Text);
+                    CursoGModel asistencia = cursoGRepository.GetById(idlista);
+
+                    TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
+                    var viewModel = (CursoInfoGViewModel)DataContext;
+                    string arealoggeada = viewModel.CurrentUserAccount.DisplayArea;
+
+                    IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlista, arealoggeada);
+                    participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                    listaDataGrid.ItemsSource = participantes;
+
+                    if (asistencia != null && participantes.Count > 0)
+                    {
+                        txtNoLista.Text = asistencia.Id.ToString();
+                        txtCurso.Text = asistencia.NomCurso.ToString();
+                        txtAreaT.Text = asistencia.AreaTematica.ToString();
+                        txtInicia.Text = asistencia.Inicia.ToString();
+                        txtTermina.Text = asistencia.Termina.ToString();
+                        txtHorario.Text = asistencia.Horario.ToString();
+                        txtDura.Text = asistencia.Duracion.ToString() + " min";
+                        txtLugar.Text = asistencia.Lugar.ToString();
+                        txtInst.Text = asistencia.Instructor.ToString();
+
+                        int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
+
+                        if (cursoimp == 1)
+                        {
+                            border.Visibility = Visibility.Visible;
+                            txtImpartido.Visibility = Visibility.Visible;
+
+                            border.Background = colorImpartido;
+                            txtImpartido.Text = "IMPARTIDO";
+                        }
+                        else if (cursoimp == 0)
+                        {
+                            border.Visibility = Visibility.Visible;
+                            txtImpartido.Visibility = Visibility.Visible;
+
+
+                            border.Background = colorNOimpartido;
+                            txtImpartido.Text = "NO IMPARTIDO";
+                        }
+                        else
+                        {
+                            border.Visibility = Visibility.Collapsed;
+                            txtImpartido.Visibility = Visibility.Collapsed;
+                            txtImpartido.Text = string.Empty;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe lista de asistencia con ese ID o no pertenece al área de: " + arealoggeada, "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        Limpiar();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Manejo de la excepción: puedes registrar el error, notificar al usuario, etc.
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

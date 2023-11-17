@@ -63,7 +63,6 @@ namespace WPF_LoginForm.CustomControls
         {
             if (e.Key == Key.Enter)
             {
-                // Llama al manejador de eventos del botón btnSearch.
                 Aceptar_Click(sender, e);
             }
         }

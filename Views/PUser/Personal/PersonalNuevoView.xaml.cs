@@ -18,7 +18,6 @@ using System.Windows.Shapes;
 using WPF_LoginForm.CustomControls;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WPF_LoginForm.Views
 {
@@ -49,33 +48,48 @@ namespace WPF_LoginForm.Views
             areaRepository = new AreaRepository();
             trabajadorRepository = new TrabajadorRepository();
             departamentoRepository = new DepartamentoRepository();
-
         }
 
         private void LoadDepartamentosFromDatabase()
         {
-            var deptos = departamentoRepository.GetByAll();
-            foreach (var depto in deptos)
+            try
             {
-                var item = new ComboBoxItem
+                var deptos = departamentoRepository.GetByAll();
+                foreach (var depto in deptos)
                 {
-                    Content = depto.NomDepto
-                };
-                cbDpto.Items.Add(item);
+                    var item = new ComboBoxItem
+                    {
+                        Content = depto.NomDepto
+                    };
+                    cbDpto.Items.Add(item);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void LoadPuestoFromDatabase()
         {
-            var puestos = puestoRepository.GetByAll();
-            foreach (var puesto in puestos)
+            try
             {
-                var item = new ComboBoxItem
+                var puestos = puestoRepository.GetByAll();
+                foreach (var puesto in puestos)
                 {
-                    Content = puesto.NomPuesto
-                };
-                cbPuesto.Items.Add(item);
+                    var item = new ComboBoxItem
+                    {
+                        Content = puesto.NomPuesto
+                    };
+                    cbPuesto.Items.Add(item);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -84,6 +98,17 @@ namespace WPF_LoginForm.Views
 
             LoadDepartamentosFromDatabase();
             LoadPuestoFromDatabase();
+
+            string imagePath = "/Images/up.png";
+
+            // Crear la URI de la imagen
+            Uri imageUri = new Uri(imagePath, UriKind.Relative);
+
+            // Crear un objeto BitmapImage
+            System.Windows.Media.Imaging.BitmapImage bitmap = new System.Windows.Media.Imaging.BitmapImage(imageUri);
+
+            // Establecer la imagen al control Image
+            imgTrabajador.Source = bitmap;
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
@@ -98,97 +123,106 @@ namespace WPF_LoginForm.Views
             txtNombre.BorderBrush = bordeNormal;
             txtRFC.BorderBrush = bordeNormal;
 
-            DateTime? selectedDate = dtIngreso.SelectedDate;
-            DateTime fechaActual = DateTime.Now;
-
-            string selecteddate = selectedDate.ToString();
-
-
-            if (selectedDate > fechaActual)
+            try
             {
-               errores = true;
-            }
+                DateTime? selectedDate = dtIngreso.SelectedDate;
+                DateTime fechaActual = DateTime.Now;
 
-            if (string.IsNullOrEmpty(selecteddate))
-            {
-                errores = true;
-            }
+                string selecteddate = selectedDate.ToString();
 
-            if (string.IsNullOrEmpty(txtNoFicha.Text) || string.IsNullOrEmpty(txtNumTarjeta.Text))
-            {
-                MessageBox.Show("Debe llenar No. ficha y Tarjeta");
-                txtNoFicha.Focus();
-                errores = true;
-            }
 
-            if (string.IsNullOrEmpty(txtNombre.Text))
-            {
-                errNombre.Content = req;
-                txtNombre.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (string.IsNullOrEmpty(txtRFC.Text))
-            {
-                errRfc.Content = req;
-                txtRFC.BorderBrush = bordeError;
-                errores = true;
-            }
-            else if (txtRFC.Text.Length < 13)
-            {
-                errRfc.Content = "Al menos 13 caracteres";
-                txtRFC.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (!errores)
-            {
-                id = int.Parse(txtNoFicha.Text);
-                numtarjeta = txtNumTarjeta.Text;
-                nombre = txtNombre.Text;
-                fechaing = selecteddate;
-                rfc = txtRFC.Text;
-                ComboBoxItem escolaridadS = (ComboBoxItem)cbNivel.SelectedItem;
-                escolaridad = escolaridadS.Content.ToString();
-                antecedentes = txtAntecedentes.Text;
-
-                CheckBox calif = (CheckBox)chkCalif;
-                if (calif.IsChecked == true)
+                if (selectedDate > fechaActual)
                 {
-                    perscalif = "1";
-                }
-                else
-                {
-                    perscalif = "0";
+                   errores = true;
                 }
 
-                byte[] fotoBytes = ObtenerBytesDesdeImagen();
-
-                CheckBox audi = (CheckBox)chkAudit;
-                if (audi.IsChecked == true)
+                if (string.IsNullOrEmpty(selecteddate))
                 {
-                    auditoriso14001 = "1";
-                }
-                else
-                {
-                    auditoriso14001 = "0";
+                    errores = true;
                 }
 
-                ComboBoxItem puestoS = (ComboBoxItem)cbPuesto.SelectedItem;
-                string puestoSelec = puestoS.Content.ToString();
-                PuestoModel puesModel = puestoRepository.GetIdByNombrePuesto(puestoSelec);
-                idpuesto = puesModel.Id;
+                if (string.IsNullOrEmpty(txtNoFicha.Text) || string.IsNullOrEmpty(txtNumTarjeta.Text))
+                {
+                    MessageBox.Show("Debe llenar No. ficha y Tarjeta");
+                    txtNoFicha.Focus();
+                    errores = true;
+                }
 
-                ComboBoxItem areaS = (ComboBoxItem)cbArea.SelectedItem;
-                string areaSelec = areaS.Content.ToString();
-                AreaModel areaModel = areaRepository.GetIdByName(areaSelec);
-                idarea = areaModel.Id;
+                if (string.IsNullOrEmpty(txtNombre.Text))
+                {
+                    errNombre.Content = req;
+                    txtNombre.BorderBrush = bordeError;
+                    errores = true;
+                }
 
-                trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
+                if (string.IsNullOrEmpty(txtRFC.Text))
+                {
+                    errRfc.Content = req;
+                    txtRFC.BorderBrush = bordeError;
+                    errores = true;
+                }
+                else if (txtRFC.Text.Length < 13)
+                {
+                    errRfc.Content = "Al menos 13 caracteres";
+                    txtRFC.BorderBrush = bordeError;
+                    errores = true;
+                }
 
-                MostrarCustomMessageBox();
-                limpiar();
+                if (!errores)
+                {
+                    id = int.Parse(txtNoFicha.Text);
+                    numtarjeta = txtNumTarjeta.Text;
+                    nombre = txtNombre.Text;
+                    fechaing = selecteddate;
+                    rfc = txtRFC.Text;
+                    ComboBoxItem escolaridadS = (ComboBoxItem)cbNivel.SelectedItem;
+                    escolaridad = escolaridadS.Content.ToString();
+                    antecedentes = txtAntecedentes.Text;
+
+                    CheckBox calif = (CheckBox)chkCalif;
+                    if (calif.IsChecked == true)
+                    {
+                        perscalif = "1";
+                    }
+                    else
+                    {
+                        perscalif = "0";
+                    }
+
+                    byte[] fotoBytes = ObtenerBytesDesdeImagen();
+
+                    CheckBox audi = (CheckBox)chkAudit;
+                    if (audi.IsChecked == true)
+                    {
+                        auditoriso14001 = "1";
+                    }
+                    else
+                    {
+                        auditoriso14001 = "0";
+                    }
+
+                    ComboBoxItem puestoS = (ComboBoxItem)cbPuesto.SelectedItem;
+                    string puestoSelec = puestoS.Content.ToString();
+                    PuestoModel puesModel = puestoRepository.GetIdByNombrePuesto(puestoSelec);
+                    idpuesto = puesModel.Id;
+
+                    ComboBoxItem areaS = (ComboBoxItem)cbArea.SelectedItem;
+                    string areaSelec = areaS.Content.ToString();
+                    AreaModel areaModel = areaRepository.GetIdByName(areaSelec);
+                    idarea = areaModel.Id;
+
+                    trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
+
+                    MostrarCustomMessageBox();
+                    limpiar();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            
 
         }
 
@@ -225,36 +259,44 @@ namespace WPF_LoginForm.Views
 
         private void cbDpto_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbDpto.SelectedItem != null)
+            try
             {
-                ComboBoxItem deptoS = (ComboBoxItem)cbDpto.SelectedItem;
-                string departamento = deptoS.Content.ToString();
-
-                DepartamentoModel departamentoModel = departamentoRepository.GetJefeByDepartamento(departamento);
-                if (departamentoModel != null)
+                if (cbDpto.SelectedItem != null)
                 {
-                    txtJefe.Text = departamentoModel.Jefe.ToString();
-                }
-                else
-                {
-                    txtJefe.Text = string.Empty;
-                }
+                    ComboBoxItem deptoS = (ComboBoxItem)cbDpto.SelectedItem;
+                    string departamento = deptoS.Content.ToString();
 
-                var areas = areaRepository.GetAreaByDepartamento(departamento);
-
-                cbArea.Items.Clear();
-                foreach (var area in areas)
-                {
-                    var item = new ComboBoxItem
+                    DepartamentoModel departamentoModel = departamentoRepository.GetJefeByDepartamento(departamento);
+                    if (departamentoModel != null)
                     {
-                        Content = area.NombreArea
-                    };
-                    cbArea.Items.Add(item);
+                        txtJefe.Text = departamentoModel.Jefe.ToString();
+                    }
+                    else
+                    {
+                        txtJefe.Text = string.Empty;
+                    }
+
+                    var areas = areaRepository.GetAreaByDepartamento(departamento);
+
+                    cbArea.Items.Clear();
+                    foreach (var area in areas)
+                    {
+                        var item = new ComboBoxItem
+                        {
+                            Content = area.NombreArea
+                        };
+                        cbArea.Items.Add(item);
+                    }
+
+                    cbArea.SelectedIndex = 0;
+
                 }
-
-                cbArea.SelectedIndex = 0;
-
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -351,32 +393,40 @@ namespace WPF_LoginForm.Views
             OpenFileDialog selectorImagen = new OpenFileDialog();
             selectorImagen.Title = "Seleccionar Imagen";
 
-            if (selectorImagen.ShowDialog() == true)
+            try
             {
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = selectorImagen.OpenFile();
-                bitmapImage.EndInit();
-
-                imgTrabajador.Source = bitmapImage;
-
-                // Convierte la imagen a bytes (en este caso, a un arreglo de bytes en formato PNG)
-                byte[] imagenByte = null;
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-                using (MemoryStream memoria = new MemoryStream())
+                if (selectorImagen.ShowDialog() == true)
                 {
-                    encoder.Save(memoria);
-                    imagenByte = memoria.ToArray();
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = selectorImagen.OpenFile();
+                    bitmapImage.EndInit();
+
+                    imgTrabajador.Source = bitmapImage;
+
+                    // Convierte la imagen a bytes (en este caso, a un arreglo de bytes en formato PNG)
+                    byte[] imagenByte = null;
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+                    using (MemoryStream memoria = new MemoryStream())
+                    {
+                        encoder.Save(memoria);
+                        imagenByte = memoria.ToArray();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            
         }
 
         private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                // Llama al manejador de eventos del botón btnSearch.
                 btnGuardar_Click(sender, e);
             }           
         }
@@ -385,17 +435,26 @@ namespace WPF_LoginForm.Views
         {
             byte[] fotoBytes = null;
 
-            if (imgTrabajador.Source is BitmapImage bitmapImage)
+            try
             {
-                JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
-
-                using (MemoryStream memoria = new MemoryStream())
+                if (imgTrabajador.Source is BitmapImage bitmapImage)
                 {
-                    encoder.Save(memoria);
-                    fotoBytes = memoria.ToArray();
+                    JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+                    using (MemoryStream memoria = new MemoryStream())
+                    {
+                        encoder.Save(memoria);
+                        fotoBytes = memoria.ToArray();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            
 
             return fotoBytes;
         }

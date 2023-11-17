@@ -24,5 +24,10 @@ namespace WPF_LoginForm.Models
         public string Auditoriso14001 { get; set; }
         public string Foto { get; set; }
 
+        public string Categoria { get; set; }
+
+        public int antiguedadanios { get; set; }
+        public int antiguedadmeses { get; set; }
+
     }
 }

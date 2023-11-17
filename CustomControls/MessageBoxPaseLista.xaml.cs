@@ -25,8 +25,9 @@ namespace WPF_LoginForm.CustomControls
         private DispatcherTimer timer;
         CursoGRepository repository;
         CursoRepository cursoRepository;
+        private string idCursoFromParent;
 
-        public MessageBoxPaseLista()
+        public MessageBoxPaseLista(string idCurso)
         {
             InitializeComponent();
             repository = new CursoGRepository();
@@ -39,6 +40,7 @@ namespace WPF_LoginForm.CustomControls
             timer.Interval = TimeSpan.FromSeconds(1); // Configura el intervalo de n segundos
             timer.Tick += Timer_Tick;
 
+            idCursoFromParent = idCurso;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -84,36 +86,36 @@ namespace WPF_LoginForm.CustomControls
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-
-            // Verifica si el texto en txtBuscar no está vacío
-            if (!string.IsNullOrEmpty(txtBuscar.Text))
+            try
             {
-                //PASE DE LISTA
-                string numtarjeta = txtBuscar.Text;
-
-                TrabajadorRepository trabajador = new TrabajadorRepository();
-                TrabajadorModel trabajadorModel = trabajador.GetIdByNumTarjeta(numtarjeta);
-
-                
-
-                if (trabajadorModel != null)
+                if (!string.IsNullOrEmpty(txtBuscar.Text))
                 {
-                    int numficha = trabajadorModel.Id;
-                    string idcurso = "CU1"; //traerlo de ventana CursoTrabajadorInfoView
+                    //PASE DE LISTA
+                    string numtarjeta = txtBuscar.Text;
 
-                    repository.Edit(idcurso, numficha); //traerme idcurso de CursoInfoView
+                    TrabajadorRepository trabajador = new TrabajadorRepository();
+                    TrabajadorModel trabajadorModel = trabajador.GetIdByNumTarjeta(numtarjeta);
+
+                    if (trabajadorModel != null)
+                    {
+                        int numficha = trabajadorModel.Id;
+
+                        repository.Edit(idCursoFromParent, numficha);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe trabajador o no está inscrito al curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
+
+                    timer.Stop();
+
+                    txtBuscar.Text = string.Empty;
+                    txtBuscar.Focus();
                 }
-                else
-                {
-                    MessageBox.Show("No existe trabajador o no está inscrito al curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
-                
-
-                // Detén el temporizador
-                timer.Stop();
-
-                txtBuscar.Text = string.Empty;
-                txtBuscar.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

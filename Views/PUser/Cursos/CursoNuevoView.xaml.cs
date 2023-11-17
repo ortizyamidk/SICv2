@@ -44,7 +44,7 @@ namespace WPF_LoginForm.Views
             cbArea.SelectionChanged += ComboBox_SelectionChanged;
             txtcbArea.LostFocus += TextBox_LostFocus;
 
-            CargarInstructores();
+            
             cbInstructor.SelectionChanged += ComboBox_SelectionChanged;
             txtcbInstructor.LostFocus += TextBox_LostFocus;
 
@@ -53,89 +53,111 @@ namespace WPF_LoginForm.Views
             tiHorario.SelectedTime = DateTime.Now;
 
             tiHorario.SelectedTimeChanged += TiHorario_SelectedTimeChanged;           
-
         }
 
         private void CargarInstructores()
         {
-            var instructores = instructorRepository.GetByAll();
-            foreach (var instructor in instructores)
+            try
             {
-                var item = new ComboBoxItem
+                var instructores = instructorRepository.GetByAll();
+                foreach (var instructor in instructores)
                 {
-                    Content = instructor.NomInstr
-                };
-                cbInstructor.Items.Add(item);
+                    var item = new ComboBoxItem
+                    {
+                        Content = instructor.NomInstr
+                    };
+                    cbInstructor.Items.Add(item);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
         }
-
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = sender as ComboBox; // Obtener el ComboBox que disparó el evento
 
-            // Verificar si el primer elemento está seleccionado (índice 0)
-            if (comboBox.SelectedIndex == 0)
+            try
             {
-                // Mostrar el TextBox y ocultar el ComboBox
-                TextBox textBox = null;
+                // Verificar si el primer elemento está seleccionado (índice 0)
+                if (comboBox.SelectedIndex == 0)
+                {
+                    // Mostrar el TextBox y ocultar el ComboBox
+                    TextBox textBox = null;
 
-                if (comboBox == cbArea)
-                {
-                    textBox = txtcbArea;
-                }
-                else if (comboBox == cbInstructor)
-                {
-                    textBox = txtcbInstructor;
-                }
+                    if (comboBox == cbArea)
+                    {
+                        textBox = txtcbArea;
+                    }
+                    else if (comboBox == cbInstructor)
+                    {
+                        textBox = txtcbInstructor;
+                    }
 
-                if (textBox != null)
+                    if (textBox != null)
+                    {
+                        textBox.Visibility = Visibility.Visible;
+                        comboBox.Visibility = Visibility.Collapsed;
+                        textBox.Focus();
+                    }
+                }
+                else
                 {
-                    textBox.Visibility = Visibility.Visible;
-                    comboBox.Visibility = Visibility.Collapsed;
-                    textBox.Focus();
+                    // Ocultar el TextBox y mostrar el ComboBox
+                    if (comboBox == cbArea)
+                    {
+                        txtcbArea.Visibility = Visibility.Hidden;
+                        cbArea.Visibility = Visibility.Visible;
+                    }
+                    else if (comboBox == cbInstructor)
+                    {
+                        txtcbInstructor.Visibility = Visibility.Hidden;
+                        cbInstructor.Visibility = Visibility.Visible;
+                    }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                // Ocultar el TextBox y mostrar el ComboBox
-                if (comboBox == cbArea)
-                {
-                    txtcbArea.Visibility = Visibility.Hidden;
-                    cbArea.Visibility = Visibility.Visible;
-                }
-                else if (comboBox == cbInstructor)
-                {
-                    txtcbInstructor.Visibility = Visibility.Hidden;
-                    cbInstructor.Visibility = Visibility.Visible;
-                }
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox; // Obtener el TextBox que disparó el evento
 
-            if (textBox == txtcbArea)
+            try
             {
-                if (string.IsNullOrWhiteSpace(txtcbArea.Text))
+                if (textBox == txtcbArea)
                 {
-                    // Mostrar el ComboBox y ocultar el TextBox
-                    txtcbArea.Visibility = Visibility.Hidden;
-                    cbArea.Visibility = Visibility.Visible;
-                    cbArea.SelectedIndex = 1;
+                    if (string.IsNullOrWhiteSpace(txtcbArea.Text))
+                    {
+                        // Mostrar el ComboBox y ocultar el TextBox
+                        txtcbArea.Visibility = Visibility.Hidden;
+                        cbArea.Visibility = Visibility.Visible;
+                        cbArea.SelectedIndex = 1;
+                    }
+                }
+                else if (textBox == txtcbInstructor)
+                {
+                    if (string.IsNullOrWhiteSpace(txtcbInstructor.Text))
+                    {
+                        // Mostrar el ComboBox y ocultar el TextBox
+                        txtcbInstructor.Visibility = Visibility.Hidden;
+                        cbInstructor.Visibility = Visibility.Visible;
+                        cbInstructor.SelectedIndex = 1;
+                    }
                 }
             }
-            else if (textBox == txtcbInstructor)
+            catch (Exception ex)
             {
-                if (string.IsNullOrWhiteSpace(txtcbInstructor.Text))
-                {
-                    // Mostrar el ComboBox y ocultar el TextBox
-                    txtcbInstructor.Visibility = Visibility.Hidden;
-                    cbInstructor.Visibility = Visibility.Visible;
-                    cbInstructor.SelectedIndex = 1;
-                }
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         private void dtTermina_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -143,61 +165,78 @@ namespace WPF_LoginForm.Views
             DateTime? selectedDate = dtInicia.SelectedDate;
             DateTime? selectedDateT = dtTermina.SelectedDate;
 
-            if (selectedDate.HasValue)
+            try
             {
-                if (selectedDateT < selectedDate)
+                if (selectedDate.HasValue)
                 {
-                    errTer.Content = "Debe ser mayor a la inicial";
-                    errTer.Visibility = Visibility.Visible;
-                    btnGuardar.IsEnabled = false;
+                    if (selectedDateT < selectedDate)
+                    {
+                        errTer.Content = "Debe ser mayor a la inicial";
+                        errTer.Visibility = Visibility.Visible;
+                        btnGuardar.IsEnabled = false;
+                    }
+                    else
+                    {
+                        errTer.Visibility = Visibility.Collapsed;
+                        btnGuardar.IsEnabled = true;
+                    }
+
+                    dtTermina.BorderBrush = bordeNormal;
                 }
                 else
                 {
-                    errTer.Visibility = Visibility.Collapsed;
-                    btnGuardar.IsEnabled = true;
+                    btnGuardar.IsEnabled = false;
+                    errTer.Content = req;
+                    errTer.Visibility = Visibility.Visible;
+                    dtTermina.BorderBrush = bordeError;
                 }
-
-                dtTermina.BorderBrush = bordeNormal;
             }
-            else
+            catch (Exception ex)
             {
-                btnGuardar.IsEnabled = false;
-                errTer.Content = req;
-                errTer.Visibility = Visibility.Visible;
-                dtTermina.BorderBrush = bordeError;
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         private void dtInicia_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime? selectedDate = dtInicia.SelectedDate;
             DateTime fechaActual = DateTime.Now;
-            DateTime fechaAnterior = fechaActual.AddDays(-1);
 
-            if (selectedDate.HasValue)
+            try
             {
-                if (selectedDate < fechaAnterior)
+                DateTime fechaAnterior = fechaActual.AddDays(-1);
+
+                if (selectedDate.HasValue)
                 {
-                    // La fecha seleccionada es anterior a la fecha actual
-                    errIn.Content = "Debe ser posterior a la actual";
-                    errIn.Visibility = Visibility.Visible;
-                    btnGuardar.IsEnabled = false;
+                    if (selectedDate < fechaAnterior)
+                    {
+                        // La fecha seleccionada es anterior a la fecha actual
+                        errIn.Content = "Debe ser posterior a la actual";
+                        errIn.Visibility = Visibility.Visible;
+                        btnGuardar.IsEnabled = false;
+                    }
+                    else
+                    {
+                        errIn.Visibility = Visibility.Collapsed;
+                        btnGuardar.IsEnabled = true;
+                    }
+
+                    dtInicia.BorderBrush = bordeNormal;
                 }
                 else
                 {
-                    errIn.Visibility = Visibility.Collapsed;
-                    btnGuardar.IsEnabled = true;
+                    btnGuardar.IsEnabled = false;
+                    errIn.Content = req;
+                    errIn.Visibility = Visibility.Visible;
+                    dtInicia.BorderBrush = bordeError;
                 }
-
-                dtInicia.BorderBrush = bordeNormal;
             }
-            else
+            catch (Exception ex)
             {
-                btnGuardar.IsEnabled = false;
-                errIn.Content = req;
-                errIn.Visibility = Visibility.Visible;
-                dtInicia.BorderBrush = bordeError;
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         private void TiHorario_SelectedTimeChanged(object sender, RoutedPropertyChangedEventArgs<DateTime?> e)
@@ -222,6 +261,7 @@ namespace WPF_LoginForm.Views
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             txtID.Focus();
+            CargarInstructores();
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
@@ -238,132 +278,141 @@ namespace WPF_LoginForm.Views
             txtNombreC.BorderBrush = bordeNormal;
             txtID.BorderBrush = bordeNormal;
 
-            
-            if (string.IsNullOrEmpty(txtID.Text))
+            try
             {
-                errID.Content = req;
-                txtID.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            var existingCurso = cursoRepository.GetByAll().FirstOrDefault(c => c.Id == txtID.Text);
-            var existingCurso2 = cursoRepository.GetByAll().FirstOrDefault(c => c.NomCurso == txtNombreC.Text);
-
-            if (existingCurso != null)
-            {
-                MessageBox.Show("Ya existe ese ID del Curso", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                errores = true;
-            }
-            if (existingCurso2 != null)
-            {
-                MessageBox.Show("No puede haber 2 cursos con el mismo nombre", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                errores = true;
-            }
-
-            if (string.IsNullOrEmpty(txtNombreC.Text))
-            {
-                errCurso.Content = req;
-                txtNombreC.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (string.IsNullOrEmpty(txtDuracion.Text))
-            {
-                errDur.Content = req;
-                txtDuracion.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            if (string.IsNullOrEmpty(txtLugar.Text))
-            {
-                errLug.Content = req;
-                txtLugar.BorderBrush = bordeError;
-                errores = true;
-            }
-
-            DateTime? selectedDate = dtInicia.SelectedDate;
-            DateTime? selectedDateT = dtTermina.SelectedDate;
-            if (selectedDateT < selectedDate)
-            {
-                errores = true;
-            }
-
-            DateTime fechaActual = DateTime.Now;
-            DateTime fechaAnterior = fechaActual.AddDays(-1);
-            if (selectedDate < fechaAnterior)
-            {
-                errores = true;
-            }
-
-            string selectedinicia = selectedDate.ToString();
-            string selectedtermina = selectedDateT.ToString();
-            DateTime? horaSeleccionada = tiHorario.SelectedTime;
-            string selectedhora = horaSeleccionada.ToString();
-
-            if (string.IsNullOrEmpty(selectedinicia)||string.IsNullOrEmpty(selectedtermina)||string.IsNullOrEmpty(selectedhora))
-            {
-                errores = true;
-            }
-
-            if (!errores)
-            {
-                id = txtID.Text;
-                nombrecurso = txtNombreC.Text;
-                inicia = dtInicia.SelectedDate.ToString();
-                termina = dtTermina.SelectedDate.ToString();
-                horario = tiHorario.SelectedTime.ToString();
-                duracion = int.Parse(txtDuracion.Text);
-                lugar = txtLugar.Text;
-
-
-                // Verificar el índice seleccionado en cbArea
-                if (cbArea.SelectedIndex == 0)
+                if (string.IsNullOrEmpty(txtID.Text))
                 {
-                    area = txtcbArea.Text; //escribe un area en especifico
-                }
-                else if (cbArea.SelectedIndex > 0)
-                {
-                    ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea.SelectedItem;
-                    area = areaseleccionada.Content.ToString(); //toma un area que ya existe
+                    errID.Content = req;
+                    txtID.BorderBrush = bordeError;
+                    errores = true;
                 }
 
-                // Verificar el índice seleccionado en cbInstructor
-                if (cbInstructor.SelectedIndex == 0)
+                var existingCurso = cursoRepository.GetByAll().FirstOrDefault(c => c.Id == txtID.Text);
+                var existingCurso2 = cursoRepository.GetByAll().FirstOrDefault(c => c.NomCurso == txtNombreC.Text);
+
+                if (existingCurso != null)
                 {
-                    instructor = txtcbInstructor.Text;
-                    cursoRepository.AddCursoInstructorTemporal(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instructor); //insertar si se escribe un instructor temporal
+                    MessageBox.Show("Ya existe ese ID del Curso", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    errores = true;
                 }
-                else if (cbInstructor.SelectedIndex > 0)
+                if (existingCurso2 != null)
                 {
-                    ComboBoxItem selectedItemInst = (ComboBoxItem)cbInstructor.SelectedItem;
-                    instructor = selectedItemInst.Content.ToString();
-
-                    InstructorModel instridModel = instructorRepository.GetIdByNombre(instructor);
-                    int instrid = instridModel.Id;
-                    cursoRepository.AddCursoInstructor(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instrid); //insertar si se selecciona un instructor que ya existe
-
+                    MessageBox.Show("No puede haber 2 cursos con el mismo nombre", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    errores = true;
                 }
 
-                var areaRepository = new AreaRepository();
-                var areaIds = areaRepository.GetIdAreasRegistran();
-
-                foreach (var areaId in areaIds)
+                if (string.IsNullOrEmpty(txtNombreC.Text))
                 {
-                    int idarea = areaId.Id;
-
-                    cursoRepository.AddCursoArea(idarea, id); //permite asignarle el curso a todas las areas que registran
+                    errCurso.Content = req;
+                    txtNombreC.BorderBrush = bordeError;
+                    errores = true;
                 }
 
-                MostrarCustomMessageBox();
-                Limpiar();
-            }          
+                if (string.IsNullOrEmpty(txtDuracion.Text))
+                {
+                    errDur.Content = req;
+                    txtDuracion.BorderBrush = bordeError;
+                    errores = true;
+                }
+
+                if (string.IsNullOrEmpty(txtLugar.Text))
+                {
+                    errLug.Content = req;
+                    txtLugar.BorderBrush = bordeError;
+                    errores = true;
+                }
+
+                DateTime? selectedDate = dtInicia.SelectedDate;
+                DateTime? selectedDateT = dtTermina.SelectedDate;
+
+                if (selectedDateT < selectedDate)
+                {
+                    errores = true;
+                }
+
+                DateTime fechaActual = DateTime.Now;
+                DateTime fechaAnterior = fechaActual.AddDays(-1);
+
+                if (selectedDate < fechaAnterior)
+                {
+                    errores = true;
+                }
+
+                string selectedinicia = selectedDate.ToString();
+                string selectedtermina = selectedDateT.ToString();
+                DateTime? horaSeleccionada = tiHorario.SelectedTime;
+                string selectedhora = horaSeleccionada.ToString();
+
+                if (string.IsNullOrEmpty(selectedinicia)||string.IsNullOrEmpty(selectedtermina)||string.IsNullOrEmpty(selectedhora))
+                {
+                    errores = true;
+                }
+
+                if (!errores)
+                {
+                    id = txtID.Text;
+                    nombrecurso = txtNombreC.Text;
+                    inicia = dtInicia.SelectedDate.ToString();
+                    termina = dtTermina.SelectedDate.ToString();
+                    horario = tiHorario.SelectedTime.ToString();
+                    duracion = int.Parse(txtDuracion.Text);
+                    lugar = txtLugar.Text;
+
+
+                    // Verificar el índice seleccionado en cbArea
+                    if (cbArea.SelectedIndex == 0)
+                    {
+                        area = txtcbArea.Text; //escribe un area en especifico
+                    }
+                    else if (cbArea.SelectedIndex > 0)
+                    {
+                        ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea.SelectedItem;
+                        area = areaseleccionada.Content.ToString(); //toma un area que ya existe
+                    }
+
+                    // Verificar el índice seleccionado en cbInstructor
+                    if (cbInstructor.SelectedIndex == 0)
+                    {
+                        instructor = txtcbInstructor.Text;
+                        cursoRepository.AddCursoInstructorTemporal(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instructor); //insertar si se escribe un instructor temporal
+                    }
+                    else if (cbInstructor.SelectedIndex > 0)
+                    {
+                        ComboBoxItem selectedItemInst = (ComboBoxItem)cbInstructor.SelectedItem;
+                        instructor = selectedItemInst.Content.ToString();
+
+                        InstructorModel instridModel = instructorRepository.GetIdByNombre(instructor);
+                        int instrid = instridModel.Id;
+                        cursoRepository.AddCursoInstructor(id, nombrecurso, area, inicia, termina, horario, duracion, lugar, instrid); //insertar si se selecciona un instructor que ya existe
+
+                    }
+
+                    var areaRepository = new AreaRepository();
+                    var areaIds = areaRepository.GetIdAreasRegistran();
+
+                    foreach (var areaId in areaIds)
+                    {
+                        int idarea = areaId.Id;
+
+                        cursoRepository.AddCursoArea(idarea, id); //permite asignarle el curso a todas las areas que registran
+                    }
+
+                    MostrarCustomMessageBox();
+                    Limpiar();
+                }  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+                    
         }
 
         private void UserControl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                // Llama al manejador de eventos del botón btnSearch.
                 btnGuardar_Click(sender, e);
             }
         }

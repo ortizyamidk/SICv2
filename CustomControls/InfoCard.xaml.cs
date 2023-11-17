@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace WPF_LoginForm.CustomControls
 {
-    /// <summary>
-    /// Lógica de interacción para InfoCard.xaml
-    /// </summary>
     public partial class InfoCard : UserControl
     {
         public InfoCard()

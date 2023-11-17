@@ -23,12 +23,14 @@ namespace WPF_LoginForm.Models
 
         TrabajadorModel GetById(int numficha, string nomarea);
         TrabajadorModel GetIdByNumTarjeta(string numtarjeta);
+        TrabajadorModel GetTrabajador(int numficha);
 
         //reportes
         TrabajadorModel FormatoDC3(int numficha);
         TrabajadorModel GetTrabajadorHistorialCursos(int numficha);
 
         void AddTrabajador(int id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea);
+        void EditTrabajador(string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, int id);
 
     }
 }

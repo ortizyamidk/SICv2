@@ -53,8 +53,6 @@
                             </StackPanel>
                         </Grid>
 
-                        
-
                         <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
                             <Image x:Name="imgTrabajador" Source="/Images/up.png" Width="120" Height="180"/>
                             <Button x:Name="btnExam" Content="Cargar Foto" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="110" Height="35" Cursor="Hand" Click="btnExam_Click"/>

@@ -35,62 +35,43 @@
                                 <RowDefinition Height="35"/>
                                 <RowDefinition Height="33"/>
                                 <RowDefinition Height="30"/>
+                                <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock x:Name="lblNoFicha" Grid.Column="0" TextWrapping="Wrap" FontWeight="DemiBold" Foreground="White" Text="No. ficha: 57019" HorizontalAlignment="Center" Margin="5 10 0 10" FontSize="23"/>
+                            <TextBlock x:Name="lblNoFicha" Grid.Column="0" TextWrapping="Wrap" FontWeight="DemiBold" Foreground="White" Text="No. ficha: " HorizontalAlignment="Center" Margin="5 10 0 10" FontSize="23"/>
 
-                            <Image x:Name="imgTrabajador" Grid.Row="1" HorizontalAlignment="Center" Source="/Images/perfil.jpg" Width="120" Height="180"/>       
+                            <Image x:Name="imgTrabajador" Source="/Images/up.png" Grid.Row="1" HorizontalAlignment="Center" Width="120" Height="180"/>       
                             
                             <Button x:Name="btnExam" Grid.Row="2" Content="Cargar Foto" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="110" Height="30" Cursor="Hand" VerticalAlignment="Top" Click="btnExam_Click"/>
 
-                            <TextBlock x:Name="lblIngreso" Grid.Row="4" FontWeight="DemiBold" Foreground="White" FontSize="17" Text="Ingreso: 09/09/2015" HorizontalAlignment="Center" Margin="0 0 0 10"/>
+                            <TextBlock x:Name="lblTarjeta" Grid.Row="3" Text="No. tarjeta: " FontSize="19" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-                            <TextBlock x:Name="lblAntig" Grid.Row="5" Text="Antigüedad: 8 año(s)" FontSize="15" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="lblIngreso" Grid.Row="4" FontWeight="DemiBold" Foreground="White" FontSize="15" Text="Ingreso: " HorizontalAlignment="Center" Margin="0 0 0 10"/>
 
-                            <TextBlock x:Name="lblTarjeta" Grid.Row="3" Text="No. tarjeta: 1231313442" FontSize="19" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <TextBlock x:Name="lblAntig" Grid.Row="5" Text="Antigüedad: " FontSize="15" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                            <Grid Grid.Column="0" Grid.Row="6" Margin="0 10 0 0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="80"/>
-                                    <RowDefinition Height="80"/>
-                                </Grid.RowDefinitions>
+                            <TextBlock x:Name="lblCategoria" Grid.Row="6" Foreground="White" Text="Categoría: " FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1"  Width="200">
-                                    <Label Foreground="White" Content="Nivel de Estudios:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                    <Border CornerRadius="9" BorderBrush="White" BorderThickness="0.5" Background="White">
-                                        <ComboBox x:Name="cbNivel" Foreground="black" FontSize="13" Height="36" Width="auto" BorderThickness="0" Cursor="Hand">
-                                            <ComboBox.Items>
-                                                <ComboBoxItem Content="Primaria" />
-                                                <ComboBoxItem Content="Secundaria" />
-                                                <ComboBoxItem Content="Comercial" />
-                                                <ComboBoxItem Content="Técnica" />
-                                                <ComboBoxItem Content="Preparatoria" />
-                                                <ComboBoxItem Content="Profesional" />
-                                                <ComboBoxItem Content="Licenciatura" />
-                                                <ComboBoxItem Content="Otro" />
-                                            </ComboBox.Items>
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="7" Width="200" Margin="0 20 0 0">
+                                <Label Foreground="White" Content="Nivel de Estudios:" FontWeight="Bold" FontSize="16" Margin="5 0 0 7"/>
+                                <Border CornerRadius="9" BorderBrush="White" BorderThickness="0.5" Background="White">
+                                    <ComboBox x:Name="cbNivel" Foreground="black" FontSize="14" Height="35" Width="auto" BorderThickness="0" Cursor="Hand">
+                                       <ComboBox.Items>
+                                                        <ComboBoxItem Content="Primaria" />
+                                                        <ComboBoxItem Content="Secundaria" />
+                                                        <ComboBoxItem Content="Comercial" />
+                                                        <ComboBoxItem Content="Técnica" />
+                                                        <ComboBoxItem Content="Preparatoria" />
+                                                        <ComboBoxItem Content="Profesional" />
+                                                        <ComboBoxItem Content="Licenciatura" />
+                                                        <ComboBoxItem Content="Otro" />
+                                                    </ComboBox.Items>
 
-                                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                        </ComboBox>
-                                    </Border>
-                                </StackPanel>
-
-                                <StackPanel Orientation="Vertical" Grid.Row="0" Width="200">
-                                    <Label Foreground="White" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 0 0 4"/>
-                                    <Border CornerRadius="9" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                        <ComboBox x:Name="cbCateg" Foreground="Black" FontSize="13" Height="36" Width="auto" BorderThickness="0" Cursor="Hand" Text="Interno">
-                                            <ComboBox.Items>
-                                                <ComboBoxItem Content="Empleado" />
-                                                <ComboBoxItem Content="Sindicalizado" />
-                                                <ComboBoxItem Content="Supervisor" />
-                                            </ComboBox.Items>
-
-                                            <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                        </ComboBox>
-                                    </Border>
-                                </StackPanel>
-                            </Grid>
+                                       <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
+                                    </ComboBox>
+                                </Border>
+                            </StackPanel>                               
                         </Grid>
                     </Border>
 
@@ -150,7 +131,7 @@
                             <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
                                 <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Grid>
-                                    <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" Text="Perez Arredondo Manuel Eduardo" FontSize="16" BorderBrush="Black"/>
+                                    <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" Text="" FontSize="16" BorderBrush="Black"/>
                                     <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
@@ -170,7 +151,7 @@
                             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center"  Width="200">
                                 <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Grid>
-                                    <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="OIGM000923GUA" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                                    <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                                     <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
@@ -238,7 +219,7 @@
 
                             <StackPanel Orientation="Vertical" Grid.Column="2" Width="auto">
                                 <Label Content="Jefe de Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" Text="Lic. Eduardo Valdes Ceballos" FontSize="15" BorderBrush="Black"/>
+                                <TextBox x:Name="txtJefe" Style="{StaticResource myTextBox}" Text="" FontSize="15" BorderBrush="Black"/>
                             </StackPanel>
                         </Grid>
 
@@ -251,10 +232,8 @@
                             <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
                                 <Label Content="Otras funciones:" FontWeight="DemiBold" FontSize="22" Margin="5 15 0 18"/>
                                 <CheckBox x:Name="chkAuditor" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Auditor Interno" Margin="0 0 0 10" BorderBrush="White" Background="#FFA01C37"/>
-                                <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2" IsChecked="True"/>
+                                <CheckBox x:Name="chkCalif" Height="30" FontWeight="DemiBold" FontSize="20" Width="auto" Content="Personal Calificado" Background="#FFA01C37" BorderBrush="White" BorderThickness="2"/>
                             </StackPanel>
-
-
 
                             <StackPanel Orientation="Vertical" Grid.Column="1">
                                 <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>

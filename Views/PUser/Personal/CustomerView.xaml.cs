@@ -32,22 +32,29 @@ namespace WPF_LoginForm.Views
             Loaded += MainWindow_Loaded;
 
             TrabajadorRepository repository = new TrabajadorRepository();
-            IEnumerable<TrabajadorModel> trabajadoresList = repository.GetByAll();
-            ObservableCollection<TrabajadorModel> trabajadores = new ObservableCollection<TrabajadorModel>(trabajadoresList);          
-            personalDataGrid.ItemsSource = trabajadores;
 
-            //filtrar
-            original = trabajadores;
-            filtrado = CollectionViewSource.GetDefaultView(original);
-            personalDataGrid.ItemsSource = filtrado;
-            txtSearch.TextChanged += TxtSearch_TextChanged;
+            try
+            {
+                IEnumerable<TrabajadorModel> trabajadoresList = repository.GetByAll();
+                ObservableCollection<TrabajadorModel> trabajadores = new ObservableCollection<TrabajadorModel>(trabajadoresList);          
+                personalDataGrid.ItemsSource = trabajadores;
 
+                //filtrar
+                original = trabajadores;
+                filtrado = CollectionViewSource.GetDefaultView(original);
+                personalDataGrid.ItemsSource = filtrado;
+                txtSearch.TextChanged += TxtSearch_TextChanged;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }           
         }
 
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            txtSearch.Focus(); // Establece el enfoque en el TextBox
+            txtSearch.Focus();
         }
 
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)

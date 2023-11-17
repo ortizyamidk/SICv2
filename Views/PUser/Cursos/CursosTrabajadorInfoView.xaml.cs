@@ -43,15 +43,22 @@ namespace WPF_LoginForm.Views
 
         private void CargarAreas()
         {
-            var areas = departamentoRepository.GetDepartamentos();
-            foreach (var area in areas)
+            try
             {
-                var item = new ComboBoxItem
+                var areas = departamentoRepository.GetDepartamentos();
+                foreach (var area in areas)
                 {
-                    Content = area.NomDepto
-                };
-                cbArea.Items.Add(item);
-            }       
+                    var item = new ComboBoxItem
+                    {
+                        Content = area.NomDepto
+                    };
+                    cbArea.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }                  
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -60,7 +67,6 @@ namespace WPF_LoginForm.Views
           
             CargarAreas();
             btnPaseLista.Visibility = Visibility.Collapsed;
-
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -80,82 +86,89 @@ namespace WPF_LoginForm.Views
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
-            if (string.IsNullOrEmpty(txtSearch.Text))
+            try
             {
-                MessageBox.Show("Ingrese un No. de curso", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                txtSearch.Focus();
-            }
-            else
-            {
-                var repository = new CursoRepository();
-                CursoGModel asistencia = repository.GetAsistenciaById(txtSearch.Text);
-
-                // Restaurar la visibilidad y el estado inicial
-                border.Visibility = Visibility.Collapsed;
-                txtImpartido.Visibility = Visibility.Collapsed;
-                txtImpartido.Text = string.Empty;
-
-                if (asistencia != null)
-                {                   
-                    cbArea.SelectedIndex = 0;
-
-                    txtIDCurso.Text = asistencia.IdCurso.ToString();
-                    txtCurso.Text = asistencia.NomCurso.ToString();
-                    txtArea.Text = asistencia.AreaTematica.ToString();
-                    txtInicia.Text = asistencia.Inicia.ToString();
-                    txtTerm.Text = asistencia.Termina.ToString();
-                    txtHor.Text = asistencia.Horario.ToString();
-                    txtDur.Text = asistencia.Duracion.ToString() + " min";
-                    txtLugar.Text = asistencia.Lugar.ToString();
-                    txtInst.Text = asistencia.Instructor.ToString();
-
-                    idCurso = txtIDCurso.Text;
-
-                    IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesById(idCurso);
-                    participantes = new ObservableCollection<TrabajadorModel>(participantesList);
-                    cursosTrabajadorDataGrid.ItemsSource = participantes;
-
-                    cbBorder.Visibility = Visibility.Visible;
-
-                    int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
-
-                    if (cursoimp == 1)
-                    {
-                        border.Visibility = Visibility.Visible;
-                        txtImpartido.Visibility = Visibility.Visible;
-
-                        SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
-                        border.Background = colorImpartido;
-                        txtImpartido.Text = "IMPARTIDO";
-                        btnPaseLista.Visibility = Visibility.Collapsed;
-                    }
-                    else if (cursoimp == 0)
-                    {
-                        border.Visibility = Visibility.Visible;
-                        txtImpartido.Visibility = Visibility.Visible;
-
-                        SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
-                        border.Background = colorNOimpartido;
-                        txtImpartido.Text = "NO IMPARTIDO";
-                        btnPaseLista.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        border.Visibility = Visibility.Collapsed;
-                        txtImpartido.Visibility = Visibility.Collapsed;
-                        txtImpartido.Text = string.Empty;
-                        btnPaseLista.Visibility = Visibility.Collapsed;
-                    }
+                if (string.IsNullOrEmpty(txtSearch.Text))
+                {
+                    MessageBox.Show("Ingrese un No. de curso", "Campo vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    txtSearch.Focus();
                 }
                 else
                 {
-                    Limpiar();
-                    MessageBox.Show("No existe curso con ese ID o no se ha registrado la Lista", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                }
+                    var repository = new CursoRepository();
+                    CursoGModel asistencia = repository.GetAsistenciaById(txtSearch.Text);
+
+                    // Restaurar la visibilidad y el estado inicial
+                    border.Visibility = Visibility.Collapsed;
+                    txtImpartido.Visibility = Visibility.Collapsed;
+                    txtImpartido.Text = string.Empty;
+
+                    if (asistencia != null)
+                    {                   
+                        cbArea.SelectedIndex = 0;
+
+                        txtIDCurso.Text = asistencia.IdCurso.ToString();
+                        txtCurso.Text = asistencia.NomCurso.ToString();
+                        txtArea.Text = asistencia.AreaTematica.ToString();
+                        txtInicia.Text = asistencia.Inicia.ToString();
+                        txtTerm.Text = asistencia.Termina.ToString();
+                        txtHor.Text = asistencia.Horario.ToString();
+                        txtDur.Text = asistencia.Duracion.ToString() + " min";
+                        txtLugar.Text = asistencia.Lugar.ToString();
+                        txtInst.Text = asistencia.Instructor.ToString();
+
+                        idCurso = txtIDCurso.Text;
+
+                        IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesById(idCurso);
+                        participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                        cursosTrabajadorDataGrid.ItemsSource = participantes;
+
+                        cbBorder.Visibility = Visibility.Visible;
+
+                        int cursoimp = cursoGRepository.CursoImpartido(txtCurso.Text);
+
+                        if (cursoimp == 1)
+                        {
+                            border.Visibility = Visibility.Visible;
+                            txtImpartido.Visibility = Visibility.Visible;
+
+                            SolidColorBrush colorImpartido = new SolidColorBrush(Colors.Green);
+                            border.Background = colorImpartido;
+                            txtImpartido.Text = "IMPARTIDO";
+                            btnPaseLista.Visibility = Visibility.Collapsed;
+                        }
+                        else if (cursoimp == 0)
+                        {
+                            border.Visibility = Visibility.Visible;
+                            txtImpartido.Visibility = Visibility.Visible;
+
+                            SolidColorBrush colorNOimpartido = new SolidColorBrush(Colors.Red);
+                            border.Background = colorNOimpartido;
+                            txtImpartido.Text = "NO IMPARTIDO";
+                            btnPaseLista.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            border.Visibility = Visibility.Collapsed;
+                            txtImpartido.Visibility = Visibility.Collapsed;
+                            txtImpartido.Text = string.Empty;
+                            btnPaseLista.Visibility = Visibility.Collapsed;
+                        }
+                    }
+                    else
+                    {
+                        Limpiar();
+                        MessageBox.Show("No existe curso con ese ID o no se ha registrado la Lista", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                 
-                txtSearch.Focus();
-            }            
+                    txtSearch.Focus();
+                }  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+                      
         }
 
         private void Limpiar()
@@ -204,29 +217,34 @@ namespace WPF_LoginForm.Views
         {
             if (e.Key == Key.Enter)
             {
-                // Llama al manejador de eventos del botón btnSearch.
                 btnSearch_Click(sender, e);
             }
         }
 
         private void cbArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {          
-            if (cbArea.SelectedIndex > 1)
-            {               
-                ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea.SelectedItem;
-                string area = areaseleccionada.Content.ToString();
-
-                IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesByIdAndArea(idCurso, area);
-                participantes = new ObservableCollection<TrabajadorModel>(participantesList);
-                cursosTrabajadorDataGrid.ItemsSource = participantes;
-            }
-            else if(cbArea.SelectedIndex == 1)
+        {
+            try
             {
-                IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesById(idCurso);
-                participantes = new ObservableCollection<TrabajadorModel>(participantesList);
-                cursosTrabajadorDataGrid.ItemsSource = participantes;
+                if (cbArea.SelectedIndex > 1)
+                {               
+                    ComboBoxItem areaseleccionada = (ComboBoxItem)cbArea.SelectedItem;
+                    string area = areaseleccionada.Content.ToString();
+
+                    IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesByIdAndArea(idCurso, area);
+                    participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                    cursosTrabajadorDataGrid.ItemsSource = participantes;
+                }
+                else if(cbArea.SelectedIndex == 1)
+                {
+                    IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesById(idCurso);
+                    participantes = new ObservableCollection<TrabajadorModel>(participantesList);
+                    cursosTrabajadorDataGrid.ItemsSource = participantes;
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }                      
         }
 
         private void btnPaseLista_Click(object sender, RoutedEventArgs e)
@@ -236,7 +254,8 @@ namespace WPF_LoginForm.Views
 
         private void MostrarCustomMessageBox()
         {
-            MessageBoxPaseLista customMessageBox = new MessageBoxPaseLista();
+            string idcurso = txtIDCurso.Text;
+            MessageBoxPaseLista customMessageBox = new MessageBoxPaseLista(idcurso);
             customMessageBox.ShowDialog();
         }
     }

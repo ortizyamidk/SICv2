@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace WPF_LoginForm.CustomControls
 {
-    /// <summary>
-    /// Lógica de interacción para cursosVencidos.xaml
-    /// </summary>
     public partial class cursosVencidos : UserControl
     {
         public cursosVencidos()

@@ -19,8 +19,6 @@
         ContentRendered="Window_ContentRendered"
         PreviewKeyDown="Window_PreviewKeyDown">
 
-  
-     <!-- Contenido de tu MessageBox -->
     <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="White">
         <Grid>
             <Grid.RowDefinitions>

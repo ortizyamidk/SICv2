@@ -34,8 +34,6 @@ namespace WPF_LoginForm.Views
 
         InstructorRepository repository;
 
-
-
         public InstructorNuevoView()
         {
             InitializeComponent();
@@ -91,68 +89,77 @@ namespace WPF_LoginForm.Views
             txtNombreI.BorderBrush = bordeNormal;
             txtRFC.BorderBrush = bordeNormal;
             txtCompania.BorderBrush = bordeNormal;
-            
-            if (string.IsNullOrEmpty(txtNumF.Text))
-            {
-                errNumF.Content = req;
-                txtNumF.BorderBrush = bordeError;
-                errores = true;
-            }
-            else
-            {
-                int numf = int.Parse(txtNumF.Text);
-                var existingInstructor = repository.GetByAll().FirstOrDefault(c => c.Id == numf);
 
-                if (existingInstructor != null)
+            try
+            {
+                if (string.IsNullOrEmpty(txtNumF.Text))
                 {
-                    MessageBox.Show("Ya existe ese ID de Instructor", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    errNumF.Content = req;
+                    txtNumF.BorderBrush = bordeError;
                     errores = true;
                 }
-            }
+                else
+                {
+                    int numf = int.Parse(txtNumF.Text);
+                    var existingInstructor = repository.GetByAll().FirstOrDefault(c => c.Id == numf);
 
-            if (string.IsNullOrEmpty(txtNombreI.Text))
-            {
-                errNombre.Content = req;
-                txtNombreI.BorderBrush = bordeError;
-                errores = true;
-            }
+                    if (existingInstructor != null)
+                    {
+                        MessageBox.Show("Ya existe ese ID de Instructor", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        errores = true;
+                    }
+                }
 
-            if (string.IsNullOrEmpty(txtRFC.Text))
-            {
-                errRfc.Content = req;
-                txtRFC.BorderBrush = bordeError;
-                errores = true;
-            }
-            else if (txtRFC.Text.Length < 13)
-            {
-                errRfc.Content = "El RFC debe tener al menos 13 caracteres";
-                txtRFC.BorderBrush = bordeError;
-                errores = true;
-            }
+                if (string.IsNullOrEmpty(txtNombreI.Text))
+                {
+                    errNombre.Content = req;
+                    txtNombreI.BorderBrush = bordeError;
+                    errores = true;
+                }
 
-            if (string.IsNullOrEmpty(txtCompania.Text))
-            {
-                errComp.Content = req;
-                txtCompania.BorderBrush = bordeError;
-                errores = true;
-            }
+                if (string.IsNullOrEmpty(txtRFC.Text))
+                {
+                    errRfc.Content = req;
+                    txtRFC.BorderBrush = bordeError;
+                    errores = true;
+                }
+                else if (txtRFC.Text.Length < 13)
+                {
+                    errRfc.Content = "El RFC debe tener al menos 13 caracteres";
+                    txtRFC.BorderBrush = bordeError;
+                    errores = true;
+                }
 
-            if (!errores)
-            {
-                id = int.Parse(txtNumF.Text);
-                nombre = txtNombreI.Text;
-                rfc = txtRFC.Text;
+                if (string.IsNullOrEmpty(txtCompania.Text))
+                {
+                    errComp.Content = req;
+                    txtCompania.BorderBrush = bordeError;
+                    errores = true;
+                }
 
-                ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
-                tipo = instructorS.Content.ToString();
+                if (!errores)
+                {
+                    id = int.Parse(txtNumF.Text);
+                    nombre = txtNombreI.Text;
+                    rfc = txtRFC.Text;
 
-                compania = txtCompania.Text;
+                    ComboBoxItem instructorS = (ComboBoxItem)cbTipo.SelectedItem;
+                    tipo = instructorS.Content.ToString();
 
-                repository.AddInstructor(id, nombre, rfc, tipo, compania);
+                    compania = txtCompania.Text;
+
+                    repository.AddInstructor(id, nombre, rfc, tipo, compania);
                 
-                MostrarCustomMessageBox();
-                limpiar();             
+                    MostrarCustomMessageBox();
+                    limpiar();             
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            
         }
 
         private void MostrarCustomMessageBox()
@@ -165,7 +172,6 @@ namespace WPF_LoginForm.Views
         {
             if (e.Key == Key.Enter)
             {
-                // Llama al manejador de eventos del botón btnSearch.
                 btnGuardar_Click(sender, e);
             }           
         }
@@ -209,8 +215,6 @@ namespace WPF_LoginForm.Views
                 // Permitir números (6 números).
                 e.Handled = !char.IsDigit(e.Text, 0);
             }
-        }
-
-        
+        }        
     }
 }

@@ -68,7 +68,7 @@
                           CellStyle="{DynamicResource DataGridCellStyle1}" 
                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                           RowStyle="{DynamicResource DataGridRowStyle1}" 
-                          x:Name="instructoresDataGrid" Width="Auto" Height="Auto" SelectionChanged="instructoresDataGrid_SelectionChanged">
+                          x:Name="instructoresDataGrid" Width="Auto" Height="Auto">
                     
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Ficha" CanUserResize="False" IsReadOnly="True" Width="*" Binding="{Binding Id}"/>

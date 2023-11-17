@@ -26,8 +26,6 @@ namespace WPF_LoginForm.Views
         private ObservableCollection<InstructorModel> original;
         private ICollectionView filtrado;
 
-        public event EventHandler<int> SelectedIdChanged;
-
         public InstructoresView()
         {
             InitializeComponent();
@@ -36,19 +34,24 @@ namespace WPF_LoginForm.Views
             // Crear una instancia de IntructorRepository
             InstructorRepository repository = new InstructorRepository();
 
-            IEnumerable<InstructorModel> instructoresList = repository.GetByAll();
-            ObservableCollection<InstructorModel> instructores = new ObservableCollection<InstructorModel>(instructoresList);
+            try
+            {
+                IEnumerable<InstructorModel> instructoresList = repository.GetByAll();
+                ObservableCollection<InstructorModel> instructores = new ObservableCollection<InstructorModel>(instructoresList);
 
-            // Asignar la lista de instructores al DataGrid
-            instructoresDataGrid.ItemsSource = instructores;
+                // Asignar la lista de instructores al DataGrid
+                instructoresDataGrid.ItemsSource = instructores;
 
-            //filtrar
-            original = instructores;
-            filtrado = CollectionViewSource.GetDefaultView(original);
-            instructoresDataGrid.ItemsSource = filtrado;
-            txtSearch.TextChanged += TxtSearch_TextChanged;
-
-
+                //filtrar
+                original = instructores;
+                filtrado = CollectionViewSource.GetDefaultView(original);
+                instructoresDataGrid.ItemsSource = filtrado;
+                txtSearch.TextChanged += TxtSearch_TextChanged;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }           
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -85,18 +88,6 @@ namespace WPF_LoginForm.Views
                     var instructor = item as InstructorModel;
                     return instructor.NomInstr.ToLower().Contains(search);
                 };
-            }
-        }
-
-        private void instructoresDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (instructoresDataGrid.SelectedItem != null)
-            {
-                // Suponiendo que tienes una clase Instructor y el ID está en la propiedad Id
-                InstructorModel selectedInstructor = (InstructorModel)instructoresDataGrid.SelectedItem;
-                int selectedId = selectedInstructor.Id;
-
-                
             }
         }
     }
