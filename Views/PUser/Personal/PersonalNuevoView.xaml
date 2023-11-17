@@ -219,15 +219,19 @@
 
                             <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
                                 <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                                <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                    <ComboBox x:Name="cbPuesto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
-                                        <ComboBox.Items>
-                                            
-                                        </ComboBox.Items>
-
-                                        <ComboBox.SelectedIndex>0</ComboBox.SelectedIndex>
-                                    </ComboBox>
-                                </Border>
+                                <Grid>
+                                    <Grid>
+                                        <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
+                                            <ComboBox x:Name="cbPuesto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand" SelectionChanged="cbPuesto_SelectionChanged">
+                                                <ComboBox.Items>
+                                                    <ComboBoxItem Content="--Buscar puesto--"/>
+                                                </ComboBox.Items>
+                                                <ComboBox.SelectedIndex>1</ComboBox.SelectedIndex>
+                                            </ComboBox>
+                                        </Border>
+                                    </Grid>
+                                    <TextBox x:Name="txtBuscarPuesto" LostFocus="txtBuscarPuesto_LostFocus" BorderBrush="Transparent" Style="{StaticResource myTextBox}" FontSize="15" Margin="5" Visibility="Hidden"/>
+                                </Grid>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Orientation="Vertical" Width="230">

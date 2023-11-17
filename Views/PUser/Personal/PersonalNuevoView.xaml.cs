@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -90,6 +91,7 @@ namespace WPF_LoginForm.Views
 
             LoadDepartamentosFromDatabase();
             LoadPuestoFromDatabase();
+
 
             string imagePath = "/Images/up.png";
 
@@ -291,6 +293,65 @@ namespace WPF_LoginForm.Views
             
         }
 
+        private void cbPuesto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           if(cbPuesto.SelectedIndex == 0)
+            {
+                txtBuscarPuesto.Visibility = Visibility.Visible;
+                txtBuscarPuesto.Focus();
+                cbPuesto.Visibility = Visibility.Collapsed;                
+            }
+            else
+            {
+                txtBuscarPuesto.Visibility=Visibility.Collapsed;
+                cbPuesto.Visibility = Visibility.Visible;
+            }
+
+        }
+
+        private void txtBuscarPuesto_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBuscarPuesto.Text))
+            {
+                txtBuscarPuesto.Visibility = Visibility.Collapsed;
+                cbPuesto.SelectedIndex = 1;
+                cbPuesto.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // Lógica de búsqueda al escribir en el TextBox
+                string textoBusqueda = txtBuscarPuesto.Text.ToLower(); // Obtener el texto y convertirlo a minúsculas para hacer la comparación más flexible
+
+                // Buscar coincidencias en los elementos del ComboBox
+                bool existeCoincidencia = false;
+                foreach (ComboBoxItem item in cbPuesto.Items)
+                {
+                    if (item.Content.ToString().ToLower().Contains(textoBusqueda))
+                    {
+                        existeCoincidencia = true;
+                        cbPuesto.SelectedItem = item; // Seleccionar el item si hay coincidencia
+
+                        txtBuscarPuesto.Text = string.Empty;
+                        txtBuscarPuesto.Visibility = Visibility.Collapsed;
+
+                        break;
+                    }
+                }
+
+                // Verificar si se presionó la tecla Enter y no se encontró coincidencia
+                if (existeCoincidencia == false && e != null && e.Source is TextBox && ((TextBox)e.Source).Text.Length > 0)
+                {
+                    MessageBox.Show("No se encontró ninguna coincidencia en la búsqueda.", "Sin coincidencias");
+                    txtBuscarPuesto.Text = string.Empty;
+                    txtBuscarPuesto.Visibility = Visibility.Collapsed;
+
+                    cbPuesto.Visibility= Visibility.Visible;
+                    cbPuesto.SelectedIndex = 1;
+
+                }
+            }
+        }
+
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             // Verifica si el texto ingresado es numérico
@@ -419,7 +480,8 @@ namespace WPF_LoginForm.Views
         {
             if (e.Key == Key.Enter)
             {
-                btnGuardar_Click(sender, e);
+                //btnGuardar_Click(sender, e);
+               
             }           
         }
 
@@ -450,5 +512,7 @@ namespace WPF_LoginForm.Views
 
             return fotoBytes;
         }
+
+
     }
 }

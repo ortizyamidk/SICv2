@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
-using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm.CustomControls
 {
@@ -90,8 +79,9 @@ namespace WPF_LoginForm.CustomControls
             {
                 if (!string.IsNullOrEmpty(txtBuscar.Text))
                 {
-                    //PASE DE LISTA
-                    string numtarjeta = txtBuscar.Text;
+                    //PASE DE LISTA                   
+
+                    string numtarjeta = txtBuscar.Text.Trim();
 
                     TrabajadorRepository trabajador = new TrabajadorRepository();
                     TrabajadorModel trabajadorModel = trabajador.GetIdByNumTarjeta(numtarjeta);
@@ -116,6 +106,8 @@ namespace WPF_LoginForm.CustomControls
             catch (Exception ex)
             {
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                txtBuscar.Text = string.Empty;
+                txtBuscar.Focus();
             }
         }
 

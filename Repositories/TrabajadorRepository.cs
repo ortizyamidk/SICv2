@@ -162,7 +162,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "SELECT id FROM trabajador WHERE numtarjeta = @numtarjeta";
 
-                command.Parameters.Add("@numtarjeta", SqlDbType.Int).Value = numtarjeta;
+                command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
 
                 using (var reader = command.ExecuteReader())
                 {
