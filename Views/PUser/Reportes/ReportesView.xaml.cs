@@ -1,27 +1,13 @@
-﻿using MaterialDesignThemes.Wpf;
-using Microsoft.Office.Interop.Word;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using NPOI.XSSF.UserModel;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
-using WPF_LoginForm.ViewModels;
 using objWord = Microsoft.Office.Interop.Word;
-using Microsoft.Win32;
-using Microsoft.Office.Interop.Excel;
 
 namespace WPF_LoginForm.Views
 {

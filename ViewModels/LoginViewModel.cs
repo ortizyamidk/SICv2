@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Principal;
+﻿using System.Net;
 using System.Security;
-using System.Text;
+using System.Security.Principal;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
-using WPF_LoginForm.Views;
-using System.Windows;
-using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm.ViewModels
 {

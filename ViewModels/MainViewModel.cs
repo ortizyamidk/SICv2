@@ -1,17 +1,8 @@
 ﻿using FontAwesome.Sharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
-using WPF_LoginForm.Views;
-using WPF_LoginForm.Views.GUser;
 
 namespace WPF_LoginForm.ViewModels
 {

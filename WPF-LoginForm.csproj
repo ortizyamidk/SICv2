@@ -202,7 +202,6 @@
     <Compile Include="Models\IDepartamentoRepository.cs" />
     <Compile Include="Models\IInstructorRepository.cs" />
     <Compile Include="Models\InstructorModel.cs" />
-    <Compile Include="Models\InstructorSeleccionadoModel.cs" />
     <Compile Include="Models\IPuestoRepository.cs" />
     <Compile Include="Models\ITrabajadorModel.cs" />
     <Compile Include="Models\IUserRepository.cs" />
@@ -466,9 +465,6 @@
     <Resource Include="Images\pp.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\dash.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\sic.png" />
   </ItemGroup>
   <ItemGroup>
@@ -476,9 +472,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\user2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\perfil.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\fondomain.jpg" />
