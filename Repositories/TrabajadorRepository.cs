@@ -255,9 +255,9 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec ParticipantesPorListaAsistencia @idlistacursos, @nomarea";
+                command.CommandText = "exec ParticipantesPorListaAsistencia @idlista, @nomarea";
 
-                command.Parameters.Add("@idlistacursos", SqlDbType.Int).Value = idlista;
+                command.Parameters.Add("@idlista", SqlDbType.Int).Value = idlista;
                 command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
                 using (var reader = command.ExecuteReader())

@@ -7,7 +7,7 @@ namespace WPF_LoginForm.Models
 
         IEnumerable<CursoGModel> GetByAll(string nomarea);
 
-        CursoGModel GetById(int id);
+        CursoGModel GetById(int idlista, string nomarea);
 
         void Edit(string idcurso, int numficha);
         void AddParticipantes(int numficha, string idcurso);

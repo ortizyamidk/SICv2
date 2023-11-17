@@ -48,12 +48,13 @@ namespace WPF_LoginForm.Views.GUser
                 }
                 else
                 {
-                    int idlista = int.Parse(txtSearch.Text);
-                    CursoGModel asistencia = cursoGRepository.GetById(idlista);
+                    int idlista = int.Parse(txtSearch.Text);                   
 
                     TrabajadorRepository trabajadorRepository = new TrabajadorRepository();
                     var viewModel = (CursoInfoGViewModel)DataContext;
                     string arealoggeada = viewModel.CurrentUserAccount.DisplayArea;
+
+                    CursoGModel asistencia = cursoGRepository.GetById(idlista, arealoggeada);
 
                     IEnumerable<TrabajadorModel> participantesList = trabajadorRepository.GetParticipantesListaA(idlista, arealoggeada);
                     participantes = new ObservableCollection<TrabajadorModel>(participantesList);
@@ -61,7 +62,8 @@ namespace WPF_LoginForm.Views.GUser
 
                     if (asistencia != null && participantes.Count > 0)
                     {
-                        txtNoLista.Text = asistencia.Id.ToString();
+                        txtNoLista.Text = asistencia.IdLista.ToString();
+                        txtIDCurso.Text = asistencia.IdCurso.ToString();
                         txtCurso.Text = asistencia.NomCurso.ToString();
                         txtAreaT.Text = asistencia.AreaTematica.ToString();
                         txtInicia.Text = asistencia.Inicia.ToString();
@@ -115,6 +117,7 @@ namespace WPF_LoginForm.Views.GUser
         private void Limpiar()
         {
             txtSearch.Text = string.Empty;
+            txtIDCurso.Text = string.Empty;
             txtNoLista.Text = string.Empty;
             txtCurso.Text = string.Empty;
             txtAreaT.Text = string.Empty;

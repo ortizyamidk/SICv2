@@ -76,7 +76,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //ver la lista de asistencia especifica al dar click en ver info de tabla
-        public CursoGModel GetById(int id)
+        public CursoGModel GetById(int idlista, string nomarea)
         {
            CursoGModel asistencia = null;
             using (var connection = GetConnection())
@@ -84,9 +84,10 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec VerInfoListaAsistencia @idlista";
+                command.CommandText = "exec VerInfoListaAsistencia @idlista, @nomarea";
 
-                command.Parameters.Add("@idlista", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@idlista", SqlDbType.Int).Value = idlista;
+                command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -94,15 +95,16 @@ namespace WPF_LoginForm.Repositories
                     {
                         asistencia = new CursoGModel()
                         {
-                            Id = (int)reader[0],
-                            NomCurso = reader[1].ToString(),
-                            AreaTematica = reader[2].ToString(),
-                            Lugar = reader[3].ToString(),
-                            Instructor = reader[4].ToString(),
-                            Inicia = reader[5].ToString(),
-                            Termina = reader[6].ToString(),
-                            Horario = reader[7].ToString(),
-                            Duracion = (int)reader[8]                          
+                            IdLista = (int)reader[0],
+                            IdCurso = reader[1].ToString(),
+                            NomCurso = reader[2].ToString(),
+                            AreaTematica = reader[3].ToString(),
+                            Lugar = reader[4].ToString(),
+                            Instructor = reader[5].ToString(),
+                            Inicia = reader[6].ToString(),
+                            Termina = reader[7].ToString(),
+                            Horario = reader[8].ToString(),
+                            Duracion = (int)reader[9]                          
                         };
                     }
                 }

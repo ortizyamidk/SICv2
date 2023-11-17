@@ -32,6 +32,8 @@
                 <TextBox IsEnabled="False" Text="" FontSize="18" TextAlignment="Center" HorizontalContentAlignment="Left" x:Name="txtNoLista" Margin="0 0 30 0" Style="{StaticResource myTextBox}" Width="80" />
             </StackPanel>
 
+            
+
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
@@ -70,18 +72,24 @@
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="310"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Width="380" HorizontalAlignment="Left">
-                        <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 10 0 7"/>
-                        <TextBox IsEnabled="False" x:Name="txtCurso" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Left" Width="130" Margin="15 0 0 0">
+                        <Label Content="ID Curso:" FontWeight="Bold" FontSize="18" Foreground="Black" Margin="5 10 0 7"/>
+                        <TextBox IsEnabled="False" TextWrapping="Wrap" FontSize="15" TextAlignment="Center" Width="100" HorizontalContentAlignment="Left" BorderBrush="Black" x:Name="txtIDCurso" Style="{StaticResource myTextBox}" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Width="370">
-                        <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
-                        <TextBox IsEnabled="False" x:Name="txtAreaT" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Width="290" HorizontalAlignment="Left">
+                        <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 10 0 7"/>
+                        <TextBox IsEnabled="False" x:Name="txtCurso" TextWrapping="Wrap" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" Width="300">
+                        <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 10 0 7"/>
+                        <TextBox IsEnabled="False" x:Name="txtAreaT" TextWrapping="Wrap" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
 
 
