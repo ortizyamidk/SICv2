@@ -4,7 +4,6 @@ namespace WPF_LoginForm.Models
 {
     public interface ICursoGRepository
     {
-
         IEnumerable<CursoGModel> GetByAll(string nomarea);
 
         CursoGModel GetById(int idlista, string nomarea);

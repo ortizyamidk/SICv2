@@ -91,8 +91,11 @@ namespace WPF_LoginForm.Views
 
             LoadDepartamentosFromDatabase();
             LoadPuestoFromDatabase();
+            ImagenDefault();           
+        }
 
-
+        private void ImagenDefault()
+        {
             string imagePath = "/Images/up.png";
 
             // Crear la URI de la imagen
@@ -237,10 +240,7 @@ namespace WPF_LoginForm.Views
             chkAudit.IsChecked = false;
             chkCalif.IsChecked = false;
 
-            // Carga la imagen predeterminada en imgTrabajador
-            string imagePath = "/Images/up.png"; // Ruta relativa a la imagen predeterminada
-            BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.Relative));
-            imgTrabajador.Source = bitmapImage;
+            ImagenDefault();
 
             cbDpto.SelectedIndex = 0;
             cbArea.SelectedIndex = 0;

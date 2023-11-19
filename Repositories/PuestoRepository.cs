@@ -33,6 +33,33 @@ namespace WPF_LoginForm.Repositories
             return puestos;
         }
 
+        public PuestoModel GetCategoriaByPuesto(string nompuesto)
+        {
+            PuestoModel puesto = null;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT categoria FROM puesto WHERE nompuesto = @nompuesto";
+
+                command.Parameters.Add("@nompuesto", SqlDbType.VarChar).Value = nompuesto;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        puesto = new PuestoModel()
+                        {
+                            Categoria = reader[0].ToString()
+
+                        };
+                    }
+                }
+            }
+            return puesto;
+        }
+
         public PuestoModel GetIdByNombrePuesto(string nompuesto)
         {
             PuestoModel puesto = null;

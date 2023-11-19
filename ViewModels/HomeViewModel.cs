@@ -7,24 +7,23 @@ namespace WPF_LoginForm.ViewModels
     public class HomeViewModel : ViewModelBase
     {
 
-        public ObservableCollection<DepartamentoModel> ListaDeptos { get; set; }
+        public ObservableCollection<AreaModel> ListaAreas { get; set; }
 
-        //Constructor
         public HomeViewModel() 
-        { 
-            ListaDeptos = new ObservableCollection<DepartamentoModel>();
+        {
+            ListaAreas = new ObservableCollection<AreaModel>();
 
             ObtenerListaDeptos();
         }
 
         private void ObtenerListaDeptos()
         {
-            DepartamentoRepository deptoRepository = new DepartamentoRepository();
-            var listaResultados = deptoRepository.GetDepartamentos();
+            AreaRepository areaRepository = new AreaRepository();
+            var listaResultados = areaRepository.GetProgresoAreas();
 
             foreach(var listaResultado in listaResultados)
             {
-                ListaDeptos.Add(listaResultado);
+                ListaAreas.Add(listaResultado);
             }
         }
     }

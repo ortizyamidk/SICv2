@@ -14,7 +14,6 @@ namespace WPF_LoginForm.Models
         CursoModel GetCursoListaAsistencia(string idcurso);
         CursoModel GetListaAsistenciaExcel(string idcurso);
 
-
         int GetCountCursosRegistered(string areadpto);
         int GetCountTotalCursos();
 
@@ -28,7 +27,6 @@ namespace WPF_LoginForm.Models
         CursoModel GetByName(string nomcurso);
         CursoModel GetById(string id);
 
-        CursoGModel GetAsistenciaById(string idcurso);
-        
+        CursoGModel GetAsistenciaById(string idcurso);       
     }
 }

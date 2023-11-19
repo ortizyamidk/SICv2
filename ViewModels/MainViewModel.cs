@@ -302,10 +302,6 @@ namespace WPF_LoginForm.ViewModels
                 CurrentUserAccount.DisplayArea = "User not logged in";
                 //Hide child views.
             }
-        }
-
-        
-
-
+        }       
     }
 }

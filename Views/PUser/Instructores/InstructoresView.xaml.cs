@@ -15,7 +15,7 @@ namespace WPF_LoginForm.Views
     public partial class InstructoresView : UserControl
     {
         //filtrar
-        private ObservableCollection<InstructorModel> original;
+        private ObservableCollection<InstructorModel> instructores;
         private ICollectionView filtrado;
 
         public InstructoresView()
@@ -35,8 +35,7 @@ namespace WPF_LoginForm.Views
                 instructoresDataGrid.ItemsSource = instructores;
 
                 //filtrar
-                original = instructores;
-                filtrado = CollectionViewSource.GetDefaultView(original);
+                filtrado = CollectionViewSource.GetDefaultView(instructores);
                 instructoresDataGrid.ItemsSource = filtrado;
                 txtSearch.TextChanged += TxtSearch_TextChanged;
             }

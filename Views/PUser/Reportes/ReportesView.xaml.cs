@@ -19,6 +19,7 @@ namespace WPF_LoginForm.Views
         CursoRepository cursoRepository;
         TrabajadorModel trabajadorModel;
         CursoModel cursoModel;
+        AreaRepository areaRepository;
 
         int numficha;
         string idtrabajador, nombretrabajador, rfc, puesto, depto, area, fechaing;
@@ -42,18 +43,19 @@ namespace WPF_LoginForm.Views
             departamentoRepository = new DepartamentoRepository();
             trabajadorRepository = new TrabajadorRepository();
             cursoRepository = new CursoRepository();
+            areaRepository = new AreaRepository();
         }
 
         private void CargarAreas()
         {
             try
             {
-                var areas = departamentoRepository.GetDepartamentos();
+                var areas = areaRepository.GetProgresoAreas();
                 foreach (var area in areas)
                 {
                     var item = new ComboBoxItem
                     {
-                        Content = area.NomDepto
+                        Content = area.NombreArea
                     };
                     cbArea.Items.Add(item);
                 }

@@ -21,6 +21,7 @@ namespace WPF_LoginForm.Views
         DepartamentoRepository departamentoRepository;
         TrabajadorRepository trabajadorRepository;
         CursoGRepository cursoGRepository;
+        AreaRepository areaRepository;
 
         public CursosTrabajadorInfoView()
         {
@@ -30,18 +31,19 @@ namespace WPF_LoginForm.Views
             departamentoRepository = new DepartamentoRepository();
             trabajadorRepository = new TrabajadorRepository();
             cursoGRepository = new CursoGRepository();
+            areaRepository = new AreaRepository();
         }
 
         private void CargarAreas()
         {
             try
             {
-                var areas = departamentoRepository.GetDepartamentos();
+                var areas = areaRepository.GetProgresoAreas();
                 foreach (var area in areas)
                 {
                     var item = new ComboBoxItem
                     {
-                        Content = area.NomDepto
+                        Content = area.NombreArea
                     };
                     cbArea.Items.Add(item);
                 }

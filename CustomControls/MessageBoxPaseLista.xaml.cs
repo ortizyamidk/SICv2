@@ -12,22 +12,17 @@ namespace WPF_LoginForm.CustomControls
     {
 
         private DispatcherTimer timer;
-        CursoGRepository repository;
-        CursoRepository cursoRepository;
+        CursoGRepository cursoGRepository;
         private string idCursoFromParent;
 
         public MessageBoxPaseLista(string idCurso)
         {
             InitializeComponent();
-            repository = new CursoGRepository();
-            cursoRepository = new CursoRepository();
 
-            this.Opacity = 0;
-            Loaded += MainWindow_Loaded;
-
+            cursoGRepository = new CursoGRepository();
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1); // Configura el intervalo de n segundos
-            timer.Tick += Timer_Tick;
+            
+            Loaded += MainWindow_Loaded;           
 
             idCursoFromParent = idCurso;
         }
@@ -35,6 +30,10 @@ namespace WPF_LoginForm.CustomControls
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             txtBuscar.Focus();
+
+            this.Opacity = 0;           
+            timer.Interval = TimeSpan.FromSeconds(1); 
+            timer.Tick += Timer_Tick;
         }
 
         private void Window_ContentRendered(object sender, EventArgs e)
@@ -80,7 +79,6 @@ namespace WPF_LoginForm.CustomControls
                 if (!string.IsNullOrEmpty(txtBuscar.Text))
                 {
                     //PASE DE LISTA                   
-
                     string numtarjeta = txtBuscar.Text.Trim();
 
                     TrabajadorRepository trabajador = new TrabajadorRepository();
@@ -90,7 +88,7 @@ namespace WPF_LoginForm.CustomControls
                     {
                         int numficha = trabajadorModel.Id;
 
-                        repository.Edit(idCursoFromParent, numficha);
+                        cursoGRepository.Edit(idCursoFromParent, numficha);
                     }
                     else
                     {
@@ -110,6 +108,5 @@ namespace WPF_LoginForm.CustomControls
                 txtBuscar.Focus();
             }
         }
-
     }
 }

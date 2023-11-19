@@ -68,30 +68,34 @@ namespace WPF_LoginForm.Views.GUser
 
             if (!errores)
             {
-                try
+                MessageBoxResult result = MessageBox.Show("¿Está seguro de guardar la información? Los datos no se podrán editar al confirmar la acción", "Confirmar Guardar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                
+                if(result == MessageBoxResult.Yes)
                 {
-                    string idcurso = txtID.Text;               
-
-                    // Recorrer la colección trabajadoresList y agregar a cada trabajador al mismo curso
-                    foreach (var participante in trabajadoresList)
+                    try
                     {
-                        repository.AddParticipantes(participante.Id, idcurso);
+                        string idcurso = txtID.Text;               
+
+                        // Recorrer la colección trabajadoresList y agregar a cada trabajador al mismo curso
+                        foreach (var participante in trabajadoresList)
+                        {
+                            repository.AddParticipantes(participante.Id, idcurso);
+                        }
+
+                        var viewModel = (CursoNuevoGViewModel)DataContext;
+                        AreaModel areaModel = areaRepository.GetIdByName(viewModel.CurrentUserAccount.DisplayArea); //area loggeada
+                        int idCurrentArea = areaModel.Id;
+
+                        repository.AddListaAsistencia(idCurrentArea, idcurso);
+
+                        MostrarCustomMessageBox();
+                        Limpiar();
                     }
-
-                    var viewModel = (CursoNuevoGViewModel)DataContext;
-                    AreaModel areaModel = areaRepository.GetIdByName(viewModel.CurrentUserAccount.DisplayArea); //area loggeada
-                    int idCurrentArea = areaModel.Id;
-
-                    repository.AddListaAsistencia(idCurrentArea, idcurso);
-
-                    MostrarCustomMessageBox();
-                    Limpiar();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }               
             }
         }
 

@@ -17,7 +17,7 @@ namespace WPF_LoginForm.Views
     {
 
         //filtrar
-        private ObservableCollection<CursoModel> cursoOriginal;
+        private ObservableCollection<CursoModel> cursos;
         private ICollectionView cursoFiltrado;
 
         public CursosView()
@@ -33,8 +33,7 @@ namespace WPF_LoginForm.Views
                 cursosDataGrid.ItemsSource = cursos;
 
                 //filtrar
-                cursoOriginal = cursos;
-                cursoFiltrado = CollectionViewSource.GetDefaultView(cursoOriginal);
+                cursoFiltrado = CollectionViewSource.GetDefaultView(cursos);
                 cursosDataGrid.ItemsSource = cursoFiltrado;
                 txtSearch.TextChanged += TxtSearch_TextChanged;
             }

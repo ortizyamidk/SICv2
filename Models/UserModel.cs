@@ -6,8 +6,6 @@
         public string Username { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
-        public string TrabajadorNombre { get; set; }
-        public string Departamento { get; set; }
         public string Area { get; set;}
     }
 }

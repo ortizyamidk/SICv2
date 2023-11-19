@@ -14,40 +14,39 @@ namespace WPF_LoginForm.Views.GUser
 
     public partial class CursoGView : UserControl
     {
-        //filtrar
-        private ObservableCollection<CursoGModel> listaOriginal;
+        private ObservableCollection<CursoGModel> cursos;
         private ICollectionView listaFiltrada;
+        CursoGRepository repository;
 
         public CursoGView()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
+            repository = new CursoGRepository();
 
-            var viewModel = (CursoGViewModel)DataContext;
-
-            CursoGRepository repository = new CursoGRepository();
-
-            try
-            {
-                IEnumerable<CursoGModel> cursosList = repository.GetByAll(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
-                ObservableCollection<CursoGModel> cursos = new ObservableCollection<CursoGModel>(cursosList);
-                cursosGDataGrid.ItemsSource = cursos;
-
-                //filtrar busqueda
-                listaOriginal = cursos;
-                listaFiltrada = CollectionViewSource.GetDefaultView(listaOriginal);
-                cursosGDataGrid.ItemsSource = listaFiltrada;
-                txtSearch.TextChanged += TxtSearch_TextChanged;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar los cursos: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            Loaded += MainWindow_Loaded;                       
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            txtSearch.Focus();       
+            txtSearch.Focus();
+
+            var viewModel = (CursoGViewModel)DataContext;
+
+                try
+                {
+                    IEnumerable<CursoGModel> cursosList = repository.GetByAll(viewModel.CurrentUserAccount.DisplayArea); //obtener area loggeada
+                    cursos = new ObservableCollection<CursoGModel>(cursosList);
+                    cursosGDataGrid.ItemsSource = cursos;
+
+                    //filtrar busqueda
+                    listaFiltrada = CollectionViewSource.GetDefaultView(cursos);
+                    cursosGDataGrid.ItemsSource = listaFiltrada;
+                    txtSearch.TextChanged += TxtSearch_TextChanged;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cargar los cursos: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
         }
 
         //filtrar

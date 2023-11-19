@@ -34,6 +34,21 @@ namespace WPF_LoginForm.Repositories
             return areas;
         }
 
+        public int GetAreasTerminadas()
+        {
+            int count = 0;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "exec AreasListas";
+
+                count = (int)command.ExecuteScalar();
+            }
+            return count;
+        }
+
         public IEnumerable<AreaModel> GetIdAreasRegistran()
         {
             List<AreaModel> areas = new List<AreaModel>();
@@ -83,6 +98,50 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return area;
+        }
+
+        public IEnumerable<AreaModel> GetProgresoAreas()
+        {
+            List<AreaModel> areas = new List<AreaModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "exec ProgresoAreas";
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AreaModel area = new AreaModel()
+                        {
+                            NombreArea = reader[0].ToString(),
+                            CursosRegistrados = (int)reader[1],
+                            CursosARegistrar = (int)reader[2],
+                            PorcentajeAvance = (int)reader[3],
+                            ValorPorcentaje = (int)reader[4]
+                        };
+                        areas.Add(area);
+                    }
+                }
+            }
+            return areas;
+        }
+
+        public int GetTotalAreas()
+        {
+            int count = 0;
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT COUNT(nomarea) AS AreasQueRegistran FROM area WHERE registracursos = 1";
+
+                count = (int)command.ExecuteScalar();
+            }
+            return count;
         }
     }
 }

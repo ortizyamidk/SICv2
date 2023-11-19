@@ -7,6 +7,5 @@
         public string RFC { get; set; }
         public string TipoInstr { get; set; }
         public string NomCia { get; set; }
-
     }
 }

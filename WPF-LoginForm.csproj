@@ -203,7 +203,7 @@
     <Compile Include="Models\IInstructorRepository.cs" />
     <Compile Include="Models\InstructorModel.cs" />
     <Compile Include="Models\IPuestoRepository.cs" />
-    <Compile Include="Models\ITrabajadorModel.cs" />
+    <Compile Include="Models\ITrabajadorRepository.cs" />
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\PuestoModel.cs" />
     <Compile Include="Models\TrabajadorModel.cs" />

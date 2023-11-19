@@ -34,7 +34,7 @@
 
             <Grid Grid.Row="1">
                 <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding ListaDeptos}">
+                    <ItemsControl ItemsSource="{Binding ListaAreas}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel Orientation="Horizontal"/>
@@ -43,7 +43,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <uc:InfoCard x:Name="infocard" Grid.Column="0" Width="240" Height="130" HorizontalAlignment="Left" 
-                                            Icon="Cog" Title="{Binding NomDepto}" CursosRegistrados="{Binding CursosRegistrados, StringFormat='Capturó: {0}'}" CursosARegistrar="{Binding CursosARegistrar, StringFormat='/{0} cursos'}" Percentage="{Binding PorcentajeAvance, StringFormat='{}{0}%'}" Value="{Binding ValorPorcentaje}"/>
+                                            Icon="Cog" Title="{Binding NombreArea}" CursosRegistrados="{Binding CursosRegistrados, StringFormat='Capturó: {0}'}" CursosARegistrar="{Binding CursosARegistrar, StringFormat='/{0} cursos'}" Percentage="{Binding PorcentajeAvance, StringFormat='{}{0}%'}" Value="{Binding ValorPorcentaje}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

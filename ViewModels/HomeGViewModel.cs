@@ -54,12 +54,9 @@ namespace WPF_LoginForm.ViewModels
         {
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
-
-            // Inicializa la colección de cursos
             CursosNoRegistrados = new ObservableCollection<CursoModel>();
             CursosVencidos = new ObservableCollection<CursoModel>();
 
-            // Llama al método para obtener resultados de la consulta
             ObtenerResultadosDeConsulta();
             ObtenerCursosVencidos();
 
@@ -70,12 +67,11 @@ namespace WPF_LoginForm.ViewModels
             //AREA LOGGEADA
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
 
-
             //cuantos cursos han sido registrados de esa area
-            CountCursosRegistered = cursoRepository.GetCountCursosRegistered(user.Area); //obtener area de user loggeado
+            CountCursosRegistered = cursoRepository.GetCountCursosRegistered(user.Area); 
 
             //cuantos cursos hay que registrar en total d esa area
-            CountCursos = cursoRepository.GetCountTotalCursos(); //obtener area tematica
+            CountCursos = cursoRepository.GetCountTotalCursos(); 
 
         }
 
@@ -85,12 +81,9 @@ namespace WPF_LoginForm.ViewModels
             //AREA LOGGEADA
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
 
-            // Aquí puedes llamar al método del repositorio para obtener los resultados
-            // Asumiendo que tienes una instancia del repositorio llamada "cursoRepository"
             CursoRepository cursoRepository = new CursoRepository();
-            var resultados = cursoRepository.GetCursosNotRegistered(user.Area); //obtener area de user loggeado
+            var resultados = cursoRepository.GetCursosNotRegistered(user.Area);
 
-            // Agrega los resultados a la colección
             foreach (var resultado in resultados)
             {
                 CursosNoRegistrados.Add(resultado);
@@ -103,7 +96,7 @@ namespace WPF_LoginForm.ViewModels
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
 
             CursoRepository cr = new CursoRepository();
-            var resultadosCV = cr.GetCursosVencidos(user.Area); //obtener area de user loggeado
+            var resultadosCV = cr.GetCursosVencidos(user.Area);
 
             foreach(var resultadoCV in resultadosCV)
             {

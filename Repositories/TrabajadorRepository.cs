@@ -5,7 +5,7 @@ using WPF_LoginForm.Models;
 
 namespace WPF_LoginForm.Repositories
 {
-    public class TrabajadorRepository : RepositoryBase, ITrabajadorModel
+    public class TrabajadorRepository : RepositoryBase, ITrabajadorRepository
     {
         public void AddTrabajador(int id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
         {
@@ -33,18 +33,16 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        public void EditTrabajador(string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, int id)
+        public void EditTrabajador(string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, int id)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "UPDATE trabajador SET  \r\n\t\t\t\t\tnumtarjeta = @numtarjeta, \r\n\t\t\t\t\tnombre = @nombre, \r\n\t\t\t\t\tfechaing = @fechaing, \r\n\t\t\t\t\trfc = @rfc, \r\n\t\t\t\t\tescolaridad = @escolaridad, \r\n\t\t\t\t\tantecedentes = @antecedentes, \r\n\t\t\t\t\tperscalif = @perscalif, \r\n\t\t\t\t\tfoto = @foto, \r\n\t\t\t\t\tauditoriso14001 = @auditoriso14001, \r\n\t\t\t\t\tidpuesto = @idpuesto, \r\n\t\t\t\t\tidarea = @idarea \r\n\r\n\t\t\t\t\tWHERE id = @id";
+                command.CommandText = "exec Editar_Trabajador @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @id";
                
-                command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
-                command.Parameters.Add("@fechaing", SqlDbType.VarChar).Value = fechaing;
                 command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
                 command.Parameters.Add("@escolaridad", SqlDbType.VarChar).Value = escolaridad;
                 command.Parameters.Add("@antecedentes", SqlDbType.VarChar).Value = antecedentes;
@@ -351,7 +349,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT T.id, T.numtarjeta, CONVERT(varchar, T.fechaing, 103) as fechaing, T.nombre, T.rfc, COALESCE(T.antecedentes, '') AS antecedentes, DATEDIFF(YEAR, T.fechaing, GETDATE()) AS antiguedad_anios, DATEDIFF(MONTH, T.fechaing, GETDATE()) % 12 AS antiguedad_meses, P.categoria\r\nFROM trabajador AS T\r\nINNER JOIN puesto AS P\r\nON T.idpuesto = P.id\r\nWHERE T.id = @numficha";
+                command.CommandText = "exec Ver_Trabajador @numficha";
 
                 command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
 
@@ -362,14 +360,21 @@ namespace WPF_LoginForm.Repositories
                         trabajador = new TrabajadorModel()
                         {
                             Id = (int)reader[0],
-                            NumTarjeta = reader[1].ToString(),
-                            FechaIngreso = reader[2].ToString(),
-                            Nombre = reader[3].ToString(),
-                            RFC = reader[4].ToString(),
-                            Antecedentes = reader[5].ToString(),
-                            antiguedadanios = (int)reader[6],
-                            antiguedadmeses = (int)reader[7],
-                            Categoria = reader[8].ToString()
+                            Foto = reader[1] as byte[],
+                            NumTarjeta = reader[2].ToString(),
+                            FechaIngreso = reader[3].ToString(),
+                            antiguedadanios = (int)reader[4],
+                            antiguedadmeses = (int)reader[5],
+                            Categoria = reader[6].ToString(),
+                            Escolaridad = reader[7].ToString(),
+                            Nombre = reader[8].ToString(),
+                            RFC = reader[9].ToString(),
+                            Departamento = reader[10].ToString(),
+                            Area = reader[11].ToString(),
+                            Puesto = reader[12].ToString(),
+                            Auditoriso14001 = reader[13] as bool? ?? false,
+                            PersCalif = reader[14] as bool? ?? false,
+                            Antecedentes = reader[15].ToString()                           
                         };
                     }
                 }

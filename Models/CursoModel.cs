@@ -15,13 +15,8 @@
         public string Instructor { get; set; }
         public string rfcinstructor {  get; set; }
 
-        public int idarea { get; set; }
-
-        public int IdLista { get; set; }
-
         public string MesLimite { get; set; }
 
         public string Impartido { get; set; } 
-
     }
 }

@@ -27,7 +27,7 @@ namespace WPF_LoginForm.Views
         TrabajadorRepository trabajadorRepository;
 
         int numficha, idpuesto, idarea;
-        string nombre, rfc, depto, area, puesto, auditor, perscalif, antecedentes, categoria, nivelest;
+        string nombre, rfc, area, puesto, auditor, perscalif, antecedentes, categoria, nivelest;
 
         public PersonalInfoView()
         {
@@ -49,6 +49,7 @@ namespace WPF_LoginForm.Views
 
             LoadDepartamentosFromDatabase();
             LoadPuestoFromDatabase();
+            ImagenDefault();
         }
 
         private void LoadDepartamentosFromDatabase()
@@ -155,7 +156,6 @@ namespace WPF_LoginForm.Views
         {
             bool errores = false;
 
-            // Restablecer los mensajes de error y los bordes al estado inicial
             errNombre.Content = string.Empty;
             errRfc.Content = string.Empty;
 
@@ -193,22 +193,28 @@ namespace WPF_LoginForm.Views
                 if (!errores)
                 {
                     numficha = int.Parse(txtSearch.Text);
+
                     nombre = txtNombre.Text;
                     rfc = txtRFC.Text;
+                    antecedentes = txtAntecedentes.Text;
 
-                    ComboBoxItem deptoS = (ComboBoxItem)cbDpto.SelectedItem;
-                    depto = deptoS.Content.ToString();
-
+                    //Area
                     ComboBoxItem areaS = (ComboBoxItem)cbArea.SelectedItem;
                     area = areaS.Content.ToString();
                     AreaModel areaModel = areaRepository.GetIdByName(area);
                     int idarea = areaModel.Id;
 
+                    //Puesto
                     ComboBoxItem puestoS = (ComboBoxItem)cbPuesto.SelectedItem;
                     puesto = puestoS.Content.ToString();
                     PuestoModel puesModel = puestoRepository.GetIdByNombrePuesto(puesto);
                     int idpuesto = puesModel.Id;
 
+                    //Escolaridad
+                    ComboBoxItem nivelS = (ComboBoxItem)cbNivel.SelectedItem;
+                    nivelest = nivelS.Content.ToString();
+
+                    //Personal Calificado
                     CheckBox calif = (CheckBox)chkCalif;
                     if (calif.IsChecked == true)
                     {
@@ -219,6 +225,7 @@ namespace WPF_LoginForm.Views
                         perscalif = "0";
                     }
 
+                    //Auditor
                     CheckBox audi = (CheckBox)chkAuditor;
                     if (audi.IsChecked == true)
                     {
@@ -227,15 +234,12 @@ namespace WPF_LoginForm.Views
                     else
                     {
                         auditor = "0";
-                    }
-
-                    ComboBoxItem nivelS = (ComboBoxItem)cbNivel.SelectedItem;
-                    nivelest = nivelS.Content.ToString();
-
-                    antecedentes = txtAntecedentes.Text;
-
+                    }                   
+                    
+                    //Foto
                     byte[] fotoBytes = ObtenerBytesDesdeImagen();
 
+                    trabajadorRepository.EditTrabajador(nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, numficha);
                 
                     MostrarCustomMessageBox();
                     Deshabilitar();               
@@ -253,6 +257,74 @@ namespace WPF_LoginForm.Views
         {
             MessageBoxCustom customMessageBox = new MessageBoxCustom();
             customMessageBox.ShowDialog();
+        }
+
+        private void cbPuesto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbPuesto.SelectedIndex == 0)
+            {
+                txtBuscarPuesto.Visibility = Visibility.Visible;
+                txtBuscarPuesto.Focus();
+                cbPuesto.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                txtBuscarPuesto.Visibility = Visibility.Collapsed;
+                cbPuesto.Visibility = Visibility.Visible;
+
+                ComboBoxItem puestoS = (ComboBoxItem)cbPuesto.SelectedItem;
+                puesto = puestoS.Content.ToString();
+                PuestoModel puestoModel = puestoRepository.GetCategoriaByPuesto(puesto);
+
+                if (puestoModel != null)
+                {
+                    lblCategoria.Text = "Categoría: " + puestoModel.Categoria.ToString();
+                }
+                
+            }
+        }
+
+        private void txtBuscarPuesto_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBuscarPuesto.Text))
+            {
+                txtBuscarPuesto.Visibility = Visibility.Collapsed;
+                cbPuesto.SelectedIndex = 1;
+                cbPuesto.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // Lógica de búsqueda al escribir en el TextBox
+                string textoBusqueda = txtBuscarPuesto.Text.ToLower(); // Obtener el texto y convertirlo a minúsculas para hacer la comparación más flexible
+
+                // Buscar coincidencias en los elementos del ComboBox
+                bool existeCoincidencia = false;
+                foreach (ComboBoxItem item in cbPuesto.Items)
+                {
+                    if (item.Content.ToString().ToLower().Contains(textoBusqueda))
+                    {
+                        existeCoincidencia = true;
+                        cbPuesto.SelectedItem = item; // Seleccionar el item si hay coincidencia
+
+                        txtBuscarPuesto.Text = string.Empty;
+                        txtBuscarPuesto.Visibility = Visibility.Collapsed;
+
+                        break;
+                    }
+                }
+
+                // Verificar si se presionó la tecla Enter y no se encontró coincidencia
+                if (existeCoincidencia == false && e != null && e.Source is TextBox && ((TextBox)e.Source).Text.Length > 0)
+                {
+                    MessageBox.Show("No se encontró ninguna coincidencia en la búsqueda.", "Sin coincidencias");
+                    txtBuscarPuesto.Text = string.Empty;
+                    txtBuscarPuesto.Visibility = Visibility.Collapsed;
+
+                    cbPuesto.Visibility = Visibility.Visible;
+                    cbPuesto.SelectedIndex = 1;
+
+                }
+            }
         }
 
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
@@ -414,6 +486,113 @@ namespace WPF_LoginForm.Views
                         txtRFC.Text = trabajadorModel.RFC;
                         txtAntecedentes.Text = trabajadorModel.Antecedentes;
 
+                        //Foto
+                        if (trabajadorModel.Foto != null && trabajadorModel.Foto.Length > 0)
+                        {
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = new MemoryStream(trabajadorModel.Foto);
+                            bitmapImage.EndInit();
+
+                            imgTrabajador.Source = bitmapImage;
+                        }
+
+                        //Departamento
+                        int deptoIndex = -1; 
+                        for (int i = 0; i < cbDpto.Items.Count; i++)
+                        {
+                            ComboBoxItem item = (ComboBoxItem)cbDpto.Items[i];
+                            if (item.Content.ToString() == trabajadorModel.Departamento.ToString())
+                            {
+                                deptoIndex = i;
+                                break; 
+                            }
+                        }
+                        if (deptoIndex == -1)
+                        {
+                            deptoIndex = 0;
+                            ComboBoxItem item = (ComboBoxItem)cbDpto.Items[0];
+                            item.Content = trabajadorModel.Departamento.ToString();
+                        }
+                        cbDpto.SelectedIndex = deptoIndex;
+
+                        //Area
+                        int areaIndex = -1;
+                        for (int i = 0; i < cbArea.Items.Count; i++)
+                        {
+                            ComboBoxItem item = (ComboBoxItem)cbArea.Items[i];
+                            if (item.Content.ToString() == trabajadorModel.Area.ToString())
+                            {
+                                areaIndex = i;
+                                break;
+                            }
+                        }
+                        if (areaIndex == -1)
+                        {
+                            areaIndex = 0;
+                            ComboBoxItem item = (ComboBoxItem)cbArea.Items[0];
+                            item.Content = trabajadorModel.Area.ToString();
+                        }
+                        cbArea.SelectedIndex = areaIndex;
+
+                        //Puesto
+                        int puestoIndex = -1;
+                        for (int i = 0; i < cbPuesto.Items.Count; i++)
+                        {
+                            ComboBoxItem item = (ComboBoxItem)cbPuesto.Items[i];
+                            if (item.Content.ToString() == trabajadorModel.Puesto.ToString())
+                            {
+                                puestoIndex = i;
+                                break;
+                            }
+                        }
+                        if (puestoIndex == -1)
+                        {
+                            puestoIndex = 1;
+                            ComboBoxItem item = (ComboBoxItem)cbPuesto.Items[0];
+                            item.Content = trabajadorModel.Puesto.ToString();
+                        }
+                        cbPuesto.SelectedIndex = puestoIndex;
+
+                        //Escolaridad
+                        int escolaridadIndex = -1;
+                        for (int i = 0; i < cbNivel.Items.Count; i++)
+                        {
+                            ComboBoxItem item = (ComboBoxItem)cbNivel.Items[i];
+                            if (item.Content.ToString() == trabajadorModel.Escolaridad.ToString())
+                            {
+                                escolaridadIndex = i;
+                                break;
+                            }
+                        }
+                        if (escolaridadIndex == -1)
+                        {
+                            escolaridadIndex = 0;
+                            ComboBoxItem item = (ComboBoxItem)cbNivel.Items[0];
+                            item.Content = trabajadorModel.Escolaridad.ToString();
+                        }
+                        cbNivel.SelectedIndex = escolaridadIndex;
+
+                        //Auditor
+                        if(trabajadorModel.Auditoriso14001 == true)
+                        {
+                            chkAuditor.IsChecked = true;
+                        }
+                        else
+                        {
+                            chkAuditor.IsChecked=false;
+                        }
+
+                        //Personal calificado
+                        if(trabajadorModel.PersCalif ==  true)
+                        {
+                            chkCalif.IsChecked = true;
+                        }
+                        else
+                        {
+                            chkCalif.IsChecked=false;
+                        }
+
                         txtSearch.Focus();
                     }
                     else
@@ -428,6 +607,20 @@ namespace WPF_LoginForm.Views
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
+        }
+
+        private void ImagenDefault()
+        {
+            string imagePath = "/Images/up.png";
+
+            // Crear la URI de la imagen
+            Uri imageUri = new Uri(imagePath, UriKind.Relative);
+
+            // Crear un objeto BitmapImage
+            System.Windows.Media.Imaging.BitmapImage bitmap = new System.Windows.Media.Imaging.BitmapImage(imageUri);
+
+            // Establecer la imagen al control Image
+            imgTrabajador.Source = bitmap;
         }
 
         private void Limpiar()
@@ -451,6 +644,8 @@ namespace WPF_LoginForm.Views
             lblIngreso.Text = "Ingreso: ";
             lblAntig.Text = "Anitgüedad: ";
             lblCategoria.Text = "Categoría: ";
+
+            ImagenDefault();
 
             txtSearch.Focus();
         }

@@ -6,7 +6,11 @@ namespace WPF_LoginForm.Models
     {
         IEnumerable<AreaModel> GetIdAreasRegistran();
         IEnumerable<AreaModel> GetAreaByDepartamento(string depto);
+        IEnumerable<AreaModel> GetProgresoAreas();
 
         AreaModel GetIdByName(string nomarea);
+
+        int GetAreasTerminadas();
+        int GetTotalAreas();
     }
 }

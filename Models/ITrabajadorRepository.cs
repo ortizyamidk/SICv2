@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace WPF_LoginForm.Models
 {
-    public interface ITrabajadorModel
+    public interface ITrabajadorRepository
     {
         IEnumerable<TrabajadorModel> GetByAll();
         IEnumerable<TrabajadorModel> GetParticipantesListaA(int idlista, string nomarea);
@@ -26,7 +30,6 @@ namespace WPF_LoginForm.Models
         TrabajadorModel GetTrabajadorHistorialCursos(int numficha);
 
         void AddTrabajador(int id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea);
-        void EditTrabajador(string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, int id);
-
+        void EditTrabajador(string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, int id);
     }
 }

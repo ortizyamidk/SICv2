@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace WPF_LoginForm.Models
 {
     public class CursoGModel
-    {
-        public int Id { get; set; }
-        
+    {        
         public string IdCurso {  get; set; }
         public string NomCurso { get; set; }
         public string AreaTematica { get; set; }
@@ -21,14 +19,5 @@ namespace WPF_LoginForm.Models
         public int Duracion { get; set; }
         public string Lugar { get; set; }
         public string Instructor { get; set; }
-
-        public int NumFicha { get; set; }
-        public string NumTarjeta {  get; set; }
-        public string NomTrabajador { get; set; }
-        public string Puesto { get; set; }
-
-        public int IdArea {  get; set; }
-        
-
     }
 }

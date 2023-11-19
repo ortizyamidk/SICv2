@@ -16,7 +16,7 @@ namespace WPF_LoginForm.Views
     public partial class CustomerView : UserControl
     {
         //filtrar
-        private ObservableCollection<TrabajadorModel> original;
+        private ObservableCollection<TrabajadorModel> trabajadores;
         private ICollectionView filtrado;
 
         public CustomerView()
@@ -33,8 +33,7 @@ namespace WPF_LoginForm.Views
                 personalDataGrid.ItemsSource = trabajadores;
 
                 //filtrar
-                original = trabajadores;
-                filtrado = CollectionViewSource.GetDefaultView(original);
+                filtrado = CollectionViewSource.GetDefaultView(trabajadores);
                 personalDataGrid.ItemsSource = filtrado;
                 txtSearch.TextChanged += TxtSearch_TextChanged;
             }

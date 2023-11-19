@@ -7,7 +7,6 @@ namespace WPF_LoginForm.ViewModels
     public class CursoNuevoGViewModel : ViewModelBase
     {
         private IUserRepository userRepository;
-        CursoGRepository cursoRepository;
 
         private UserAccountModel _currentUserAccount;
         public UserAccountModel CurrentUserAccount
@@ -28,7 +27,6 @@ namespace WPF_LoginForm.ViewModels
         {
             userRepository = new UserRepository();
             CurrentUserAccount = new UserAccountModel();
-            cursoRepository = new CursoGRepository();
 
             var user = userRepository.GetByUsername(Thread.CurrentPrincipal.Identity.Name);
             CurrentUserAccount.DisplayArea = $"{user.Area}";

@@ -9,25 +9,27 @@ namespace WPF_LoginForm.Views
 
     public partial class HomeView : UserControl
     {
+        AreaRepository areaRepository;
 
         public HomeView()
         {
             InitializeComponent();
             Loaded += HomeView_Loaded;
+
+            areaRepository = new AreaRepository();
         }
 
         private void HomeView_Loaded(object sender, RoutedEventArgs e)
         {
-            DepartamentoRepository departamentoRepository = new DepartamentoRepository(); // Asegúrate de que la configuración sea la correcta
 
             try
             {
                 // Llama al método GetAreasTerminadas y guarda el resultado en una variable.
-                int areast = departamentoRepository.GetAreasTerminadas();
+                int areast = areaRepository.GetAreasTerminadas();
 
                 areasTerminadas.Text = areast.ToString();
 
-                int totalareas = departamentoRepository.GetTotalAreas();
+                int totalareas = areaRepository.GetTotalAreas();
 
                 double div = (double)areast / totalareas;
                 double perc = div * 100;
