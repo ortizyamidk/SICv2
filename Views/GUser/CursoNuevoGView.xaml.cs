@@ -18,6 +18,8 @@ namespace WPF_LoginForm.Views.GUser
         AreaRepository areaRepository;
         CursoRepository cursoRepository;
 
+        private bool isMessageBoxShown = false;
+
         ObservableCollection<TrabajadorModel> trabajadoresList;
 
         public CursoNuevoGView()
@@ -58,6 +60,11 @@ namespace WPF_LoginForm.Views.GUser
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
+            if (isMessageBoxShown) // Si ya se está mostrando un MessageBox, no hagas nada
+            {
+                return;
+            }
+
             bool errores = false;
 
             if (participantesDataGrid.Items.Count == 0)
@@ -68,6 +75,8 @@ namespace WPF_LoginForm.Views.GUser
 
             if (!errores)
             {
+                isMessageBoxShown = true;
+
                 MessageBoxResult result = MessageBox.Show("¿Está seguro de guardar la información? Los datos no se podrán editar al confirmar la acción", "Confirmar Guardar", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 
                 if(result == MessageBoxResult.Yes)
@@ -95,7 +104,9 @@ namespace WPF_LoginForm.Views.GUser
                     {
                         MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                }               
+                }
+
+                isMessageBoxShown = false; // Indicar que se ha cerrado el MessageBox
             }
         }
 

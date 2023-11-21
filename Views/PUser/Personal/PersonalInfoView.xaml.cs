@@ -477,6 +477,20 @@ namespace WPF_LoginForm.Views
 
                     if(trabajadorModel != null)
                     {
+                        /*// Rellena el campo con la fecha de ingreso
+                        DateTime fechaIngreso = DateTime.Parse(trabajadorModel.FechaIngreso);
+                        lblIngreso.Text = "Ingreso: " + fechaIngreso.ToString("dd/MM/yyyy");
+
+                        // Calcula los años de antigüedad
+                        DateTime fechaActual = DateTime.Now;
+                        int añosAntiguedad = fechaActual.Year - fechaIngreso.Year;
+
+                        // Ajusta la antigüedad si aún no ha pasado el aniversario de ingreso este año
+                        if (fechaActual < fechaIngreso.AddYears(añosAntiguedad))
+                        {
+                            añosAntiguedad--;
+                        }*/
+
                         lblNoFicha.Text = "No. ficha: " + trabajadorModel.Id;
                         lblTarjeta.Text = "No. tarjeta: " + trabajadorModel.NumTarjeta;
                         lblIngreso.Text = "Ingreso: " + trabajadorModel.FechaIngreso;
@@ -574,24 +588,11 @@ namespace WPF_LoginForm.Views
                         cbNivel.SelectedIndex = escolaridadIndex;
 
                         //Auditor
-                        if(trabajadorModel.Auditoriso14001 == true)
-                        {
-                            chkAuditor.IsChecked = true;
-                        }
-                        else
-                        {
-                            chkAuditor.IsChecked=false;
-                        }
+                        chkAuditor.IsChecked = trabajadorModel.Auditoriso14001;
 
                         //Personal calificado
-                        if(trabajadorModel.PersCalif ==  true)
-                        {
-                            chkCalif.IsChecked = true;
-                        }
-                        else
-                        {
-                            chkCalif.IsChecked=false;
-                        }
+                        chkCalif.IsChecked = trabajadorModel.PersCalif;
+
 
                         txtSearch.Focus();
                     }

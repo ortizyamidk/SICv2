@@ -208,6 +208,7 @@ namespace WPF_LoginForm.Views
                     AreaModel areaModel = areaRepository.GetIdByName(areaSelec);
                     idarea = areaModel.Id;
 
+
                     trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
 
                     MostrarCustomMessageBox();
