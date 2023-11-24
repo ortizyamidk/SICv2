@@ -188,7 +188,7 @@ namespace WPF_LoginForm.Views.GUser
             {
                 try
                 {
-                    int numficha = int.Parse(txtBuscar.Text);
+                    string numficha = txtBuscar.Text;
 
                     var viewModel = (CursoNuevoGViewModel)DataContext;
                     TrabajadorModel trabajador = trabajadorRepository.GetById(numficha, viewModel.CurrentUserAccount.DisplayArea); //area loggeada

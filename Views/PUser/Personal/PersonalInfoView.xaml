@@ -96,7 +96,7 @@
                                 <TextBox x:Name="txtSearch" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 
                                          Height="auto" Width="135" Background="Transparent"
                                          FontWeight="Medium" FontFamily="Montserrat" CaretBrush="Black" BorderBrush="Black"
-                                         BorderThickness="0,0,0,1" VerticalAlignment="Top" PreviewTextInput="TextBox_PreviewTextInput">
+                                         BorderThickness="0,0,0,1" VerticalAlignment="Top">
                                 </TextBox>
                                 <TextBlock Text="Buscar No. Ficha" Foreground="Gray" IsHitTestVisible="False" Margin="0 0 0 5" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Right">
                                     <TextBlock.Style>

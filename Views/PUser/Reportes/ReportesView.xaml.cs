@@ -21,8 +21,7 @@ namespace WPF_LoginForm.Views
         CursoModel cursoModel;
         AreaRepository areaRepository;
 
-        int numficha;
-        string idtrabajador, nombretrabajador, rfc, puesto, depto, area, fechaing;
+        string numficha, idtrabajador, nombretrabajador, rfc, puesto, depto, area, fechaing;
 
         string idcurso;
         string numcurso, nomcurso, instructor, inicio, termino, duracion, lugar, horario, idinstructor, rfcinstructor;
@@ -33,7 +32,12 @@ namespace WPF_LoginForm.Views
       
         object numc1, curso1, instructor1, inicio1, termino1, duracion1, lugar1, horario1;
 
-        object bookmarkName, participantesBookmarkName, cursosBookmarkName, personalCABookmarkName;
+        object bookmarkName, participantesBookmarkName, cursosBookmarkName, personalCABookmarkName, fechaactualBookMark;
+
+        DateTime fechaActual = DateTime.Now;
+
+        // Formatear la fecha en el formato especificado
+        string fechaFormateada;
 
         public ReportesView()
         {
@@ -50,7 +54,7 @@ namespace WPF_LoginForm.Views
         {
             try
             {
-                var areas = areaRepository.GetProgresoAreas();
+                var areas = areaRepository.GetByAll();
                 foreach (var area in areas)
                 {
                     var item = new ComboBoxItem
@@ -70,6 +74,7 @@ namespace WPF_LoginForm.Views
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             CargarAreas();
+            fechaFormateada = fechaActual.ToString("dddd, dd MMMM yyyy");
         }
 
         private void btnGeneral_Click(object sender, RoutedEventArgs e)
@@ -100,10 +105,16 @@ namespace WPF_LoginForm.Views
                         objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
 
                         //edita el doc
+                        fechaactualBookMark = "mfechaactual";
                         personalCABookmarkName = "mpersonalCalificado";
+
+                        objWord.Range fech = ObjDoc.Bookmarks.get_Item(ref fechaactualBookMark).Range;
+                        fech.Text = fechaFormateada;
 
                         objWord.Range personalRange = ObjDoc.Bookmarks.get_Item(ref personalCABookmarkName).Range;
                         objWord.Table tabla = personalRange.Tables[1];
+
+                        
 
 
                         foreach (var personal in trabajadores)
@@ -307,10 +318,14 @@ namespace WPF_LoginForm.Views
                         objWord.Document ObjDoc = ObjWord.Documents.Open(copiaFilePath);
 
                         area1 = "marea";
+                        fechaactualBookMark = "mfechaactual";
                         personalCABookmarkName = "mpersonal";
 
                         objWord.Range ar = ObjDoc.Bookmarks.get_Item(ref area1).Range;
                         ar.Text = area;
+
+                        objWord.Range fech = ObjDoc.Bookmarks.get_Item(ref fechaactualBookMark).Range;
+                        fech.Text = fechaFormateada;
 
                         objWord.Range personalRange = ObjDoc.Bookmarks.get_Item(ref personalCABookmarkName).Range;
                         objWord.Table tabla = personalRange.Tables[1];
@@ -322,7 +337,7 @@ namespace WPF_LoginForm.Views
                             objWord.Row fila = tabla.Rows.Add();
 
                             // Rellena las celdas con los datos del trabajador
-                            fila.Cells[1].Range.Text = personal.Id.ToString();
+                            fila.Cells[1].Range.Text = personal.Id;
                             fila.Cells[2].Range.Text = personal.Nombre;
                             fila.Cells[3].Range.Text = personal.Puesto;
                         }
@@ -353,7 +368,7 @@ namespace WPF_LoginForm.Views
                 }
                 else 
                 {
-                    numficha = int.Parse(buscarTrab.Text);
+                    numficha = buscarTrab.Text;
                     trabajadorModel = trabajadorRepository.GetTrabajadorHistorialCursos(numficha);
 
                     List<CursoModel> cursos = (List<CursoModel>)cursoRepository.GetCursosHistorialCursos(numficha);
@@ -393,6 +408,7 @@ namespace WPF_LoginForm.Views
                             area1 = "marea";
                             fechaing1 = "mingreso";
                             cursosBookmarkName = "mcursos";
+                            fechaactualBookMark = "mfechaactual";
 
                             objWord.Range num = ObjDoc.Bookmarks.get_Item(ref numf1).Range;
                             num.Text = idtrabajador;
@@ -411,6 +427,9 @@ namespace WPF_LoginForm.Views
 
                             objWord.Range fecha = ObjDoc.Bookmarks.get_Item(ref fechaing1).Range;
                             fecha.Text = fechaing;
+
+                            objWord.Range fech = ObjDoc.Bookmarks.get_Item(ref fechaactualBookMark).Range;
+                            fech.Text = fechaFormateada;
 
                             objWord.Range cursosRange = ObjDoc.Bookmarks.get_Item(ref cursosBookmarkName).Range;
                             objWord.Table tabla = cursosRange.Tables[1];
@@ -456,7 +475,7 @@ namespace WPF_LoginForm.Views
                 }
                 else
                 {
-                    numficha = int.Parse(buscarDC3.Text);
+                    numficha = buscarDC3.Text;
                     trabajadorModel = trabajadorRepository.FormatoDC3(numficha);
 
                     if (trabajadorModel != null)
@@ -586,6 +605,7 @@ namespace WPF_LoginForm.Views
                         duracion1 = "mduracion";
                         lugar1 = "mlugar";
                         horario1 = "mhorario";
+                        fechaactualBookMark = "mfechaactual";
                         participantesBookmarkName = "mparticipantes";
 
                         objWord.Range numc = ObjDoc.Bookmarks.get_Item(ref numc1).Range;
@@ -611,6 +631,9 @@ namespace WPF_LoginForm.Views
 
                         objWord.Range hor = ObjDoc.Bookmarks.get_Item(ref horario1).Range;
                         hor.Text = horario;
+
+                        objWord.Range fech = ObjDoc.Bookmarks.get_Item(ref fechaactualBookMark).Range;
+                        fech.Text = fechaFormateada;
 
                         objWord.Range participantesRange = ObjDoc.Bookmarks.get_Item(ref participantesBookmarkName).Range;
                         objWord.Table tabla = participantesRange.Tables[1];

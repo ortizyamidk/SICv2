@@ -10,7 +10,7 @@ namespace WPF_LoginForm.Models
         IEnumerable<CursoModel> GetByAll();
 
         //reportes
-        IEnumerable<CursoModel> GetCursosHistorialCursos(int numficha);
+        IEnumerable<CursoModel> GetCursosHistorialCursos(string numficha);
         CursoModel GetCursoListaAsistencia(string idcurso);
         CursoModel GetListaAsistenciaExcel(string idcurso);
 

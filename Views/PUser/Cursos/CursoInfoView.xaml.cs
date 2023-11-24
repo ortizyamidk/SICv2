@@ -345,8 +345,7 @@ namespace WPF_LoginForm.Views
                         DateTime fechaTermino = DateTime.ParseExact(fechaTermString, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         dtTermina.SelectedDate = fechaTermino;
 
-                        DateTime hor = DateTime.Parse(horarioString);
-                        tiHorario.SelectedTime = hor;
+                        
 
                         //
                         // Aquí buscas el índice en el ComboBox correspondiente
@@ -394,6 +393,9 @@ namespace WPF_LoginForm.Views
                         }
                         cbInstructor.SelectedIndex = instructorIndex; // Estableces el índice del ComboBox
                                                                       //
+
+                        DateTime hor = DateTime.Parse(horarioString);
+                        tiHorario.SelectedTime = hor;
                     }
                     else
                     {

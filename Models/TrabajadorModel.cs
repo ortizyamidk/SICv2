@@ -2,7 +2,7 @@
 {
     public class TrabajadorModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public byte[] Foto { get; set; }
         public string NumTarjeta { get; set; }
         public string FechaIngreso { get; set; }

@@ -98,7 +98,7 @@
                     </Border.Background>
                 </Border>
                 <Grid Grid.Column="1" Grid.Row="1">
-                    <TextBox x:Name="buscarTrab" Style="{StaticResource myTextBox}" PreviewTextInput="buscarTrab_PreviewTextInput" Width="150" Margin="0 0 0 150"/>
+                    <TextBox x:Name="buscarTrab" Style="{StaticResource myTextBox}" Width="150" Margin="0 0 0 150"/>
                     <TextBlock Text="Buscar No. Ficha" Width="130" FontSize="15" Height="25" Margin="0 0 0 145" Foreground="Gray" IsHitTestVisible="False" HorizontalAlignment="Center">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
@@ -143,7 +143,7 @@
                     </Border>
 
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="buscarDC3" PreviewTextInput="buscarTrab_PreviewTextInput" Style="{StaticResource myTextBox}" Width="150" Margin="0 0 0 150"/>
+                        <TextBox x:Name="buscarDC3" Style="{StaticResource myTextBox}" Width="150" Margin="0 0 0 150"/>
                         <TextBlock Text="Buscar No. Ficha" Width="130" FontSize="15" Height="25" Margin="0 0 0 145" Foreground="Gray" IsHitTestVisible="False" HorizontalAlignment="Center">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">

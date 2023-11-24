@@ -86,7 +86,7 @@ namespace WPF_LoginForm.CustomControls
 
                     if (trabajadorModel != null)
                     {
-                        int numficha = trabajadorModel.Id;
+                        string numficha = trabajadorModel.Id;
 
                         cursoGRepository.Edit(idCursoFromParent, numficha);
                     }

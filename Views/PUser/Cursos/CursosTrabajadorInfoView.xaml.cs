@@ -38,7 +38,7 @@ namespace WPF_LoginForm.Views
         {
             try
             {
-                var areas = areaRepository.GetProgresoAreas();
+                var areas = areaRepository.GetByAll();
                 foreach (var area in areas)
                 {
                     var item = new ComboBoxItem

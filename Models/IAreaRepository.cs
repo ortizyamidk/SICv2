@@ -7,6 +7,7 @@ namespace WPF_LoginForm.Models
         IEnumerable<AreaModel> GetIdAreasRegistran();
         IEnumerable<AreaModel> GetAreaByDepartamento(string depto);
         IEnumerable<AreaModel> GetProgresoAreas();
+        IEnumerable<AreaModel> GetByAll();
 
         AreaModel GetIdByName(string nomarea);
 

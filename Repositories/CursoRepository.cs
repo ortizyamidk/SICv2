@@ -288,7 +288,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //reportes
-        public IEnumerable<CursoModel> GetCursosHistorialCursos(int numficha)
+        public IEnumerable<CursoModel> GetCursosHistorialCursos(string numficha)
         {
             List<CursoModel> cursos = new List<CursoModel>();
             using (var connection = GetConnection())
@@ -298,7 +298,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "exec ReporteHistorialCursos_InfoCurso @numficha";
 
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
 
                 using (var reader = command.ExecuteReader())
                 {

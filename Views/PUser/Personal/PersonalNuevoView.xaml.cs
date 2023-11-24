@@ -21,8 +21,8 @@ namespace WPF_LoginForm.Views
         SolidColorBrush bordeNormal = new SolidColorBrush(Colors.Black);
         string req = "*Campo requerido";
 
-        int id, idpuesto, idarea;
-        string numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, foto, auditoriso14001;
+        int idpuesto, idarea;
+        string id, numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, foto, perscalif, auditoriso14001;
 
         PuestoRepository puestoRepository;
         AreaRepository areaRepository;
@@ -167,7 +167,7 @@ namespace WPF_LoginForm.Views
 
                 if (!errores)
                 {
-                    id = int.Parse(txtNoFicha.Text);
+                    id = txtNoFicha.Text;
                     numtarjeta = txtNumTarjeta.Text;
                     nombre = txtNombre.Text;
                     fechaing = selecteddate;
@@ -324,31 +324,33 @@ namespace WPF_LoginForm.Views
                 string textoBusqueda = txtBuscarPuesto.Text.ToLower(); // Obtener el texto y convertirlo a minúsculas para hacer la comparación más flexible
 
                 // Buscar coincidencias en los elementos del ComboBox
-                bool existeCoincidencia = false;
+                ComboBoxItem coincidencia = null;
                 foreach (ComboBoxItem item in cbPuesto.Items)
                 {
-                    if (item.Content.ToString().ToLower().Contains(textoBusqueda))
+                    if (item.Content.ToString().ToLower().StartsWith(textoBusqueda))
                     {
-                        existeCoincidencia = true;
-                        cbPuesto.SelectedItem = item; // Seleccionar el item si hay coincidencia
-
-                        txtBuscarPuesto.Text = string.Empty;
-                        txtBuscarPuesto.Visibility = Visibility.Collapsed;
-
+                        coincidencia = item;
                         break;
                     }
                 }
 
-                // Verificar si se presionó la tecla Enter y no se encontró coincidencia
-                if (existeCoincidencia == false && e != null && e.Source is TextBox && ((TextBox)e.Source).Text.Length > 0)
+                if (coincidencia != null)
                 {
+                    // Se encontró una coincidencia
+                    cbPuesto.SelectedItem = coincidencia;
+                    txtBuscarPuesto.Text = string.Empty;
+                    txtBuscarPuesto.Visibility = Visibility.Collapsed;
+
+                }
+                else
+                {
+                    // No se encontró ninguna coincidencia
                     MessageBox.Show("No se encontró ninguna coincidencia en la búsqueda.", "Sin coincidencias");
                     txtBuscarPuesto.Text = string.Empty;
                     txtBuscarPuesto.Visibility = Visibility.Collapsed;
 
-                    cbPuesto.Visibility= Visibility.Visible;
+                    cbPuesto.Visibility = Visibility.Visible;
                     cbPuesto.SelectedIndex = 1;
-
                 }
             }
         }

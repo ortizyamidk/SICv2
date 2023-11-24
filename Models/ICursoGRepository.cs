@@ -8,8 +8,8 @@ namespace WPF_LoginForm.Models
 
         CursoGModel GetById(int idlista, string nomarea);
 
-        void Edit(string idcurso, int numficha);
-        void AddParticipantes(int numficha, string idcurso);
+        void Edit(string idcurso, string numficha);
+        void AddParticipantes(string numficha, string idcurso);
         void AddListaAsistencia(int idarea, string idcurso);
 
         int CursoImpartido(string nomcurso);

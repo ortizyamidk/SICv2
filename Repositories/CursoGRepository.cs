@@ -9,7 +9,7 @@ namespace WPF_LoginForm.Repositories
     public class CursoGRepository : RepositoryBase, ICursoGRepository
     {
         //insertar participantes de la lista de asistencia a un curso
-        public void AddParticipantes(int numficha, string idcurso)
+        public void AddParticipantes(string numficha, string idcurso)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -18,7 +18,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO cursotrabajador (idtrabajador, idcurso) VALUES (@numficha, @idcurso)";
 
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
 
                 command.ExecuteNonQuery();
@@ -26,7 +26,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //pase de lista
-        public void Edit(string idcurso, int numficha)
+        public void Edit(string idcurso, string numficha)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -36,7 +36,7 @@ namespace WPF_LoginForm.Repositories
                 command.CommandText = "UPDATE cursotrabajador SET asistio = 1 WHERE idcurso = @idcurso AND idtrabajador = @numficha";
 
                 command.Parameters.Add("@idcurso", SqlDbType.VarChar).Value = idcurso;
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
 
                 command.ExecuteNonQuery();
             }
@@ -64,8 +64,8 @@ namespace WPF_LoginForm.Repositories
                             IdLista = (int)reader[0],
                             NomCurso = reader[1].ToString(),
                             AreaTematica = reader[2].ToString(),                           
-                            Inicia = ((DateTime)reader[3]).ToString("dd/MM/yyyy"),
-                            Termina = ((DateTime)reader[4]).ToString("dd/MM/yyyy"),
+                            Inicia = reader[3].ToString(),
+                            Termina = reader[4].ToString(),
                             Instructor = reader[5].ToString()
                         };
                         cursos.Add(curso);

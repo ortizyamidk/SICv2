@@ -26,8 +26,8 @@ namespace WPF_LoginForm.Views
         AreaRepository areaRepository;
         TrabajadorRepository trabajadorRepository;
 
-        int numficha, idpuesto, idarea;
-        string nombre, rfc, area, puesto, auditor, perscalif, antecedentes, categoria, nivelest;
+        int idpuesto, idarea;
+        string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif;
 
         public PersonalInfoView()
         {
@@ -192,7 +192,7 @@ namespace WPF_LoginForm.Views
 
                 if (!errores)
                 {
-                    numficha = int.Parse(txtSearch.Text);
+                    numficha = txtSearch.Text;
 
                     nombre = txtNombre.Text;
                     rfc = txtRFC.Text;
@@ -298,31 +298,33 @@ namespace WPF_LoginForm.Views
                 string textoBusqueda = txtBuscarPuesto.Text.ToLower(); // Obtener el texto y convertirlo a minúsculas para hacer la comparación más flexible
 
                 // Buscar coincidencias en los elementos del ComboBox
-                bool existeCoincidencia = false;
+                ComboBoxItem coincidencia = null;
                 foreach (ComboBoxItem item in cbPuesto.Items)
                 {
-                    if (item.Content.ToString().ToLower().Contains(textoBusqueda))
+                    if (item.Content.ToString().ToLower().StartsWith(textoBusqueda))
                     {
-                        existeCoincidencia = true;
-                        cbPuesto.SelectedItem = item; // Seleccionar el item si hay coincidencia
-
-                        txtBuscarPuesto.Text = string.Empty;
-                        txtBuscarPuesto.Visibility = Visibility.Collapsed;
-
+                        coincidencia = item;
                         break;
                     }
                 }
 
-                // Verificar si se presionó la tecla Enter y no se encontró coincidencia
-                if (existeCoincidencia == false && e != null && e.Source is TextBox && ((TextBox)e.Source).Text.Length > 0)
+                if (coincidencia != null)
                 {
+                    // Se encontró una coincidencia
+                    cbPuesto.SelectedItem = coincidencia;
+                    txtBuscarPuesto.Text = string.Empty;
+                    txtBuscarPuesto.Visibility = Visibility.Collapsed;
+
+                }
+                else
+                {
+                    // No se encontró ninguna coincidencia
                     MessageBox.Show("No se encontró ninguna coincidencia en la búsqueda.", "Sin coincidencias");
                     txtBuscarPuesto.Text = string.Empty;
                     txtBuscarPuesto.Visibility = Visibility.Collapsed;
 
                     cbPuesto.Visibility = Visibility.Visible;
                     cbPuesto.SelectedIndex = 1;
-
                 }
             }
         }
@@ -472,7 +474,7 @@ namespace WPF_LoginForm.Views
                 }
                 else
                 {
-                    int numficha = int.Parse(txtSearch.Text);
+                    numficha = txtSearch.Text;
                     TrabajadorModel trabajadorModel = trabajadorRepository.GetTrabajador(numficha);
 
                     if(trabajadorModel != null)
@@ -500,16 +502,7 @@ namespace WPF_LoginForm.Views
                         txtRFC.Text = trabajadorModel.RFC;
                         txtAntecedentes.Text = trabajadorModel.Antecedentes;
 
-                        //Foto
-                        if (trabajadorModel.Foto != null && trabajadorModel.Foto.Length > 0)
-                        {
-                            BitmapImage bitmapImage = new BitmapImage();
-                            bitmapImage.BeginInit();
-                            bitmapImage.StreamSource = new MemoryStream(trabajadorModel.Foto);
-                            bitmapImage.EndInit();
-
-                            imgTrabajador.Source = bitmapImage;
-                        }
+                        
 
                         //Departamento
                         int deptoIndex = -1; 
@@ -588,11 +581,35 @@ namespace WPF_LoginForm.Views
                         cbNivel.SelectedIndex = escolaridadIndex;
 
                         //Auditor
-                        chkAuditor.IsChecked = trabajadorModel.Auditoriso14001;
+                        if(trabajadorModel.Auditoriso14001 == true)
+                        {
+                            chkAuditor.IsChecked = true;
+                        }
+                        else
+                        {
+                            chkAuditor.IsChecked = false;
+                        }
 
                         //Personal calificado
-                        chkCalif.IsChecked = trabajadorModel.PersCalif;
+                        if(trabajadorModel.PersCalif == true)
+                        {
+                            chkCalif.IsChecked = true;
+                        }
+                        else
+                        {
+                            chkCalif.IsChecked = false;
+                        }
 
+                        //Foto
+                        if (trabajadorModel.Foto != null && trabajadorModel.Foto.Length > 0)
+                        {
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.BeginInit();
+                            bitmapImage.StreamSource = new MemoryStream(trabajadorModel.Foto);
+                            bitmapImage.EndInit();
+
+                            imgTrabajador.Source = bitmapImage;
+                        }
 
                         txtSearch.Focus();
                     }

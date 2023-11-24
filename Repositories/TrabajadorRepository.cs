@@ -7,7 +7,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorRepository
     {
-        public void AddTrabajador(int id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
+        public void AddTrabajador(string id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -16,7 +16,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "exec Crear_Trabajador @id, @numtarjeta, @nombre, @fechaing, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea";
 
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 command.Parameters.Add("@fechaing", SqlDbType.VarChar).Value = fechaing;
@@ -33,7 +33,7 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        public void EditTrabajador(string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, int id)
+        public void EditTrabajador(string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string id)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -41,7 +41,7 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = "exec Editar_Trabajador @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @id";
-               
+
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
                 command.Parameters.Add("@escolaridad", SqlDbType.VarChar).Value = escolaridad;
@@ -52,14 +52,14 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@idpuesto", SqlDbType.Int).Value = idpuesto;
                 command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
 
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
 
                 command.ExecuteNonQuery();
             }
         }
 
         //reportes
-        public TrabajadorModel FormatoDC3(int numficha)
+        public TrabajadorModel FormatoDC3(string numficha)
         {
             TrabajadorModel trabajador = null;
             using (var connection = GetConnection())
@@ -69,7 +69,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "exec ReporteDC3 @numficha";
 
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -77,7 +77,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             Nombre = reader[1].ToString(),
                             RFC = reader[2].ToString(),
                             Puesto = reader[3].ToString()
@@ -106,7 +106,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             NumTarjeta = reader[1].ToString(),
                             Nombre = reader[2].ToString(),
                             Area = reader[3].ToString(),
@@ -121,7 +121,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //ver trabajador especifico para buscar al crear listas de asistencia
-        public TrabajadorModel GetById(int numficha, string nomarea)
+        public TrabajadorModel GetById(string numficha, string nomarea)
         {
             TrabajadorModel trabajador = null;
             using (var connection = GetConnection())
@@ -131,7 +131,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "exec BuscarTrabajadorEsp_PorArea @numficha, @nomarea";
 
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
                 command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
 
                 using (var reader = command.ExecuteReader())
@@ -140,7 +140,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             Nombre = reader[1].ToString(),
                             Puesto = reader[2].ToString()                           
                         };
@@ -168,7 +168,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0]
+                            Id = reader[0].ToString()
                         };
                     }
                 }
@@ -195,7 +195,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel participante = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             NumTarjeta = reader[1].ToString(),
                             Nombre = reader[2].ToString(),
                             Puesto = reader[3].ToString(),
@@ -229,7 +229,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel participante = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             NumTarjeta = reader[1].ToString(),
                             Nombre = reader[2].ToString(),
                             Puesto = reader[3].ToString(),
@@ -264,7 +264,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel participante = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             NumTarjeta = reader[1].ToString(),
                             Nombre = reader[2].ToString(),
                             Puesto = reader[3].ToString()
@@ -298,7 +298,7 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel personalCalif = new TrabajadorModel()
                         {
                             Area = reader[0].ToString(),
-                            Id = (int)reader[1],
+                            Id = reader[1].ToString(),
                             Nombre = reader[2].ToString(),                                                                                
                             Puesto = reader[3].ToString()
                         };
@@ -329,7 +329,7 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel personalCalif = new TrabajadorModel()
                         {
                             Area = reader[0].ToString(),
-                            Id = (int)reader[1],
+                            Id = reader[1].ToString(),
                             Nombre = reader[2].ToString(),                         
                             Puesto = reader[3].ToString()
                         };
@@ -341,7 +341,7 @@ namespace WPF_LoginForm.Repositories
             return personasCalif;
         }
 
-        public TrabajadorModel GetTrabajador(int numficha)
+        public TrabajadorModel GetTrabajador(string numficha)
         {
             TrabajadorModel trabajador = null;
             using (var connection = GetConnection())
@@ -351,7 +351,7 @@ namespace WPF_LoginForm.Repositories
                 command.Connection = connection;
                 command.CommandText = "exec Ver_Trabajador @numficha";
 
-                command.Parameters.Add("@numficha", SqlDbType.Int).Value = numficha;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
 
                 using (var reader = command.ExecuteReader())
                 {
@@ -359,7 +359,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             Foto = reader[1] as byte[],
                             NumTarjeta = reader[2].ToString(),
                             FechaIngreso = reader[3].ToString(),
@@ -402,7 +402,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         TrabajadorModel trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             Nombre = reader[1].ToString(),
                             Area = reader[2].ToString()
                         };
@@ -434,7 +434,7 @@ namespace WPF_LoginForm.Repositories
                         TrabajadorModel trabajador = new TrabajadorModel()
                         {
                             Nombre = reader[0].ToString(),
-                            Id = (int)reader[1],                           
+                            Id = reader[1].ToString(),                           
                             Area = reader[2].ToString()
                         };
 
@@ -446,7 +446,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //reportes
-        public TrabajadorModel GetTrabajadorHistorialCursos(int numficha)
+        public TrabajadorModel GetTrabajadorHistorialCursos(string numficha)
         {
             TrabajadorModel trabajador = null;
             using (var connection = GetConnection())
@@ -464,7 +464,7 @@ namespace WPF_LoginForm.Repositories
                     {
                         trabajador = new TrabajadorModel()
                         {
-                            Id = (int)reader[0],
+                            Id = reader[0].ToString(),
                             Nombre = reader[1].ToString(),
                             Puesto = reader[2].ToString(),
                             Departamento = reader[3].ToString(),
