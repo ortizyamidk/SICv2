@@ -275,7 +275,7 @@ namespace WPF_LoginForm.Views
                     }
                     else
                     {
-                        MessageBox.Show("No existen registros para ese número de curso", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        MessageBox.Show("No existen ese número de curso o no se han registrado listas de asistencia", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
                 Limpiar();

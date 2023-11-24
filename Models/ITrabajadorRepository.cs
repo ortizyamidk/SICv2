@@ -21,7 +21,7 @@ namespace WPF_LoginForm.Models
         IEnumerable<TrabajadorModel> GetTrabajadoresListaAsistenciaExcel(string idcurso);
 
 
-        TrabajadorModel GetById(int numficha, string nomarea);
+        TrabajadorModel GetById(string numficha, string nomarea);
         TrabajadorModel GetIdByNumTarjeta(string numtarjeta);
         TrabajadorModel GetTrabajador(string numficha);
 
