@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,9 @@ namespace WPF_LoginForm.Views
 
         CursoRepository cursoRepository;
         InstructorRepository instructorRepository;
+        AreaRepository areaRepository;
+
+        ObservableCollection<AreaModel> areasAgregadas;
 
         public CursoNuevoView()
         {
@@ -31,6 +35,7 @@ namespace WPF_LoginForm.Views
 
             cursoRepository = new CursoRepository();
             instructorRepository = new InstructorRepository();
+            areaRepository = new AreaRepository();
 
             cbArea.SelectionChanged += ComboBox_SelectionChanged;
             txtcbArea.LostFocus += TextBox_LostFocus;
@@ -44,6 +49,27 @@ namespace WPF_LoginForm.Views
             tiHorario.SelectedTime = DateTime.Now;
 
             tiHorario.SelectedTimeChanged += TiHorario_SelectedTimeChanged;           
+        }
+
+        private void CargarAreas()
+        {
+            try
+            {
+                var areas = areaRepository.GetByAll();
+                foreach (var area in areas)
+                {
+                    var item = new ComboBoxItem
+                    {
+                        Content = area.NombreArea
+                    };
+                    cbAreaDpto.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void CargarInstructores()
@@ -253,6 +279,7 @@ namespace WPF_LoginForm.Views
         {
             txtID.Focus();
             CargarInstructores();
+            CargarAreas();
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
@@ -405,6 +432,54 @@ namespace WPF_LoginForm.Views
             if (e.Key == Key.Enter)
             {
                 btnGuardar_Click(sender, e);
+            }
+        }
+
+        private void cbAreaDpto_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox comboBox = sender as ComboBox;
+                if (comboBox.SelectedItem != null)
+                {
+                    // Obtener el área seleccionada del ComboBox
+                    string selectedArea = comboBox.SelectedItem.ToString();
+
+                    // Crear un nuevo objeto de área con el nombre seleccionado
+                    AreaModel newArea = new AreaModel { NombreArea = selectedArea };
+
+                    // Agregar el nuevo área al ObservableCollection
+                    areasAgregadas.Add(newArea);
+
+                    // Eliminar el área seleccionada del ComboBox
+                    comboBox.Items.Remove(selectedArea);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (areasCursoDataGrid.SelectedItem != null)
+                {
+                    // Obtener el área seleccionada en el DataGrid
+                    AreaModel selectedArea = areasCursoDataGrid.SelectedItem as AreaModel;
+
+                    // Eliminar el área seleccionada del DataGrid
+                    areasAgregadas.Remove(selectedArea);
+
+                    // Agregar el área de vuelta al ComboBox
+                    cbAreaDpto.Items.Add(selectedArea.NombreArea);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
