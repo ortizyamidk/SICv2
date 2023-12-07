@@ -1,11 +1,14 @@
-﻿namespace WPF_LoginForm.Models
+﻿using System;
+
+namespace WPF_LoginForm.Models
 {
     public class TrabajadorModel
     {
         public string Id { get; set; }
         public byte[] Foto { get; set; }
         public string NumTarjeta { get; set; }
-        public string FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
+        public string FechaIng { get; set; }
         public int antiguedadanios { get; set; }
         public int antiguedadmeses { get; set; }
         public string Categoria { get; set; }

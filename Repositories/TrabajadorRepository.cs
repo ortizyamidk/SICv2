@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using WPF_LoginForm.Models;
@@ -7,7 +8,7 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorRepository
     {
-        public void AddTrabajador(string id, string numtarjeta, string nombre, string fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
+        public void AddTrabajador(string id, string numtarjeta, string nombre, DateTime fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
@@ -19,7 +20,7 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
-                command.Parameters.Add("@fechaing", SqlDbType.VarChar).Value = fechaing;
+                command.Parameters.Add("@fechaing", SqlDbType.DateTime).Value = fechaing;
                 command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
                 command.Parameters.Add("@escolaridad", SqlDbType.VarChar).Value = escolaridad;
                 command.Parameters.Add("@antecedentes", SqlDbType.VarChar).Value = antecedentes;
@@ -362,7 +363,7 @@ namespace WPF_LoginForm.Repositories
                             Id = reader[0].ToString(),
                             Foto = reader[1] as byte[],
                             NumTarjeta = reader[2].ToString(),
-                            FechaIngreso = reader[3].ToString(),
+                            FechaIng = reader[3].ToString(),
                             antiguedadanios = (int)reader[4],
                             antiguedadmeses = (int)reader[5],
                             Categoria = reader[6].ToString(),
@@ -469,7 +470,7 @@ namespace WPF_LoginForm.Repositories
                             Puesto = reader[2].ToString(),
                             Departamento = reader[3].ToString(),
                             Area = reader[4].ToString(),
-                            FechaIngreso = reader[5].ToString()
+                            FechaIng = reader[5].ToString()
                         };
                     }
                 }

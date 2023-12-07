@@ -380,7 +380,7 @@ namespace WPF_LoginForm.Views
                         puesto = trabajadorModel.Puesto.ToString();
                         depto = trabajadorModel.Departamento.ToString();
                         area = trabajadorModel.Area.ToString();
-                        fechaing = trabajadorModel.FechaIngreso.ToString();
+                        fechaing = trabajadorModel.FechaIng.ToString();
 
                         ObjMiss = System.Reflection.Missing.Value;
                         objWord.Application ObjWord = new objWord.Application();

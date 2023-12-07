@@ -495,7 +495,7 @@ namespace WPF_LoginForm.Views
 
                         lblNoFicha.Text = "No. ficha: " + trabajadorModel.Id;
                         lblTarjeta.Text = "No. tarjeta: " + trabajadorModel.NumTarjeta;
-                        lblIngreso.Text = "Ingreso: " + trabajadorModel.FechaIngreso;
+                        lblIngreso.Text = "Ingreso: " + trabajadorModel.FechaIng;
                         lblAntig.Text = "Antigüedad: " + trabajadorModel.antiguedadanios + " año(s) " + trabajadorModel.antiguedadmeses + " mes(es)";
                         lblCategoria.Text = "Categoría: " + trabajadorModel.Categoria;
                         txtNombre.Text = trabajadorModel.Nombre;

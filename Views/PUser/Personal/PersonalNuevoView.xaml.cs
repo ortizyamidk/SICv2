@@ -123,6 +123,8 @@ namespace WPF_LoginForm.Views
             try
             {
                 DateTime? selectedDate = dtIngreso.SelectedDate;
+                DateTime fechaConvertida = Convert.ToDateTime(selectedDate);
+
                 DateTime fechaActual = DateTime.Now;
 
                 string selecteddate = selectedDate.ToString();
@@ -209,7 +211,7 @@ namespace WPF_LoginForm.Views
                     idarea = areaModel.Id;
 
 
-                    trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaing, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
+                    trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaConvertida, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
 
                     MostrarCustomMessageBox();
                     limpiar();
@@ -361,6 +363,15 @@ namespace WPF_LoginForm.Views
             if (!IsNumeric(e.Text))
             {
                 e.Handled = true; // Evita que se ingrese el carácter no numérico
+            }
+        }
+
+        private void txtNoFicha_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Verificar si el carácter ingresado es alfanumérico
+            if (!IsAlphaNumeric(e.Text))
+            {
+                e.Handled = true; // Evitar que se ingrese el carácter no alfanumérico
             }
         }
 
@@ -516,6 +527,10 @@ namespace WPF_LoginForm.Views
             return fotoBytes;
         }
 
+        private bool IsAlphaNumeric(string text)
+        {
+            return text.All(char.IsLetterOrDigit); // Comprobar si todos los caracteres son letras o números
+        }
 
     }
 }
