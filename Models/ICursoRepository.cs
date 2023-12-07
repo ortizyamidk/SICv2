@@ -15,7 +15,7 @@ namespace WPF_LoginForm.Models
         CursoModel GetListaAsistenciaExcel(string idcurso);
 
         int GetCountCursosRegistered(string areadpto);
-        int GetCountTotalCursos();
+        int GetCountTotalCursos(string nomarea);
 
         void AddCursoInstructorTemporal(string id, string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, string instructor);
         void AddCursoInstructor(string id, string nomcurso, string areatematica, string inicia, string termina, string horario, int duracion, string lugar, int idinstructor);

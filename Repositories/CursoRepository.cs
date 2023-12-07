@@ -429,7 +429,7 @@ namespace WPF_LoginForm.Repositories
         }
 
         //obtener la cantidad del total de cursos que registrar
-        int ICursoRepository.GetCountTotalCursos()
+        int ICursoRepository.GetCountTotalCursos(string nomarea)
         {
             int count = 0;
             using (var connection = GetConnection())
@@ -437,7 +437,9 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec TotalCursosARegistrar";
+                command.CommandText = "exec TotalCursosARegistrar @nomarea";
+
+                command.Parameters.Add("@nomarea", SqlDbType.NVarChar).Value = nomarea;
 
                 count = (int)command.ExecuteScalar();
             }

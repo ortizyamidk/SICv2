@@ -125,6 +125,33 @@ namespace WPF_LoginForm.Repositories
             return area;
         }
 
+        public IEnumerable<AreaModel> GetIdsAreasByName(string nomarea)
+        {
+            List<AreaModel> areas = new List<AreaModel>();
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "SELECT id FROM area WHERE nomarea = @nomarea";
+
+                command.Parameters.Add("@nomarea", SqlDbType.VarChar).Value = nomarea;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        AreaModel area = new AreaModel()
+                        {
+                            Id = (int)reader[0]
+                        };
+                        areas.Add(area);
+                    }
+                }
+            }
+            return areas;
+        }
+
         public IEnumerable<AreaModel> GetProgresoAreas()
         {
             List<AreaModel> areas = new List<AreaModel>();

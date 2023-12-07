@@ -71,7 +71,7 @@ namespace WPF_LoginForm.ViewModels
             CountCursosRegistered = cursoRepository.GetCountCursosRegistered(user.Area); 
 
             //cuantos cursos hay que registrar en total d esa area
-            CountCursos = cursoRepository.GetCountTotalCursos(); 
+            CountCursos = cursoRepository.GetCountTotalCursos(user.Area); 
 
         }
 

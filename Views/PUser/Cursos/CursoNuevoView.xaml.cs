@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace WPF_LoginForm.Views
         InstructorRepository instructorRepository;
         AreaRepository areaRepository;
 
-        ObservableCollection<AreaModel> areasAgregadas;
+        private ObservableCollection<AreaModel> areasAgregadas = new ObservableCollection<AreaModel>();
 
         public CursoNuevoView()
         {
@@ -36,6 +37,9 @@ namespace WPF_LoginForm.Views
             cursoRepository = new CursoRepository();
             instructorRepository = new InstructorRepository();
             areaRepository = new AreaRepository();
+
+            
+            
 
             cbArea.SelectionChanged += ComboBox_SelectionChanged;
             txtcbArea.LostFocus += TextBox_LostFocus;
@@ -280,6 +284,15 @@ namespace WPF_LoginForm.Views
             txtID.Focus();
             CargarInstructores();
             CargarAreas();
+
+            // Asignar el origen de datos para el DataGrid
+            areasCursoDataGrid.ItemsSource = areasAgregadas;
+
+            // Eliminar la selección predeterminada del ComboBox al cargar la página
+            cbAreaDpto.SelectedIndex = -1;
+
+            // Asegurarse de que el DataGrid esté vacío al inicio
+            areasAgregadas.Clear();
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
@@ -406,13 +419,22 @@ namespace WPF_LoginForm.Views
                     }
 
                     var areaRepository = new AreaRepository();
-                    var areaIds = areaRepository.GetIdAreasRegistran();
 
-                    foreach (var areaId in areaIds)
+                    // Obtener los nombres de las áreas de la colección
+                    List<string> nombresAreas = areasAgregadas.Select(area => area.NombreArea).ToList();
+
+                    // Obtener los IDs de las áreas por nombre
+                    foreach (string nombreArea in nombresAreas)
                     {
-                        int idarea = areaId.Id;
+                        var areaIds = areaRepository.GetIdsAreasByName(nombreArea);
 
-                        cursoRepository.AddCursoArea(idarea, id); //permite asignarle el curso a todas las areas que registran
+                        foreach (var areaId in areaIds)
+                        {
+                            int idarea = areaId.Id;
+
+                            // Asignar el curso a cada área encontrada por su ID
+                            cursoRepository.AddCursoArea(idarea, id);
+                        }
                     }
 
                     MostrarCustomMessageBox();
@@ -442,17 +464,24 @@ namespace WPF_LoginForm.Views
                 ComboBox comboBox = sender as ComboBox;
                 if (comboBox.SelectedItem != null)
                 {
-                    // Obtener el área seleccionada del ComboBox
-                    string selectedArea = comboBox.SelectedItem.ToString();
+                    ComboBoxItem selectedArea = (ComboBoxItem)cbAreaDpto.SelectedItem;
+                    string areaSeleccionada = selectedArea.Content.ToString();
 
-                    // Crear un nuevo objeto de área con el nombre seleccionado
-                    AreaModel newArea = new AreaModel { NombreArea = selectedArea };
+                    // Verificar si el área seleccionada ya está en el DataGrid
+                    bool areaExistente = areasAgregadas.Any(area => area.NombreArea == areaSeleccionada);
 
-                    // Agregar el nuevo área al ObservableCollection
-                    areasAgregadas.Add(newArea);
+                    if (!areaExistente)
+                    {
+                        // Agregar el área seleccionada al DataGrid (lista temporal)
+                        areasAgregadas.Add(new AreaModel { NombreArea = areaSeleccionada });
+                        areasCursoDataGrid.ItemsSource = areasAgregadas;
+                    }
 
-                    // Eliminar el área seleccionada del ComboBox
-                    comboBox.Items.Remove(selectedArea);
+                    // Eliminar el área seleccionada del ComboBox si ya está en el DataGrid
+                    if (areaExistente)
+                    {
+                        cbAreaDpto.Items.Remove(selectedArea);
+                    }
                 }
             }
             catch (Exception ex)
@@ -467,14 +496,18 @@ namespace WPF_LoginForm.Views
             {
                 if (areasCursoDataGrid.SelectedItem != null)
                 {
-                    // Obtener el área seleccionada en el DataGrid
                     AreaModel selectedArea = areasCursoDataGrid.SelectedItem as AreaModel;
 
                     // Eliminar el área seleccionada del DataGrid
                     areasAgregadas.Remove(selectedArea);
 
-                    // Agregar el área de vuelta al ComboBox
-                    cbAreaDpto.Items.Add(selectedArea.NombreArea);
+                    // Agregar el área eliminada de vuelta al ComboBox si no está presente
+                    bool areaExistente = cbAreaDpto.Items.Cast<ComboBoxItem>().Any(item => item.Content.ToString() == selectedArea.NombreArea);
+
+                    if (!areaExistente)
+                    {
+                        cbAreaDpto.Items.Add(new ComboBoxItem { Content = selectedArea.NombreArea });
+                    }
                 }
             }
             catch (Exception ex)
@@ -542,6 +575,16 @@ namespace WPF_LoginForm.Views
             errIn.Content = string.Empty;
             errTer.Content = string.Empty;
             errHor.Content = string.Empty;
+
+            // Limpiar la colección de áreas agregadas en el DataGrid
+            areasAgregadas.Clear();
+            areasCursoDataGrid.ItemsSource = areasAgregadas;
+
+            // Reiniciar el ComboBox cbAreaDpto cargando las áreas nuevamente
+            cbAreaDpto.Items.Clear(); // Limpia los elementos actuales del ComboBox
+
+            // Vuelve a cargar las áreas en el ComboBox
+            CargarAreas();
         }
     }
 }
