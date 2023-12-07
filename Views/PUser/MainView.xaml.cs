@@ -29,6 +29,26 @@ namespace WPF_LoginForm.Views
 
             // Inicia el temporizador
             timer.Start();
+
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Obtener el tamaño de la pantalla actual
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            // Obtener el tamaño de la ventana
+            double windowWidth = Width;
+            double windowHeight = Height;
+
+            // Centrar la ventana si es más grande que la pantalla
+            if (windowWidth > screenWidth || windowHeight > screenHeight)
+            {
+                Left = (screenWidth - windowWidth) / 2;
+                Top = (screenHeight - windowHeight) / 2;
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
