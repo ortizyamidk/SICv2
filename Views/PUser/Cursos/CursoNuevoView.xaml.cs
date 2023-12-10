@@ -378,6 +378,11 @@ namespace WPF_LoginForm.Views
                 {
                     errores = true;
                 }
+                if (areasAgregadas.Count <= 0)
+                {
+                    errores=true;
+                    MessageBox.Show("Agregue las áreas a las que va dirigido el curso");
+                }
 
                 if (!errores)
                 {
