@@ -88,12 +88,12 @@
                         <TextBox IsEnabled="False" Text="" x:Name="txtCurso" TextWrapping="Wrap" Style="{StaticResource myTextBox}" FontSize="13" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="230">
+                    <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center" Width="220">
                         <Label Content="Área temática:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <TextBox IsEnabled="False" Text="" TextWrapping="Wrap" x:Name="txtArea" Style="{StaticResource myTextBox}" FontSize="13" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="220">
+                    <StackPanel Orientation="Vertical" Grid.Column="2" Width="210">
                         <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <TextBox IsEnabled="False" Text="" TextWrapping="Wrap" x:Name="txtLugar" Style="{StaticResource myTextBox}" FontSize="13" BorderBrush="Black"/>
                     </StackPanel>
@@ -128,7 +128,7 @@
                         <TextBox IsEnabled="False" TextAlignment="Center" Text="" x:Name="txtDur" Style="{StaticResource myTextBox}" FontSize="15" Width="100" BorderBrush="Black"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Column="4" Width="230">
+                    <StackPanel Orientation="Vertical" Grid.Column="4" Width="205">
                         <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <TextBox IsEnabled="False" Text="" x:Name="txtInst" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>

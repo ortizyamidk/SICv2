@@ -158,23 +158,9 @@
                         </TextBlock>
                     </Grid>
 
-                    <Button x:Name="btnDC3" Grid.Column="1" ToolTip="Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador" Style="{StaticResource mainButton}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
+                <Button x:Name="btnDC3" Grid.Column="1" ToolTip="Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador" Style="{StaticResource mainButton}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
 
-                    <!--Formato DC4-->
-                    <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="0">
-                        <Border.Background>
-                            <ImageBrush x:Name="tarjeta5" ImageSource="/Images/formatodc4.jpg" Stretch="UniformToFill"/>
-                        </Border.Background>
-                    </Border>
-                    <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="0">
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#000000" Offset="0"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                    </Border>
-                    <Button x:Name="btnDC4" ToolTip="Generar reporte de la Lista de Constancias de Habilidades Laborales de los Trabajadores de la Empresa" Style="{StaticResource mainButton}" Grid.Column="0" Height="55" Content="Formato DC-4" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC4_Click"/>
-                </Grid>
+            </Grid>
                 
                 <TextBlock Text="Lista de Asistencia" FontWeight="DemiBold"
                            Foreground="White" 

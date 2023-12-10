@@ -44,7 +44,7 @@
                                 <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="0" Width="270"  HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Width="250"  HorizontalAlignment="Center" VerticalAlignment="Top">
                                 <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
                                     <ComboBox x:Name="cbCurso" Height="42" Width="auto" SelectionChanged="cbCurso_SelectionChanged" BorderThickness="0" FontSize="15" Cursor="Hand" Text="Interno">
@@ -96,7 +96,7 @@
                             <TextBox x:Name="txtDuracion" IsEnabled="False" TextAlignment="Center" Text="" PreviewTextInput="TextBox_PreviewTextInput" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="4"  HorizontalAlignment="Left" Width="300">
+                        <StackPanel Orientation="Vertical" Grid.Column="4"  HorizontalAlignment="Left" Width="260">
                             <Label Content="Instructor:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                             <TextBox IsEnabled="False" x:Name="txtInstr" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                         </StackPanel>

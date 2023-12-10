@@ -30,6 +30,6 @@ namespace WPF_LoginForm.Models
         TrabajadorModel GetTrabajadorHistorialCursos(string numficha);
 
         void AddTrabajador(string id, string numtarjeta, string nombre, DateTime fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea);
-        void EditTrabajador(string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string id);
+        void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string id);
     }
 }

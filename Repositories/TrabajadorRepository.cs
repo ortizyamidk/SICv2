@@ -34,15 +34,16 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        public void EditTrabajador(string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string id)
+        public void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string id)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec Editar_Trabajador @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @id";
+                command.CommandText = "exec Editar_Trabajador @numtarjeta, @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @id";
 
+                command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                 command.Parameters.Add("@rfc", SqlDbType.VarChar).Value = rfc;
                 command.Parameters.Add("@escolaridad", SqlDbType.VarChar).Value = escolaridad;

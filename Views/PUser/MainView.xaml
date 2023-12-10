@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:WPF_LoginForm.ViewModels"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
         mc:Ignorable="d"
-        Title="MainWindowView" Height="700" Width="1300"
+        Title="MainWindowView" Height="680" Width="1270"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"

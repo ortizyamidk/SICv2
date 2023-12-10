@@ -45,8 +45,6 @@
                             
                             <Button x:Name="btnExam" Grid.Row="2" Content="Cargar Foto" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="110" Height="30" Cursor="Hand" VerticalAlignment="Top" Click="btnExam_Click"/>
 
-                            <TextBlock x:Name="lblTarjeta" Grid.Row="3" Text="No. tarjeta: " FontSize="19" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
                             <TextBlock x:Name="lblIngreso" Grid.Row="4" FontWeight="DemiBold" Foreground="White" FontSize="15" Text="Ingreso: " HorizontalAlignment="Center" Margin="0 0 0 10"/>
 
                             <TextBlock x:Name="lblAntig" Grid.Row="5" Text="Antigüedad: " FontSize="15" FontWeight="DemiBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -123,15 +121,36 @@
 
                         <Grid Grid.Row="1" Grid.Column="1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="340"/>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="280"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Orientation="Vertical" Grid.Row="0" Width="auto">
+                        <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center"  Width="150">
+                            <Label Content="No. tarjeta:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Grid>
+                                <TextBox x:Name="txtNumTarjeta"  Text="" Style="{StaticResource myTextBox}" FontSize="12" BorderBrush="Black"/>
+                                <TextBlock Text="Número de tarjeta" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=txtNumTarjeta}" Value="">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                            <Label x:Name="errNumTarjeta" Foreground="Red" Margin="30 -3 0 0"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Width="auto">
                                 <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Grid>
-                                    <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" Text="" FontSize="16" BorderBrush="Black"/>
+                                    <TextBox x:Name="txtNombre" PreviewTextInput="TextBox_PreviewTextInput2" Style="{StaticResource myTextBox}" Text="" FontSize="14" BorderBrush="Black"/>
                                     <TextBlock Text="Apellido Paterno/Apellido Materno/Nombre(s)" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
@@ -148,10 +167,10 @@
                                 <Label x:Name="errNombre" Foreground="Red" Margin="30 -3 0 0"/>
                             </StackPanel>
 
-                            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Center"  Width="200">
+                            <StackPanel Orientation="Vertical" Grid.Column="2" HorizontalAlignment="Center"  Width="180">
                                 <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Grid>
-                                    <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
+                                    <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="14" BorderBrush="Black"/>
                                     <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
@@ -168,10 +187,10 @@
                                 <Label x:Name="errRfc" Foreground="Red" Margin="30 -3 0 0"/>
                             </StackPanel>
 
-                            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Width="200">
+                            <StackPanel Orientation="Vertical" Grid.Column="3" HorizontalAlignment="Center" Width="145">
                                 <Label Content="Departamento:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Border CornerRadius="9" BorderBrush="Black" BorderThickness="0.3">
-                                    <ComboBox x:Name="cbDpto" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand" SelectionChanged="cbDpto_SelectionChanged">
+                                    <ComboBox x:Name="cbDpto" Height="42" FontSize="13" BorderThickness="0" Cursor="Hand" SelectionChanged="cbDpto_SelectionChanged">
                                         <ComboBox.Items>
                                             
                                         </ComboBox.Items>

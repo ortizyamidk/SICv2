@@ -27,7 +27,7 @@ namespace WPF_LoginForm.Views
         TrabajadorRepository trabajadorRepository;
 
         int idpuesto, idarea;
-        string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif;
+        string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif, numtarjeta;
 
         public PersonalInfoView()
         {
@@ -104,6 +104,7 @@ namespace WPF_LoginForm.Views
         {
             txtNombre.IsEnabled = true;
             txtRFC.IsEnabled = true;
+            txtNumTarjeta.IsEnabled = true;
 
             cbDpto.IsEnabled = true;
             cbArea.IsEnabled = true;
@@ -130,6 +131,7 @@ namespace WPF_LoginForm.Views
         {           
             txtNombre.IsEnabled = false;
             txtRFC.IsEnabled = false;
+            txtNumTarjeta.IsEnabled = false;
 
             cbDpto.IsEnabled = false;
             cbArea.IsEnabled = false;
@@ -193,6 +195,7 @@ namespace WPF_LoginForm.Views
                 if (!errores)
                 {
                     numficha = txtSearch.Text;
+                    numtarjeta = txtNumTarjeta.Text;
 
                     nombre = txtNombre.Text;
                     rfc = txtRFC.Text;
@@ -239,7 +242,7 @@ namespace WPF_LoginForm.Views
                     //Foto
                     byte[] fotoBytes = ObtenerBytesDesdeImagen();
 
-                    trabajadorRepository.EditTrabajador(nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, numficha);
+                    trabajadorRepository.EditTrabajador(numtarjeta, nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, numficha);
                 
                     MostrarCustomMessageBox();
                     Deshabilitar();               
@@ -479,22 +482,9 @@ namespace WPF_LoginForm.Views
 
                     if(trabajadorModel != null)
                     {
-                        /*// Rellena el campo con la fecha de ingreso
-                        DateTime fechaIngreso = DateTime.Parse(trabajadorModel.FechaIngreso);
-                        lblIngreso.Text = "Ingreso: " + fechaIngreso.ToString("dd/MM/yyyy");
-
-                        // Calcula los años de antigüedad
-                        DateTime fechaActual = DateTime.Now;
-                        int añosAntiguedad = fechaActual.Year - fechaIngreso.Year;
-
-                        // Ajusta la antigüedad si aún no ha pasado el aniversario de ingreso este año
-                        if (fechaActual < fechaIngreso.AddYears(añosAntiguedad))
-                        {
-                            añosAntiguedad--;
-                        }*/
 
                         lblNoFicha.Text = "No. ficha: " + trabajadorModel.Id;
-                        lblTarjeta.Text = "No. tarjeta: " + trabajadorModel.NumTarjeta;
+                        txtNumTarjeta.Text = trabajadorModel.NumTarjeta;
                         lblIngreso.Text = "Ingreso: " + trabajadorModel.FechaIng;
                         lblAntig.Text = "Antigüedad: " + trabajadorModel.antiguedadanios + " año(s) " + trabajadorModel.antiguedadmeses + " mes(es)";
                         lblCategoria.Text = "Categoría: " + trabajadorModel.Categoria;
@@ -658,7 +648,7 @@ namespace WPF_LoginForm.Views
             txtAntecedentes.Text= string.Empty;
 
             lblNoFicha.Text = "No. ficha: ";
-            lblTarjeta.Text = "No. tarjeta: ";
+            txtNumTarjeta.Text = string.Empty;
             lblIngreso.Text = "Ingreso: ";
             lblAntig.Text = "Anitgüedad: ";
             lblCategoria.Text = "Categoría: ";

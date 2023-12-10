@@ -62,7 +62,7 @@
                         <StackPanel Orientation="Vertical" Grid.Row="2" Width="200">
                             <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Categoría:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
                             <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                <ComboBox x:Name="cbCat" Foreground="Black" Height="42" FontSize="15" BorderThickness="0" Cursor="Hand">
+                                <ComboBox x:Name="cbCat" Foreground="Black" Height="38" FontSize="15" BorderThickness="0" Cursor="Hand">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Empleado" />
                                         <ComboBoxItem Content="Sindicalizado" />
@@ -77,7 +77,7 @@
                         <StackPanel Orientation="Vertical" Grid.Row="3" Width="200">
                             <Label Foreground="White" Width="auto" HorizontalAlignment="Center" Content="Nivel Estudios:" FontWeight="Bold" FontSize="18" Margin="5 10 0 4"/>
                             <Border CornerRadius="9" Width="180" Background="White" BorderBrush="White" BorderThickness="0.5">
-                                <ComboBox x:Name="cbNivel" Foreground="Black" FontSize="15" Height="42" BorderThickness="0" Cursor="Hand">
+                                <ComboBox x:Name="cbNivel" Foreground="Black" FontSize="15" Height="38" BorderThickness="0" Cursor="Hand">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Primaria" />
                                         <ComboBoxItem Content="Secundaria" />

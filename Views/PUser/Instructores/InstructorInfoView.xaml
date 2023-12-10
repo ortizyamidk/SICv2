@@ -88,7 +88,7 @@
                     <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
                     <Label Content="Nombre Completo:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                     <Grid>
-                        <TextBox x:Name="txtNombreI" PreviewTextInput="TextBox_PreviewTextInput2" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="430" BorderBrush="Black"/>
+                        <TextBox x:Name="txtNombreI" PreviewTextInput="TextBox_PreviewTextInput2" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="400" BorderBrush="Black"/>
                         <TextBlock Text="Escriba el nombre del Instructor" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">
@@ -116,7 +116,7 @@
                     <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Right">
                         <Label Content="RFC:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <Grid>
-                            <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="290" BorderBrush="Black"/>
+                            <TextBox x:Name="txtRFC" PreviewTextInput="txtRFC_PreviewTextInput" Text="" MaxLength="13" Style="{StaticResource myTextBox}" FontSize="15" Width="270" BorderBrush="Black"/>
                             <TextBlock Text="Escriba el RFC" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
@@ -151,7 +151,7 @@
                 <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center">
                     <Label Content="Compañía:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                     <Grid>
-                        <TextBox x:Name="txtCompania" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="600" BorderBrush="Black"/>
+                        <TextBox x:Name="txtCompania" Text="" Style="{StaticResource myTextBox}" FontSize="15" Width="570" BorderBrush="Black"/>
                         <TextBlock Text="Compañía a la que pertenece" Foreground="Gray" IsHitTestVisible="False" Margin="17,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock">

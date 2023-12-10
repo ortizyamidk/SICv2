@@ -57,7 +57,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <lvc:PieChart Grid.Column="0" LegendLocation="None" InnerRadius="120" Hoverable="False" Height="280" DataTooltip="{x:Null}">
+                    <lvc:PieChart Grid.Column="0" LegendLocation="None" InnerRadius="120" Hoverable="False" Height="270" DataTooltip="{x:Null}">
                         <lvc:PieChart.Series>
                             <lvc:PieSeries x:Name="valorAvance" Values="" StrokeThickness="0" Fill="{StaticResource panelOverColor}" />
                             <lvc:PieSeries x:Name="valorFaltante" Values="" StrokeThickness="0" Fill="DarkGray" />

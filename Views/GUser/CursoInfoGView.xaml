@@ -82,7 +82,7 @@
                         <TextBox IsEnabled="False" TextWrapping="Wrap" FontSize="15" TextAlignment="Center" Width="100" HorizontalContentAlignment="Left" BorderBrush="Black" x:Name="txtIDCurso" Style="{StaticResource myTextBox}" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Width="290" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Width="265" HorizontalAlignment="Left">
                         <Label Content="Nombre Curso:" FontWeight="Bold" FontSize="18" Margin="5 10 0 7"/>
                         <TextBox IsEnabled="False" x:Name="txtCurso" TextWrapping="Wrap" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>
@@ -103,7 +103,7 @@
 
                     
 
-                    <StackPanel Orientation="Vertical" Grid.Column="0" Width="380">
+                    <StackPanel Orientation="Vertical" Grid.Column="0" Width="360">
                         <Label Content="Lugar:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                         <TextBox IsEnabled="False" x:Name="txtLugar" Text="" Style="{StaticResource myTextBox}" FontSize="15" BorderBrush="Black"/>
                     </StackPanel>

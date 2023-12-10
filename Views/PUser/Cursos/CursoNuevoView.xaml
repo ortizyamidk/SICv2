@@ -49,8 +49,8 @@
 
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="320"/>
                         </Grid.ColumnDefinitions>
 
                         <!--toda la demas info del curso-->
@@ -257,7 +257,7 @@
 
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="" IsReadOnly="True" FontSize="10" Width="*" Binding="{Binding NombreArea}"/>
-                                            <DataGridTemplateColumn Header="" Width="90">
+                                            <DataGridTemplateColumn Header="" Width="60">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
                                                         <Button x:Name="btnBorrar" Style="{StaticResource eyeButton}" Cursor="Hand" Click="btnBorrar_Click">
