@@ -17,7 +17,7 @@ namespace WPF_LoginForm.Repositories
         private IConfigurationRoot LoadConfiguration()
         {
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Directorio de ejecución
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             return builder.Build();
