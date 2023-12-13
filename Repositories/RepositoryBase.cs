@@ -1,4 +1,7 @@
-﻿using System.Data.SqlClient;
+﻿using System.Configuration;
+using System;
+using System.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
 namespace WPF_LoginForm.Repositories
 {
@@ -7,8 +10,19 @@ namespace WPF_LoginForm.Repositories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Server=ORTIZYAMIIDK\\SQLEXPRESS; Database=sicdbfinal; User Id=sa; Password=1234;";
+            var config = LoadConfiguration();
+            _connectionString = config.GetConnectionString("DefaultConnection");
         }
+
+        private IConfigurationRoot LoadConfiguration()
+        {
+            var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory) // Directorio de ejecución
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            return builder.Build();
+        }
+
         protected SqlConnection GetConnection()
         {
             return new SqlConnection(_connectionString);
