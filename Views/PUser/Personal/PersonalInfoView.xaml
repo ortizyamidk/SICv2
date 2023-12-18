@@ -89,6 +89,11 @@
                             <ColumnDefinition Width="110"/>
                         </Grid.ColumnDefinitions>
 
+                        <StackPanel Orientation="Vertical" Grid.Column="0" HorizontalAlignment="Center"  Width="150">
+                            <Label x:Name="lblActivo" Content="Activo:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <ToggleButton HorizontalAlignment="Center" x:Name="btnActivo" IsChecked="False" IsEnabled="False" Width="40" Height="22" VerticalAlignment="Top"/>
+                        </StackPanel>
+
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0 18 0 0" HorizontalAlignment="Center" Height="60">
                             <Grid>
                                 <TextBox x:Name="txtSearch" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Foreground="black" FontSize="18" 

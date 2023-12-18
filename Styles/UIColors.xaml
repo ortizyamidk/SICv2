@@ -36,5 +36,8 @@
     <SolidColorBrush x:Key="tabla" Color="LightGray"/>
     <SolidColorBrush x:Key="agregar" Color="#AC1605"/>
     <SolidColorBrush x:Key="ojo" Color="#650B01"/>
+    
+    <!--Color toggle-->
+    <SolidColorBrush x:Key="ActiveColor" Color="Green"/>
 
 </ResourceDictionary>

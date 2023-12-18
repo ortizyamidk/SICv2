@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -27,7 +28,7 @@ namespace WPF_LoginForm.Views
         TrabajadorRepository trabajadorRepository;
 
         int idpuesto, idarea;
-        string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif, numtarjeta;
+        string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif, numtarjeta, activo;
 
         public PersonalInfoView()
         {
@@ -50,7 +51,9 @@ namespace WPF_LoginForm.Views
             LoadDepartamentosFromDatabase();
             LoadPuestoFromDatabase();
             ImagenDefault();
+
         }
+
 
         private void LoadDepartamentosFromDatabase()
         {
@@ -124,6 +127,8 @@ namespace WPF_LoginForm.Views
             btnSave.IsEnabled = true;
             btnEdit.IsEnabled = false;
 
+            btnActivo.IsEnabled = true;
+
             txtSearch.Focus();
         }
 
@@ -150,6 +155,8 @@ namespace WPF_LoginForm.Views
 
             btnSave.IsEnabled = false;
             btnEdit.IsEnabled = true;
+
+            btnActivo.IsEnabled = false;
 
             txtSearch.Focus();
         }
@@ -242,7 +249,18 @@ namespace WPF_LoginForm.Views
                     //Foto
                     byte[] fotoBytes = ObtenerBytesDesdeImagen();
 
-                    trabajadorRepository.EditTrabajador(numtarjeta, nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, numficha);
+                    //Activo
+                    ToggleButton btnAc = (ToggleButton)btnActivo;
+                    if(btnAc.IsChecked == true)
+                    {
+                        activo = "1";
+                    }
+                    else
+                    {
+                        activo = "0";
+                    }
+
+                    trabajadorRepository.EditTrabajador(numtarjeta, nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, activo, numficha);
                 
                     MostrarCustomMessageBox();
                     Deshabilitar();               
@@ -601,6 +619,17 @@ namespace WPF_LoginForm.Views
                             imgTrabajador.Source = bitmapImage;
                         }
 
+                        //Activo
+                        if(trabajadorModel.Activo == true)
+                        {
+                            btnActivo.IsChecked = true;
+                        }
+                        else
+                        {
+                            btnActivo.IsChecked= false;
+                        }
+                        
+
                         txtSearch.Focus();
                     }
                     else
@@ -654,6 +683,8 @@ namespace WPF_LoginForm.Views
             lblCategoria.Text = "Categoría: ";
 
             ImagenDefault();
+
+            btnActivo.IsChecked = false;
 
             txtSearch.Focus();
         }

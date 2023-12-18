@@ -34,14 +34,14 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        public void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string id)
+        public void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string activo, string id)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec Editar_Trabajador @numtarjeta, @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @id";
+                command.CommandText = "exec Editar_Trabajador @numtarjeta, @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @activo, @id";
 
                 command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
@@ -53,6 +53,7 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@auditoriso14001", SqlDbType.VarChar).Value = auditoriso14001;
                 command.Parameters.Add("@idpuesto", SqlDbType.Int).Value = idpuesto;
                 command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
+                command.Parameters.Add("@activo", SqlDbType.VarChar).Value = activo;
 
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
 
@@ -376,7 +377,8 @@ namespace WPF_LoginForm.Repositories
                             Puesto = reader[12].ToString(),
                             Auditoriso14001 = reader[13] as bool? ?? false,
                             PersCalif = reader[14] as bool? ?? false,
-                            Antecedentes = reader[15].ToString()                           
+                            Antecedentes = reader[15].ToString(),
+                            Activo = reader[16] as bool? ?? false
                         };
                     }
                 }

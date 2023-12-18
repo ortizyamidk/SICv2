@@ -189,7 +189,7 @@ namespace WPF_LoginForm.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "SELECT COUNT(nomarea) AS AreasQueRegistran FROM area WHERE registracursos = 1";
+                command.CommandText = "exec TotalAreasDebenReg";
 
                 count = (int)command.ExecuteScalar();
             }

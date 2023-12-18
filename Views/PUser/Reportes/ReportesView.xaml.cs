@@ -29,7 +29,12 @@ namespace WPF_LoginForm.Views
         object ObjMiss, filePath;
 
         object numf1, nombre1, puesto1, depto1, area1, fechaing1;
-      
+
+        private void btnCert_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         object numc1, curso1, instructor1, inicio1, termino1, duracion1, lugar1, horario1;
 
         object bookmarkName, participantesBookmarkName, cursosBookmarkName, personalCABookmarkName, fechaactualBookMark;
@@ -143,11 +148,6 @@ namespace WPF_LoginForm.Views
             {
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
-        }
-
-        private void btnDC4_Click(object sender, RoutedEventArgs e)
-        {
             
         }
 
@@ -703,6 +703,7 @@ namespace WPF_LoginForm.Views
             buscarDC3.Text = string.Empty;
             buscarCurso.Text = string.Empty;
             buscarCurso2.Text = string.Empty;
+            buscarCert.Text = string.Empty;
         }
     }
 }

@@ -486,6 +486,18 @@
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5,5,0,0"/>
     </Style>
+    
+    <!--TOGGLE BUTTON-->
+    <Style x:Key="ActiveToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource ActiveColor}"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 
 

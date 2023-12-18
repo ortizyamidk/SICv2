@@ -158,7 +158,39 @@
                         </TextBlock>
                     </Grid>
 
-                <Button x:Name="btnDC3" Grid.Column="1" ToolTip="Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador" Style="{StaticResource mainButton}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
+                    <Button x:Name="btnDC3" Grid.Column="1" ToolTip="Generar reporte de la Constancia de Habilidades Laborales en relación a los cursos de capacitación de cada Trabajador" Style="{StaticResource mainButton}" Height="55" Content="Formato DC-3" Width="140" FontWeight="Bold" FontSize="20" Click="btnDC3_Click"/>
+
+                <!--CERTIFICACIONES-->
+                <Border  Width="190" Height="210" CornerRadius="18" Grid.Row="3" Grid.Column="0">
+                    <Border.Background>
+                        <ImageBrush x:Name="tarjeta7" ImageSource="/Images/formatodc3.jpg" Stretch="UniformToFill"/>
+                    </Border.Background>
+                </Border>
+                <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Row="3" Grid.Column="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#000000" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Grid Grid.Column="0">
+                    <TextBox x:Name="buscarCert" Style="{StaticResource myTextBox}" Width="150" Margin="0 0 0 150"/>
+                    <TextBlock Text="Buscar No. Ficha" Width="130" FontSize="15" Height="25" Margin="0 0 0 145" Foreground="Gray" IsHitTestVisible="False" HorizontalAlignment="Center">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=buscarCert}" Value="">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <Button x:Name="btnCert" Grid.Column="0" ToolTip="Ver las certificaciones adicionales de un trabajador" Style="{StaticResource mainButton}" Height="55" Content="Certificaciones" Width="140" FontWeight="Bold" FontSize="20" Click="btnCert_Click"/>
 
             </Grid>
                 
@@ -209,7 +241,7 @@
                 <!--Generar Excel para pase lista por área-->               
                 <Border  Width="190" Height="210" CornerRadius="18" Grid.Column="0">
                     <Border.Background>
-                        <ImageBrush x:Name="tarjeta7" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
+                        <ImageBrush x:Name="tarjeta8" ImageSource="/Images/asistencia.jpg" Stretch="UniformToFill"/>
                     </Border.Background>
                 </Border>
                 <Border Width="200" Height="220" VerticalAlignment="Center" CornerRadius="18" BorderThickness="5" Opacity="0.6" Grid.Column="0">

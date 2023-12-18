@@ -20,6 +20,7 @@ namespace WPF_LoginForm.Models
         public string Puesto { get; set; }
         public bool Auditoriso14001 { get; set; }
         public bool PersCalif { get; set; }
-        public string Antecedentes { get; set; }      
+        public string Antecedentes { get; set; }
+        public bool Activo { get; set; }
     }
 }
