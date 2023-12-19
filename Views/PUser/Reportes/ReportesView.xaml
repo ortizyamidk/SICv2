@@ -190,7 +190,7 @@
                     </TextBlock>
                 </Grid>
 
-                <Button x:Name="btnCert" Grid.Column="0" ToolTip="Ver las certificaciones adicionales de un trabajador" Style="{StaticResource mainButton}" Height="55" Content="Certificaciones" Width="140" FontWeight="Bold" FontSize="20" Click="btnCert_Click"/>
+                <Button x:Name="btnCert" Grid.Column="0" ToolTip="Ver las certificaciones adicionales de un trabajador" Style="{StaticResource mainButton}" Height="55" Content="Certificaciones" Width="140" FontWeight="Bold" FontSize="20" Click="btnCert_Click" Cursor="Hand"/>
 
             </Grid>
                 
