@@ -251,5 +251,12 @@ namespace WPF_LoginForm.Views
             MessageBoxPaseLista customMessageBox = new MessageBoxPaseLista(idcurso);
             customMessageBox.ShowDialog();
         }
+
+        private void btnReprogramar_Click(object sender, RoutedEventArgs e)
+        {
+            txtImpartido.Visibility = Visibility.Collapsed;
+            border.Visibility = Visibility.Collapsed;
+            btnPaseLista.Visibility = Visibility.Visible;
+        }
     }
 }

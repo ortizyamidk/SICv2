@@ -232,7 +232,8 @@ namespace WPF_LoginForm.Repositories
                             NumTarjeta = reader[1].ToString(),
                             Nombre = reader[2].ToString(),
                             Puesto = reader[3].ToString(),
-                            Area = reader[4].ToString()
+                            Area = reader[4].ToString(),
+                            Asistio = reader[5].ToString()
                         };
 
                         participantes.Add(participante);

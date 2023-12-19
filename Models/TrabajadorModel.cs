@@ -25,5 +25,7 @@ namespace WPF_LoginForm.Models
         public bool Activo { get; set; }
         public byte[] Certificaciones { get; set; }
         public List<byte[]> Certificaciones2 { get; set; }
+
+        public string Asistio {  get; set; }
     }
 }
