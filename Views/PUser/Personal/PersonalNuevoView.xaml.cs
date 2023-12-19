@@ -1,8 +1,11 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -28,6 +31,10 @@ namespace WPF_LoginForm.Views
         AreaRepository areaRepository;
         TrabajadorRepository trabajadorRepository;
         DepartamentoRepository departamentoRepository;
+
+        private ObservableCollection<CertificacionesModel> archivos = new ObservableCollection<CertificacionesModel>();
+
+        private List<byte[]> listaDatosImagen = new List<byte[]>();
 
         public PersonalNuevoView()
         {
@@ -210,8 +217,11 @@ namespace WPF_LoginForm.Views
                     AreaModel areaModel = areaRepository.GetIdByName(areaSelec);
                     idarea = areaModel.Id;
 
+                    // Serializar la colección de arreglos de bytes
+                    byte[] datosImagenSerializados = SerializarDatosImagen(listaDatosImagen);
 
-                    trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaConvertida, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea);
+
+                    trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaConvertida, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea, datosImagenSerializados);
 
                     MostrarCustomMessageBox();
                     limpiar();
@@ -220,11 +230,20 @@ namespace WPF_LoginForm.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            
-
+            }           
         }
+
+        private byte[] SerializarDatosImagen(List<byte[]> listaDatosImagen)
+        {
+            // Serializar la colección usando JSON.NET
+            string serializedData = JsonConvert.SerializeObject(listaDatosImagen);
+
+            // Convertir la cadena serializada a un array de bytes
+            byte[] serializedBytes = Encoding.UTF8.GetBytes(serializedData);
+
+            return serializedBytes;
+        }
+
 
         private void MostrarCustomMessageBox()
         {
@@ -250,6 +269,8 @@ namespace WPF_LoginForm.Views
             cbPuesto.SelectedIndex = 0;
             cbCat.SelectedIndex = 0;
             cbNivel.SelectedIndex = 0;
+
+            archivos.Clear();
 
             txtNoFicha.Focus();
         }
@@ -375,7 +396,33 @@ namespace WPF_LoginForm.Views
             }
         }
 
-        // Método para verificar si una cadena es numérica
+        private void btnCert_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true; // Permitir seleccionar múltiples archivos
+            openFileDialog.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.gif"; // Filtrar por archivos de imagen
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach (string filename in openFileDialog.FileNames)
+                {
+                    byte[] datosImagen = File.ReadAllBytes(filename);
+                    listaDatosImagen.Add(datosImagen);
+                    archivos.Add(new CertificacionesModel { NombreArchivo = System.IO.Path.GetFileName(filename) });
+                    dgSelectedImages.ItemsSource = archivos;
+                }
+            }
+        }
+
+        private void btnBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element && element.DataContext is CertificacionesModel certificacion)
+            {
+                archivos.Remove(certificacion);
+            }
+        }
+
+
         private bool IsNumeric(string text)
         {
             return int.TryParse(text, out _); // Intenta convertir el texto a un entero

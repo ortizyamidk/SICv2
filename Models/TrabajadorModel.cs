@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WPF_LoginForm.Models
 {
@@ -22,5 +23,7 @@ namespace WPF_LoginForm.Models
         public bool PersCalif { get; set; }
         public string Antecedentes { get; set; }
         public bool Activo { get; set; }
+        public byte[] Certificaciones { get; set; }
+        public List<byte[]> Certificaciones2 { get; set; }
     }
 }

@@ -207,8 +207,9 @@
 
                     <Grid Grid.Column="1" Grid.Row="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="260"/>
+                            <ColumnDefinition Width="220"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="290"/>
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -217,7 +218,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="230">
+                            <StackPanel Orientation="Vertical" Grid.Row="0" HorizontalAlignment="Center" Width="200">
                                 <Label Content="Puesto:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                                 <Grid>
                                     <Grid>
@@ -241,7 +242,33 @@
                             </StackPanel>
                         </Grid>
 
-                        <StackPanel Orientation="Vertical" Grid.Column="1">
+                        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
+                            <Label Content="Otras Certificaciones:" HorizontalAlignment="Center" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
+                            <Button x:Name="btnCert" Content="Cargar Archivos" FontWeight="DemiBold" HorizontalAlignment="Center" Style="{StaticResource mainButton}" Width="125" Height="30" Cursor="Hand" VerticalAlignment="Top" Click="btnCert_Click"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" Height="200">
+                                <DataGrid x:Name="dgSelectedImages" Style="{DynamicResource DataGridStyle2}" 
+                                          CellStyle="{DynamicResource DataGridCellStyle2}" 
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle2}" 
+                                          RowStyle="{DynamicResource DataGridRowStyle2}"
+                                          Width="Auto" Height="auto" Margin="0 -25 0 13" HorizontalContentAlignment="Center">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="" IsReadOnly="True" FontSize="10" Width="*" Binding="{Binding NombreArchivo}"/>
+                                        <DataGridTemplateColumn Header="" Width="60">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button x:Name="btnBorrar" Style="{StaticResource eyeButton}" Cursor="Hand" Click="btnBorrar_Click">
+                                                        <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}" Width="14" Height="14" Cursor="Hand"/>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ScrollViewer>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="2">
                             <Label Content="Antecedentes:" FontWeight="Bold" FontSize="18" Margin="5 3 0 7"/>
                             <TextBox x:Name="txtAntecedentes" Style="{StaticResource myTextBox}" BorderThickness="0.8" BorderBrush="Black" VerticalContentAlignment="Top" TextWrapping="Wrap" Height="160"/>
                         </StackPanel>

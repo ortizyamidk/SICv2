@@ -8,14 +8,14 @@ namespace WPF_LoginForm.Repositories
 {
     public class TrabajadorRepository : RepositoryBase, ITrabajadorRepository
     {
-        public void AddTrabajador(string id, string numtarjeta, string nombre, DateTime fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea)
+        public void AddTrabajador(string id, string numtarjeta, string nombre, DateTime fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, byte[] certificaciones)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec Crear_Trabajador @id, @numtarjeta, @nombre, @fechaing, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea";
+                command.CommandText = "exec Crear_Trabajador @id, @numtarjeta, @nombre, @fechaing, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @certificaciones";
 
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
                 command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
@@ -29,6 +29,7 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@auditoriso14001", SqlDbType.VarChar).Value = auditoriso14001;
                 command.Parameters.Add("@idpuesto", SqlDbType.Int).Value = idpuesto;
                 command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
+                command.Parameters.Add("@certificaciones", SqlDbType.VarBinary, certificaciones.Length).Value = certificaciones; // Nuevo parámetro para las imágene
 
                 command.ExecuteNonQuery();
             }
@@ -151,7 +152,33 @@ namespace WPF_LoginForm.Repositories
                 }
             }
             return trabajador;
-        }       
+        }
+
+        public List<byte[]> ObtenerCertificacionesPorIdTrabajador(string numficha)
+        {
+            string sql = "SELECT certificaciones FROM trabajador WHERE id = @numficha";
+
+            List<byte[]> certificaciones = new List<byte[]>();
+
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand(sql, connection))
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@numficha", numficha);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        byte[] certificacion = (byte[])reader["Certificaciones"];
+                        certificaciones.Add(certificacion);
+                    }
+                }
+            }
+
+            return certificaciones;
+        }
+
 
         public TrabajadorModel GetIdByNumTarjeta(string numtarjeta)
         {
@@ -480,5 +507,22 @@ namespace WPF_LoginForm.Repositories
             }
             return trabajador;
         }
+
+        public void AddCertificacion(string numficha, byte[] nuevaCertificacion)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE trabajador SET certificaciones = certificaciones + @nuevaCertificacion WHERE id = @numficha";
+
+                command.Parameters.Add("@nuevaCertificacion", SqlDbType.VarBinary, nuevaCertificacion.Length).Value = nuevaCertificacion;
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
+
+                command.ExecuteNonQuery();
+            }
+        }
+
     }
 }

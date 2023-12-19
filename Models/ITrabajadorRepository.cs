@@ -28,8 +28,9 @@ namespace WPF_LoginForm.Models
         //reportes
         TrabajadorModel FormatoDC3(string numficha);
         TrabajadorModel GetTrabajadorHistorialCursos(string numficha);
+        
 
-        void AddTrabajador(string id, string numtarjeta, string nombre, DateTime fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea);
+        void AddTrabajador(string id, string numtarjeta, string nombre, DateTime fechaing, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, byte[] certificaciones);
         void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string activo, string id);
     }
 }

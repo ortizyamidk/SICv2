@@ -1,12 +1,17 @@
-﻿using Microsoft.Win32;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WPF_LoginForm.Models;
 using WPF_LoginForm.Repositories;
+using Image = iTextSharp.text.Image;
 using objWord = Microsoft.Office.Interop.Word;
 
 namespace WPF_LoginForm.Views
@@ -30,10 +35,7 @@ namespace WPF_LoginForm.Views
 
         object numf1, nombre1, puesto1, depto1, area1, fechaing1;
 
-        private void btnCert_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         object numc1, curso1, instructor1, inicio1, termino1, duracion1, lugar1, horario1;
 
@@ -667,6 +669,50 @@ namespace WPF_LoginForm.Views
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
                         
+        }
+
+        private void btnCert_Click(object sender, RoutedEventArgs e)
+        {
+            numficha = buscarCert.Text;
+            MessageBox.Show("Numficha: "+numficha);
+
+            // Obtener las certificaciones del trabajador
+            //List<byte[]> certificaciones = trabajadorRepository.ObtenerCertificacionesPorIdTrabajador(numficha);
+
+            // Mostrar el diálogo para guardar archivos
+            /* SaveFileDialog saveFileDialog = new SaveFileDialog();
+             saveFileDialog.Filter = "Archivos de imagen (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif|Todos los archivos (*.*)|*.*";
+             saveFileDialog.Title = "Guardar certificaciones";
+
+             // Mostrar el cuadro de diálogo y guardar las imágenes seleccionadas
+             if (saveFileDialog.ShowDialog() == true)
+             {
+                 // Obtener la carpeta seleccionada por el usuario
+                 string folderPath = System.IO.Path.GetDirectoryName(saveFileDialog.FileName);
+
+                 // Guardar cada certificación en archivos separados en la carpeta seleccionada
+                 for (int i = 0; i < certificaciones.Count; i++)
+                 {
+                     string filePath = System.IO.Path.Combine(folderPath, $"certificacion_{i}.jpg");
+                     System.IO.File.WriteAllBytes(filePath, certificaciones[i]);
+                 }
+
+                 // Abrir la carpeta con las certificaciones guardadas
+                 System.Diagnostics.Process.Start("explorer.exe", folderPath);
+             }*/
+
+            // Construir una cadena con el contenido de la lista
+            /*StringBuilder messageBuilder = new StringBuilder();
+            messageBuilder.AppendLine("Certificaciones obtenidas:");
+
+            for (int i = 0; i < certificaciones.Count; i++)
+            {
+                messageBuilder.AppendLine($"Certificación {i + 1}: {certificaciones[i].Length} bytes");
+            }
+
+            // Mostrar el contenido de la lista en un MessageBox
+            MessageBox.Show(messageBuilder.ToString(), "Certificaciones", MessageBoxButton.OK, MessageBoxImage.Information);*/
+
         }
 
         private void buscarTrab_PreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -36,9 +36,7 @@ namespace WPF_LoginForm.Views
 
             cursoRepository = new CursoRepository();
             instructorRepository = new InstructorRepository();
-            areaRepository = new AreaRepository();
-
-            
+            areaRepository = new AreaRepository();           
             
 
             cbArea.SelectionChanged += ComboBox_SelectionChanged;

@@ -1,7 +1,11 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,6 +33,9 @@ namespace WPF_LoginForm.Views
 
         int idpuesto, idarea;
         string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif, numtarjeta, activo;
+
+        private ObservableCollection<CertificacionesModel> archivos = new ObservableCollection<CertificacionesModel>();
+        private List<byte[]> listaDatosImagen = new List<byte[]>();
 
         public PersonalInfoView()
         {
@@ -261,7 +268,7 @@ namespace WPF_LoginForm.Views
                     }
 
                     trabajadorRepository.EditTrabajador(numtarjeta, nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, activo, numficha);
-                
+
                     MostrarCustomMessageBox();
                     Deshabilitar();               
                 }
@@ -269,9 +276,7 @@ namespace WPF_LoginForm.Views
             catch (Exception ex)
             {
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            
+            }          
         }
 
         private void MostrarCustomMessageBox()
@@ -349,6 +354,26 @@ namespace WPF_LoginForm.Views
                 }
             }
         }
+
+        private void btnCert_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = true; // Permitir seleccionar múltiples archivos
+            openFileDialog.Filter = "Archivos de imagen|*.jpg;*.jpeg;*.png;*.gif"; // Filtrar por archivos de imagen
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach (string filename in openFileDialog.FileNames)
+                {
+                    byte[] datosImagen = File.ReadAllBytes(filename);
+                    listaDatosImagen.Add(datosImagen);
+                    archivos.Add(new CertificacionesModel { NombreArchivo = System.IO.Path.GetFileName(filename) });
+                    dgSelectedImages.ItemsSource = archivos;
+                }
+            }
+        }
+
+
 
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
         {
@@ -508,9 +533,7 @@ namespace WPF_LoginForm.Views
                         lblCategoria.Text = "Categoría: " + trabajadorModel.Categoria;
                         txtNombre.Text = trabajadorModel.Nombre;
                         txtRFC.Text = trabajadorModel.RFC;
-                        txtAntecedentes.Text = trabajadorModel.Antecedentes;
-
-                        
+                        txtAntecedentes.Text = trabajadorModel.Antecedentes;                       
 
                         //Departamento
                         int deptoIndex = -1; 
@@ -628,6 +651,9 @@ namespace WPF_LoginForm.Views
                         {
                             btnActivo.IsChecked= false;
                         }
+
+                        //Certificaciones
+
                         
 
                         txtSearch.Focus();
