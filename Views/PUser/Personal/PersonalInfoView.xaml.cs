@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,8 @@ namespace WPF_LoginForm.Views
 
         int idpuesto, idarea;
         string numficha, nombre, rfc, area, puesto, antecedentes, categoria, nivelest, auditor, perscalif, numtarjeta, activo;
+
+        private int contadorCertificaciones = 0;
 
         private ObservableCollection<CertificacionesModel> archivos = new ObservableCollection<CertificacionesModel>();
         private List<byte[]> listaDatosImagen = new List<byte[]>();
@@ -136,6 +139,13 @@ namespace WPF_LoginForm.Views
 
             btnActivo.IsEnabled = true;
 
+            btnCert.IsEnabled = true;
+
+            dgSelectedImages.IsEnabled = true;
+
+            btnBorraCert.IsEnabled = true;
+           
+
             txtSearch.Focus();
         }
 
@@ -164,6 +174,11 @@ namespace WPF_LoginForm.Views
             btnEdit.IsEnabled = true;
 
             btnActivo.IsEnabled = false;
+
+            btnCert.IsEnabled= false;
+            btnBorraCert.IsEnabled= false;
+
+            dgSelectedImages.IsEnabled= false;
 
             txtSearch.Focus();
         }
@@ -267,7 +282,12 @@ namespace WPF_LoginForm.Views
                         activo = "0";
                     }
 
-                    trabajadorRepository.EditTrabajador(numtarjeta, nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, activo, numficha);
+                    //Certificaciones
+                    // Serializar la colección de arreglos de bytes
+                    byte[] datosImagenSerializados = SerializarDatosImagen(listaDatosImagen);
+
+                   
+                    trabajadorRepository.EditTrabajador(numtarjeta, nombre, rfc, nivelest, antecedentes, perscalif, fotoBytes, auditor, idpuesto, idarea, activo, datosImagenSerializados, numficha);
 
                     MostrarCustomMessageBox();
                     Deshabilitar();               
@@ -277,6 +297,17 @@ namespace WPF_LoginForm.Views
             {
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }          
+        }
+
+        private byte[] SerializarDatosImagen(List<byte[]> listaDatosImagen)
+        {
+            // Serializar la colección usando JSON.NET
+            string serializedData = JsonConvert.SerializeObject(listaDatosImagen);
+
+            // Convertir la cadena serializada a un array de bytes
+            byte[] serializedBytes = Encoding.UTF8.GetBytes(serializedData);
+
+            return serializedBytes;
         }
 
         private void MostrarCustomMessageBox()
@@ -373,8 +404,6 @@ namespace WPF_LoginForm.Views
             }
         }
 
-
-
         private void TextBox_PreviewTextInput2(object sender, TextCompositionEventArgs e)
         {
             if (!IsLetter(e.Text))
@@ -386,6 +415,61 @@ namespace WPF_LoginForm.Views
         private bool IsLetter(string text)
         {
             return text.All(char.IsLetter);
+        }
+
+        private void btnBorrar_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is FrameworkElement element && element.DataContext is CertificacionesModel certificacion)
+            {
+                archivos.Remove(certificacion);
+            }
+        }
+
+        private void dgSelectedImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgSelectedImages.SelectedItem != null)
+            {
+                CertificacionesModel certificacionSeleccionada = (CertificacionesModel)dgSelectedImages.SelectedItem;
+                byte[] imagenSeleccionada = listaDatosImagen[dgSelectedImages.SelectedIndex];
+
+                MostrarImagenEnAplicacionExterna(imagenSeleccionada);
+            }
+        }
+
+        private void MostrarImagenEnAplicacionExterna(byte[] imagen)
+        {
+            try
+            {
+                // Guardar la imagen en un archivo temporal
+                string tempFilePath = Path.Combine(Path.GetTempPath(), "tempImage.jpg");
+                File.WriteAllBytes(tempFilePath, imagen);
+
+                // Abrir la imagen con la aplicación predeterminada
+                Process.Start(tempFilePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al abrir la imagen: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnBorraCert_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("¿Está seguro que desea borrar TODOS los archivos? No se podrán recuperar las certificaciones", "Confirmar Guardar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    trabajadorRepository.DeleteCertificaciones(numficha);
+                    archivos.Clear();
+                    listaDatosImagen.Clear();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+           
         }
 
         private void txtRFC_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -653,8 +737,34 @@ namespace WPF_LoginForm.Views
                         }
 
                         //Certificaciones
+                        // Obtener las certificaciones serializadas desde el repositorio
+                        byte[] certificacionesSerializadas = trabajadorRepository.ObtenerCertificacionesPorIdTrabajador(numficha);
 
-                        
+                        if (certificacionesSerializadas != null)
+                        {                           
+                            // Deserializar las certificaciones
+                            List<byte[]> certificacionesDeserializadas = DeserializarDatosImagen(certificacionesSerializadas);
+
+                            // Limpiar la colección antes de agregar nuevas certificaciones
+                            archivos.Clear();
+                            listaDatosImagen.Clear();
+
+                            // Generar nombres aleatorios para las certificaciones
+                            foreach (var certificacion in certificacionesDeserializadas)
+                            {
+                                string nombreAleatorio = GenerarNombreCertificacion(numficha);
+                                archivos.Add(new CertificacionesModel { NombreArchivo = nombreAleatorio });
+                                listaDatosImagen.Add(certificacion);
+                            }
+
+                            // Mostrar los nombres en el DataGrid
+                            dgSelectedImages.ItemsSource = archivos;
+                        }
+                        else
+                        {                         
+                            archivos.Clear();
+                            listaDatosImagen.Clear();
+                    }
 
                         txtSearch.Focus();
                     }
@@ -665,11 +775,29 @@ namespace WPF_LoginForm.Views
                     }
                 }
             }
-            catch (Exception ex)
+           catch (Exception ex)
             {
                 MessageBox.Show($"Ha ocurrido un error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             
+        }
+
+        public List<byte[]> DeserializarDatosImagen(byte[] datosImagenSerializados)
+        {
+            // Convertir los bytes de datos serializados a una cadena JSON
+            string serializedData = Encoding.UTF8.GetString(datosImagenSerializados);
+
+            // Deserializar la cadena JSON a una lista de bytes
+            List<byte[]> listaDatosImagen = JsonConvert.DeserializeObject<List<byte[]>>(serializedData);
+
+            return listaDatosImagen;
+        }
+
+        private string GenerarNombreCertificacion(string numFicha)
+        {
+            contadorCertificaciones++; // Incrementar el contador cada vez que se genera un nombre
+
+            return $"{numFicha}Certificacion{contadorCertificaciones}.jpg"; // Generar el nombre utilizando el contador
         }
 
         private void ImagenDefault()
@@ -711,6 +839,11 @@ namespace WPF_LoginForm.Views
             ImagenDefault();
 
             btnActivo.IsChecked = false;
+
+            btnCert.IsEnabled = false;
+
+            archivos.Clear();
+            listaDatosImagen.Clear();
 
             txtSearch.Focus();
         }

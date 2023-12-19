@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -35,14 +36,14 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
-        public void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string activo, string id)
+        public void EditTrabajador(string numtarjeta, string nombre, string rfc, string escolaridad, string antecedentes, string perscalif, byte[] foto, string auditoriso14001, int idpuesto, int idarea, string activo, byte[] certificaciones, string id)
         {
             using (var connection = GetConnection())
             using (var command = new SqlCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "exec Editar_Trabajador @numtarjeta, @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @activo, @id";
+                command.CommandText = "exec Editar_Trabajador @numtarjeta, @nombre, @rfc, @escolaridad, @antecedentes, @perscalif, @foto, @auditoriso14001, @idpuesto, @idarea, @activo, @certificaciones, @id";
 
                 command.Parameters.Add("@numtarjeta", SqlDbType.VarChar).Value = numtarjeta;
                 command.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
@@ -55,6 +56,7 @@ namespace WPF_LoginForm.Repositories
                 command.Parameters.Add("@idpuesto", SqlDbType.Int).Value = idpuesto;
                 command.Parameters.Add("@idarea", SqlDbType.Int).Value = idarea;
                 command.Parameters.Add("@activo", SqlDbType.VarChar).Value = activo;
+                command.Parameters.Add("@certificaciones", SqlDbType.VarBinary, certificaciones.Length).Value = certificaciones;
 
                 command.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
 
@@ -166,11 +168,18 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Parameters.AddWithValue("@numficha", numficha);
 
-                certificacionesSerializadas = (byte[])command.ExecuteScalar();
+                var result = command.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    certificacionesSerializadas = (byte[])result;
+                }
+                // else, certificacionesSerializadas will remain null
             }
 
             return certificacionesSerializadas;
         }
+
 
 
 
@@ -518,5 +527,19 @@ namespace WPF_LoginForm.Repositories
             }
         }
 
+        public void DeleteCertificaciones(string numficha)
+        {
+            using (var connection = GetConnection())
+            using (var command = new SqlCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = "UPDATE trabajador SET certificaciones = NULL WHERE id = @numficha";
+
+                command.Parameters.Add("@numficha", SqlDbType.VarChar).Value = numficha;
+
+                command.ExecuteNonQuery();
+            }
+        }
     }
 }

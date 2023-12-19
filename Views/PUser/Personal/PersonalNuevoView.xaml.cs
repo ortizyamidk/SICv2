@@ -220,7 +220,6 @@ namespace WPF_LoginForm.Views
                     // Serializar la colección de arreglos de bytes
                     byte[] datosImagenSerializados = SerializarDatosImagen(listaDatosImagen);
 
-
                     trabajadorRepository.AddTrabajador(id, numtarjeta, nombre, fechaConvertida, rfc, escolaridad, antecedentes, perscalif, fotoBytes, auditoriso14001, idpuesto, idarea, datosImagenSerializados);
 
                     MostrarCustomMessageBox();
