@@ -154,11 +154,11 @@ namespace WPF_LoginForm.Repositories
             return trabajador;
         }
 
-        public List<byte[]> ObtenerCertificacionesPorIdTrabajador(string numficha)
+        public byte[] ObtenerCertificacionesPorIdTrabajador(string numficha)
         {
             string sql = "SELECT certificaciones FROM trabajador WHERE id = @numficha";
 
-            List<byte[]> certificaciones = new List<byte[]>();
+            byte[] certificacionesSerializadas = null;
 
             using (var connection = GetConnection())
             using (var command = new SqlCommand(sql, connection))
@@ -166,18 +166,12 @@ namespace WPF_LoginForm.Repositories
                 connection.Open();
                 command.Parameters.AddWithValue("@numficha", numficha);
 
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        byte[] certificacion = (byte[])reader["Certificaciones"];
-                        certificaciones.Add(certificacion);
-                    }
-                }
+                certificacionesSerializadas = (byte[])command.ExecuteScalar();
             }
 
-            return certificaciones;
+            return certificacionesSerializadas;
         }
+
 
 
         public TrabajadorModel GetIdByNumTarjeta(string numtarjeta)

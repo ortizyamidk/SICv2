@@ -278,7 +278,7 @@
                                             <DataGridTemplateColumn Header="" Width="60">
                                                 <DataGridTemplateColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button x:Name="btnBorrar" Style="{StaticResource eyeButton}" Cursor="Hand" Click="btnBorrar_Click">
+                                                        <Button x:Name="btnBorrar" Style="{StaticResource eyeButton}" Cursor="Hand">
                                                             <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}" Width="14" Height="14" Cursor="Hand"/>
                                                         </Button>
                                                     </DataTemplate>

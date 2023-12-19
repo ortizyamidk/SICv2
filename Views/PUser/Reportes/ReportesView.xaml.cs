@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -674,46 +675,74 @@ namespace WPF_LoginForm.Views
         private void btnCert_Click(object sender, RoutedEventArgs e)
         {
             numficha = buscarCert.Text;
-            MessageBox.Show("Numficha: "+numficha);
 
-            // Obtener las certificaciones del trabajador
-            //List<byte[]> certificaciones = trabajadorRepository.ObtenerCertificacionesPorIdTrabajador(numficha);
+            // Obtener las certificaciones serializadas del trabajador
+            byte[] certificacionesSerializadas = trabajadorRepository.ObtenerCertificacionesPorIdTrabajador(numficha);
 
-            // Mostrar el diálogo para guardar archivos
-            /* SaveFileDialog saveFileDialog = new SaveFileDialog();
-             saveFileDialog.Filter = "Archivos de imagen (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif|Todos los archivos (*.*)|*.*";
-             saveFileDialog.Title = "Guardar certificaciones";
+            // Deserializar las certificaciones serializadas a una lista de bytes
+            List<byte[]> certificaciones = DeserializarDatosImagen(certificacionesSerializadas);
 
-             // Mostrar el cuadro de diálogo y guardar las imágenes seleccionadas
-             if (saveFileDialog.ShowDialog() == true)
-             {
-                 // Obtener la carpeta seleccionada por el usuario
-                 string folderPath = System.IO.Path.GetDirectoryName(saveFileDialog.FileName);
+            // Mostrar el diálogo para ingresar el nombre del archivo PDF
+            var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            saveFileDialog.Filter = "Archivo PDF|*.pdf";
+            saveFileDialog.Title = "Guardar archivo PDF";
+            saveFileDialog.FileName = "Certificaciones.pdf";
 
-                 // Guardar cada certificación en archivos separados en la carpeta seleccionada
-                 for (int i = 0; i < certificaciones.Count; i++)
-                 {
-                     string filePath = System.IO.Path.Combine(folderPath, $"certificacion_{i}.jpg");
-                     System.IO.File.WriteAllBytes(filePath, certificaciones[i]);
-                 }
-
-                 // Abrir la carpeta con las certificaciones guardadas
-                 System.Diagnostics.Process.Start("explorer.exe", folderPath);
-             }*/
-
-            // Construir una cadena con el contenido de la lista
-            /*StringBuilder messageBuilder = new StringBuilder();
-            messageBuilder.AppendLine("Certificaciones obtenidas:");
-
-            for (int i = 0; i < certificaciones.Count; i++)
+            // Mostrar el cuadro de diálogo y guardar el archivo PDF
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                messageBuilder.AppendLine($"Certificación {i + 1}: {certificaciones[i].Length} bytes");
+                // Crear un documento PDF con el nombre seleccionado por el usuario
+                using (var document = new Document())
+                {
+                    PdfWriter.GetInstance(document, new FileStream(saveFileDialog.FileName, FileMode.Create));
+
+                    document.Open();
+
+                    // Agregar cada imagen como una página en el documento PDF
+                    foreach (var certificacion in certificaciones)
+                    {
+                        // Crear una nueva página en el documento
+                        document.NewPage();
+
+                        // Obtener el tamaño de la página
+                        var pageSize = document.PageSize;
+
+                        // Convertir el byte[] de la imagen a una imagen iTextSharp
+                        using (var imageStream = new MemoryStream(certificacion))
+                        {
+                            var image = iTextSharp.text.Image.GetInstance(imageStream);
+
+                            // Calcular el nuevo tamaño de la imagen para ajustarse al ancho de la página
+                            float newWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                            float newHeight = image.ScaledHeight * newWidth / image.ScaledWidth;
+
+                            // Escalar la imagen al nuevo tamaño
+                            image.ScaleAbsolute(newWidth, newHeight);
+
+                            // Agregar la imagen al documento
+                            document.Add(image);
+                        }
+                    }
+                }
+
+                // Abrir el documento PDF generado
+                System.Diagnostics.Process.Start(saveFileDialog.FileName);
             }
 
-            // Mostrar el contenido de la lista en un MessageBox
-            MessageBox.Show(messageBuilder.ToString(), "Certificaciones", MessageBoxButton.OK, MessageBoxImage.Information);*/
-
         }
+
+        // Método para deserializar los datos de la imagen
+        public List<byte[]> DeserializarDatosImagen(byte[] datosImagenSerializados)
+        {
+            // Convertir los bytes de datos serializados a una cadena JSON
+            string serializedData = Encoding.UTF8.GetString(datosImagenSerializados);
+
+            // Deserializar la cadena JSON a una lista de bytes
+            List<byte[]> listaDatosImagen = JsonConvert.DeserializeObject<List<byte[]>>(serializedData);
+
+            return listaDatosImagen;
+        }
+
 
         private void buscarTrab_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
