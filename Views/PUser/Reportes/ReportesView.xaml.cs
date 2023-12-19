@@ -675,59 +675,78 @@ namespace WPF_LoginForm.Views
         private void btnCert_Click(object sender, RoutedEventArgs e)
         {
             numficha = buscarCert.Text;
-
-            // Obtener las certificaciones serializadas del trabajador
-            byte[] certificacionesSerializadas = trabajadorRepository.ObtenerCertificacionesPorIdTrabajador(numficha);
-
-            // Deserializar las certificaciones serializadas a una lista de bytes
-            List<byte[]> certificaciones = DeserializarDatosImagen(certificacionesSerializadas);
-
-            // Mostrar el diálogo para ingresar el nombre del archivo PDF
-            var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            saveFileDialog.Filter = "Archivo PDF|*.pdf";
-            saveFileDialog.Title = "Guardar archivo PDF";
-            saveFileDialog.FileName = "Certificaciones.pdf";
-
-            // Mostrar el cuadro de diálogo y guardar el archivo PDF
-            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if(string.IsNullOrEmpty(numficha))
             {
-                // Crear un documento PDF con el nombre seleccionado por el usuario
-                using (var document = new Document())
+                MessageBox.Show("Escriba un número de trabajador", "Vacío", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                buscarCert.Focus();
+            }
+            else
+            {
+                // Obtener las certificaciones serializadas del trabajador
+                byte[] certificacionesSerializadas = trabajadorRepository.ObtenerCertificacionesPorIdTrabajador(numficha);
+
+                if(certificacionesSerializadas != null)
                 {
-                    PdfWriter.GetInstance(document, new FileStream(saveFileDialog.FileName, FileMode.Create));
+                    // Deserializar las certificaciones serializadas a una lista de bytes
+                    List<byte[]> certificaciones = DeserializarDatosImagen(certificacionesSerializadas);
 
-                    document.Open();
+                    // Mostrar el diálogo para ingresar el nombre del archivo PDF
+                    var saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+                    saveFileDialog.Filter = "Archivo PDF|*.pdf";
+                    saveFileDialog.Title = "Guardar archivo PDF";
+                    saveFileDialog.FileName = "Certificaciones.pdf";
 
-                    // Agregar cada imagen como una página en el documento PDF
-                    foreach (var certificacion in certificaciones)
+                    // Mostrar el cuadro de diálogo y guardar el archivo PDF
+                    if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        // Crear una nueva página en el documento
-                        document.NewPage();
-
-                        // Obtener el tamaño de la página
-                        var pageSize = document.PageSize;
-
-                        // Convertir el byte[] de la imagen a una imagen iTextSharp
-                        using (var imageStream = new MemoryStream(certificacion))
+                        // Crear un documento PDF con el nombre seleccionado por el usuario
+                        using (var document = new Document())
                         {
-                            var image = iTextSharp.text.Image.GetInstance(imageStream);
+                            PdfWriter.GetInstance(document, new FileStream(saveFileDialog.FileName, FileMode.Create));
 
-                            // Calcular el nuevo tamaño de la imagen para ajustarse al ancho de la página
-                            float newWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
-                            float newHeight = image.ScaledHeight * newWidth / image.ScaledWidth;
+                            document.Open();
 
-                            // Escalar la imagen al nuevo tamaño
-                            image.ScaleAbsolute(newWidth, newHeight);
+                            // Agregar cada imagen como una página en el documento PDF
+                            foreach (var certificacion in certificaciones)
+                            {
+                                // Crear una nueva página en el documento
+                                document.NewPage();
 
-                            // Agregar la imagen al documento
-                            document.Add(image);
+                                // Obtener el tamaño de la página
+                                var pageSize = document.PageSize;
+
+                                // Convertir el byte[] de la imagen a una imagen iTextSharp
+                                using (var imageStream = new MemoryStream(certificacion))
+                                {
+                                    var image = iTextSharp.text.Image.GetInstance(imageStream);
+
+                                    // Calcular el nuevo tamaño de la imagen para ajustarse al ancho de la página
+                                    float newWidth = pageSize.Width - document.LeftMargin - document.RightMargin;
+                                    float newHeight = image.ScaledHeight * newWidth / image.ScaledWidth;
+
+                                    // Escalar la imagen al nuevo tamaño
+                                    image.ScaleAbsolute(newWidth, newHeight);
+
+                                    // Agregar la imagen al documento
+                                    document.Add(image);
+                                }
+                            }
                         }
+
+                        // Abrir el documento PDF generado
+                        System.Diagnostics.Process.Start(saveFileDialog.FileName);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("No existen certificaciones adicionales para ese trabajador o no existe", "Inválido", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    buscarCert.Focus();
+                }
 
-                // Abrir el documento PDF generado
-                System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                
             }
+
+            
 
         }
 
